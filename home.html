@@ -563,6 +563,74 @@ header .brand-logo img{
   color:#b9c0c6 !important;
   -webkit-text-fill-color:#b9c0c6 !important;
 }
+
+/* === FINAL VISUAL FIX 2026-09-25 === */
+/* Main two buttons: identical size on PC and smartphone, no wrapping. */
+.hero .cta{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-sizing:border-box !important;
+  width:160px !important;
+  min-width:160px !important;
+  max-width:160px !important;
+  height:48px !important;
+  min-height:48px !important;
+  padding:0 8px !important;
+  margin:22px 8px 0 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  font-size:14px !important;
+  line-height:1 !important;
+  letter-spacing:.4px !important;
+}
+/* Ticker: explicit, high-contrast color coding that cannot be overridden. */
+.presentation-ticker{width:60% !important;}
+.presentation-track{animation-duration:65s !important;}
+.presentation-message{
+  color:#d9dde1 !important;
+  -webkit-text-fill-color:#d9dde1 !important;
+}
+.presentation-message .intro-orange,
+.presentation-message .final-orange{
+  color:#ff9f32 !important;
+  -webkit-text-fill-color:#ff9f32 !important;
+  font-weight:800 !important;
+}
+.presentation-message .key-white{
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  font-weight:800 !important;
+}
+.presentation-message .brand-white{
+  color:#79c7ff !important;
+  -webkit-text-fill-color:#79c7ff !important;
+  font-weight:900 !important;
+  letter-spacing:4px !important;
+}
+.presentation-message .normal-text{
+  color:#d9dde1 !important;
+  -webkit-text-fill-color:#d9dde1 !important;
+  font-weight:500 !important;
+}
+@media(max-width:700px){
+  .hero .cta{
+    width:160px !important;
+    min-width:160px !important;
+    max-width:160px !important;
+    height:48px !important;
+    min-height:48px !important;
+    margin:8px 5px 0 !important;
+    padding:0 6px !important;
+    font-size:14px !important;
+    white-space:nowrap !important;
+  }
+  .presentation-ticker{width:94% !important;}
+  .presentation-message{font-size:24px !important;}
+}
+@media(max-width:360px){
+  .hero .cta{width:145px !important;min-width:145px !important;max-width:145px !important;font-size:13px !important;margin-left:3px !important;margin-right:3px !important;}
+}
 </style></head><body>
 <!-- 左右の広告スペース：画像広告・バナー・広告コード等を後から配置できます -->
 <aside class="ad-side ad-left side-ad left-ad"><span>広告スペース<br>LEFT<br><small>170 × 520</small></span></aside>
