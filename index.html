@@ -1,0 +1,56 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>TRANSITION SYSTEM</title>
+<style>
+:root{
+  --bg:#050505;--panel:#0d0f11;--panel2:#15181b;--silver:#d9dce0;
+  --muted:#9da3a8;--line:#4d5359;--accent:#bfc5ca;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% 0%,#17191c 0,#070707 38%,#000 100%);
+color:#eee;font-family:Arial,"Noto Sans JP",sans-serif}
+a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.92);backdrop-filter:blur(10px);border-bottom:1px solid #292d31}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:15px 22px}
+.brand{font-weight:800;letter-spacing:3px}.brand small{display:block;color:#8f9499;font-size:10px;letter-spacing:2px;margin-top:3px}
+.navlinks{display:flex;gap:8px}.navlinks a{padding:9px 13px;border:1px solid transparent;color:#bfc3c7;font-size:13px}
+.navlinks a:hover{border-color:#555;background:#151719}
+.container{max-width:1180px;margin:auto;padding:60px 22px}
+.hero{min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.7),rgba(0,0,0,.15),rgba(0,0,0,.7));}
+.hero-content{position:relative;z-index:1;max-width:850px}
+.kicker{font-size:12px;letter-spacing:5px;color:#aab0b5}
+h1{font-size:clamp(42px,7vw,82px);letter-spacing:7px;margin:18px 0 4px}
+.hero p{color:#b7bcc1;font-size:18px;line-height:1.8}
+.cta{display:inline-block;margin:22px 7px 0;padding:14px 32px;border:1px solid #777;background:linear-gradient(#3b4045,#0d0e10);border-radius:7px;letter-spacing:2px;box-shadow:inset 0 0 15px #ffffff12,0 0 20px #000}
+.cta:hover{border-color:#ddd;transform:translateY(-1px)}
+.section-title{text-align:center;margin-bottom:36px}.section-title h2{font-size:30px;letter-spacing:4px;margin:0}.section-title p{color:#8f959a}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:linear-gradient(145deg,#171a1d,#090a0b);border:1px solid #34383c;border-radius:10px;padding:25px;min-height:180px;box-shadow:0 10px 30px #0008}
+.card h3{letter-spacing:2px;margin-top:0}.card p{color:#aeb3b7;line-height:1.7;font-size:14px}
+footer{border-top:1px solid #24272a;text-align:center;color:#70767b;padding:35px 20px;font-size:12px}
+.login-wrap{min-height:calc(100vh - 72px);display:flex;align-items:center;justify-content:center;padding:35px 20px}
+.login-box{width:min(440px,100%);padding:38px;background:linear-gradient(145deg,#181b1e,#080909);border:1px solid #555;border-radius:12px;box-shadow:0 20px 60px #000}
+.login-box h1{font-size:30px;text-align:center;letter-spacing:4px}
+.field{width:100%;padding:14px;margin:7px 0;background:#050606;border:1px solid #454a4e;border-radius:6px;color:#fff}
+.login-btn{width:100%;padding:14px;margin-top:13px;background:linear-gradient(#4b5156,#17191b);border:1px solid #999;border-radius:7px;color:white;cursor:pointer}
+.note{font-size:12px;color:#777;text-align:center;margin-top:18px;line-height:1.6}
+.member-hero{padding:55px 0 30px}.member-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.status{display:inline-block;border:1px solid #5e656b;padding:7px 12px;border-radius:20px;font-size:12px;color:#c7cbd0}
+@media(max-width:800px){.navlinks{display:none}.grid,.member-grid{grid-template-columns:1fr}.hero{min-height:560px}h1{letter-spacing:3px}.container{padding-top:45px}}
+
+body{background:#000}
+.entrance{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:#000}
+.entrance img{position:absolute;width:100%;height:100%;object-fit:contain;object-position:center}
+.entrance:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.35))}
+.entry-buttons{position:absolute;z-index:2;bottom:7%;display:flex;gap:20px;width:min(850px,88%)}
+.entry-btn{flex:1;padding:20px 18px;text-align:center;border:1px solid #777;border-radius:9px;background:linear-gradient(180deg,#383d42,#08090a);box-shadow:inset 0 0 18px #fff1,0 0 24px #000;color:white}
+.entry-btn:hover{border-color:#ddd;transform:translateY(-2px)}
+.entry-btn b{display:block;font-size:25px;letter-spacing:4px}.entry-btn span{font-size:12px;color:#bbb}
+@media(max-width:650px){.entry-buttons{gap:10px}.entry-btn{padding:15px 8px}.entry-btn b{font-size:18px;letter-spacing:2px}}
+</style></head><body>
+<div class="entrance"><img src="cover.png" alt="TRANSITION SYSTEM">
+<div class="entry-buttons">
+<a class="entry-btn" href="home.html"><b>HOME</b><span>ホームページへ</span></a>
+<a class="entry-btn" href="login.html"><b>LOGIN</b><span>会員様専用ページへ</span></a>
+</div></div></body></html>
