@@ -492,6 +492,39 @@ header .brand-logo img{
 .top-return span{font-size:14px;font-weight:700;}
 .top-return small{font-size:10px;color:#c2c6ca;margin-top:3px;}
 .top-return:hover{border-color:#ddd;transform:translateY(-1px);}
+
+/* === MOBILE FINAL FIX: keep the two hero buttons the same compact size as desktop === */
+@media(max-width:700px){
+  .hero .cta{
+    width:auto !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:auto !important;
+    min-height:0 !important;
+    padding:12px 22px !important;
+    margin-left:28px !important;
+    margin-right:28px !important;
+    font-size:16px !important;
+    font-weight:600 !important;
+    letter-spacing:.5px !important;
+  }
+}
+
+/* === TICKER FINAL COLOR FIX: force span colors on mobile Safari/Chrome === */
+.presentation-message .intro-orange,
+.presentation-message .final-orange{
+  color:#d78b35 !important;
+  -webkit-text-fill-color:#d78b35 !important;
+}
+.presentation-message .key-white,
+.presentation-message .brand-white{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+}
+.presentation-message .normal-text{
+  color:#d9dde1 !important;
+  -webkit-text-fill-color:#d9dde1 !important;
+}
 </style></head><body>
 <!-- 左右の広告スペース：画像広告・バナー・広告コード等を後から配置できます -->
 <aside class="ad-side ad-left side-ad left-ad"><span>広告スペース<br>LEFT<br><small>170 × 520</small></span></aside>
