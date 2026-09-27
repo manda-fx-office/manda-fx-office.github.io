@@ -46,11 +46,82 @@ body{background:#000}
 .entry-buttons{position:absolute;z-index:2;bottom:7%;display:flex;gap:20px;width:min(850px,88%)}
 .entry-btn{flex:1;padding:20px 18px;text-align:center;border:1px solid #777;border-radius:9px;background:linear-gradient(180deg,#383d42,#08090a);box-shadow:inset 0 0 18px #fff1,0 0 24px #000;color:white}
 .entry-btn:hover{border-color:#ddd;transform:translateY(-2px)}
+.bgm-btn{position:absolute;right:24px;top:24px;z-index:4;padding:9px 14px;border:1px solid #666;border-radius:20px;background:rgba(8,9,10,.78);color:#ddd;font-size:12px;letter-spacing:1px;cursor:pointer;backdrop-filter:blur(6px)}
+.bgm-btn:hover{border-color:#bbb;color:#fff}
+.bgm-btn.on{border-color:#aaa;color:#fff;background:rgba(35,37,40,.9)}
+.music-credit{position:absolute;z-index:3;left:50%;bottom:2.5%;transform:translateX(-50%);font-size:10px;letter-spacing:.3px;color:#8f9499;text-align:center;white-space:nowrap}.music-credit a{color:#aeb3b7;text-decoration:none}.music-credit a:hover{text-decoration:underline;color:#ddd}
+@media(max-width:650px){.music-credit{font-size:8px;bottom:2%;max-width:92%;white-space:normal}}
+@media(max-width:650px){.bgm-btn{right:12px;top:12px;padding:8px 11px;font-size:11px}}
 .entry-btn b{display:block;font-size:25px;letter-spacing:4px}.entry-btn span{font-size:12px;color:#bbb}
 @media(max-width:650px){.entry-buttons{gap:10px}.entry-btn{padding:15px 8px}.entry-btn b{font-size:18px;letter-spacing:2px}}
+
+/* === TOP COMMUNITY preview window === */
+.community-preview{background:#050505;padding:70px 18px 80px;border-top:1px solid #25282b;}
+.community-preview-inner{max-width:1100px;margin:0 auto;}
+.community-preview-title{text-align:center;margin-bottom:24px;}
+.community-kicker{font-size:11px;letter-spacing:4px;color:#8f969c;margin-bottom:8px;}
+.community-preview-title h2{margin:0;font-size:34px;letter-spacing:5px;color:#e4e7e9;}
+.community-preview-title p{margin:8px 0 0;color:#9ea5aa;font-size:14px;}
+.community-window{height:460px;overflow:hidden;border:1px solid #555d63;border-radius:10px;background:#080909;box-shadow:0 16px 45px #0009;}
+.community-window iframe{display:block;width:100%;height:100%;border:0;background:#050505;}
+.community-more{text-align:center;margin-top:22px;}
+.community-more-btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;padding:13px 24px;border:1px solid #8b9298;border-radius:8px;background:linear-gradient(180deg,#4a5056,#171a1d);color:#fff;font-weight:700;letter-spacing:1px;}
+.community-more-btn:hover{border-color:#ddd;transform:translateY(-1px);}
+@media(max-width:650px){
+  .community-preview{padding:48px 10px 60px;}
+  .community-preview-title h2{font-size:28px;letter-spacing:4px;}
+  .community-window{height:500px;border-radius:8px;}
+  .community-more-btn{min-width:170px;padding:12px 20px;}
+}
 </style></head><body>
 <div class="entrance"><img src="cover.png" alt="TRANSITION SYSTEM">
+<button class="bgm-btn" id="bgmBtn" type="button">♪ BGM OFF</button>
+<audio id="bgm" src="transition_bgm.mp3" loop preload="auto" autoplay></audio>
+<div class="music-credit">BGM：フリーBGM・音楽素材 MusMus「柔らかな嘘」</div>
 <div class="entry-buttons">
 <a class="entry-btn" href="home.html"><b>HOME</b><span>ホームページへ</span></a>
-<a class="entry-btn" href="login.html"><b>LOGIN</b><span>会員様専用ページへ</span></a>
-</div></div></body></html>
+<a class="entry-btn" href="#community-preview"><b>COMMUNITY</b><span>コミュニティーを見る</span></a>
+</div></div>
+
+<section class="community-preview" id="community-preview">
+  <div class="community-preview-inner">
+    <div class="community-preview-title">
+      <div class="community-kicker">TRANSITION SYSTEM</div>
+      <h2>COMMUNITY</h2>
+      <p>コミュニティー・憩いの場</p>
+    </div>
+    <div class="community-window">
+      <iframe src="community.html" title="TRANSITION SYSTEM COMMUNITY" loading="lazy"></iframe>
+    </div>
+    <div class="community-more"><a href="community.html" class="community-more-btn">もっと見る　›</a></div>
+  </div>
+</section>
+<script>
+const bgm=document.getElementById('bgm');
+bgm.volume=0.28;
+const btn=document.getElementById('bgmBtn');
+function setBgm(on){
+  if(on){
+    bgm.play().then(()=>{
+      btn.textContent='♪ BGM ON';
+      btn.classList.add('on');
+    }).catch(()=>{});
+  }else{
+    bgm.pause();
+    btn.textContent='♪ BGM OFF';
+    btn.classList.remove('on');
+  }
+}
+btn.addEventListener('click',()=>setBgm(bgm.paused));
+window.addEventListener('pointerdown',()=>{
+  if(bgm.paused && btn.textContent==='♪ BGM OFF') setBgm(true);
+},{once:true});
+bgm.addEventListener('play',()=>{
+  btn.textContent='♪ BGM ON';
+  btn.classList.add('on');
+});
+bgm.addEventListener('pause',()=>{
+  btn.textContent='♪ BGM OFF';
+  btn.classList.remove('on');
+});
+</script></body></html>
