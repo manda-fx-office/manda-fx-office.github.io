@@ -62,15 +62,39 @@ body{background:#000}
 .community-kicker{font-size:11px;letter-spacing:4px;color:#8f969c;margin-bottom:8px;}
 .community-preview-title h2{margin:0;font-size:34px;letter-spacing:5px;color:#e4e7e9;}
 .community-preview-title p{margin:8px 0 0;color:#9ea5aa;font-size:14px;}
-.community-window{height:460px;overflow:hidden;border:1px solid #555d63;border-radius:10px;background:#080909;box-shadow:0 16px 45px #0009;}
+.community-window{height:650px;overflow:hidden;border:1px solid #555d63;border-radius:10px;background:#080909;box-shadow:0 16px 45px #0009;}
 .community-window iframe{display:block;width:100%;height:100%;border:0;background:#050505;}
 .community-more{text-align:center;margin-top:22px;}
 .community-more-btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;padding:13px 24px;border:1px solid #8b9298;border-radius:8px;background:linear-gradient(180deg,#4a5056,#171a1d);color:#fff;font-weight:700;letter-spacing:1px;}
 .community-more-btn:hover{border-color:#ddd;transform:translateY(-1px);}
+
+.community-feed{height:100%;overflow-y:auto;padding:22px 24px 30px;box-sizing:border-box;scroll-behavior:smooth;}
+.community-feed::-webkit-scrollbar{width:10px;}
+.community-feed::-webkit-scrollbar-track{background:#101214;border-radius:10px;}
+.community-feed::-webkit-scrollbar-thumb{background:#4a5056;border-radius:10px;border:2px solid #101214;}
+.preview-post{max-width:760px;margin:0 auto 28px;padding:18px 18px 20px;background:linear-gradient(145deg,#15181b,#0b0c0e);border:1px solid #343a3f;border-radius:10px;box-shadow:0 10px 28px #0008;}
+.preview-post-head{margin-bottom:14px;}
+.preview-post-label{display:inline-block;font-size:10px;letter-spacing:2px;color:#9ea5aa;margin-bottom:6px;}
+.preview-post h3{margin:0;color:#f0f2f3;font-size:20px;letter-spacing:1px;}
+.preview-image-wrap{text-align:center;background:#070809;border-radius:7px;border:1px solid #2e3337;overflow:hidden;}
+.preview-image-wrap img{display:block;margin:0 auto;max-width:100%;height:auto;}
+.preview-image-wrap.portrait img{max-height:360px;width:auto;}
+.preview-image-wrap.landscape img{max-height:360px;width:auto;max-width:100%;}
+.preview-post p{margin:14px 4px 0;color:#c8cdd1;line-height:1.8;font-size:14px;}
+.preview-end{text-align:center;color:#aeb4b9;line-height:1.8;padding:8px 0 20px;font-size:13px;}
+.preview-end span{color:#d8dde0;}
+@media(max-width:650px){
+  .community-feed{padding:14px 10px 24px;}
+  .preview-post{padding:14px;margin-bottom:18px;}
+  .preview-post h3{font-size:17px;}
+  .preview-image-wrap.portrait img,.preview-image-wrap.landscape img{max-height:300px;}
+  .preview-post p{font-size:13px;}
+}
+
 @media(max-width:650px){
   .community-preview{padding:48px 10px 60px;}
   .community-preview-title h2{font-size:28px;letter-spacing:4px;}
-  .community-window{height:500px;border-radius:8px;}
+  .community-window{height:600px;border-radius:8px;}
   .community-more-btn{min-width:170px;padding:12px 20px;}
 }
 </style></head><body>
@@ -91,7 +115,25 @@ body{background:#000}
       <p>コミュニティー・憩いの場</p>
     </div>
     <div class="community-window">
-      <iframe src="community.html" title="TRANSITION SYSTEM COMMUNITY" loading="lazy"></iframe>
+      <div class="community-feed" aria-label="COMMUNITY投稿プレビュー">
+        <article class="preview-post">
+          <div class="preview-post-head">
+            <span class="preview-post-label">POST 01</span>
+            <h3>こんなのも有りですよ😊</h3>
+          </div>
+          <div class="preview-image-wrap portrait"><img src="community_sample_armors.png" alt="趣味の投稿例：3体のアーマー"></div>
+          <p>趣味で作った画像です。FXとは関係ありませんが、こういうのを楽しむ投稿も大歓迎。</p>
+        </article>
+        <article class="preview-post">
+          <div class="preview-post-head">
+            <span class="preview-post-label">POST 02</span>
+            <h3>こんなのも有りですよ。</h3>
+          </div>
+          <div class="preview-image-wrap landscape"><img src="community_sample_battle.png" alt="趣味の投稿例：赤いアーマー部隊"></div>
+          <p>こんな画像を見つけた、作ってみた、好きな作品がある……。「なんでもあり」のコミュニティーです。</p>
+        </article>
+        <div class="preview-end">この続きはCOMMUNITYページへ。<br><span>投稿・コメント・新しい作品をお楽しみください。</span></div>
+      </div>
     </div>
     <div class="community-more"><a href="community.html" class="community-more-btn">もっと見る　›</a></div>
   </div>
