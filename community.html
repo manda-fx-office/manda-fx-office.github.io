@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Community | TRANSITION SYSTEM</title>
+<style>
+:root{--bg:#050505;--panel:#101316;--panel2:#171b1f;--line:#555d64;--silver:#e3e5e7;--muted:#a9afb4;--orange:#ff9f32;--blue:#79c7ff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 50% 0%,#181b1e 0,#070707 42%,#000 100%);color:#eee;font-family:Arial,"Noto Sans JP",sans-serif}
+a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.94);backdrop-filter:blur(10px);border-bottom:1px solid #292d31}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:15px 22px}
+.brand-logo{display:block}.brand-logo img{width:150px;height:auto;display:block}
+.navlinks{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+.navlinks a{min-width:104px;height:58px;padding:7px 10px;border:1px solid rgba(210,215,220,.65);border-radius:8px;background:linear-gradient(180deg,#4a5158,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 5px #0006}
+.nav-en{font-size:13px;font-weight:700;letter-spacing:.5px}.nav-ja{margin-top:4px;font-size:10px;letter-spacing:1px}
+.navlinks a:hover{border-color:#e0e4e7;background:linear-gradient(180deg,#5b646d,#3b434b 55%,#292f35)}
+.wrap{max-width:1050px;margin:auto;padding:50px 22px}
+.hero-mini{text-align:center;padding:25px 0 18px}.hero-mini img{width:min(360px,78vw);display:block;margin:0 auto 20px}.hero-mini h1{font-size:34px;letter-spacing:4px;margin:0 0 10px}.hero-mini p{color:#b9bec3;line-height:1.9;margin:7px 0}
+.intro{font-size:18px;color:#d9dde0;line-height:2;text-align:center;margin:10px auto 28px;max-width:850px}
+.card{background:linear-gradient(145deg,#171a1d,#090a0b);border:1px solid #34383c;border-radius:10px;padding:28px;box-shadow:0 10px 30px #0008;margin:18px 0}.card h2,.card h3{margin-top:0;letter-spacing:2px}.card p{color:#c1c6ca;line-height:1.9}
+.notice{border-left:4px solid var(--orange);padding:16px 18px;background:#16110b;color:#eee;line-height:1.9;margin-bottom:24px}.notice strong{color:#ffb25d}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}.btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;min-height:54px;padding:12px 22px;border:1px solid #aeb5bb;border-radius:8px;background:linear-gradient(180deg,#59616a,#3b4249 45%,#242a30);font-weight:700;box-shadow:inset 0 1px 0 #fff5,0 4px 10px #0007}.btn.orange{border-color:#d68a38;background:linear-gradient(180deg,#6d5338,#3a2b1d);color:#ffb25d}.btn:hover{filter:brightness(1.12)}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}.post-card{padding:16px;border:1px solid #34383c;border-radius:10px;background:#0c0e10}.post-card img{width:100%;height:auto;display:block;border-radius:7px;border:1px solid #2e3337}.post-title{font-size:18px;font-weight:700;margin:16px 4px 9px;color:#f1f3f4}.comment{padding:14px 16px;background:#151719;border-left:3px solid var(--orange);border-radius:4px;color:#d6dadd;line-height:1.8}.comment strong{color:#ffb25d}
+.freebox{text-align:center;padding:25px 18px;border:1px dashed #656b70;border-radius:9px;background:rgba(255,255,255,.02);margin-top:24px}.freebox h3{color:#fff;margin:0 0 10px;font-size:22px}.freebox p{margin:5px auto;color:#b9bec3;line-height:1.9}
+.footer{text-align:center;color:#70767b;border-top:1px solid #24272a;padding:30px 20px;font-size:12px;margin-top:50px}
+@media(max-width:900px){.navlinks{display:none}.wrap{padding:38px 16px}.hero-mini h1{font-size:28px}.intro{font-size:16px}.btn{min-width:165px}.brand-logo img{width:135px}.gallery{grid-template-columns:1fr;gap:16px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<header class="topbar"><nav class="nav">
+<a class="brand-logo" href="home.html"><img src="logo.png" alt="TRANSITION SYSTEM"></a>
+<div class="navlinks">
+<a href="home.html"><span class="nav-en">TOP</span><span class="nav-ja">トップ</span></a>
+<a href="home.html#products"><span class="nav-en">PRODUCTS</span><span class="nav-ja">商品</span></a>
+<a href="community.html"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a>
+<a href="board.html"><span class="nav-en">BOARD</span><span class="nav-ja">伝言板</span></a>
+<a href="login.html"><span class="nav-en">LOGIN</span><span class="nav-ja">ログイン</span></a>
+</div></nav></header>
+
+<main class="wrap">
+<section class="hero-mini">
+<img src="logo.png" alt="TRANSITION SYSTEM">
+<h1>COMMUNITY</h1>
+<p>コミュニティー・憩いの場</p>
+</section>
+
+<section class="card">
+<div class="intro">
+<strong>ここは、皆様の休憩場所です。</strong><br>
+FXだけでは無く、趣味の投稿もありですよ。<br>
+画像の貼り付け、コメントの追加など、幅広く、憩いの場としてコミュニケーションを取りましょう。
+</div>
+<div class="notice">
+<strong>「なんでもあり」を目指します。</strong><br>
+FX、MT4、相場の話はもちろん、車・バイク・旅行・音楽・写真・ゲーム・アニメ・日常の出来事など、あなたの「好き」を気軽に投稿してください。
+</div>
+<div class="btns"><a class="btn" href="board.html">伝言板を見る</a><a class="btn orange" href="write.html">書き込み画面へ</a><a class="btn orange" href="register.html">会員登録はこちら</a></div>
+</section>
+
+<section class="card">
+<h2>投稿例</h2>
+<p>FXとは関係のない内容でも大丈夫。例えば、こんな投稿もありです。</p>
+<div class="gallery">
+<article class="post-card">
+<img src="community_sample_armors.png" alt="趣味の投稿例：3体のアーマー">
+<div class="post-title">こんなのも有りですよ😊</div>
+<div class="comment">趣味で作った画像です。<br>FXとは関係ありませんが、<strong>こういうのを楽しむ投稿も大歓迎。</strong></div>
+</article>
+<article class="post-card">
+<img src="community_sample_battle.png" alt="趣味の投稿例：赤いアーマー部隊">
+<div class="post-title">こんなのも有りですよ。</div>
+<div class="comment">こんな画像を見つけた、作ってみた、好きな作品がある……。<br><strong>「なんでもあり」のコミュニティーです。</strong></div>
+</article>
+</div>
+<div class="freebox">
+<h3>あなたの「好き」を投稿してください</h3>
+<p>画像＋コメントで、みんなと共有できます。</p>
+<p>見るだけでもOK。コメントだけでもOK。気軽に参加してください。</p>
+</div>
+</section>
+
+<section class="card">
+<h2>ご利用について</h2>
+<p>コミュニティーや伝言板の閲覧は自由にできる構成にし、書き込みを行う場合は会員登録・ログインへ進む形にします。</p>
+<div class="btns"><a class="btn" href="login.html">ログインはこちら</a><a class="btn orange" href="register.html">会員登録はこちら</a></div>
+</section>
+</main>
+<footer class="footer">TRANSITION SYSTEM / by Manda FX Office</footer>
+</body></html>
