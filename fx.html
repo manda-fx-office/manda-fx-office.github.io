@@ -3,55 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>日本のFX会社 | TRANSITION SYSTEM</title>
+<title>FXの入口 | TRANSITION SYSTEM</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 50% 0%,#17191c,#050505 45%,#000);color:#eee;font-family:Arial,"Noto Sans JP",sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% 0%,#17191c,#050505 45%,#000);color:#eee;font-family:Arial,"Noto Sans JP",sans-serif;line-height:1.8}
 a{text-decoration:none;color:inherit}
-.topbar{position:sticky;top:0;z-index:5;background:#050505ee;border-bottom:1px solid #292d31}
-.nav{max-width:1180px;margin:auto;padding:15px 22px;display:flex;justify-content:space-between;align-items:center}
-.brand{font-weight:800;letter-spacing:3px}.brand small{display:block;color:#888;font-size:10px;letter-spacing:2px}
-.links a{padding:8px 12px;color:#bbb}
-.container{max-width:1120px;margin:auto;padding:55px 22px}
-h1{text-align:center;font-size:44px;letter-spacing:4px;margin:10px 0}
-.subtitle{text-align:center;color:#999;margin-bottom:45px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.card{background:linear-gradient(145deg,#181b1e,#080909);border:1px solid #3b4044;border-radius:11px;padding:25px;box-shadow:0 12px 35px #0008}
-.card.top{grid-column:1/-1;border-color:#777;box-shadow:0 0 30px #aaa2}
-.pr{display:inline-block;font-size:12px;font-weight:bold;letter-spacing:1px;color:#ddd;border:1px solid #777;border-radius:4px;padding:5px 9px;margin-bottom:12px}
-h2{margin:5px 0 12px;letter-spacing:2px}.desc{color:#aeb3b7;line-height:1.7}
-.btn{display:inline-block;margin-top:15px;padding:12px 24px;border:1px solid #999;border-radius:7px;background:linear-gradient(#444a4f,#111);letter-spacing:1px}
-.add{margin-top:25px;padding:20px;border:1px dashed #555;border-radius:9px;text-align:center;color:#888}
-footer{text-align:center;border-top:1px solid #222;color:#777;padding:30px}
-@media(max-width:750px){.grid{grid-template-columns:1fr}.card.top{grid-column:auto}.nav .links{display:none}h1{font-size:32px}}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(5,5,5,.94);backdrop-filter:blur(10px);border-bottom:1px solid #292d31}
+.nav{max-width:1180px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{font-weight:800;letter-spacing:3px}.brand small{display:block;color:#888;font-size:10px;letter-spacing:2px;margin-top:2px}
+.links{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.links a{min-width:92px;padding:8px 11px;text-align:center;border:1px solid #555b61;border-radius:7px;background:linear-gradient(#454b50,#181a1c);color:#fff;font-size:12px}.links a:hover{border-color:#ddd}
+.container{max-width:1120px;margin:auto;padding:48px 22px 70px}
+.hero{text-align:center;padding:18px 0 34px}.hero-logo{width:min(330px,78vw);display:block;margin:0 auto 18px}.kicker{font-size:11px;letter-spacing:5px;color:#8e969d}.hero h1{font-size:clamp(34px,5vw,52px);letter-spacing:4px;margin:8px 0 5px}.hero p{color:#b7bdc2;margin:0}
+.notice-main{max-width:900px;margin:0 auto 35px;padding:24px 26px;border:1px solid #4b5258;border-radius:10px;background:linear-gradient(145deg,#15181b,#080909);text-align:center;box-shadow:0 12px 32px #0008}.notice-main strong{color:#ffb25d}
+.study-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px auto 45px;max-width:1000px}.study-nav a{padding:15px 10px;border:1px solid #565d63;border-radius:8px;background:linear-gradient(#3e4449,#17191b);text-align:center;font-weight:700;color:#f2f3f4}.study-nav span{display:block;font-size:10px;color:#9ea5aa;margin-top:3px;font-weight:400}
+.section{margin:28px 0;padding:28px;border:1px solid #383e43;border-radius:11px;background:linear-gradient(145deg,#15181b,#080909);box-shadow:0 12px 35px #0008}.section h2{margin:0 0 7px;font-size:28px;letter-spacing:2px}.section .lead{color:#c9ced2;margin-top:0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}.card{padding:22px;border:1px solid #343a3f;border-radius:9px;background:#0d0f11}.card h3{margin:0 0 8px;color:#fff;letter-spacing:1px}.card p{margin:0;color:#b9c0c5}.card ul{margin:10px 0 0;padding-left:20px;color:#b9c0c5}.card li{margin:5px 0}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}.flow div{padding:18px 12px;border:1px solid #3d4449;border-radius:8px;text-align:center;background:#0b0d0f}.flow b{display:block;color:#fff}.flow span{font-size:12px;color:#9ea5aa}
+.mind{border-left:4px solid #ff9f32;padding:18px 20px;background:#16110b;margin-top:18px;color:#ddd}.mind strong{color:#ffb25d}
+.risk{border:1px solid #754b2b;background:linear-gradient(145deg,#1b130c,#0c0906);padding:22px;border-radius:10px;margin-top:18px}.risk h3{color:#ffb25d;margin:0 0 8px}.risk p,.risk li{color:#c8c0b8}
+.source{font-size:12px;color:#92999f;margin-top:18px}.source a{text-decoration:underline;color:#bfc5ca}
+.actions{text-align:center;margin-top:30px}.btn{display:inline-block;margin:6px;padding:12px 24px;border:1px solid #9aa1a7;border-radius:7px;background:linear-gradient(#4b5258,#17191b);font-weight:700}.btn.orange{border-color:#d68a38;color:#ffb25d;background:linear-gradient(#5a4430,#211810)}
+footer{text-align:center;border-top:1px solid #222;color:#777;padding:30px;font-size:12px}
+@media(max-width:800px){.links{display:none}.container{padding:35px 14px 55px}.section{padding:20px}.grid{grid-template-columns:1fr}.study-nav{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}.hero h1{font-size:32px}}
+@media(max-width:480px){.study-nav{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.notice-main{padding:19px 16px}.section h2{font-size:23px}}
 </style>
 </head>
 <body>
 <header class="topbar"><nav class="nav">
 <a class="brand" href="home.html">TRANSITION SYSTEM<small>by Manda FX Office</small></a>
-<div class="links"><a href="home.html">HOME</a><a href="fx.html">FX会社</a><a href="login.html">LOGIN</a></div>
+<div class="links"><a href="home.html">HOME</a><a href="fx.html">FXの入口</a><a href="fx_companies.html">FX会社</a><a href="community.html">COMMUNITY</a><a href="board.html">BOARD</a><a href="login.html">LOGIN</a></div>
 </nav></header>
-
 <main class="container">
-<h1>日本のFX会社</h1>
-<p class="subtitle">MT4対応FX会社の紹介・口座開設案内</p>
+<section class="hero">
+<img class="hero-logo" src="logo.png" alt="TRANSITION SYSTEM">
+<div class="kicker">TRANSITION SYSTEM</div>
+<h1>FXの入口</h1>
+<p>FXをこれから始める方へ。まず「仕組み・チャート・資金・心」を知るところから。</p>
+</section>
 
+<section class="notice-main">
+<strong>FXは、ただ売買するものではありません。</strong><br>
+相場を知り、自分のルールを作り、資金を守りながら判断していくものです。<br>
+このページでは、初心者が最初に知っておきたい基本を順番に整理します。
+</section>
+
+<nav class="study-nav">
+<a href="#basic">01 / BASIC<span>FXの基本</span></a>
+<a href="#technical">02 / TECHNICAL<span>テクニカルトレード</span></a>
+<a href="#money">03 / MONEY<span>資金管理</span></a>
+<a href="#mind">04 / MIND<span>メンタル</span></a>
+</nav>
+
+<section class="section" id="basic">
+<h2>01｜FXの基本を知る</h2>
+<p class="lead">最初は「何を売買しているのか」「なぜ価格が動くのか」を理解するところから。</p>
 <div class="grid">
-<article class="card top">
-<span class="pr">PR｜FXTF（ゴールデンウェイ・ジャパン）</span>
-<h2>FXTF</h2>
-<p class="desc">ゴールデンウェイ・ジャパンが提供するFXサービス。ここにサービス内容、対応ツール、特徴などを掲載します。</p>
-<a class="btn" href="#" onclick="alert('本番では専用アフィリエイトリンクを設定します。');return false;">口座開設はこちら</a>
-</article>
-
-<article class="card"><span class="pr">PR｜外為ファイネスト</span><h2>外為ファイネスト</h2><p class="desc">MT4・MT5に対応する国内FX会社。PC版MT4でカスタムインジケーターを利用できる構成を確認しています。</p><a class="btn" href="#" onclick="alert('本番では専用アフィリエイトリンクを設定します。');return false;">口座開設はこちら</a></article>
-<article class="card"><span class="pr">PR｜アヴァトレード・ジャパン</span><h2>アヴァトレード・ジャパン</h2><p class="desc">MT4・MT5の取引コースを提供する国内FX会社。MT4対応を公式サイトで確認しています。</p><a class="btn" href="#" onclick="alert('本番では専用アフィリエイトリンクを設定します。');return false;">口座開設はこちら</a></article>
-<article class="card"><span class="pr">PR｜デューカスコピー・ジャパン</span><h2>デューカスコピー・ジャパン</h2><p class="desc">JForexに加えてMT4を提供する国内FX会社。MT4でEA利用が可能です。</p><a class="btn" href="#" onclick="alert('本番では専用アフィリエイトリンクを設定します。');return false;">口座開設はこちら</a></article>
-<article class="card"><span class="pr">PR｜楽天証券「楽天MT4」</span><h2>楽天証券</h2><p class="desc">楽天MT4を提供。PC版MT4ではオリジナルインディケーターを利用できます。</p><a class="btn" href="#" onclick="alert('本番では専用アフィリエイトリンクを設定します。');return false;">口座開設はこちら</a></article>
-<article class="card"><span class="pr">PR｜FOREX EXCHANGE「俺のMT4」</span><h2>FOREX EXCHANGE</h2><p class="desc">MT4を取引システムとして提供し、オリジナルのテクニカル指標やEAを利用できるサービスです。</p><a class="btn" href="#" onclick="alert('本番では専用アフィリエイトリンクを設定します。');return false;">口座開設はこちら</a></article>
+<div class="card"><h3>FXとは？</h3><p>FXは、異なる通貨の交換レートの変化を利用して取引する金融商品です。買いから入る場合だけでなく、売りから入る取引もあります。</p></div>
+<div class="card"><h3>通貨ペアとは？</h3><p>USD/JPYのように2つの通貨を組み合わせて表示します。左側の通貨と右側の通貨の関係として価格を読みます。</p></div>
+<div class="card"><h3>レートはなぜ動く？</h3><p>金利、経済指標、景気、金融政策、政治情勢、要人発言など、さまざまな要因で為替相場は変動します。</p></div>
+<div class="card"><h3>レバレッジと証拠金</h3><p>少ない証拠金で大きな取引額を扱える仕組みですが、その分、損益の変化も大きくなります。仕組みを理解してから利用することが重要です。</p></div>
 </div>
+<p class="source">公的なリスク情報：<a href="https://www.fsa.go.jp/ordinary/iwagai/" target="_blank" rel="noopener">金融庁「外国為替証拠金取引について」</a></p>
+</section>
 
-<div class="add">＋ FX会社を追加<br><small>今後、MT4対応を確認したFX会社を追加できます。</small></div>
+<section class="section" id="technical">
+<h2>02｜テクニカルトレード</h2>
+<p class="lead">チャートから「流れ・方向・転換」を整理し、自分なりの判断ルールを作っていきます。</p>
+<div class="grid">
+<div class="card"><h3>ローソク足を見る</h3><p>始値・高値・安値・終値から、その時間帯にどのような値動きがあったのかを確認します。</p></div>
+<div class="card"><h3>トレンドを見る</h3><p>高値・安値の動きや移動平均線などを使い、上昇・下降・持ち合いの状態を整理します。</p></div>
+<div class="card"><h3>サポート・レジスタンス</h3><p>過去に反応した価格帯を確認し、現在価格がどの位置にあるのかを考えます。</p></div>
+<div class="card"><h3>インジケーターを使う</h3><p>BB、MA、MACDなどは判断を整理するための補助道具です。インジケーター単独で将来の値動きが決まるものではありません。</p></div>
+</div>
+<div class="mind"><strong>ポイント：</strong>「インジケーターがサインを出したから取引する」のではなく、相場の状況を確認したうえで、自分のルールに照らして判断することを基本にします。</div>
+</section>
+
+<section class="section" id="money">
+<h2>03｜資金管理</h2>
+<p class="lead">FXでは「いくら儲けるか」だけでなく、「いくらまでなら失っても取引を続けられるか」を考えることが重要です。</p>
+<div class="flow">
+<div><b>資金を決める</b><span>生活資金と分ける</span></div>
+<div><b>1回の損失を決める</b><span>先に許容範囲を考える</span></div>
+<div><b>損切りを考える</b><span>価格だけでなく数量も調整</span></div>
+<div><b>記録する</b><span>結果を振り返る</span></div>
+</div>
+<div class="risk"><h3>ロスカットがあるから安全、ではありません</h3><p>ロスカットは損失の拡大を抑えるための仕組みですが、相場急変時などには想定した水準より不利な価格で決済される可能性があります。ロスカットだけに頼らず、取引数量や損失許容額を含めて管理する必要があります。</p></div>
+<p class="source">参考：<a href="https://www.ffaj.or.jp/regulation/loss-cut-rules/" target="_blank" rel="noopener">金融先物取引業協会「ロスカット・ルール」</a></p>
+</section>
+
+<section class="section" id="mind">
+<h2>04｜熱くならないためのマインド</h2>
+<p class="lead">「取り返したい」「もっと取れるはず」という感情が、ルールを崩すきっかけになることがあります。</p>
+<div class="grid">
+<div class="card"><h3>負けを取り返そうとしない</h3><p>1回の損失を、その日のうちに必ず取り返す必要はありません。取引を休むこともルールの一つです。</p></div>
+<div class="card"><h3>連勝しても熱くならない</h3><p>勝ちが続いたときに数量を急に増やすのではなく、あらかじめ決めたルールを維持します。</p></div>
+<div class="card"><h3>取引しない判断も大切</h3><p>自分の条件が揃っていない相場では、見送ることも一つの判断です。</p></div>
+<div class="card"><h3>記録を残す</h3><p>エントリー理由、決済理由、相場環境、感情などを記録すると、自分の癖を振り返りやすくなります。</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>TRANSITION SYSTEMの考え方</h2>
+<p class="lead">インジケーターは「答え」ではなく、相場を見るための補助ツール。</p>
+<p>TRANSITION SYSTEMでは、相場の「転換」と「流れ」を捉えるためのインジケーターを開発しています。しかし、どのインジケーターも将来の値動きや利益を保証するものではありません。</p>
+<p>まず相場を学ぶ。次に自分のルールを作る。そして、そのルールを補助する道具としてインジケーターを使う。そんな順番で、少しずつトレードを育てていくことを目指します。</p>
+</section>
+
+<section class="section risk">
+<h2>重要な注意事項</h2>
+<p>FX取引は元本が保証されたものではなく、相場変動等によって損失が生じる可能性があります。インジケーター、チャート分析、掲載記事、コミュニティー内の投稿その他の情報は、投資判断の補助を目的としたもので、利益を保証するものではありません。</p>
+<p>実際の取引を行う場合は、取引の仕組み・手数料・スプレッド・証拠金・ロスカット等をご自身で確認し、無理のない資金で、ご自身の判断と責任において行ってください。</p>
+<p><strong>このサイトは、FXへの興味・学習・知識の整理・交流・育成を目的としたコミュニティサイトです。</strong></p>
+</section>
+
+<div class="actions"><a class="btn" href="home.html">HOMEへ戻る</a><a class="btn" href="community.html">COMMUNITYを見る</a><a class="btn orange" href="fx_companies.html">MT4対応FX会社を見る</a></div>
+
 </main>
 <footer>TRANSITION SYSTEM / by Manda FX Office</footer>
 </body>
