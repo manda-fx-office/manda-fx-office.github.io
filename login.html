@@ -38,9 +38,32 @@ footer{border-top:1px solid #24272a;text-align:center;color:#70767b;padding:35px
 .member-hero{padding:55px 0 30px}.member-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
 .status{display:inline-block;border:1px solid #5e656b;padding:7px 12px;border-radius:20px;font-size:12px;color:#c7cbd0}
 @media(max-width:800px){.navlinks{display:none}.grid,.member-grid{grid-template-columns:1fr}.hero{min-height:560px}h1{letter-spacing:3px}.container{padding-top:45px}}
+
+/* === TRANSITION SYSTEM unified header === */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.95);backdrop-filter:blur(10px);border-bottom:1px solid #292d31;}
+.nav{max-width:1220px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:18px;}
+.brand-logo{display:block;flex:0 0 auto;}
+.brand-logo img{width:150px;height:auto;display:block;}
+.navlinks{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.navlinks a{min-width:92px;height:54px;padding:6px 8px;border:1px solid rgba(210,215,220,.58);border-radius:8px;background:linear-gradient(180deg,#484f56,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 5px #0007;}
+.navlinks a:hover{border-color:#e0e4e7;background:linear-gradient(180deg,#5a636c,#3a4249 55%,#292f35);}
+.nav-en{font-size:11px;font-weight:700;letter-spacing:.5px;line-height:1.1;}
+.nav-ja{margin-top:4px;font-size:9px;letter-spacing:.5px;line-height:1.1;}
+@media(max-width:900px){.nav{padding:10px 12px}.brand-logo img{width:135px}.navlinks{display:none}}
 </style></head><body>
-<header class="topbar"><nav class="nav"><a class="brand" href="home.html">TRANSITION SYSTEM<small>by Manda FX Office</small></a>
-<div class="navlinks"><a href="home.html">HOME</a></div></nav></header>
+<header class="topbar">
+<nav class="nav">
+<a class="brand-logo" href="index.html"><img src="logo.png" alt="TRANSITION SYSTEM"></a>
+<div class="navlinks">
+<a href="home.html"><span class="nav-en">HOME</span><span class="nav-ja">ホーム</span></a>
+<a href="fx.html"><span class="nav-en">FX GUIDE</span><span class="nav-ja">FXの入口</span></a>
+<a href="fx_companies.html"><span class="nav-en">BROKERS</span><span class="nav-ja">FX会社</span></a>
+<a href="community.html"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a>
+<a href="board.html"><span class="nav-en">BOARD</span><span class="nav-ja">掲示板</span></a>
+<a href="login.html"><span class="nav-en">LOGIN</span><span class="nav-ja">会員ログイン</span></a>
+</div>
+</nav>
+</header>
 <div class="login-wrap"><div class="login-box"><h1>MEMBER LOGIN</h1>
 <p style="text-align:center;color:#999">会員様専用ページ</p>
 <input class="field" id="uid" placeholder="会員ID">

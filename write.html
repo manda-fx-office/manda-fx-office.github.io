@@ -4,6 +4,30 @@
 .topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.94);backdrop-filter:blur(10px);border-bottom:1px solid #292d31}.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:15px 22px}.brand-logo{display:block}.brand-logo img{width:150px;height:auto;display:block}.navlinks{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}.navlinks a{min-width:104px;height:58px;padding:7px 10px;border:1px solid rgba(210,215,220,.65);border-radius:8px;background:linear-gradient(180deg,#4a5158,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 5px #0006}.nav-en{font-size:13px;font-weight:700;letter-spacing:.5px}.nav-ja{margin-top:4px;font-size:10px;letter-spacing:1px}.navlinks a:hover{border-color:#e0e4e7;background:linear-gradient(180deg,#5b646d,#3b434b 55%,#292f35)}
 .wrap{max-width:980px;margin:auto;padding:55px 22px}.hero-mini{text-align:center;padding:28px 0 18px}.hero-mini img{width:min(360px,78vw);display:block;margin:0 auto 20px}.hero-mini h1{font-size:34px;letter-spacing:4px;margin:0 0 10px}.hero-mini p{color:#b9bec3;line-height:1.8}.card{background:linear-gradient(145deg,#171a1d,#090a0b);border:1px solid #34383c;border-radius:10px;padding:26px;box-shadow:0 10px 30px #0008;margin:18px 0}.card h2,.card h3{margin-top:0;letter-spacing:2px}.card p{color:#b0b5ba;line-height:1.8}.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}.btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;min-height:54px;padding:12px 22px;border:1px solid #aeb5bb;border-radius:8px;background:linear-gradient(180deg,#59616a,#3b4249 45%,#242a30);font-weight:700;box-shadow:inset 0 1px 0 #fff5,0 4px 10px #0007}.btn.orange{border-color:#d68a38;background:linear-gradient(180deg,#6d5338,#3a2b1d);color:#ffb25d}.btn:hover{filter:brightness(1.12)}.post-list{display:grid;gap:12px}.post{padding:18px;border:1px solid #34383c;border-radius:8px;background:#0c0e10}.post strong{display:block;margin-bottom:7px}.post small{color:#7f878d}.notice{border-left:4px solid var(--orange);padding:14px 16px;background:#16110b;color:#ddd}.form{max-width:620px;margin:auto}.field,.textarea{width:100%;padding:14px;margin:7px 0 13px;background:#050606;border:1px solid #454a4e;border-radius:6px;color:#fff;font:inherit}.textarea{min-height:160px;resize:vertical}.label{font-size:13px;color:#c5cacf}.disabled{opacity:.55;pointer-events:none}.footer{text-align:center;color:#70767b;border-top:1px solid #24272a;padding:30px 20px;font-size:12px;margin-top:50px}
 @media(max-width:900px){.navlinks{display:none}.wrap{padding:38px 16px}.hero-mini h1{font-size:28px}.btn{min-width:165px}.brand-logo img{width:135px}}
+
+/* === TRANSITION SYSTEM unified header === */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.95);backdrop-filter:blur(10px);border-bottom:1px solid #292d31;}
+.nav{max-width:1220px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:18px;}
+.brand-logo{display:block;flex:0 0 auto;}
+.brand-logo img{width:150px;height:auto;display:block;}
+.navlinks{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.navlinks a{min-width:92px;height:54px;padding:6px 8px;border:1px solid rgba(210,215,220,.58);border-radius:8px;background:linear-gradient(180deg,#484f56,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 5px #0007;}
+.navlinks a:hover{border-color:#e0e4e7;background:linear-gradient(180deg,#5a636c,#3a4249 55%,#292f35);}
+.nav-en{font-size:11px;font-weight:700;letter-spacing:.5px;line-height:1.1;}
+.nav-ja{margin-top:4px;font-size:9px;letter-spacing:.5px;line-height:1.1;}
+@media(max-width:900px){.nav{padding:10px 12px}.brand-logo img{width:135px}.navlinks{display:none}}
 </style></head><body>
-<header class="topbar"><nav class="nav"><a class="brand-logo" href="home.html"><img src="logo.png" alt="TRANSITION SYSTEM"></a><div class="navlinks"><a href="home.html"><span class="nav-en">TOP</span><span class="nav-ja">トップ</span></a><a href="home.html#products"><span class="nav-en">PRODUCTS</span><span class="nav-ja">商品</span></a><a href="community.html"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a><a href="board.html"><span class="nav-en">BOARD</span><span class="nav-ja">伝言板</span></a><a href="login.html"><span class="nav-en">LOGIN</span><span class="nav-ja">ログイン</span></a></div></nav></header>
+<header class="topbar">
+<nav class="nav">
+<a class="brand-logo" href="index.html"><img src="logo.png" alt="TRANSITION SYSTEM"></a>
+<div class="navlinks">
+<a href="home.html"><span class="nav-en">HOME</span><span class="nav-ja">ホーム</span></a>
+<a href="fx.html"><span class="nav-en">FX GUIDE</span><span class="nav-ja">FXの入口</span></a>
+<a href="fx_companies.html"><span class="nav-en">BROKERS</span><span class="nav-ja">FX会社</span></a>
+<a href="community.html"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a>
+<a href="board.html"><span class="nav-en">BOARD</span><span class="nav-ja">掲示板</span></a>
+<a href="login.html"><span class="nav-en">LOGIN</span><span class="nav-ja">会員ログイン</span></a>
+</div>
+</nav>
+</header>
 <main class="wrap"><section class="hero-mini"><h1>WRITE</h1><p>伝言板への書き込み</p></section><section class="card form"><div class="notice"><strong>会員登録（無料）が必要です。</strong><br>書き込みを行うには、会員登録後にログインしてください。</div><div class="btns"><a class="btn orange" href="register.html">会員登録はこちら</a><a class="btn" href="login.html">ログインはこちら</a></div><hr style="border:0;border-top:1px solid #303438;margin:30px 0"><div class="disabled"><label class="label">タイトル</label><input class="field" type="text" placeholder="会員登録後に入力できます"><label class="label">本文</label><textarea class="textarea" placeholder="会員登録後に入力できます"></textarea><button class="btn" type="button">投稿する</button></div></section></main><footer class="footer">TRANSITION SYSTEM / by Manda FX Office</footer></body></html>
