@@ -120,13 +120,29 @@ body{background:#000}
 }
 </style>
 <style id="mobile-qr-fix">
-/* Mobile-only QR placement: TOP keeps the existing PC layout; on smartphones TOP QR is hidden. */
+/* Smartphone-only: simple, compact QR cards. PC layout is untouched. */
 @media (max-width: 650px){
   .qr-access.qr-desktop{display:none !important;}
   .qr-mobile-only{display:block !important;}
-  .qr-mobile-only .qr-grid{display:flex;flex-direction:column;align-items:center;gap:18px;}
-  .qr-mobile-only .qr-card{width:min(75%, 360px);max-width:360px;}
-  .qr-mobile-only .qr-card img{width:100%;height:auto;}
+  .qr-mobile-only .qr-grid{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+  .qr-mobile-only .qr-card{
+    width:250px;
+    max-width:68vw;
+    padding:8px 8px 10px;
+  }
+  .qr-mobile-only .qr-card img{
+    width:100%;
+    max-width:250px;
+    height:auto;
+    margin-bottom:6px;
+  }
+  .qr-mobile-only .qr-label{font-size:13px;letter-spacing:1px;}
+  .qr-mobile-only .qr-sub{font-size:9px;margin-top:2px;}
 }
 @media (min-width: 651px){
   .qr-mobile-only{display:none !important;}
@@ -210,17 +226,6 @@ body{background:#000}
   .qr-mobile-only .qr-sub{
     font-size:10px;
     margin-top:3px;
-  }
-}
-</style>
-
-
-<style id="mobile-test-only">
-html,body{margin:0!important;padding:0!important;background:#000!important;}
-@media (min-width:651px){
-  body:before{
-    content:"スマホ実機確認用ページです。スマホ幅で開いてください。";
-    display:block;padding:40px;text-align:center;color:#fff;font-size:20px;
   }
 }
 </style>
