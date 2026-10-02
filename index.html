@@ -140,10 +140,29 @@ body{background:#000}
   .entry-btn b{font-size:21px;letter-spacing:3px;}
 }
 
-/* === PC TOP: extra buttons are PC-only; smartphone layout remains unchanged === */
+/* === Smartphone TOP: show all 4 entry buttons in a compact 2x2 layout === */
 @media (max-width:650px){
+  .entry-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    bottom:6%;
+    width:calc(100% - 36px);
+  }
   .entry-buttons .admin-qa-btn,
-  .entry-buttons .securities-btn{display:none;}
+  .entry-buttons .securities-btn{
+    display:block;
+  }
+  .entry-btn{
+    padding:11px 6px;
+  }
+  .entry-btn b{
+    font-size:16px;
+    letter-spacing:1.5px;
+  }
+  .entry-btn span{
+    font-size:10px;
+  }
 }
 
 </style>
