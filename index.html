@@ -134,64 +134,19 @@ body{background:#000}
 </style>
 
 <link rel="manifest" href="manifest.json">
-<link rel="icon" type="image/png" sizes="192x192" href="transition_ts_app_192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="transition_ts_app_180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="transition_ts_icon_192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="transition_ts_icon_180.png">
 <meta name="theme-color" content="#000000">
 
-<style id="mobile-top-balance-v2">
-/* Smartphone TOP: keep header logo position; move BGM below the logo and rebalance the hero. */
-@media (max-width:650px){
-  .bgm-btn{
-    left:24px;
-    right:auto;
-    top:10px;
-    padding:8px 12px;
-    font-size:11px;
-    letter-spacing:1px;
+<style id="pc-top-balance-v2">
+/* PC TOP起動画面：ロゴとメインボタンの上下バランス調整
+   既存デザイン・画像・BGM機能は変更しない */
+@media (min-width: 651px){
+  .entrance .hero-logo{
+    transform: translateY(-7vh);
   }
-  .entrance img.hero-logo{
-    width:82vw;
-    transform:translateY(-5vh);
-  }
-  .entry-buttons{
-    bottom:8%;
-    width:calc(100% - 36px);
-    gap:10px;
-  }
-  .entry-btn{
-    padding:14px 7px;
-  }
-  .entry-btn b{
-    font-size:18px;
-    letter-spacing:2px;
-  }
-  .entry-btn span{
-    font-size:11px;
-  }
-}
-</style>
-
-<style id="mobile-top-balance-v3">
-/* Final smartphone TOP balance: raise the main logo and entry buttons. */
-@media (max-width:650px){
-  .entrance img.hero-logo{
-    width:78vw !important;
-    transform:translateY(-11vh) !important;
-  }
-  .entry-buttons{
-    bottom:16% !important;
-    width:calc(100% - 36px) !important;
-    gap:10px !important;
-  }
-  .entry-btn{
-    padding:14px 7px !important;
-  }
-  .entry-btn b{
-    font-size:18px !important;
-    letter-spacing:2px !important;
-  }
-  .entry-btn span{
-    font-size:11px !important;
+  .entrance .entry-buttons{
+    bottom: 12%;
   }
 }
 </style>
