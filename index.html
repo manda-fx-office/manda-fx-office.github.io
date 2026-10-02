@@ -138,10 +138,8 @@ body{background:#000}
 <link rel="apple-touch-icon" sizes="180x180" href="transition_ts_app_180.png">
 <meta name="theme-color" content="#000000">
 
-<style id="mobile-top-balance-v3">
-/* Smartphone TOP: header logo keeps its current position/design.
-   BGM sits directly below the header logo. The hero and buttons are
-   vertically balanced without changing the main artwork. */
+<style id="mobile-top-balance-v2">
+/* Smartphone TOP: keep header logo position; move BGM below the logo and rebalance the hero. */
 @media (max-width:650px){
   .bgm-btn{
     left:24px;
@@ -152,11 +150,11 @@ body{background:#000}
     letter-spacing:1px;
   }
   .entrance img.hero-logo{
-    width:80vw;
-    transform:translateY(-8vh);
+    width:82vw;
+    transform:translateY(-5vh);
   }
   .entry-buttons{
-    bottom:9%;
+    bottom:8%;
     width:calc(100% - 36px);
     gap:10px;
   }
@@ -169,6 +167,31 @@ body{background:#000}
   }
   .entry-btn span{
     font-size:11px;
+  }
+}
+</style>
+
+<style id="mobile-top-balance-v3">
+/* Final smartphone TOP balance: raise the main logo and entry buttons. */
+@media (max-width:650px){
+  .entrance img.hero-logo{
+    width:78vw !important;
+    transform:translateY(-11vh) !important;
+  }
+  .entry-buttons{
+    bottom:16% !important;
+    width:calc(100% - 36px) !important;
+    gap:10px !important;
+  }
+  .entry-btn{
+    padding:14px 7px !important;
+  }
+  .entry-btn b{
+    font-size:18px !important;
+    letter-spacing:2px !important;
+  }
+  .entry-btn span{
+    font-size:11px !important;
   }
 }
 </style>
