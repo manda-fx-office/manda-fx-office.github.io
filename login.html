@@ -75,7 +75,31 @@ body{padding-top:88px}
 <input class="field" id="pw" type="password" placeholder="パスワード">
 <button class="login-btn" onclick="login()">LOGIN</button>
 <div class="note">※現在は画面確認用の試作です。<br>本番公開時に安全な会員認証へ接続します。</div>
-<a href="home.html" class="back" style="display:block;text-align:center;margin-top:20px;color:#aaa">← HOMEへ戻る</a>
+<style>
+/* Smartphone / tablet unified HOME return button
+   Desktop appearance is preserved. */
+.mobile-home-return{display:none;}
+@media(max-width:900px){
+  .mobile-home-return{display:block;text-align:center;margin:42px 18px 10px;padding:0 0 10px;}
+  .mobile-home-return a{
+    display:inline-block;
+    min-width:220px;
+    padding:14px 28px;
+    border:1px solid #8d949a;
+    border-radius:9px;
+    background:linear-gradient(#4b5156,#151719);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    letter-spacing:1.5px;
+    box-shadow:0 4px 12px rgba(0,0,0,.35);
+  }
+  .mobile-home-return a:active{transform:translateY(1px);}
+}
+</style>
+<div class="mobile-home-return" aria-label="HOMEへ戻る">
+  <a href="home.html">⌂ HOMEに戻る</a>
+</div>
 </div></div>
 <script>
 function login(){
