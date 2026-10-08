@@ -38,32 +38,54 @@ footer{border-top:1px solid #24272a;text-align:center;color:#70767b;padding:35px
 .member-hero{padding:55px 0 30px}.member-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
 .status{display:inline-block;border:1px solid #5e656b;padding:7px 12px;border-radius:20px;font-size:12px;color:#c7cbd0}
 @media(max-width:800px){.navlinks{display:none}.grid,.member-grid{grid-template-columns:1fr}.hero{min-height:560px}h1{letter-spacing:3px}.container{padding-top:45px}}
+</style><style>.site-unified-logo{display:block;width:auto;height:64px;max-width:260px;object-fit:contain}.brand-logo,.brand{display:flex;align-items:center;text-decoration:none}.brand-logo .site-unified-logo,.brand .site-unified-logo{max-width:260px}@media(max-width:600px){.site-unified-logo{height:54px;max-width:230px}}</style><style>
+@media(max-width:600px){
+  body{padding-top:72px!important;}
+  .topbar{display:none!important;}
+  .mobile-taskbar{position:fixed;top:0;left:0;right:0;height:72px;z-index:99999;background:rgba(4,4,4,.96);backdrop-filter:blur(10px);border-bottom:1px solid #292d31;display:flex;align-items:center;justify-content:flex-start;padding:0 24px;}
+  .mobile-taskbar a{display:flex;align-items:center;height:100%;text-decoration:none;}
+  .mobile-taskbar img{display:block;width:auto;height:54px;max-width:230px;object-fit:contain;}
+}
+@media(min-width:601px){.mobile-taskbar{display:none!important;}}
+</style>
 
-/* === TRANSITION SYSTEM unified header === */
-.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.95);backdrop-filter:blur(10px);border-bottom:1px solid #292d31;}
-.nav{max-width:1220px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:18px;}
-.brand-logo{display:block;flex:0 0 auto;}
-.brand-logo img{width:150px;height:auto;display:block;}
-.navlinks{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
-.navlinks a{min-width:92px;height:54px;padding:6px 8px;border:1px solid rgba(210,215,220,.58);border-radius:8px;background:linear-gradient(180deg,#484f56,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 5px #0007;}
-.navlinks a:hover{border-color:#e0e4e7;background:linear-gradient(180deg,#5a636c,#3a4249 55%,#292f35);}
-.nav-en{font-size:11px;font-weight:700;letter-spacing:.5px;line-height:1.1;}
-.nav-ja{margin-top:4px;font-size:9px;letter-spacing:.5px;line-height:1.1;}
-@media(max-width:900px){.nav{padding:10px 12px}.brand-logo img{width:135px}.navlinks{display:none}}
-</style></head><body>
-<header class="topbar">
-<nav class="nav">
-<a class="brand-logo" href="index.html"><img src="logo.png" alt="TRANSITION SYSTEM"></a>
-<div class="navlinks">
-<a href="home.html"><span class="nav-en">HOME</span><span class="nav-ja">ホーム</span></a>
-<a href="fx.html"><span class="nav-en">FX GUIDE</span><span class="nav-ja">FXの入口</span></a>
-<a href="fx_companies.html"><span class="nav-en">BROKERS</span><span class="nav-ja">FX会社</span></a>
-<a href="community.html"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a>
-<a href="board.html"><span class="nav-en">BOARD</span><span class="nav-ja">掲示板</span></a>
-<a href="login.html"><span class="nav-en">LOGIN</span><span class="nav-ja">会員ログイン</span></a>
-</div>
-</nav>
-</header>
+<style id="transition-common-mobile-qr-confirm">
+.qr-page-bottom{max-width:760px;margin:44px auto 34px;padding:22px 18px 26px;border:1px solid #34383c;border-radius:12px;background:linear-gradient(145deg,#171a1d,#090a0b);box-shadow:0 10px 30px #0008;text-align:center}
+.qr-page-bottom .qr-access-title{font-size:22px;letter-spacing:3px;margin-bottom:6px}
+.qr-page-bottom .qr-access-note{color:#9aa0a5;font-size:13px;margin-bottom:18px}
+.qr-page-bottom .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:560px;margin:0 auto}
+.qr-page-bottom .qr-card{background:#f7f7f7;border-radius:10px;padding:12px 12px 14px;color:#111;box-shadow:0 5px 18px #0006}
+.qr-page-bottom .qr-card img{display:block;width:60%;max-width:132px;margin:0 auto 10px}
+.qr-page-bottom .qr-label{font-weight:700;letter-spacing:2px;font-size:16px}
+.qr-page-bottom .qr-sub{font-size:11px;color:#555;margin-top:4px}
+.qr-pc-url-title{font-size:22px;letter-spacing:2px;margin-top:24px;margin-bottom:10px}
+.qr-pc-url-box{border:2px solid #697078;border-radius:12px;background:#050505;padding:16px 10px;font-size:18px;word-break:break-all}
+.qr-copy-btn{margin-top:14px;padding:12px 28px;border:1px solid #899098;border-radius:12px;background:linear-gradient(#4a5156,#171a1d);color:#fff;font-size:16px}
+.qr-top-return{margin-top:28px}
+.qr-top-return a{display:inline-block;padding:14px 28px;border:1px solid #899098;border-radius:12px;background:linear-gradient(#4a5156,#171a1d);color:#fff;font-size:18px;text-decoration:none}
+@media(max-width:650px){
+ .qr-page-bottom{margin:34px 12px 28px;padding:14px 8px 18px}
+ .qr-page-bottom .qr-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:320px}
+ .qr-page-bottom .qr-card{padding:5px}
+ .qr-page-bottom .qr-card img{width:140px;max-width:100%;margin:0 auto 4px}
+ .qr-page-bottom .qr-access-title{font-size:18px;line-height:1.3}
+ .qr-page-bottom .qr-access-note{font-size:11px;line-height:1.5;margin-bottom:12px}
+ .qr-page-bottom .qr-label{font-size:10px;letter-spacing:.3px}
+ .qr-page-bottom .qr-sub{font-size:8px;line-height:1.2;margin-top:2px}
+ .qr-pc-url-title{font-size:18px;margin-top:18px}
+ .qr-pc-url-box{font-size:14px;padding:12px 7px}
+ .qr-copy-btn{font-size:15px;padding:11px 24px}
+ .qr-top-return a{font-size:17px;padding:13px 24px}
+ .mobile-home-return{display:none!important}
+ .back{display:none!important}
+}
+@media(min-width:651px){.qr-page-bottom{display:none!important}}
+</style>
+
+</head><body><div class="mobile-taskbar"><a href="https://manda-fx-office.github.io/"><img src="logo.png" alt="TRANSITION SYSTEM / by Manda FX Office"></a></div>
+
+<header class="topbar"><nav class="nav"><a class="brand" href="member.html">TRANSITION SYSTEM<small>MEMBER AREA</small></a>
+<div class="navlinks"><a href="index.html"><img class="site-unified-logo" src="logo.png" alt="TRANSITION SYSTEM / by Manda FX Office"></a><a href="index.html">LOGOUT</a></div></nav></header>
 <main class="container">
 <section class="member-hero"><span class="status">MEMBER AREA</span><h1 style="font-size:42px;letter-spacing:4px">会員様専用ページ</h1>
 <p style="color:#9da3a8">TRANSITION SYSTEM 会員コンテンツ</p></section>
@@ -73,4 +95,18 @@ footer{border-top:1px solid #24272a;text-align:center;color:#70767b;padding:35px
 <div class="card"><h3>UPDATE</h3><p>最新バージョンや変更内容のお知らせ。</p><a class="cta" href="#">更新情報</a></div>
 <div class="card"><h3>SUPPORT</h3><p>会員様向けサポート情報。</p><a class="cta" href="#">サポート</a></div>
 </div></main>
-<footer>MEMBER AREA / TRANSITION SYSTEM</footer></body></html>
+<footer>MEMBER AREA / TRANSITION SYSTEM</footer><section class="qr-access qr-page-bottom" aria-label="スマートフォンでアクセス">
+  <div class="qr-access-title">スマートフォンでアクセス</div>
+  <div class="qr-access-note">QRコードを読み取ると、TRANSITION SYSTEM TOPページが開きます。</div>
+  <div class="qr-grid">
+    <div class="qr-card"><img src="data:image/png;base64,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" alt="Android版 QRコード"><div class="qr-label">Android版</div><div class="qr-sub">QRコードを読み取る</div></div>
+    <div class="qr-card"><img src="data:image/png;base64,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" alt="iPhone版 QRコード"><div class="qr-label">iPhone版</div><div class="qr-sub">QRコードを読み取る</div></div>
+  </div>
+<div class="qr-pc-url">
+  <div class="qr-pc-url-title">PC版アクセスURL</div>
+  <div class="qr-pc-url-box">https://manda-fx-office.github.io/</div>
+  <button type="button" class="qr-copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText('https://manda-fx-office.github.io/').then(()=>alert('URLをコピーしました。'))">URLをコピー</button>
+</div>
+<div class="qr-top-return"><a href="https://manda-fx-office.github.io/">⌂ TOPページに戻る</a></div>
+</section>
+</body></html>
