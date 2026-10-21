@@ -454,7 +454,10 @@ body{padding-top:88px}
       const target = document.getElementById(id);
       if (!target || !target.classList.contains('indicator-page')) return;
       event.preventDefault();
-      win.scrollTo({top: target.offsetTop - win.offsetTop, behavior:'smooth'});
+      const winRect = win.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const top = win.scrollTop + targetRect.top - winRect.top - 12;
+      win.scrollTo({top: Math.max(0, top), behavior:'smooth'});
       history.replaceState(null, '', '#' + id);
     });
   });
