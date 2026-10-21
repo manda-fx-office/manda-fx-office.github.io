@@ -210,13 +210,13 @@ body{padding-top:88px}
 }
 .category-tile{
   min-width:0;
-  min-height:92px;
+  min-height:62px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:8px;
-  padding:12px 8px;
+  gap:5px;
+  padding:8px 6px;
   border:1px solid #4b535a;
   border-radius:12px;
   background:linear-gradient(145deg,#191c1f,#090a0b);
@@ -227,8 +227,8 @@ body{padding-top:88px}
 .category-tile strong{font-size:clamp(12px,2vw,16px);line-height:1.35;overflow-wrap:anywhere}
 .category-tile:active{background:#252a2f}
 .indicator-window{
-  height: min(66vh, 680px);
-  min-height:420px;
+  height: min(78vh, 900px);
+  min-height:520px;
   overflow-y:auto;
   overflow-x:hidden;
   overscroll-behavior:contain;
@@ -255,8 +255,9 @@ body{padding-top:88px}
 .indicator-page .planned-card{border-style:dashed}
 @media(max-width:760px){
   .indicator-categories{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:22px 0 14px}
-  .category-tile{min-height:82px;padding:10px 5px}
-  .indicator-window{height:64vh;min-height:400px}
+  .category-tile{min-height:56px;padding:6px 4px;gap:3px}
+  .category-tile span{font-size:11px}
+  .indicator-window{height:76vh;min-height:460px}
   .indicator-page{padding:16px}
   .indicator-page .card{padding:16px}
 }
@@ -301,12 +302,12 @@ body{padding-top:88px}
 <section class="indicator-window" aria-label="インジケーター説明一覧">
   <section class="indicator-page" id="indicator-page-1">
     <div class="page-label">① / ACCESSORY</div>
-    <h2>ACCESSORY</h2>
-    <p class="page-intro">補助インジケーターの説明を表示するページです。</p>
+    <h2>ACCESSORY インジケーター一覧</h2>
+    <p class="page-intro">小窓①を押すと、この分類に追加したインジケーターの一覧をここで確認できます。各インジケーターの説明カードを、この窓の中に順番に追加していきます。</p>
     <article class="card planned-card">
       <div class="tag">ACCESSORY</div>
-      <h3>追加予定</h3>
-      <p>インジケーター名・機能・表示内容が決まり次第、このページに説明を追加します。</p>
+      <h3>インジケーター追加欄</h3>
+      <p>正式なインジケーター名・機能・表示例が決まったものから、1件ずつ一覧に追加します。</p>
     </article>
   </section>
 
