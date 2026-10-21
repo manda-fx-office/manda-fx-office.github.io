@@ -274,6 +274,7 @@ body{padding-top:88px}
 .indicator-page{
   min-height:100%;
   padding:24px;
+  scroll-margin-top:18px;
   scroll-snap-align:start;
   scroll-snap-stop:always;
   border-bottom:1px solid #30363b;
@@ -290,7 +291,7 @@ body{padding-top:88px}
   .category-tile{min-height:56px;padding:6px 4px;gap:3px}
   .category-tile span{font-size:11px}
   .indicator-window{height:76vh;min-height:460px}
-  .indicator-page{padding:16px}
+  .indicator-page{padding:16px;scroll-margin-top:18px}
   .indicator-page .card{padding:16px}
 }
 @media(max-width:380px){
@@ -443,5 +444,21 @@ body{padding-top:88px}
 </div>
 
 <footer class="footer">TRANSITION SYSTEM | by Manda FX Office</footer>
+<script id="indicator-window-navigation">
+(function(){
+  const win = document.querySelector('.indicator-window');
+  if (!win) return;
+  document.querySelectorAll('.category-tile, .indicator-page-button').forEach(function(link){
+    link.addEventListener('click', function(event){
+      const id = (link.getAttribute('href') || '').slice(1);
+      const target = document.getElementById(id);
+      if (!target || !target.classList.contains('indicator-page')) return;
+      event.preventDefault();
+      win.scrollTo({top: target.offsetTop - win.offsetTop, behavior:'smooth'});
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+})();
+</script>
 </body>
 </html>
