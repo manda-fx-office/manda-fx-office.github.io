@@ -69,6 +69,46 @@ body{padding-top:88px}
 }
 </style>
 
+<style id="project-mobile-width-fix">
+@media (max-width: 900px) {
+  html, body {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .topbar,
+  .nav,
+  .wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .nav {
+    padding: 10px 12px;
+  }
+
+  .brand-logo img {
+    width: 120px;
+    max-width: 70vw;
+    height: auto;
+  }
+
+  .wrap {
+    padding: 28px 14px 55px;
+  }
+
+  .card,
+  .card h2 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+</style>
 </head>
 <body>
 <header class="topbar">
