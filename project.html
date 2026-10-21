@@ -71,20 +71,42 @@ body{padding-top:88px}
 
 <style id="project-mobile-width-fix">
 @media (max-width: 900px) {
-  html, body {
+  html,
+  body {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 
-  .topbar,
-  .nav,
-  .wrap {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     max-width: 100%;
+    min-width: 0;
   }
 
   .nav {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
     padding: 10px 12px;
+  }
+
+  .brand-logo {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .brand-logo img {
@@ -94,18 +116,50 @@ body{padding-top:88px}
   }
 
   .wrap {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
     padding: 28px 14px 55px;
   }
 
   .card,
   .card h2 {
     min-width: 0;
+    max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
   }
 
   .grid {
+    width: 100%;
+    min-width: 0;
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mobile-home-return {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 42px auto 10px;
+    padding: 0 14px 10px;
+    text-align: center;
+  }
+
+  .mobile-home-return a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
   }
 }
 </style>
