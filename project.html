@@ -200,6 +200,71 @@ body{padding-top:88px}
   }
 }
 </style>
+
+<style id="indicator-category-window">
+.indicator-categories{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:28px 0 18px;
+}
+.category-tile{
+  min-width:0;
+  min-height:92px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 8px;
+  border:1px solid #4b535a;
+  border-radius:12px;
+  background:linear-gradient(145deg,#191c1f,#090a0b);
+  text-align:center;
+  box-shadow:0 5px 14px #0006;
+}
+.category-tile span{color:#ff9f32;font-size:13px;letter-spacing:1px}
+.category-tile strong{font-size:clamp(12px,2vw,16px);line-height:1.35;overflow-wrap:anywhere}
+.category-tile:active{background:#252a2f}
+.indicator-window{
+  height: min(66vh, 680px);
+  min-height:420px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  scroll-snap-type:y mandatory;
+  border:1px solid #444c52;
+  border-radius:14px;
+  background:rgba(8,9,10,.85);
+  scrollbar-width:thin;
+  scrollbar-color:#626b72 #111;
+}
+.indicator-page{
+  min-height:100%;
+  padding:24px;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  border-bottom:1px solid #30363b;
+}
+.indicator-page:last-child{border-bottom:0}
+.page-label{color:#ffad4d;font-size:12px;letter-spacing:2px;margin-bottom:10px}
+.indicator-page h2{font-size:clamp(22px,3vw,30px);margin:0 0 18px;overflow-wrap:anywhere}
+.indicator-page .page-intro{color:#bfc5ca;line-height:1.8}
+.indicator-page .card{margin:14px 0;padding:20px}
+.indicator-page .card h3{font-size:clamp(17px,2.6vw,22px);margin:8px 0 12px;letter-spacing:.5px;overflow-wrap:anywhere}
+.indicator-page .planned-card{border-style:dashed}
+@media(max-width:760px){
+  .indicator-categories{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:22px 0 14px}
+  .category-tile{min-height:82px;padding:10px 5px}
+  .indicator-window{height:64vh;min-height:400px}
+  .indicator-page{padding:16px}
+  .indicator-page .card{padding:16px}
+}
+@media(max-width:380px){
+  .category-tile strong{font-size:11px}
+  .indicator-page{padding:12px}
+}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -224,51 +289,102 @@ body{padding-top:88px}
 <p>これまで制作してきたMT4専用の自作インジケーターを一覧で観覧できるページです。</p>
 </section>
 
-<section class="grid">
-<article class="card">
-<div class="tag">BB / MA</div>
-<h2>Transition_BB4_MA5_BIG</h2>
-<p>複数のボリンジャーバンドと5本のMAをまとめて表示する、TRANSITION SYSTEMの中心的なインジケーター。</p>
-<ul>
-<li>BB30 / BB90 / BB360 / BB1440</li>
-<li>5本のMA</li>
-<li>MAの上昇・下降・バンドウォーク表示</li>
-</ul>
-</article>
+<section class="indicator-categories" aria-label="インジケーター分類">
+  <a class="category-tile" href="#indicator-page-1"><span>①</span><strong>ACCESSORY</strong></a>
+  <a class="category-tile" href="#indicator-page-2"><span>②</span><strong>BB / MA</strong></a>
+  <a class="category-tile" href="#indicator-page-3"><span>③</span><strong>MACD</strong></a>
+  <a class="category-tile" href="#indicator-page-4"><span>④</span><strong>通貨強弱</strong></a>
+  <a class="category-tile" href="#indicator-page-5"><span>⑤</span><strong>SMC</strong></a>
+  <a class="category-tile" href="#indicator-page-6"><span>⑥</span><strong>TRADE SYSTEM</strong></a>
+</section>
 
-<article class="card">
-<div class="tag">3MACD</div>
-<h2>Transition_3MACD_CrossBackground</h2>
-<p>短期・中期・長期のMACDを階層表示し、クロス状態をチャート背景でも確認できるインジケーター。</p>
-<ul>
-<li>短期・中期・長期MACD</li>
-<li>6 / 24 / 96を色判定基準として使用</li>
-<li>クロス背景表示</li>
-</ul>
-</article>
+<section class="indicator-window" aria-label="インジケーター説明一覧">
+  <section class="indicator-page" id="indicator-page-1">
+    <div class="page-label">① / ACCESSORY</div>
+    <h2>ACCESSORY</h2>
+    <p class="page-intro">補助インジケーターの説明を表示するページです。</p>
+    <article class="card planned-card">
+      <div class="tag">ACCESSORY</div>
+      <h3>追加予定</h3>
+      <p>インジケーター名・機能・表示内容が決まり次第、このページに説明を追加します。</p>
+    </article>
+  </section>
 
-<article class="card">
-<div class="tag">3MA</div>
-<h2>Transition_3MA_Histogram</h2>
-<p>MA30・MA90・MA360の方向をヒストグラムで視覚化するインジケーター。</p>
-<ul>
-<li>MA30 / MA90 / MA360</li>
-<li>上昇・下降を色分け</li>
-<li>各MAのON/OFF</li>
-</ul>
-</article>
+  <section class="indicator-page" id="indicator-page-2">
+    <div class="page-label">② / BB / MA</div>
+    <h2>BB / MA</h2>
+    <article class="card">
+      <div class="tag">BB / MA</div>
+      <h3>Transition_BB4_MA5_BIG</h3>
+      <p>複数のボリンジャーバンドと5本のMAをまとめて表示する、TRANSITION SYSTEMの中心的なインジケーター。</p>
+      <ul>
+        <li>BB30 / BB90 / BB360 / BB1440</li>
+        <li>5本のMA</li>
+        <li>MAの上昇・下降・バンドウォーク表示</li>
+      </ul>
+    </article>
+    <article class="card">
+      <div class="tag">3MA</div>
+      <h3>Transition_3MA_Histogram</h3>
+      <p>MA30・MA90・MA360の方向をヒストグラムで視覚化するインジケーター。</p>
+      <ul>
+        <li>MA30 / MA90 / MA360</li>
+        <li>上昇・下降を色分け</li>
+        <li>各MAのON/OFF</li>
+      </ul>
+    </article>
+  </section>
 
-<article class="card">
-<div class="tag">TRADE SYSTEM</div>
-<h2>Transition_TradeSystem_4K_SP</h2>
-<p>BB・3MACD・OHLCなどの判定情報をまとめて表示する4K向けTrade System。</p>
-<ul>
-<li>BB30トリガー</li>
-<li>バンドウォーク判定</li>
-<li>3MACD方向表示</li>
-<li>H4 / D1 OHLC表示</li>
-</ul>
-</article>
+  <section class="indicator-page" id="indicator-page-3">
+    <div class="page-label">③ / MACD</div>
+    <h2>MACD</h2>
+    <article class="card">
+      <div class="tag">3MACD</div>
+      <h3>Transition_3MACD_CrossBackground</h3>
+      <p>短期・中期・長期のMACDを階層表示し、クロス状態をチャート背景でも確認できるインジケーター。</p>
+      <ul>
+        <li>短期・中期・長期MACD</li>
+        <li>6 / 24 / 96を色判定基準として使用</li>
+        <li>クロス背景表示</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="indicator-page" id="indicator-page-4">
+    <div class="page-label">④ / CURRENCY STRENGTH</div>
+    <h2>通貨強弱</h2>
+    <article class="card planned-card">
+      <div class="tag">CURRENCY STRENGTH</div>
+      <h3>追加予定</h3>
+      <p>通貨強弱インジケーターの正式な名称と説明を、確定後にこのページへ追加します。</p>
+    </article>
+  </section>
+
+  <section class="indicator-page" id="indicator-page-5">
+    <div class="page-label">⑤ / SMC</div>
+    <h2>SMC</h2>
+    <article class="card planned-card">
+      <div class="tag">SMC</div>
+      <h3>追加予定</h3>
+      <p>SMC関連インジケーターの名称・機能が決まり次第、このページに説明を追加します。</p>
+    </article>
+  </section>
+
+  <section class="indicator-page" id="indicator-page-6">
+    <div class="page-label">⑥ / TRADE SYSTEM</div>
+    <h2>TRADE SYSTEM</h2>
+    <article class="card">
+      <div class="tag">TRADE SYSTEM</div>
+      <h3>Transition_TradeSystem_4K_SP</h3>
+      <p>BB・3MACD・OHLCなどの判定情報をまとめて表示する4K向けTrade System。</p>
+      <ul>
+        <li>BB30トリガー</li>
+        <li>バンドウォーク判定</li>
+        <li>3MACD方向表示</li>
+        <li>H4 / D1 OHLC表示</li>
+      </ul>
+    </article>
+  </section>
 </section>
 </main>
 
