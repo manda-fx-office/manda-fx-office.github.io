@@ -454,9 +454,15 @@ body{padding-top:88px}
       const target = document.getElementById(id);
       if (!target || !target.classList.contains('indicator-page')) return;
       event.preventDefault();
+      // First bring the whole scroll window up beneath the sticky header.
+      const header = document.querySelector('.topbar');
+      const headerHeight = header ? header.getBoundingClientRect().height : 0;
+      const pageTop = window.scrollY + win.getBoundingClientRect().top - headerHeight - 8;
+      window.scrollTo({top: Math.max(0, pageTop), behavior:'smooth'});
+      // Then show the selected category from the top inside the window.
       const winRect = win.getBoundingClientRect();
       const targetRect = target.getBoundingClientRect();
-      const top = win.scrollTop + targetRect.top - winRect.top - 12;
+      const top = win.scrollTop + targetRect.top - winRect.top - 10;
       win.scrollTo({top: Math.max(0, top), behavior:'smooth'});
       history.replaceState(null, '', '#' + id);
     });
