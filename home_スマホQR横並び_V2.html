@@ -87,18 +87,6 @@ details{margin-top:15px;border-top:1px solid #2e3439;padding-top:12px}summary{cu
 }
 </style>
 
-
-<!-- TRANSITION_ANDROID_TABLET_HOME_FIX_20261022: tablet-only route correction -->
-<script id="TRANSITION_ANDROID_TABLET_HOME_FIX_20261022">
-(function () {
-  var ua = navigator.userAgent || "";
-  var isAndroid = /Android/i.test(ua);
-  var shortScreenSide = Math.min(Number(screen.width) || 0, Number(screen.height) || 0);
-  if (isAndroid && shortScreenSide >= 600) {
-    window.location.replace("TRANSITION_SYSTEM_HOME_写真照合修正版_20261013_v2.html");
-  }
-})();
-</script>
 </head>
 <body>
 <header class="topbar">
