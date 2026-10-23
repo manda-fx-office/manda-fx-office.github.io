@@ -7,17 +7,15 @@
 <title>TRANSITION SYSTEM 起動</title>
 <script>
 (function () {
-  var ua = navigator.userAgent || "";
-  var isAndroid = /Android/i.test(ua);
-  var w = Number(screen.width) || Number(window.innerWidth) || 0;
-  var h = Number(screen.height) || Number(window.innerHeight) || 0;
-  var isTablet = isAndroid && Math.min(w, h) >= 600;
-  var target = isTablet
-    ? "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html"
-    : "index.html";
-  window.location.replace(target);
+  // 旧起動URLから開いた場合も、現行の起動先と同じTOPへ統一する。
+  // Androidタブレットだけを旧V29へ送る分岐を廃止。
+  // TOP本体・PC版・既存保存版HTMLは変更しない。
+  window.location.replace("index.html");
 })();
 </script>
 </head>
-<body><p>TRANSITION SYSTEM を起動しています…</p><noscript><a href="index.html">TOPページを開く</a></noscript></body>
+<body>
+<p>TRANSITION SYSTEM を起動しています…</p>
+<p><a href="index.html">TOPページを開く</a></p>
+</body>
 </html>
