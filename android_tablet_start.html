@@ -12,15 +12,15 @@ body{display:grid;place-items:center;font:14px sans-serif}
 </style>
 <script>
 (function () {
-  // Androidタブレットアプリの新しい唯一の入口。
-  // Androidスマホは従来の起動先を維持し、PC/その他も既存TOPへ進める。
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua);
   var isMobileUA = /Mobile/i.test(ua);
-  var w = Number(screen.width) || Number(window.innerWidth) || 0;
-  var h = Number(screen.height) || Number(window.innerHeight) || 0;
-  var smallSide = Math.min(w, h);
-  var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
+  var screenWidth = Number(screen.width) || 0;
+  var viewportWidth = Number(window.innerWidth) || 0;
+
+  // 縦向きタブレットは短辺が600px未満として報告される場合があるため、
+  // 短辺ではなく表示幅を使って判定する。
+  var isTablet = isAndroid && (!isMobileUA || screenWidth >= 600 || viewportWidth >= 600);
   var target = isTablet ? "android_tablet_top.html" :
                (isAndroid ? "android_start.html" : "index.html");
   window.location.replace(target);
