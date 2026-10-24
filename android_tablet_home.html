@@ -34,6 +34,10 @@ html,body{margin:0;width:100%;min-height:100%;overflow:auto;background:#000}
     "html{scroll-padding-top:84px!important;}"
    ].join("\n");
    doc.head.appendChild(style);
+   /* タスクバーには中央の大型ロゴではなく、HOMEヘッダーの通常ロゴ画像を使う */
+   var normalLogo=doc.querySelector(".topbar img.logo");
+   var taskbarLogo=doc.querySelector(".mobile-taskbar img");
+   if(normalLogo&&taskbarLogo)taskbarLogo.src=normalLogo.src;
    doc.querySelectorAll(".mobile-taskbar a,.topbar a,a[aria-label='TOPページへ'],a[aria-label='TOP']").forEach(function(a){
     a.href="android_tablet_top.html";
     a.target="_top";
