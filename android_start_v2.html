@@ -15,9 +15,9 @@
   var smallSide = Math.min(w, h);
   var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
 
-  // Androidタブレットだけ専用ラッパーへ。Androidスマホと他端末は従来の index.html。
+  // AndroidタブレットだけAndroidスマホ保存版TOPへ直接進む。Androidスマホと他端末は従来の index.html。
   // スマホ保存版HTML本体とPC版は変更しない。
-  var target = isTablet ? "android_tablet_top.html" : "index.html";
+  var target = isTablet ? "android_tablet_start.html" : "index.html";
   window.location.replace(target);
 })();
 </script>
