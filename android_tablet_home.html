@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#000000">
 <title>TRANSITION SYSTEM HOME - Android Tablet</title>
 <style>
-html,body{margin:0;width:100%;height:100%;overflow:auto;background:#000}
-#tabletHome{display:block;width:100%;height:100%;min-height:100vh;border:0;background:#000}
+html,body{margin:0;width:100%;min-height:100%;overflow:auto;background:#000}
+#tabletHome{display:block;width:100%;height:100vh;min-height:100vh;border:0;background:#000}
 </style>
 </head>
 <body>
@@ -19,28 +19,30 @@ html,body{margin:0;width:100%;height:100%;overflow:auto;background:#000}
  function applyHomeFix(){
   try{
    var doc=frame.contentDocument||frame.contentWindow.document;
-   if(!doc||!doc.head)return;
+   if(!doc||!doc.head||!doc.body)return;
    var old=doc.getElementById("android-tablet-home-fix");
    if(old)old.remove();
    var style=doc.createElement("style");
    style.id="android-tablet-home-fix";
    style.textContent=[
-    "/* Androidタブレット専用。保存版HOME・スマホ・PC本体は変更しない */",
-    ".mobile-taskbar{height:72px!important;padding:0 18px!important;justify-content:flex-start!important;}",
-    ".mobile-taskbar a{width:auto!important;max-width:100%!important;overflow:hidden!important;}",
-    ".mobile-taskbar img{display:block!important;width:auto!important;height:48px!important;max-width:min(230px,65vw)!important;object-fit:contain!important;object-position:left center!important;}",
-    ".topbar a img.logo{max-width:230px!important;height:auto!important;object-fit:contain!important;}",
-    "html{scroll-padding-top:84px!important}"
+    "/* Androidタブレット専用の表示補正。保存版HOME本体・スマホ版・PC版は変更しない */",
+    ".mobile-taskbar{display:flex!important;position:fixed!important;top:0!important;left:0!important;right:0!important;height:72px!important;z-index:999999!important;background:rgba(4,4,4,.97)!important;border-bottom:1px solid #292d31!important;align-items:center!important;justify-content:flex-start!important;padding:0 20px!important;box-sizing:border-box!important;}",
+    ".mobile-taskbar a{display:flex!important;align-items:center!important;height:100%!important;width:auto!important;max-width:100%!important;overflow:visible!important;text-decoration:none!important;}",
+    ".mobile-taskbar img{display:block!important;width:auto!important;height:50px!important;max-width:min(230px,65vw)!important;object-fit:contain!important;object-position:left center!important;}",
+    ".topbar{display:none!important;}",
+    "body{padding-top:72px!important;}",
+    "html{scroll-padding-top:84px!important;}"
    ].join("\n");
    doc.head.appendChild(style);
    doc.querySelectorAll(".mobile-taskbar a,.topbar a,a[aria-label='TOPページへ'],a[aria-label='TOP']").forEach(function(a){
     a.href="android_tablet_top.html";
     a.target="_top";
    });
-   frame.style.height=Math.max(doc.documentElement.scrollHeight,window.innerHeight)+"px";
+   var height=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight,window.innerHeight);
+   frame.style.height=height+"px";
   }catch(e){}
  }
- frame.addEventListener("load",function(){applyHomeFix();setTimeout(applyHomeFix,300);});
+ frame.addEventListener("load",function(){applyHomeFix();window.setTimeout(applyHomeFix,500);});
 })();
 </script>
 </body>
