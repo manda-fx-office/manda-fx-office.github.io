@@ -18,20 +18,30 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
   function applyTabletMenu() {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc || !doc.head) return;
-      var old = doc.getElementById("android-tablet-menu-fix");
-      if (old) old.remove();
-      var style = doc.createElement("style");
-      style.id = "android-tablet-menu-fix";
-      style.textContent = [
-        "/* Androidタブレット専用: スマホで使用中の4ボタン内容に合わせる */",
-        ".pc-only-entry-community{display:none!important}",
-        ".mobile-only-entry-densuke{display:block!important}",
-        ".entry-buttons .entry-btn{visibility:visible}"
-      ].join("\n");
-      doc.head.appendChild(style);
+      if (!doc || !doc.body || !doc.head) return;
+      // Androidタブレット用ページ内だけで、COMMUNITYボタンを伝助ボタンへ置換する。
+      // 特定のCSSクラス名には依存せず、画面上のボタン文言から対象を探す。
+      var links = Array.prototype.slice.call(doc.querySelectorAll("a"));
+      var target = links.find(function (a) {
+        var label = (a.innerText || a.textContent || "").replace(/\s+/g, " ").trim();
+        return /^COMMUNITY(?:\s|$)/i.test(label) || /^コミュニティー(?:\s|$)/.test(label) || /^コミュニティ(?:\s|$)/.test(label);
+      });
+      if (target) {
+        target.href = "project.html";
+        target.setAttribute("aria-label", "伝助のインジケーター");
+        target.innerHTML = '<b>伝助のインジケーター</b><span>伝助のインジケーター</span>';
+        target.style.display = "block";
+        target.style.visibility = "visible";
+      }
+      var style = doc.getElementById("android-tablet-menu-fix");
+      if (!style) {
+        style = doc.createElement("style");
+        style.id = "android-tablet-menu-fix";
+        style.textContent = "a[aria-label='伝助のインジケーター']{display:block!important;visibility:visible!important;text-align:center}a[aria-label='伝助のインジケーター'] b{display:block;font-size:13px;letter-spacing:.5px}a[aria-label='伝助のインジケーター'] span{display:block;font-size:10px;color:#bbb}";
+        doc.head.appendChild(style);
+      }
     } catch (e) {
-      /* 同一サイト内でスタイルを適用できない場合は元ページを表示する */
+      // 元ページの表示は維持する。
     }
   }
   frame.addEventListener("load", applyTabletMenu);
