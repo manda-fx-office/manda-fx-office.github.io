@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TRANSITION SYSTEM - Android Tablet</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+#tabletTop{display:block;width:100%;height:100%;border:0;background:#000}
+</style>
+</head>
+<body>
+<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index.html"></iframe>
+<script>
+(function () {
+  var frame = document.getElementById("tabletTop");
+  function applyTabletMenu() {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc || !doc.head) return;
+      var old = doc.getElementById("android-tablet-menu-fix");
+      if (old) old.remove();
+      var style = doc.createElement("style");
+      style.id = "android-tablet-menu-fix";
+      style.textContent = [
+        "/* Androidタブレット専用: スマホで使用中の4ボタン内容に合わせる */",
+        ".pc-only-entry-community{display:none!important}",
+        ".mobile-only-entry-densuke{display:block!important}",
+        ".entry-buttons .entry-btn{visibility:visible}"
+      ].join("\n");
+      doc.head.appendChild(style);
+    } catch (e) {
+      /* 同一サイト内でスタイルを適用できない場合は元ページを表示する */
+    }
+  }
+  frame.addEventListener("load", applyTabletMenu);
+})();
+</script>
+</body>
+</html>
