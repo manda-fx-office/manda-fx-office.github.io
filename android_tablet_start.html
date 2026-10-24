@@ -8,10 +8,19 @@
 <title>TRANSITION SYSTEM 起動</title>
 <script>
 (function () {
-  // Androidタブレットの起動先を専用表示に一本化する。
-  window.location.replace("android_tablet_top.html");
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua);
+  var isMobileUA = /Mobile/i.test(ua);
+  var w = Number(screen.width) || Number(window.innerWidth) || 0;
+  var h = Number(screen.height) || Number(window.innerHeight) || 0;
+  var smallSide = Math.min(w, h);
+  var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
+
+  // タブレットだけ専用表示へ。Androidスマホは従来の入口を維持する。
+  var target = isTablet ? "android_tablet_top.html" : (isAndroid ? "android_start.html" : "index.html");
+  window.location.replace(target);
 })();
 </script>
 </head>
-<body>Androidタブレット版を起動しています…</body>
+<body>TRANSITION SYSTEM を起動しています…</body>
 </html>
