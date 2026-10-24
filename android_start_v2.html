@@ -15,10 +15,9 @@
   var smallSide = Math.min(w, h);
   var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
 
-  // Androidスマホは正常な保存版起動を維持する。
-  // Androidタブレットも同じ index.html に統一し、旧式の個別TOPへ振り分けない。
-  // 保存版HTML本体・PC版・その他の既存ページは変更しない。
-  var target = "index.html";
+  // Androidタブレットだけ専用ラッパーへ。Androidスマホと他端末は従来の index.html。
+  // スマホ保存版HTML本体とPC版は変更しない。
+  var target = isTablet ? "android_tablet_top.html" : "index.html";
   window.location.replace(target);
 })();
 </script>
