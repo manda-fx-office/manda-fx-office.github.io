@@ -46,11 +46,11 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
         home.target = "_top";
       }
 
-      var logo = doc.querySelector(".site-header a[aria-label='TOPへ'], .site-header a");
-      if (logo) {
-        logo.href = "android_tablet_top.html";
-        logo.target = "_top";
-      }
+      var logo = doc.querySelector(".mobile-taskbar a, .topbar a, .site-header a[aria-label='TOPへ'], .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']");
+      doc.querySelectorAll(".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']").forEach(function (a) {
+        a.href = "android_tablet_top.html";
+        a.target = "_top";
+      });
     } catch (e) {
       /* 調整が適用できない場合は元ページを表示する */
       frame.style.opacity = "1";
