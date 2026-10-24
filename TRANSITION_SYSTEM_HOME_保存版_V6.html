@@ -176,4 +176,22 @@ TRANSITION SYSTEMでは、チャートの読み方やテクニカル分析を通
 
 
 
+
+<script id="android-tablet-top-return-fix">
+(function(){
+  var ua=navigator.userAgent||"";
+  var android=/Android/i.test(ua), mobile=/Mobile/i.test(ua);
+  var w=Number(screen.width)||Number(window.innerWidth)||0;
+  var h=Number(screen.height)||Number(window.innerHeight)||0;
+  if(!(android&&(!mobile||Math.min(w,h)>=600)))return;
+  function fixTopLinks(){
+    document.querySelectorAll('.mobile-taskbar a, .topbar a, a[aria-label="TOPページへ"], a[aria-label="TOP"]').forEach(function(a){
+      a.setAttribute('href','android_tablet_top.html');
+    });
+  }
+  fixTopLinks();
+  document.addEventListener('DOMContentLoaded',fixTopLinks);
+})();
+</script>
+
 </body></html>
