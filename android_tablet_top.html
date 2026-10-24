@@ -8,7 +8,7 @@
 <title>TRANSITION SYSTEM - Android Tablet</title>
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
-#tabletTop{display:block;width:100%;height:100%;border:0;background:#000;visibility:hidden}
+#tabletTop{display:block;width:100%;height:100%;border:0;background:#000;visibility:visible}
 </style>
 </head>
 <body>
@@ -47,7 +47,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
         logo.target = "_top";
       }
     } catch (e) {
-      /* If injection is unavailable, keep the original page visible without breaking it. */
+      /* Keep the page visible if the tablet adjustment cannot be applied. */
+      frame.style.visibility = "visible";
     }
   }
   frame.addEventListener("load", applyTabletFix);
