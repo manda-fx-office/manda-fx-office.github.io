@@ -8,16 +8,15 @@
 <title>TRANSITION SYSTEM 起動</title>
 <script>
 (function () {
-  // Androidタブレットも、Androidスマホの保存版TOPを直接起動する。
-  // TOPの別ラッパーやタブレット専用画面を経由しない。
-  // Androidスマホ保存版本体・PC版・HOME本体は変更しない。
-  var savedTop = "android_tablet_top.html";
-  window.location.replace(savedTop);
+  // Androidスマホ版アプリと同じTOP起動先を使用する。
+  // タブレット専用の旧式ラッパーやV29別ファイルを経由しない。
+  // スマホ保存版本体とPC版のファイルは変更しない。
+  window.location.replace("index.html");
 })();
 </script>
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="android_tablet_top.html">Androidタブレット用TOPを開く</a></p>
+<p><a href="index.html">TOPページを開く</a></p>
 </body>
 </html>
