@@ -8,7 +8,7 @@
 <title>TRANSITION SYSTEM - Android Tablet</title>
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
-#tabletTop{display:block;width:100%;height:100%;border:0;background:#000;opacity:0;transition:opacity .05s}
+#tabletTop{display:block;width:100%;height:100%;border:0;background:#000}
 </style>
 </head>
 <body>
@@ -16,48 +16,23 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 <script>
 (function () {
   var frame = document.getElementById("tabletTop");
-
-  function applyTabletFix() {
+  function applyLinks() {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc || !doc.head) return;
-
-      var old = doc.getElementById("android-tablet-menu-fix");
-      if (old) old.remove();
-
-      var style = doc.createElement("style");
-      style.id = "android-tablet-menu-fix";
-      style.textContent = [
-        "/* Androidタブレット専用。スマホ保存版・PC版のファイルは変更しない */",
-        ".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;bottom:18%!important;width:calc(100% - 36px)!important;gap:10px!important;}",
-        ".entry-buttons .pc-only-entry-community{display:none!important;}",
-        ".entry-buttons .mobile-only-entry-densuke{display:flex!important;}",
-        ".entry-buttons .entry-btn{min-width:0!important;padding:11px 7px!important;}",
-        ".entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1.5px!important;}",
-        ".entry-buttons .entry-btn span{font-size:10px!important;}",
-        ".bgm-btn{left:24px!important;right:auto!important;top:10px!important;padding:8px 12px!important;font-size:11px!important;}"
-      ].join("\n");
-      doc.head.appendChild(style);
-      frame.style.opacity = "1";
-
+      if (!doc || !doc.body) return;
+      // 保存版V29の表示・レイアウト・BGM位置は変更しない。リンク先だけタブレット用にする。
       var home = doc.querySelector(".entry-buttons a.entry-btn[href^='home_']");
       if (home) {
         home.href = "android_tablet_home.html";
         home.target = "_top";
       }
-
-      var logo = doc.querySelector(".mobile-taskbar a, .topbar a, .site-header a[aria-label='TOPへ'], .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']");
       doc.querySelectorAll(".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']").forEach(function (a) {
         a.href = "android_tablet_top.html";
         a.target = "_top";
       });
-    } catch (e) {
-      /* 調整が適用できない場合は元ページを表示する */
-      frame.style.opacity = "1";
-    }
+    } catch (e) {}
   }
-
-  frame.addEventListener("load", applyTabletFix);
+  frame.addEventListener("load", applyLinks);
 })();
 </script>
 </body>
