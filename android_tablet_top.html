@@ -20,15 +20,32 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
       if (!doc || !doc.body) return;
-      // 保存版V29の表示・レイアウト・BGM位置は変更しない。リンク先だけタブレット用にする。
+
+      // TOPのHOMEボタンだけをタブレット用HOMEへ接続する。
       var home = doc.querySelector(".entry-buttons a.entry-btn[href^='home_']");
       if (home) {
         home.href = "android_tablet_home.html";
         home.target = "_top";
       }
-      doc.querySelectorAll(".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']").forEach(function (a) {
-        a.href = "android_tablet_top.html";
-        a.target = "_top";
+
+      // TOP画面のロゴは押しても移動しない仕様。スマホ保存版本体は編集せず、
+      // タブレット表示内でロゴを含むリンクだけ無効化する。
+      var candidates = doc.querySelectorAll(
+        ".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']"
+      );
+      candidates.forEach(function (a) {
+        var label = (a.getAttribute("aria-label") || "").toLowerCase();
+        var hasLogoImage = !!a.querySelector("img");
+        var isTopLabel = label === "top" || label === "topページへ";
+        if (!hasLogoImage && !isTopLabel) return;
+        a.removeAttribute("href");
+        a.removeAttribute("target");
+        a.setAttribute("aria-disabled", "true");
+        a.style.cursor = "default";
+        a.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }, true);
       });
     } catch (e) {}
   }
