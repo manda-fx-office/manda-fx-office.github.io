@@ -14,15 +14,14 @@
   var h = Number(screen.height) || Number(window.innerHeight) || 0;
   var smallSide = Math.min(w, h);
   var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
-  // タブレットだけ、スマホ実機で確認できるV29正式保存版へ直接移動する。
-  // Androidスマホ・iPhone・PCの起動経路と各保存版本体は変更しない。
-  var tabletTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29.html";
-  window.location.replace(isTablet ? tabletTarget : "index.html");
+  // タブレット専用の表示調整ラッパーを通す。これがCOMMUNITYを伝助ボタンへ置換する。
+  // スマホ・iPhone・PCの経路と保存版本体は変更しない。
+  window.location.replace(isTablet ? "android_tablet_top.html" : "index.html");
 })();
 </script>
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29.html">スマホ正式保存版 V29 を開く</a></p>
+<p><a href="android_tablet_top.html">AndroidタブレットTOPを開く</a></p>
 </body>
 </html>
