@@ -16,28 +16,44 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 <script>
 (function () {
   var frame = document.getElementById("tabletTop");
-  function applyLinks() {
+
+  function applyTabletSettings() {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc || !doc.body) return;
+      if (!doc || !doc.head || !doc.body) return;
 
-      // TOPのHOMEボタンだけをタブレット用HOMEへ接続する。
-      var home = doc.querySelector(".entry-buttons a.entry-btn[href^='home_']");
+      // 昨日まで動作確認していたタブレット専用表示設定を復元。
+      // スマホ保存版本体・iPhone版・PC版のファイルは変更しない。
+      var old = doc.getElementById("android-tablet-menu-fix");
+      if (old) old.remove();
+
+      var style = doc.createElement("style");
+      style.id = "android-tablet-menu-fix";
+      style.textContent = [
+        ".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;bottom:18%!important;width:calc(100% - 36px)!important;gap:10px!important;}",
+        ".entry-buttons .pc-only-entry-community{display:none!important;}",
+        ".entry-buttons .mobile-only-entry-densuke{display:flex!important;}",
+        ".entry-buttons .entry-btn{min-width:0!important;padding:11px 7px!important;}",
+        ".entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1.5px!important;}",
+        ".entry-buttons .entry-btn span{font-size:10px!important;}",
+        ".bgm-btn{left:24px!important;right:auto!important;top:10px!important;padding:8px 12px!important;font-size:11px!important;}"
+      ].join("\n");
+      doc.head.appendChild(style);
+
+      // HOMEボタンのみタブレット専用HOMEへ。見つからない場合は別ページへ誤誘導しない。
+      var home = doc.querySelector(".entry-buttons a.entry-btn[href*='home']");
       if (home) {
         home.href = "android_tablet_home.html";
         home.target = "_top";
       }
 
-      // TOP画面のロゴは押しても移動しない仕様。スマホ保存版本体は編集せず、
-      // タブレット表示内でロゴを含むリンクだけ無効化する。
-      var candidates = doc.querySelectorAll(
-        ".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP']"
-      );
-      candidates.forEach(function (a) {
+      // TOPのロゴはクリックしても移動しない。ロゴ画像を含むリンクだけ無効化。
+      doc.querySelectorAll(".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP'], a[aria-label='TOPへ']").forEach(function (a) {
+        var img = a.querySelector("img");
         var label = (a.getAttribute("aria-label") || "").toLowerCase();
-        var hasLogoImage = !!a.querySelector("img");
-        var isTopLabel = label === "top" || label === "topページへ";
-        if (!hasLogoImage && !isTopLabel) return;
+        var logoClass = /logo/i.test(a.className || "") || !!(img && /logo/i.test(img.className || ""));
+        var isLogo = !!img || logoClass || label.indexOf("top") === 0;
+        if (!isLogo) return;
         a.removeAttribute("href");
         a.removeAttribute("target");
         a.setAttribute("aria-disabled", "true");
@@ -49,7 +65,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
       });
     } catch (e) {}
   }
-  frame.addEventListener("load", applyLinks);
+
+  frame.addEventListener("load", applyTabletSettings);
 })();
 </script>
 </body>
