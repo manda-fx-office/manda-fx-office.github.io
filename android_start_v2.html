@@ -13,9 +13,9 @@
   var w = Number(screen.width) || Number(window.innerWidth) || 0;
   var h = Number(screen.height) || Number(window.innerHeight) || 0;
   var smallSide = Math.min(w, h);
-  var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
-  // タブレット専用の表示調整ラッパーを通す。これがCOMMUNITYを伝助ボタンへ置換する。
-  // スマホ・iPhone・PCの経路と保存版本体は変更しない。
+  // Androidタブレットは画面倍率によりCSS幅が小さく報告されることがあるため、判定しきい値を調整。
+  // Androidスマホは通常smallSideが400未満、またはMobile UAで小画面のためindex.htmlへ。
+  var isTablet = isAndroid && (!isMobileUA || smallSide >= 450);
   window.location.replace(isTablet ? "android_tablet_top.html" : "index.html");
 })();
 </script>
