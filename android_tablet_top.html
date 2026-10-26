@@ -13,32 +13,50 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 </style>
 </head>
 <body>
-<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index_TOP_スマホ正式保存版_V29.html"></iframe>
+<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index.html"></iframe>
 <script>
 (function () {
   var frame = document.getElementById("tabletTop");
 
-  function applyTabletLinks() {
+  function applyTabletSettings() {
     try {
       var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc || !doc.body) return;
+      if (!doc || !doc.head || !doc.body) return;
 
-      // 保存済みスマホ版V29の表示・ボタン・CSSは上書きしない。
-      // タブレット専用にHOMEリンク先だけ変更する。
+      var old = doc.getElementById("android-tablet-smartphone-layout");
+      if (old) old.remove();
+
+      var style = doc.createElement("style");
+      style.id = "android-tablet-smartphone-layout";
+      style.textContent = [
+        "/* Androidタブレット専用：保存版TOPのスマホ向け表示を適用 */",
+        ".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;bottom:7%!important;}",
+        ".entry-buttons .pc-only-entry-community{display:none!important;}",
+        ".entry-buttons .mobile-only-entry-densuke{display:flex!important;}",
+        ".entry-buttons .entry-btn{min-width:0!important;padding:12px 7px!important;}",
+        ".entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1px!important;}",
+        ".entry-buttons .entry-btn span{font-size:10px!important;}",
+        ".bgm-btn{left:24px!important;right:auto!important;top:12px!important;padding:8px 11px!important;font-size:11px!important;}",
+        ".entrance .presentation-ticker{width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;}",
+        ".entry-buttons .mobile-only-entry-densuke b{font-size:14px!important;letter-spacing:.5px!important;}"
+      ].join("\n");
+      doc.head.appendChild(style);
+
+      // タブレット内のHOMEリンクだけ、タブレット専用HOMEへ接続する。
       var home = doc.querySelector(".entry-buttons a.entry-btn[href^='home_']");
       if (home) {
         home.href = "android_tablet_home.html";
+        home.removeAttribute("onclick");
         home.target = "_top";
       }
 
-      // 表示設定を追加する前の旧式画面が見えないよう、リンク設定後に表示する。
       frame.classList.add("ready");
     } catch (e) {
-      // 読み込み失敗時は旧式画面を表示せず、隠したままにする。
+      // 設定適用前の旧式表示は出さない。
     }
   }
 
-  frame.addEventListener("load", applyTabletLinks);
+  frame.addEventListener("load", applyTabletSettings);
 })();
 </script>
 </body>
