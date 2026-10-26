@@ -16,61 +16,43 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 </style>
 </head>
 <body>
-<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E4%BF%9D%E5%AD%98%E7%89%88_8%E6%99%8235%E5%88%86%E5%9F%BA%E6%BA%96_4%E3%83%9C%E3%82%BF%E3%83%B3%E5%84%AA%E5%85%88_%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%95%E3%82%89%E3%81%AB%E4%B8%8A.html?v=20261027b"></iframe>
+<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E4%BF%9D%E5%AD%98%E7%89%88_8%E6%99%8235%E5%88%86%E5%9F%BA%E6%BA%96_4%E3%83%9C%E3%82%BF%E3%83%B3%E5%84%AA%E5%85%88_%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%95%E3%82%89%E3%81%AB%E4%B8%8A.html?v=20261027c"></iframe>
 <script>
 (function () {
-  var frame = document.getElementById("tabletTop");
-  function applyTabletSettings() {
-    try {
-      var doc = frame.contentDocument || frame.contentWindow.document;
-      if (!doc || !doc.head || !doc.body) return;
-      var old = doc.getElementById("android-tablet-smartphone-layout");
-      if (old) old.remove();
-      var style = doc.createElement("style");
-      style.id = "android-tablet-smartphone-layout";
-      style.textContent = [
-        "html,body{max-width:100%;}",
-        ".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;bottom:18%!important;}",
-        ".entry-buttons .entry-btn{display:block!important;min-width:0!important;padding:12px 7px!important;}",
-        ".entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1px!important;}",
-        ".entry-buttons .entry-btn span{font-size:10px!important;}",
-        ".bgm-btn{left:24px!important;right:auto!important;top:10px!important;padding:8px 12px!important;font-size:11px!important;}",
-        ".entrance .presentation-ticker{width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;}"
-      ].join("\n");
-      doc.head.appendChild(style);
-
-      // クラス名に依存せず、表示文言からCommunityボタンを探す。
-      var controls = Array.prototype.slice.call(doc.querySelectorAll("a,button,[role='button']"));
-      var community = controls.find(function (el) {
-        var label = (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
-        return /COMMUNITY|コミュニティー|コミュニティ/i.test(label);
-      });
-      if (community) {
-        community.href = "project.html";
-        community.setAttribute("href", "project.html");
-        community.target = "_top";
-        community.removeAttribute("onclick");
-        community.setAttribute("aria-label", "伝助のインジケーター");
-        community.innerHTML = "<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
-      }
-
-      var home = controls.find(function (el) {
-        var label = (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
-        return /^HOME\b/i.test(label) || /^ホームページへ/.test(label);
-      });
-      if (home) {
-        home.href = "android_tablet_home.html";
-        home.setAttribute("href", "android_tablet_home.html");
-        home.target = "_top";
-        home.removeAttribute("onclick");
-      }
-      frame.classList.add("ready");
-    } catch (e) {
-      // 失敗時は元の保存版本体を表示する。PC版・スマホ版のファイルは変更しない。
-      frame.classList.add("ready");
+ var frame=document.getElementById("tabletTop");
+ function applyTabletSettings(){
+  try{
+   var doc=frame.contentDocument||frame.contentWindow.document;
+   if(!doc||!doc.head||!doc.body)return;
+   var old=doc.getElementById("android-tablet-smartphone-layout");if(old)old.remove();
+   var style=doc.createElement("style");
+   style.id="android-tablet-smartphone-layout";
+   style.textContent=".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;bottom:18%!important}.entry-buttons .entry-btn{display:block!important;min-width:0!important;padding:12px 7px!important}.entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1px!important}.entry-buttons .entry-btn span{font-size:10px!important}.bgm-btn{left:24px!important;right:auto!important;top:10px!important;padding:8px 12px!important;font-size:11px!important}.entrance .presentation-ticker{width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important}";
+   doc.head.appendChild(style);
+   // タブレット内のHOME/COMMUNITYクリックを最優先で捕捉し、誤リンクを防止。
+   doc.addEventListener("click",function(ev){
+    var el=ev.target;
+    while(el&&el!==doc&&!(/^(A|BUTTON)$/.test(el.tagName)||el.getAttribute&&el.getAttribute("role")==="button"))el=el.parentElement;
+    if(!el||el===doc)return;
+    var label=(el.innerText||el.textContent||"").replace(/\s+/g," ").trim();
+    if(/^HOME\b/i.test(label)||/^ホームページへ/.test(label)){
+      ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+      window.top.location.href="android_tablet_home.html?v=20261027c";return;
     }
-  }
-  frame.addEventListener("load", applyTabletSettings);
+    if(/COMMUNITY|コミュニティー|コミュニティ/i.test(label)){
+      ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+      window.top.location.href="project.html?v=20261027c";return;
+    }
+   },true);
+   var controls=Array.prototype.slice.call(doc.querySelectorAll("a,button,[role='button']"));
+   var community=controls.find(function(el){return /COMMUNITY|コミュニティー|コミュニティ/i.test((el.innerText||el.textContent||"").replace(/\s+/g," ").trim())});
+   if(community){community.href="project.html?v=20261027c";community.target="_top";community.removeAttribute("onclick");community.setAttribute("aria-label","伝助のインジケーター");community.innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";}
+   var home=controls.find(function(el){var t=(el.innerText||el.textContent||"").replace(/\s+/g," ").trim();return /^HOME\b/i.test(t)||/^ホームページへ/.test(t)});
+   if(home){home.href="android_tablet_home.html?v=20261027c";home.target="_top";home.removeAttribute("onclick");}
+   frame.classList.add("ready");
+  }catch(e){frame.classList.add("ready");}
+ }
+ frame.addEventListener("load",applyTabletSettings);
 })();
 </script>
 </body>
