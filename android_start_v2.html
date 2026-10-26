@@ -15,15 +15,16 @@
   var smallSide = Math.min(w, h);
   var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
 
-  // AndroidタブレットだけAndroidスマホ保存版TOPへ直接進む。Androidスマホと他端末は従来の index.html。
-  // スマホ保存版HTML本体とPC版は変更しない。
-  var target = isTablet ? "android_tablet_start.html" : "index.html";
+  // Androidタブレットはタブレット用ラッパーへ。Androidスマホは保存版V29へ直接進む。
+  // 端末判定がタブレットをスマホと誤認しても、旧式 index.html には進ませない。
+  // 保存版V29本体・PC版は変更しない。
+  var target = isTablet ? "android_tablet_start.html" : "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29.html";
   window.location.replace(target);
 })();
 </script>
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="index.html">TOPページを開く</a></p>
+<p><a href="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29.html">保存版TOPを開く</a></p>
 </body>
 </html>
