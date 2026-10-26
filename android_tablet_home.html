@@ -28,16 +28,13 @@ html,body{margin:0;width:100%;min-height:100%;overflow:auto;background:#000}
     "/* Androidタブレット専用の表示補正。保存版HOME本体・スマホ版・PC版は変更しない */",
     ".mobile-taskbar{display:flex!important;position:fixed!important;top:0!important;left:0!important;right:0!important;height:72px!important;z-index:999999!important;background:rgba(4,4,4,.97)!important;border-bottom:1px solid #292d31!important;align-items:center!important;justify-content:flex-start!important;padding:0 24px!important;box-sizing:border-box!important;}",
     ".mobile-taskbar a{display:flex!important;align-items:center!important;height:100%!important;width:auto!important;max-width:100%!important;overflow:visible!important;text-decoration:none!important;}",
-    ".mobile-taskbar img{display:block!important;width:255px!important;height:auto!important;max-width:70vw!important;max-height:68px!important;object-fit:contain!important;object-position:left center!important;}",
+    ".mobile-taskbar img{display:block!important;width:auto!important;height:54px!important;max-width:230px!important;max-height:54px!important;object-fit:contain!important;object-position:left center!important;}",
     ".topbar{display:none!important;}",
     "body{padding-top:72px!important;}",
     "html{scroll-padding-top:84px!important;}"
    ].join("\n");
    doc.head.appendChild(style);
-   /* タスクバーには中央の大型ロゴではなく、HOMEヘッダーの通常ロゴ画像を使う */
-   var normalLogo=doc.querySelector(".topbar img.logo");
-   var taskbarLogo=doc.querySelector(".mobile-taskbar img");
-   if(normalLogo&&taskbarLogo)taskbarLogo.src=normalLogo.src;
+   /* タスクバーロゴは保存版HOMEに埋め込まれた基準画像をそのまま使用する */
    doc.querySelectorAll(".mobile-taskbar a,.topbar a,a[aria-label='TOPページへ'],a[aria-label='TOP']").forEach(function(a){
     a.href="android_tablet_top.html";
     a.target="_top";
