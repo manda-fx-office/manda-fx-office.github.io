@@ -19,9 +19,8 @@
   var smallSide = Math.min(w, h);
   var isTablet = isAndroid && (!isMobileUA || /Tablet/i.test(ua) || smallSide >= 450);
 
-  // Androidタブレットは登録済みの保存版TOPへ直接移動する。
-  // Androidスマホ・iPhone・PCの起動先は変更しない。
-  var tabletTarget = "android_tablet_top_%E4%BF%9D%E5%AD%98%E7%89%88_20261026.html?v=20261028_restore_verified_tablet";
+  // タブレット専用の再構築TOPへ。スマホ・iPhone・PCの既存ページは変更しない。
+  var tabletTarget = "android_tablet_top_rebuild_20261028.html?v=20261028_rebuild1";
   var target = isTablet ? tabletTarget : "index.html";
   window.location.replace(target);
 })();
