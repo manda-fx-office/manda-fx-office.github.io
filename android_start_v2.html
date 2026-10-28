@@ -14,9 +14,8 @@
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua);
 
-  // Android端末はPC版 index.html へ分岐させず、確認済みスマホ保存版TOPへ直接誘導する。
-  // PC・iPhoneの既存起動経路は変更しない。
-  var androidTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E4%BF%9D%E5%AD%98%E7%89%88_8%E6%99%8235%E5%88%86%E5%9F%BA%E6%BA%96_4%E3%83%9C%E3%82%BF%E3%83%B3%E5%84%AA%E5%85%88_%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%95%E3%82%89%E3%81%AB%E4%B8%8A.html?v=20261028_methodA";
+  // Android端末は保存済みのAndroid専用TOPへ誘導。PC/iPhoneの経路は維持。
+  var androidTarget = "android_tablet_top_%E6%AD%A3%E5%B8%B8%E8%B5%B7%E5%8B%95%E4%BF%9D%E5%AD%98%E7%89%88_20261028.html?v=20261028_saved_baseline";
   var target = isAndroid ? androidTarget : "index.html";
   window.location.replace(target);
 })();
