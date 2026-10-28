@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>TRANSITION SYSTEM - Android Tablet TOP Rebuild</title>
+<title>TRANSITION SYSTEM - Android Tablet TOP</title>
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 #tabletTop{display:block;width:100%;height:100%;border:0;background:#000;visibility:hidden}
@@ -16,7 +16,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 </style>
 </head>
 <body>
-<iframe id="tabletTop" title="TRANSITION SYSTEM Android Tablet TOP" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=20261028_tablet_rebuild_1"></iframe>
+<iframe id="tabletTop" title="TRANSITION SYSTEM Android Tablet TOP" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E4%BF%9D%E5%AD%98%E7%89%88_8%E6%99%8235%E5%88%86%E5%9F%BA%E6%BA%96_4%E3%83%9C%E3%82%BF%E3%83%B3%E5%84%AA%E5%85%88_%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%95%E3%82%89%E3%81%AB%E4%B8%8A.html?v=20261028_tablet_sourcefix2"></iframe>
 <script>
 (function () {
   var frame = document.getElementById("tabletTop");
@@ -29,7 +29,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
       var style = doc.createElement("style");
       style.id = "android-tablet-rebuild-layout";
       style.textContent = [
-        "/* タブレット専用表示調整。PC版・スマホ保存版の原本は変更しない */",
+        "/* Androidタブレット専用調整。PC版とスマホ保存版の原本は変更しない */",
         "html,body{width:100%;min-height:100%;}",
         ".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;bottom:18%!important;}",
         ".entry-buttons .entry-btn{display:block!important;min-width:0!important;padding:12px 7px!important;}",
@@ -39,9 +39,21 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
         ".entrance .presentation-ticker{width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;}"
       ].join("\n");
       doc.head.appendChild(style);
+      var links = Array.prototype.slice.call(doc.querySelectorAll(".entry-buttons a, .entry-buttons button"));
+      var community = links.find(function (el) {
+        var label = (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
+        return /^COMMUNITY\b/i.test(label) || /^コミュニティ/.test(label);
+      });
+      if (community) {
+        community.href = "project.html";
+        community.target = "_top";
+        community.removeAttribute("onclick");
+        community.setAttribute("aria-label", "伝助のインジケーター");
+        community.innerHTML = "<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
+      }
       frame.classList.add("ready");
     } catch (e) {
-      // iframeの読み込み完了前には公開しない
+      // 読み込み途中の画面は表示せず、次回のloadで再試行する
     }
   }
   frame.addEventListener("load", applyTabletSettings);
