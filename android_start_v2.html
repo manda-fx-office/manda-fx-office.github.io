@@ -17,11 +17,11 @@
   var w = Number(screen.width) || Number(window.innerWidth) || 0;
   var h = Number(screen.height) || Number(window.innerHeight) || 0;
   var smallSide = Math.min(w, h);
-  // Androidタブレット専用経路は現状維持。AndroidスマホだけV29ロゴ修正版へ戻す。
-  // iPhone保存版とPC版の起動先は変更しない。
+  // Androidタブレット経路は変更せず、Androidスマホは直近の保存バックアップを優先。
+  // iPhone保存版とPC版は変更しない。
   var isTablet = isAndroid && (!isMobileUA || /Tablet/i.test(ua) || smallSide >= 600);
   var tabletTarget = "android_tablet_top_%E6%AD%A3%E5%B8%B8%E8%B5%B7%E5%8B%95%E4%BF%9D%E5%AD%98%E7%89%88_20261028.html?v=20261028_saved_baseline";
-  var phoneTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=20261028_restore_v29_logo";
+  var phoneTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%B8%B8%E8%B5%B7%E5%8B%95%E7%89%88_%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%82%AF_20261028.html?v=20261028_backup_restore";
   var target = isTablet ? tabletTarget : (isAndroid ? phoneTarget : "index.html");
   window.location.replace(target);
 })();
@@ -29,6 +29,6 @@
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html">Androidスマホ保存版V29を開く</a></p>
+<p><a href="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%B8%B8%E8%B5%B7%E5%8B%95%E7%89%88_%E3%83%90%E3%83%83%E3%82%AF%E3%82%A2%E3%83%83%E3%82%AF_20261028.html">直近のAndroidスマホ保存バックアップを開く</a></p>
 </body>
 </html>
