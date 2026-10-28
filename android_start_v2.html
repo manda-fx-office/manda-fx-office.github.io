@@ -13,15 +13,11 @@
 (function () {
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua);
-  var isMobileUA = /Mobile/i.test(ua);
-  var w = Number(screen.width) || Number(window.innerWidth) || 0;
-  var h = Number(screen.height) || Number(window.innerHeight) || 0;
-  var smallSide = Math.min(w, h);
-  var isTablet = isAndroid && (!isMobileUA || /Tablet/i.test(ua) || smallSide >= 450);
 
-  // タブレット専用の再構築TOPへ。スマホ・iPhone・PCの既存ページは変更しない。
-  var tabletTarget = "android_tablet_top_rebuild_20261028.html?v=20261028_rebuild1";
-  var target = isTablet ? tabletTarget : "index.html";
+  // Android端末はPC版 index.html へ分岐させず、確認済みスマホ保存版TOPへ直接誘導する。
+  // PC・iPhoneの既存起動経路は変更しない。
+  var androidTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E4%BF%9D%E5%AD%98%E7%89%88_8%E6%99%8235%E5%88%86%E5%9F%BA%E6%BA%96_4%E3%83%9C%E3%82%BF%E3%83%B3%E5%84%AA%E5%85%88_%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%95%E3%82%89%E3%81%AB%E4%B8%8A.html?v=20261028_methodA";
+  var target = isAndroid ? androidTarget : "index.html";
   window.location.replace(target);
 })();
 </script>
