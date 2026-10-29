@@ -8,39 +8,13 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>TRANSITION SYSTEM - Android Tablet V29 Controls Test</title>
+<title>TRANSITION SYSTEM - Android Tablet V29 Startup Baseline</title>
 <style>
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+html,body{margin:0;width:100%;height:100%;background:#000}
 #tabletTop{display:block;width:100%;height:100vh;height:100dvh;border:0;background:#000}
 </style>
 </head>
 <body>
-<iframe id="tabletTop" title="TRANSITION SYSTEM Android Tablet V29" allow="autoplay; fullscreen"></iframe>
-<script>
-(function(){
-  var frame=document.getElementById("tabletTop");
-  function applyTabletLayout(){
-    try{
-      var doc=frame.contentDocument||frame.contentWindow.document;
-      if(!doc||!doc.head||!doc.body)return;
-      var style=doc.getElementById("tablet-v29-controls-test");
-      if(!style){style=doc.createElement("style");style.id="tablet-v29-controls-test";doc.head.appendChild(style);}
-      style.textContent=[
-        "/* Tablet test only: preserve V29 smartphone controls; hide surrounding community content, not their parent. */",
-        ".community-preview{display:block!important;position:fixed!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;background:transparent!important;z-index:10!important;}",
-        ".community-preview-title,.community-window,.community-more{display:none!important;}",
-        ".smartphone-top-controls{display:grid!important;visibility:visible!important;opacity:1!important;position:fixed!important;left:50%!important;right:auto!important;top:auto!important;bottom:7%!important;transform:translateX(-50%)!important;width:calc(100% - 48px)!important;max-width:760px!important;height:auto!important;margin:0!important;padding:0!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;z-index:99999!important;}",
-        ".smartphone-top-controls .entry-btn{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;min-width:0!important;width:auto!important;min-height:66px!important;margin:0!important;padding:12px 8px!important;box-sizing:border-box!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;}",
-        ".smartphone-top-controls .entry-btn b{display:block!important;font-size:clamp(16px,2.2vw,22px)!important;letter-spacing:1px!important;line-height:1.2!important;}",
-        ".smartphone-top-controls .entry-btn span{display:block!important;font-size:12px!important;line-height:1.25!important;margin-top:4px!important;}",
-        ".smartphone-top-controls .entry-btn:nth-child(2) b{font-size:clamp(13px,1.8vw,18px)!important;letter-spacing:0!important;}",
-        ".entry-buttons,.site-purpose,.qr-access{display:none!important;}"
-      ].join("\n");
-    }catch(e){}
-  }
-  frame.addEventListener("load",applyTabletLayout);
-  frame.src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_controls_test_20261029g";
-})();
-</script>
+<iframe id="tabletTop" title="TRANSITION SYSTEM Android Tablet V29" allow="autoplay; fullscreen" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_startup_baseline_20261029h"></iframe>
 </body>
 </html>
