@@ -10,14 +10,14 @@
 <meta http-equiv="Expires" content="0">
 <title>TRANSITION SYSTEM - Android Tablet TOP V29 Test</title>
 <style>
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
-#tabletTop{display:block;width:100%;height:100dvh;min-height:100%;border:0;background:#000;visibility:hidden;overflow:hidden}
+html,body{margin:0;width:100%;height:100%;overflow:auto;background:#000}
+#tabletTop{display:block;width:100%;min-height:100%;height:100vh;border:0;background:#000;visibility:hidden}
 #tabletTop.ready{visibility:visible}
 </style>
 </head>
 <body>
 <iframe id="tabletTop" title="TRANSITION SYSTEM Android Tablet TOP"
- src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_test_20261029b"></iframe>
+ src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_test_20261029"></iframe>
 <script>
 (function () {
   var frame = document.getElementById("tabletTop");
@@ -30,31 +30,25 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
       var style = doc.createElement("style");
       style.id = "android-tablet-v29-test-layout";
       style.textContent = [
-        "/* Tablet-only test layout: smartphone V29, iPhone and PC originals stay untouched */",
-        "html,body{margin:0!important;width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important;background:#000!important;}",
-        "body{position:relative!important;}",
-        ".site-header{position:absolute!important;top:0!important;left:0!important;width:100%!important;height:58px!important;padding:0 18px!important;}",
-        ".site-header-logo{width:165px!important;max-width:45vw!important;}",
-        ".entrance{position:absolute!important;top:58px!important;left:0!important;width:100%!important;height:calc(100% - 58px)!important;min-height:0!important;overflow:hidden!important;}",
-        ".entrance img.hero-logo{position:absolute!important;top:7%!important;left:50%!important;transform:translateX(-50%)!important;width:min(52vw,390px)!important;max-width:390px!important;height:auto!important;}",
-        ".entrance:after{pointer-events:none!important;}",
-        ".entry-buttons,.site-purpose,.community-preview,.community-more{display:none!important;}",
-        ".smartphone-top-controls{position:absolute!important;left:50%!important;bottom:96px!important;transform:translateX(-50%)!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 40px)!important;max-width:760px!important;margin:0!important;z-index:20!important;}",
-        ".smartphone-top-controls .entry-btn{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:0!important;width:auto!important;min-height:58px!important;padding:10px 6px!important;box-sizing:border-box!important;}",
-        ".smartphone-top-controls .entry-btn b{font-size:clamp(14px,2.2vw,20px)!important;letter-spacing:.5px!important;line-height:1.2!important;}",
-        ".smartphone-top-controls .entry-btn span{font-size:11px!important;line-height:1.2!important;margin-top:4px!important;}",
-        ".smartphone-top-controls .entry-btn:nth-child(2) b{font-size:clamp(12px,1.9vw,17px)!important;letter-spacing:0!important;}",
-        ".qr-access{display:none!important;}",
-        ".presentation-ticker{position:absolute!important;left:50%!important;bottom:16px!important;transform:translateX(-50%)!important;width:calc(100% - 40px)!important;max-width:760px!important;margin:0!important;z-index:15!important;}",
-        ".bgm-btn{position:absolute!important;top:8px!important;right:12px!important;left:auto!important;z-index:30!important;}",
-        "audio{display:none!important;}"
+        "/* Tablet test only: do not change V29 source, phone, iPhone, or PC files */",
+        "html,body{width:100%;min-height:100%;}",
+        ".smartphone-top-controls{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:calc(100% - 40px)!important;max-width:900px!important;margin:24px auto!important;}",
+        ".smartphone-top-controls .entry-btn{display:block!important;width:auto!important;min-width:0!important;box-sizing:border-box!important;padding:16px 10px!important;}",
+        ".smartphone-top-controls .entry-btn b{font-size:18px!important;letter-spacing:1px!important;}",
+        ".smartphone-top-controls .entry-btn span{font-size:12px!important;}",
+        ".smartphone-top-controls .entry-btn:nth-child(2) b{font-size:16px!important;letter-spacing:.3px!important;}",
+        ".entry-buttons{display:none!important;}",
+        ".entrance img.hero-logo{max-width:460px!important;}",
+        ".qr-access.qr-desktop{display:block!important;margin:24px auto!important;max-width:900px!important;}",
+        ".qr-access.qr-desktop .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:360px!important;margin:0 auto!important;}",
+        ".qr-access.qr-desktop .qr-card{max-width:170px!important;width:100%!important;}",
+        ".qr-access.qr-desktop .qr-card img{width:100%!important;height:auto!important;}"
       ].join("\n");
       doc.head.appendChild(style);
-      doc.documentElement.style.height = "100%";
-      doc.body.style.height = "100%";
+      frame.style.height = Math.max(doc.documentElement.scrollHeight || 0, doc.body.scrollHeight || 0, window.innerHeight) + "px";
       frame.classList.add("ready");
     } catch (e) {
-      /* Retry on iframe load if the document is not ready yet. */
+      /* If page is still loading, the load event will retry. */
     }
   }
   frame.addEventListener("load", applyTabletSettings);
