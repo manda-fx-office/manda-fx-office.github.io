@@ -45,12 +45,12 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     '.smartphone-top-controls .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1px!important;}',
     '.smartphone-top-controls .entry-btn span{display:block!important;font-size:13px!important;}',
     /* Match the saved reference: two white QR cards, paired, compact and legible. */
-    '.qr-access.qr-desktop{display:block!important;width:min(760px,calc(100% - 36px))!important;max-width:760px!important;margin:28px auto 22px!important;padding:22px 18px 26px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;}',
-    '.qr-access.qr-desktop .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;width:min(560px,100%)!important;max-width:560px!important;margin:0 auto!important;}',
-    '.qr-access.qr-desktop .qr-card{display:block!important;width:auto!important;max-width:none!important;min-width:0!important;padding:12px 12px 14px!important;margin:0!important;background:#f7f7f7!important;color:#111!important;border-radius:10px!important;box-sizing:border-box!important;}',
-    '.qr-access.qr-desktop .qr-card img{display:block!important;width:100%!important;max-width:220px!important;height:auto!important;margin:0 auto 10px!important;}',
-    '.qr-access.qr-desktop .qr-label{font-size:16px!important;letter-spacing:2px!important;color:#111!important;}',
-    '.qr-access.qr-desktop .qr-sub{font-size:11px!important;color:#555!important;}',
+    '.qr-access.qr-page-bottom{display:block!important;width:min(760px,calc(100% - 36px))!important;max-width:760px!important;margin:28px auto 22px!important;padding:22px 18px 26px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;}',
+    '.qr-access.qr-page-bottom .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;width:min(560px,100%)!important;max-width:560px!important;margin:0 auto!important;}',
+    '.qr-access.qr-page-bottom .qr-card{display:block!important;width:auto!important;max-width:none!important;min-width:0!important;padding:12px 12px 14px!important;margin:0!important;background:#f7f7f7!important;color:#111!important;border-radius:10px!important;box-sizing:border-box!important;}',
+    '.qr-access.qr-page-bottom .qr-card img{display:block!important;width:100%!important;max-width:220px!important;height:auto!important;margin:0 auto 10px!important;}',
+    '.qr-access.qr-page-bottom .qr-label{font-size:16px!important;letter-spacing:2px!important;color:#111!important;}',
+    '.qr-access.qr-page-bottom .qr-sub{font-size:11px!important;color:#555!important;}',
     '.bgm-credit{position:relative!important;margin:14px auto 24px!important;}',
     'img{max-width:100%;}'
    ].join('\n');
@@ -73,7 +73,7 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
        node.style.setProperty('display','block','important');
        node.style.setProperty('visibility','visible','important');
        node.style.setProperty('opacity','1','important');
-       if(node.classList && (node.classList.contains('qr-access') || node.classList.contains('qr-desktop')))break;
+       if(node.classList && (node.classList.contains('qr-access') || node.classList.contains('qr-page-bottom')))break;
       }
      }
     }
