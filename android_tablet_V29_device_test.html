@@ -61,6 +61,26 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     upper[1].innerHTML='<b>伝助のインジケーター</b><span>伝助のインジケーター</span>';
     upper[1].setAttribute('aria-label','伝助のインジケーター');
    }
+   // QR reference screen: reveal existing PC URL/copy and TOP-return elements
+   // when present in the saved source; do not create replacement links or QR images.
+   function revealExistingByText(needle){
+    var all=doc.body.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+     var el=all[i];
+     if(el.children.length===0 && (el.textContent||'').replace(/\\s+/g,' ').trim().indexOf(needle)!==-1){
+      var node=el;
+      for(var depth=0;node&&depth<7;depth++,node=node.parentElement){
+       node.style.setProperty('display','block','important');
+       node.style.setProperty('visibility','visible','important');
+       node.style.setProperty('opacity','1','important');
+       if(node.classList && (node.classList.contains('qr-access') || node.classList.contains('qr-desktop')))break;
+      }
+     }
+    }
+   }
+   revealExistingByText('PC版アクセスURL');
+   revealExistingByText('URLをコピー');
+   revealExistingByText('TOPページに戻る');
    function revealAndSize(){
     doc.documentElement.style.setProperty('height','auto','important');
     doc.body.style.setProperty('height','auto','important');
