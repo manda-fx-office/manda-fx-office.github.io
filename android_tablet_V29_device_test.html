@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000000">
-<title>TRANSITION SYSTEM - Android Tablet V29 Full Page Test</title>
+<title>TRANSITION SYSTEM - Android Tablet V29 Final Layout Test</title>
 <style>
 html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;overflow-y:auto}
-#v29{display:block;width:100%;height:9000px;border:0;background:#000}
+#v29{display:block;width:100%;height:100vh;border:0;background:#000;visibility:hidden}
 </style>
 </head>
 <body>
-<iframe id="v29" title="TRANSITION SYSTEM V29" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_full_page_test_20261030"></iframe>
+<iframe id="v29" title="TRANSITION SYSTEM V29" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_no_flash_no_blank_20261030"></iframe>
 <script>
 (function(){
  var frame=document.getElementById('v29');
@@ -21,9 +21,9 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
    var doc=frame.contentDocument;
    if(!doc||!doc.head||!doc.body)return;
    var style=doc.createElement('style');
-   style.id='tablet-v29-fullpage-flow';
+   style.id='tablet-v29-final-flow';
    style.textContent=[
-    '/* Tablet test only: natural document flow, both button groups retained. */',
+    '/* Tablet-only test. Preserve V29 content and both button groups. */',
     'html,body{height:auto!important;min-height:0!important;overflow-x:hidden!important;overflow-y:visible!important;}',
     '.site-header{height:110px!important;padding:0 24px!important;}',
     '.site-header-logo{width:min(230px,30vw)!important;height:auto!important;}',
@@ -44,27 +44,39 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     '.smartphone-top-controls .entry-btn{display:block!important;position:relative!important;min-width:0!important;width:auto!important;box-sizing:border-box!important;padding:16px 12px!important;text-align:center!important;}',
     '.smartphone-top-controls .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1px!important;}',
     '.smartphone-top-controls .entry-btn span{display:block!important;font-size:13px!important;}',
-    '.qr-access.qr-desktop{display:block!important;max-width:760px!important;margin:28px auto 10px!important;}',
+    /* Match the saved reference: two white QR cards, paired, compact and legible. */
+    '.qr-access.qr-desktop{display:block!important;width:min(760px,calc(100% - 36px))!important;max-width:760px!important;margin:28px auto 22px!important;padding:22px 18px 26px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;}',
+    '.qr-access.qr-desktop .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;width:min(560px,100%)!important;max-width:560px!important;margin:0 auto!important;}',
+    '.qr-access.qr-desktop .qr-card{display:block!important;width:auto!important;max-width:none!important;min-width:0!important;padding:12px 12px 14px!important;margin:0!important;background:#f7f7f7!important;color:#111!important;border-radius:10px!important;box-sizing:border-box!important;}',
+    '.qr-access.qr-desktop .qr-card img{display:block!important;width:100%!important;max-width:220px!important;height:auto!important;margin:0 auto 10px!important;}',
+    '.qr-access.qr-desktop .qr-label{font-size:16px!important;letter-spacing:2px!important;color:#111!important;}',
+    '.qr-access.qr-desktop .qr-sub{font-size:11px!important;color:#555!important;}',
+    '.bgm-credit{position:relative!important;margin:14px auto 24px!important;}',
     'img{max-width:100%;}'
    ].join('\n');
    doc.head.appendChild(style);
-   // The reference screenshot has Densuke, not COMMUNITY, in the upper second button.
    var upper=doc.querySelectorAll('.entrance .entry-buttons a');
    if(upper.length>=2){
     upper[1].href='project.html';
     upper[1].innerHTML='<b>伝助のインジケーター</b><span>伝助のインジケーター</span>';
     upper[1].setAttribute('aria-label','伝助のインジケーター');
    }
-   // Let the outer page scroll naturally; calculate the inner content height once,
-   // after layout, without a ResizeObserver loop.
-   function sizeFrame(){
+   function revealAndSize(){
+    doc.documentElement.style.setProperty('height','auto','important');
+    doc.body.style.setProperty('height','auto','important');
+    doc.documentElement.style.setProperty('min-height','0','important');
+    doc.body.style.setProperty('min-height','0','important');
     var h=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight);
-    if(h>0)frame.style.height=(Math.ceil(h)+24)+'px';
+    if(h>0){
+     frame.style.height=(Math.ceil(h)+2)+'px';
+     frame.style.visibility='visible';
+    }
    }
-   setTimeout(sizeFrame,250);
-   setTimeout(sizeFrame,1000);
+   requestAnimationFrame(function(){requestAnimationFrame(revealAndSize);});
+   setTimeout(revealAndSize,350);
+   setTimeout(revealAndSize,1200);
    Array.prototype.forEach.call(doc.images,function(img){
-    if(!img.complete)img.addEventListener('load',sizeFrame,{once:true});
+    if(!img.complete)img.addEventListener('load',revealAndSize,{once:true});
    });
   }catch(e){}
  });
