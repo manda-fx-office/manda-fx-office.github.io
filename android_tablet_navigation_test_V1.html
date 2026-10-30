@@ -28,6 +28,22 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     navFix.textContent = "(function(){document.addEventListener('click',function(ev){var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;if(!a)return;var raw=a.getAttribute('href')||'';if(!raw)return;var u;try{u=new URL(raw,document.baseURI)}catch(e){return}if(u.origin!==location.origin)return;if(u.pathname==='/'||/\\/index\\.html$/i.test(u.pathname)){ev.preventDefault();ev.stopPropagation();window.top.location.href='/android_tablet_start_saved_V1.html';}},true);})();";
     doc.head.appendChild(navFix);
    }
+   // Destination pages are displayed as full-height content inside the same tablet wrapper.
+   // Do not run the V29-only layout/QR transformation on those destination pages.
+   if(!doc.querySelector('.entrance')){
+    doc.documentElement.style.setProperty('height','auto','important');
+    doc.body.style.setProperty('height','auto','important');
+    doc.documentElement.style.setProperty('overflow','visible','important');
+    doc.body.style.setProperty('overflow','visible','important');
+    function sizeDestination(){
+     var h=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight);
+     if(h>0){frame.style.height=(Math.ceil(h)+2)+'px';frame.style.visibility='visible';}
+    }
+    requestAnimationFrame(function(){requestAnimationFrame(sizeDestination);});
+    setTimeout(sizeDestination,500);
+    Array.prototype.forEach.call(doc.images,function(img){if(!img.complete)img.addEventListener('load',sizeDestination,{once:true});});
+    return;
+   }
    var style=doc.createElement('style');
    style.id='tablet-v29-final-flow';
    style.textContent=[
