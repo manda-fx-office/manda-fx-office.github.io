@@ -8,18 +8,18 @@
 <title>TRANSITION SYSTEM - Android Tablet V29 Final Layout Test</title>
 <style>
 html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;overflow-y:auto}
-#v29{display:block;width:100%;height:100vh;min-height:100vh;border:0;background:#000;visibility:visible}
+#v29{display:block;width:100%;height:100vh;min-height:100vh;border:0;background:#000;visibility:hidden}
 </style>
 </head>
 <body>
-<iframe id="v29" title="TRANSITION SYSTEM V29" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_no_flash_no_blank_20261030"></iframe>
+<iframe id="v29" title="TRANSITION SYSTEM V29" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_v29_qr_reference_noflash_20261030"></iframe>
 <script>
 (function(){
  var frame=document.getElementById('v29');
  frame.addEventListener('load',function(){
   try{
    var doc=frame.contentDocument;
-   if(!doc||!doc.head||!doc.body)return;
+   if(!doc||!doc.head||!doc.body){frame.style.visibility='visible';return;}
    var style=doc.createElement('style');
    style.id='tablet-v29-final-flow';
    style.textContent=[
@@ -45,12 +45,20 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     '.smartphone-top-controls .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1px!important;}',
     '.smartphone-top-controls .entry-btn span{display:block!important;font-size:13px!important;}',
     /* Match the saved reference: two white QR cards, paired, compact and legible. */
-    '.qr-access.qr-page-bottom{display:block!important;width:min(760px,calc(100% - 36px))!important;max-width:760px!important;margin:28px auto 22px!important;padding:22px 18px 26px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;}',
-    '.qr-access.qr-page-bottom .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;width:min(560px,100%)!important;max-width:560px!important;margin:0 auto!important;}',
+    '.qr-access.qr-page-bottom{display:block!important;width:min(760px,calc(100% - 36px))!important;max-width:760px!important;margin:34px auto 28px!important;padding:22px 18px 26px!important;border:1px solid #34383c!important;border-radius:12px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;box-shadow:0 10px 30px #0008!important;text-align:center!important;}',
+    '.qr-access.qr-page-bottom .qr-access-title{font-size:clamp(22px,2.4vw,30px)!important;letter-spacing:2px!important;margin:0 0 8px!important;color:#f0f0f0!important;}',
+    '.qr-access.qr-page-bottom .qr-access-subtitle{font-size:clamp(20px,2vw,25px)!important;letter-spacing:2px!important;margin:0 0 8px!important;color:#e8e9ea!important;}',
+    '.qr-access.qr-page-bottom .qr-access-note{font-size:13px!important;line-height:1.5!important;color:#9aa0a5!important;margin:0 0 18px!important;}',
+    '.qr-access.qr-page-bottom .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(560px,100%)!important;max-width:560px!important;margin:0 auto!important;}',
     '.qr-access.qr-page-bottom .qr-card{display:block!important;width:auto!important;max-width:none!important;min-width:0!important;padding:12px 12px 14px!important;margin:0!important;background:#f7f7f7!important;color:#111!important;border-radius:10px!important;box-sizing:border-box!important;}',
-    '.qr-access.qr-page-bottom .qr-card img{display:block!important;width:100%!important;max-width:220px!important;height:auto!important;margin:0 auto 10px!important;}',
+    '.qr-access.qr-page-bottom .qr-card img{display:block!important;width:76%!important;max-width:190px!important;height:auto!important;margin:0 auto 10px!important;}',
     '.qr-access.qr-page-bottom .qr-label{font-size:16px!important;letter-spacing:2px!important;color:#111!important;}',
     '.qr-access.qr-page-bottom .qr-sub{font-size:11px!important;color:#555!important;}',
+    '.qr-access.qr-page-bottom .qr-pc-url{margin-top:26px!important;}',
+    '.qr-access.qr-page-bottom .qr-pc-url-title{font-size:clamp(20px,2vw,24px)!important;letter-spacing:2px!important;margin:24px 0 10px!important;color:#eee!important;}',
+    '.qr-access.qr-page-bottom .qr-pc-url-box{border:2px solid #697078!important;border-radius:12px!important;background:#050505!important;padding:16px 10px!important;font-size:clamp(16px,1.8vw,20px)!important;overflow-wrap:anywhere!important;color:#eee!important;}',
+    '.qr-access.qr-page-bottom .qr-copy-btn,.qr-access.qr-page-bottom .qr-top-return a{display:inline-block!important;margin-top:14px!important;padding:12px 28px!important;border:1px solid #899098!important;border-radius:12px!important;background:linear-gradient(#4a5156,#171a1d)!important;color:#fff!important;font-size:18px!important;text-decoration:none!important;}',
+    '.qr-access.qr-page-bottom .qr-top-return{margin-top:28px!important;}',
     '.bgm-credit{position:relative!important;margin:14px auto 24px!important;}',
     'img{max-width:100%;}'
    ].join('\n');
@@ -61,26 +69,18 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     upper[1].innerHTML='<b>伝助のインジケーター</b><span>伝助のインジケーター</span>';
     upper[1].setAttribute('aria-label','伝助のインジケーター');
    }
-   // QR reference screen: reveal existing PC URL/copy and TOP-return elements
-   // when present in the saved source; do not create replacement links or QR images.
-   function revealExistingByText(needle){
-    var all=doc.body.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-     var el=all[i];
-     if(el.children.length===0 && (el.textContent||'').replace(/\\s+/g,' ').trim().indexOf(needle)!==-1){
-      var node=el;
-      for(var depth=0;node&&depth<7;depth++,node=node.parentElement){
-       node.style.setProperty('display','block','important');
-       node.style.setProperty('visibility','visible','important');
-       node.style.setProperty('opacity','1','important');
-       if(node.classList && (node.classList.contains('qr-access') || node.classList.contains('qr-page-bottom')))break;
-      }
-     }
-    }
-   }
-   revealExistingByText('PC版アクセスURL');
-   revealExistingByText('URLをコピー');
-   revealExistingByText('TOPページに戻る');
+   // Replace V29's QR-only block with the approved Management Q&A structure.
+   var oldQr=doc.querySelector('.qr-access.qr-desktop');
+   if(!oldQr)throw new Error('V29 QR section not found');
+   var cards=oldQr.querySelectorAll('.qr-card');
+   if(cards.length!==2)throw new Error('Expected two QR cards');
+   var qr=doc.createElement('section');
+   qr.className='qr-access qr-page-bottom';
+   qr.setAttribute('aria-label','スマートフォンでアクセス');
+   qr.innerHTML='<div class="qr-access-title">時間を共有しませんか</div><div class="qr-access-subtitle">スマートフォンでアクセス</div><div class="qr-access-note">QRコードを読み取ると、TRANSITION SYSTEM TOPページが開きます。</div><div class="qr-grid"></div><div class="qr-pc-url"><div class="qr-pc-url-title">PC版アクセスURL</div><div class="qr-pc-url-box">https://manda-fx-office.github.io/</div><button type="button" class="qr-copy-btn" onclick="(function(){var u=\'https://manda-fx-office.github.io/\';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(function(){alert(\'URLをコピーしました。\')}).catch(function(){window.prompt(\'URLをコピーしてください\',u)})}else{window.prompt(\'URLをコピーしてください\',u)}})()">URLをコピー</button></div><div class="qr-top-return"><a href="https://manda-fx-office.github.io/">⌂ TOPページに戻る</a></div>';
+   var grid=qr.querySelector('.qr-grid');
+   for(var qi=0;qi<cards.length;qi++)grid.appendChild(cards[qi].cloneNode(true));
+   oldQr.replaceWith(qr);
    function revealAndSize(){
     doc.documentElement.style.setProperty('height','auto','important');
     doc.body.style.setProperty('height','auto','important');
