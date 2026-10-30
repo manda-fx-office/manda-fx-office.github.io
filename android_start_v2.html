@@ -20,7 +20,7 @@
   // タブレット経路は維持。Androidスマホは保存済みV29ロゴ修正版へ戻す。
   // iPhone保存版とPC版は変更しない。
   var isTablet = isAndroid && (!isMobileUA || /Tablet/i.test(ua) || smallSide >= 600);
-  var tabletTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_direct_v29_20261030";
+  var tabletTarget = "android_tablet_start_saved_V1.html?v=tablet_saved_V1_20261030";
   var phoneTarget = "index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=20261029_force_fresh_v29_densuke_2";
   var target = isTablet ? tabletTarget : (isAndroid ? phoneTarget : "index.html");
   window.location.replace(target);
