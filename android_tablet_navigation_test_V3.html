@@ -35,6 +35,14 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
    }
    // Destination pages are displayed as full-height content inside the same tablet wrapper.
    // Do not run the V29-only layout/QR transformation on those destination pages.
+   // Android tablet HOME taskbar logo: match the 150px brand-logo width
+   // used by the Densuke indicator (project.html) header. HOME source stays untouched.
+   if(doc.querySelector('.mobile-taskbar')){
+    var taskbarLogoFix=doc.createElement('style');
+    taskbarLogoFix.id='tablet-home-taskbar-logo-size-fix';
+    taskbarLogoFix.textContent='.mobile-taskbar{height:72px!important;padding:0 24px!important;align-items:center!important;justify-content:flex-start!important}.mobile-taskbar a{height:100%!important;display:flex!important;align-items:center!important}.mobile-taskbar img{display:block!important;width:150px!important;height:auto!important;max-width:150px!important;max-height:54px!important;object-fit:contain!important;object-position:left center!important}';
+    doc.head.appendChild(taskbarLogoFix);
+   }
    if(!doc.querySelector('.entrance')){
     doc.documentElement.style.setProperty('height','auto','important');
     doc.body.style.setProperty('height','auto','important');
