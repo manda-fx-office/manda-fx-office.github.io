@@ -30,7 +30,7 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
    if(!doc.getElementById('tablet-only-navigation-router')){
     var navFix=doc.createElement('script');
     navFix.id='tablet-only-navigation-router';
-    navFix.textContent = "(function(){\n function isLogoLink(a){\n  return !!(a.closest('.mobile-taskbar') || a.matches('a[aria-label=\"TOPページへ\"],a[aria-label=\"TOP\"]') || a.querySelector('img.logo'));\n }\n function fixTaskbarLogo(){\n  document.querySelectorAll('.mobile-taskbar a,a[aria-label=\"TOPページへ\"],a[aria-label=\"TOP\"],header.topbar a').forEach(function(a){\n   if(!isLogoLink(a))return;\n   if(a.getAttribute('href')!=='/android_tablet_navigation_test_V3.html')a.setAttribute('href','/android_tablet_navigation_test_V3.html');\n   if(a.getAttribute('target')!=='_top')a.setAttribute('target','_top');\n  });\n }\n fixTaskbarLogo();\n try{new MutationObserver(function(){fixTaskbarLogo();}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href']});}catch(e){}\n document.addEventListener('click',function(ev){\n  var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;\n  if(!a)return;\n  var raw=a.getAttribute('href')||'';\n  var label=((a.innerText||a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).replace(/\\\\s+/g,' ').trim();\n  var homeByLabel=/HOME|ホーム/i.test(label);\n  if((!raw||raw.charAt(0)==='#')&&!homeByLabel)return;\n  var u;\n  try{u=new URL(raw||'home.html',document.baseURI)}catch(e){return}\n  if(u.origin!==location.origin)return;\n  ev.preventDefault();ev.stopPropagation();\n  var p=u.pathname;\n  var isTop=(p==='/'||/\\/index\\.html$/i.test(p)||/\\/android_tablet_top\\.html$/i.test(p)||/\\/android_tablet_navigation_test_V[23]\\.html$/i.test(p)||/TOP/i.test(label));\n  var isHome=homeByLabel||/home/i.test(p)||/ホーム/i.test(label)||/TRANSITION_SYSTEM_HOME_保存版_V6\\.html$/i.test(p);\n  var target=isHome?'TRANSITION_SYSTEM_HOME_保存版_V6.html'+u.search+u.hash:p.replace(/^\\//,'')+u.search+u.hash;\n  window.top.location.href='/android_tablet_navigation_test_V3.html'+(isTop?'':'?page='+encodeURIComponent(target));\n },true);\n})();"
+    navFix.textContent = "(function(){\n function isLogoLink(a){\n  return !!(a.closest('.mobile-taskbar') || a.matches('a[aria-label=\"TOPページへ\"],a[aria-label=\"TOP\"]') || a.querySelector('img.logo'));\n }\n function fixTaskbarLogo(){\n  document.querySelectorAll('.mobile-taskbar a,a[aria-label=\"TOPページへ\"],a[aria-label=\"TOP\"],header.topbar a').forEach(function(a){\n   if(!isLogoLink(a))return;\n   if(a.getAttribute('href')!=='/android_tablet_navigation_test_V3.html')a.setAttribute('href','/android_tablet_navigation_test_V3.html');\n   if(a.getAttribute('target')!=='_top')a.setAttribute('target','_top');\n  });\n }\n fixTaskbarLogo();\n try{new MutationObserver(function(){fixTaskbarLogo();}).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href']});}catch(e){}\n document.addEventListener('click',function(ev){\n  var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;\n  if(!a)return;\n  var raw=a.getAttribute('href')||'';\n  var label=((a.innerText||a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).replace(/\\\\s+/g,' ').trim();\n  var homeByLabel=/HOME|ホーム/i.test(label);\n  if(!raw||raw.charAt(0)==='#')return;\n  var u;\n  try{u=new URL(raw||'home.html',document.baseURI)}catch(e){return}\n  if(u.origin!==location.origin)return;\n  ev.preventDefault();ev.stopPropagation();\n  var p=u.pathname;\n  var isTop=(p==='/'||/\\/index\\.html$/i.test(p)||/\\/android_tablet_top\\.html$/i.test(p)||/\\/android_tablet_navigation_test_V[23]\\.html$/i.test(p)||/TOP/i.test(label));\n  var isHome=homeByLabel||/home/i.test(p)||/ホーム/i.test(label)||/TRANSITION_SYSTEM_HOME_保存版_V6\\.html$/i.test(p);\n  var target=isHome?'TRANSITION_SYSTEM_HOME_保存版_V6.html'+u.search+u.hash:p.replace(/^\\//,'')+u.search+u.hash;\n  window.top.location.href='/android_tablet_navigation_test_V3.html'+(isTop?'':'?page='+encodeURIComponent(target));\n },true);\n})();"
     doc.head.appendChild(navFix);
    }
    // Destination pages are displayed as full-height content inside the same tablet wrapper.
@@ -44,17 +44,16 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     doc.head.appendChild(taskbarLogoFix);
    }
    if(!doc.querySelector('.entrance')){
-    doc.documentElement.style.setProperty('height','auto','important');
-    doc.body.style.setProperty('height','auto','important');
-    doc.documentElement.style.setProperty('overflow','visible','important');
-    doc.body.style.setProperty('overflow','visible','important');
-    function sizeDestination(){
-     var h=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight);
-     if(h>0){frame.style.height=(Math.ceil(h)+2)+'px';frame.style.visibility='visible';}
-    }
-    requestAnimationFrame(function(){requestAnimationFrame(sizeDestination);});
-    setTimeout(sizeDestination,500);
-    Array.prototype.forEach.call(doc.images,function(img){if(!img.complete)img.addEventListener('load',sizeDestination,{once:true});});
+    /* Keep long HOME/detail pages scrollable inside the tablet iframe window. */
+    doc.documentElement.style.setProperty('height','100%','important');
+    doc.body.style.setProperty('height','100%','important');
+    doc.documentElement.style.setProperty('overflow-x','hidden','important');
+    doc.documentElement.style.setProperty('overflow-y','auto','important');
+    doc.body.style.setProperty('overflow-x','hidden','important');
+    doc.body.style.setProperty('overflow-y','auto','important');
+    frame.style.height='100vh';
+    frame.setAttribute('scrolling','auto');
+    frame.style.visibility='visible';
     return;
    }
    var style=doc.createElement('style');
