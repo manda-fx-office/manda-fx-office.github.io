@@ -27,6 +27,13 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
    if(!doc||!doc.head||!doc.body){frame.style.visibility='visible';return;}
    // Keep every same-site page transition inside this tablet-only wrapper.
    // Shared site files and all non-tablet entry points remain untouched.
+   // Match the HOME taskbar logo to the Project/Densuke header reference.
+   if(!doc.getElementById('tablet-densuke-taskbar-reference')){
+    var logoStyle=doc.createElement('style');
+    logoStyle.id='tablet-densuke-taskbar-reference';
+    logoStyle.textContent='.mobile-taskbar{height:72px!important;min-height:72px!important;padding:0 24px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;box-sizing:border-box!important}.mobile-taskbar a{height:72px!important;display:flex!important;align-items:center!important}.mobile-taskbar img{display:block!important;width:150px!important;min-width:150px!important;max-width:150px!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:left center!important}';
+    doc.head.appendChild(logoStyle);
+   }
    if(!doc.getElementById('tablet-only-navigation-router')){
     var navFix=doc.createElement('script');
     navFix.id='tablet-only-navigation-router';
