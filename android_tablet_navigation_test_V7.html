@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<title>TRANSITION SYSTEM - Android Tablet Navigation Test V7</title>
+<style>
+html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;overflow-y:auto}
+#v29{display:block;width:100%;height:100vh;min-height:100vh;border:0;background:#000;visibility:hidden}
+</style>
+</head>
+<body>
+<iframe id="v29" title="TRANSITION SYSTEM V29" src="about:blank"></iframe>
+<script>
+(function(){
+ var frame=document.getElementById('v29');
+ var wrapperPath='/android_tablet_navigation_test_V7.html';
+ var params=new URLSearchParams(window.location.search);
+ var page=params.get('page');
+ var v29='index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_start_saved_V1_20261030';
+ frame.src=page?page:v29;
+ frame.addEventListener('load',function(){
+  try{
+   var doc=frame.contentDocument;
+   if(!doc||!doc.head||!doc.body){frame.style.visibility='visible';return;}
+   // Keep every same-site page transition inside this tablet-only wrapper.
+   // Shared site files and all non-tablet entry points remain untouched.
+   // On the tablet HOME page, show its mobile taskbar logo, not the separate legacy topbar logo.
+   var tabletHomePath='';
+   try{tabletHomePath=decodeURIComponent(doc.location.pathname);}catch(e){tabletHomePath=doc.location.pathname;}
+   if(tabletHomePath.indexOf('TRANSITION_SYSTEM_HOME_保存版_V6.html')>=0 && !doc.getElementById('tablet-home-learning-window-fix')){
+    var learningStyle=doc.createElement('style');
+    learningStyle.id='tablet-home-learning-window-fix';
+    learningStyle.textContent=[
+     /* Tablet-only: larger, balanced learning buttons. */
+     '#learning-path.path{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;margin-top:22px!important;}',
+     '#learning-path .step-button{min-height:112px!important;padding:22px 14px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;border-radius:14px!important;}',
+     '#learning-path .step-button strong{font-size:clamp(20px,2.4vw,27px)!important;line-height:1.35!important;}',
+     '#learning-path .step-button span{font-size:clamp(15px,1.7vw,19px)!important;line-height:1.5!important;}',
+     /* Selected detail becomes a community-style independent scroll window. */
+     '#learning-details.detail-mode{display:block!important;height:calc(100vh - 104px)!important;height:calc(100dvh - 104px)!important;max-height:calc(100vh - 104px)!important;max-height:calc(100dvh - 104px)!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;box-sizing:border-box!important;margin:12px 14px 18px!important;padding:14px!important;border:1px solid rgba(145,180,210,.55)!important;border-radius:14px!important;background:linear-gradient(145deg,#171d27,#080b11)!important;}',
+     '#learning-details.detail-mode .section-title{margin:8px 0 18px!important;}',
+     '#learning-details.detail-mode .learn-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;}',
+     '#learning-details.detail-mode .learn-grid{width:100%!important;max-width:none!important;grid-template-columns:minmax(0,1fr)!important;}',
+     '#learning-details.detail-mode .learn-card{width:100%!important;max-width:none!important;min-width:0!important;}',
+     '#learning-details.detail-mode .learn-card{display:block!important;max-height:none!important;overflow:visible!important;margin:0!important;padding:20px!important;box-sizing:border-box!important;}',
+     '#learning-details.detail-mode .detail-navigation{position:sticky!important;bottom:-14px!important;z-index:5!important;margin:14px -14px -14px!important;padding:12px 14px calc(12px + env(safe-area-inset-bottom))!important;text-align:center!important;background:rgba(5,8,13,.96)!important;border-top:1px solid rgba(145,180,210,.4)!important;}',
+     '#learning-details.detail-mode .back-to-path{display:inline-block!important;min-width:190px!important;padding:12px 22px!important;}',
+     '#learning-details.detail-mode::-webkit-scrollbar{width:8px!important;}',
+     '#learning-details.detail-mode::-webkit-scrollbar-thumb{background:rgba(160,190,220,.55)!important;border-radius:8px!important;}',
+     '@media(max-width:700px){#learning-path.path{grid-template-columns:repeat(2,minmax(0,1fr))!important;}#learning-path .step-button{min-height:92px!important;padding:16px 8px!important;}}'
+    ].join('\n');
+    doc.head.appendChild(learningStyle);
+   }
+   if(tabletHomePath.indexOf('TRANSITION_SYSTEM_HOME_保存版_V6.html')>=0 && !doc.getElementById('tablet-densuke-taskbar-reference')){
+    var logoStyle=doc.createElement('style');
+    logoStyle.id='tablet-densuke-taskbar-reference';
+    logoStyle.textContent='body{padding-top:72px!important}.topbar{display:none!important}.mobile-taskbar{display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;height:72px!important;min-height:72px!important;padding:0 24px!important;margin:0!important;align-items:center!important;justify-content:flex-start!important;box-sizing:border-box!important;z-index:999999!important;background:#05070b!important;border-bottom:1px solid rgba(180,210,235,.35)!important}.mobile-taskbar a{display:flex!important;visibility:visible!important;opacity:1!important;width:auto!important;height:72px!important;align-items:center!important}.mobile-taskbar img{display:block!important;visibility:visible!important;opacity:1!important;width:150px!important;min-width:150px!important;max-width:150px!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:left center!important}';
+    doc.head.appendChild(logoStyle);
+   }
+   if(!doc.getElementById('tablet-only-navigation-router')){
+    var navFix=doc.createElement('script');
+    navFix.id='tablet-only-navigation-router';
+    navFix.textContent = "(function(){\n function normPath(p){try{return decodeURIComponent(p||'')}catch(e){return p||''}}\n function isTopPath(p){var x=normPath(p).toLowerCase();return x==='/'||x.endsWith('/index.html')||x.endsWith('/android_tablet_top.html')||x.endsWith('/android_tablet_navigation_test_v3.html')}\n function isHomePath(p){var x=normPath(p).toLowerCase();return x.indexOf('home.html')>=0||x.indexOf('transition_system_home_保存版_v6.html')>=0||x.indexOf('android_tablet_home.html')>=0}\n function fixLogo(){document.querySelectorAll('.mobile-taskbar a[aria-label=\"TOPページへ\"],a[aria-label=\"TOPページへ\"]').forEach(function(a){if(a.getAttribute('href')!=='/android_tablet_navigation_test_V7.html')a.setAttribute('href','/android_tablet_navigation_test_V7.html');if(a.getAttribute('target')!=='_top')a.setAttribute('target','_top')})}\n fixLogo();try{new MutationObserver(fixLogo).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href']})}catch(e){}\n document.addEventListener('click',function(ev){\n  var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;if(!a)return;\n  var raw=a.getAttribute('href')||'';if(!raw||raw.charAt(0)==='#')return;\n  var u;try{u=new URL(raw,document.baseURI)}catch(e){return}if(u.origin!==location.origin)return;\n  var label=((a.innerText||a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).toLowerCase();\n  var top=isTopPath(u.pathname)||label.indexOf('top')>=0;\n  var home=isHomePath(u.pathname)||label.indexOf('home')>=0||label.indexOf('ホーム')>=0;\n  if(!top&&!home&&u.pathname===location.pathname)return;\n  ev.preventDefault();ev.stopPropagation();\n  var dest=home?'?page='+encodeURIComponent('TRANSITION_SYSTEM_HOME_保存版_V6.html'+u.search+u.hash):top?'':'?page='+encodeURIComponent(normPath(u.pathname).replace(/^\\//,'')+u.search+u.hash);\n  window.top.location.href='/android_tablet_navigation_test_V7.html'+dest;\n },true);\n})();"
+    doc.head.appendChild(navFix);
+   }
+   // Destination pages are displayed as full-height content inside the same tablet wrapper.
+   // Do not run the V29-only layout/QR transformation on those destination pages.
+   // Android tablet HOME taskbar logo: match the 150px brand-logo width
+   // used by the Densuke indicator (project.html) header. HOME source stays untouched.
+   if(doc.querySelector('.mobile-taskbar')){
+    var taskbarLogoFix=doc.createElement('style');
+    taskbarLogoFix.id='tablet-home-taskbar-logo-size-fix';
+    taskbarLogoFix.textContent='.mobile-taskbar{height:72px!important;padding:0 24px!important;align-items:center!important;justify-content:flex-start!important}.mobile-taskbar a{height:100%!important;display:flex!important;align-items:center!important}.mobile-taskbar img{display:block!important;width:150px!important;height:auto!important;max-width:150px!important;max-height:54px!important;object-fit:contain!important;object-position:left center!important}';
+    doc.head.appendChild(taskbarLogoFix);
+   }
+   if(!doc.querySelector('.entrance')){
+    /* Keep long HOME/detail pages scrollable inside the tablet iframe window. */
+    doc.documentElement.style.setProperty('height','100%','important');
+    doc.body.style.setProperty('height','100%','important');
+    doc.documentElement.style.setProperty('overflow-x','hidden','important');
+    doc.documentElement.style.setProperty('overflow-y','auto','important');
+    doc.body.style.setProperty('overflow-x','hidden','important');
+    doc.body.style.setProperty('overflow-y','auto','important');
+    frame.style.height='100vh';
+    frame.setAttribute('scrolling','auto');
+    frame.style.visibility='visible';
+    return;
+   }
+   var style=doc.createElement('style');
+   style.id='tablet-v29-final-flow';
+   style.textContent=[
+    '/* Tablet-only test. Preserve V29 content and both button groups. */',
+    'html,body{height:auto!important;min-height:0!important;overflow-x:hidden!important;overflow-y:visible!important;}',
+    '.site-header{height:110px!important;padding:0 24px!important;}',
+    '.site-header-logo{width:min(230px,30vw)!important;height:auto!important;}',
+    '.entrance{position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:72px 24px 42px!important;box-sizing:border-box!important;gap:0!important;}',
+    '.entrance:after{display:none!important;content:none!important;}',
+    '.entrance img.hero-logo{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;display:block!important;width:min(62vw,500px)!important;max-width:500px!important;height:auto!important;margin:8px auto 30px!important;z-index:2!important;}',
+    '.entrance .bgm-btn{position:absolute!important;top:18px!important;left:24px!important;right:auto!important;bottom:auto!important;z-index:5!important;}',
+    '.entrance .music-credit{position:relative!important;margin:0 auto 18px!important;}',
+    '.entrance .presentation-ticker{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;width:min(850px,calc(100% - 24px))!important;max-width:850px!important;height:auto!important;min-height:72px!important;margin:18px auto 36px!important;box-sizing:border-box!important;}',
+    '.entrance .entry-buttons{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(850px,calc(100% - 24px))!important;margin:0 auto 12px!important;z-index:3!important;}',
+    '.entrance .entry-buttons .entry-btn{display:block!important;position:relative!important;min-width:0!important;width:auto!important;box-sizing:border-box!important;padding:16px 12px!important;text-align:center!important;}',
+    '.entrance .entry-buttons .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1.5px!important;}',
+    '.entrance .entry-buttons .entry-btn span{display:block!important;font-size:13px!important;}',
+    '.site-purpose{display:block!important;position:relative!important;height:auto!important;overflow:visible!important;}',
+    '.community-preview{display:block!important;position:relative!important;height:auto!important;overflow:visible!important;}',
+    '.community-preview-inner{max-width:1100px!important;margin:0 auto!important;}',
+    '.smartphone-top-controls{display:grid!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(760px,calc(100% - 36px))!important;margin:24px auto 20px!important;}',
+    '.smartphone-top-controls .entry-btn{display:block!important;position:relative!important;min-width:0!important;width:auto!important;box-sizing:border-box!important;padding:16px 12px!important;text-align:center!important;}',
+    '.smartphone-top-controls .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1px!important;}',
+    '.smartphone-top-controls .entry-btn span{display:block!important;font-size:13px!important;}',
+    /* Match the saved reference: two white QR cards, paired, compact and legible. */
+    '.qr-access.qr-page-bottom{display:block!important;width:min(760px,calc(100% - 36px))!important;max-width:760px!important;margin:34px auto 28px!important;padding:22px 18px 26px!important;border:1px solid #34383c!important;border-radius:12px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;box-shadow:0 10px 30px #0008!important;text-align:center!important;}',
+    '.qr-access.qr-page-bottom .qr-access-title{font-size:clamp(22px,2.4vw,30px)!important;letter-spacing:2px!important;margin:0 0 8px!important;color:#f0f0f0!important;}',
+    '.qr-access.qr-page-bottom .qr-access-subtitle{font-size:clamp(20px,2vw,25px)!important;letter-spacing:2px!important;margin:0 0 8px!important;color:#e8e9ea!important;}',
+    '.qr-access.qr-page-bottom .qr-access-note{font-size:13px!important;line-height:1.5!important;color:#9aa0a5!important;margin:0 0 18px!important;}',
+    '.qr-access.qr-page-bottom .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(560px,100%)!important;max-width:560px!important;margin:0 auto!important;}',
+    '.qr-access.qr-page-bottom .qr-card{display:block!important;width:auto!important;max-width:none!important;min-width:0!important;padding:12px 12px 14px!important;margin:0!important;background:#f7f7f7!important;color:#111!important;border-radius:10px!important;box-sizing:border-box!important;}',
+    '.qr-access.qr-page-bottom .qr-card img{display:block!important;width:76%!important;max-width:190px!important;height:auto!important;margin:0 auto 10px!important;}',
+    '.qr-access.qr-page-bottom .qr-label{font-size:16px!important;letter-spacing:2px!important;color:#111!important;}',
+    '.qr-access.qr-page-bottom .qr-sub{font-size:11px!important;color:#555!important;}',
+    '.qr-access.qr-page-bottom .qr-pc-url{margin-top:26px!important;}',
+    '.qr-access.qr-page-bottom .qr-pc-url-title{font-size:clamp(20px,2vw,24px)!important;letter-spacing:2px!important;margin:24px 0 10px!important;color:#eee!important;}',
+    '.qr-access.qr-page-bottom .qr-pc-url-box{border:2px solid #697078!important;border-radius:12px!important;background:#050505!important;padding:16px 10px!important;font-size:clamp(16px,1.8vw,20px)!important;overflow-wrap:anywhere!important;color:#eee!important;}',
+    '.qr-access.qr-page-bottom .qr-copy-btn,.qr-access.qr-page-bottom .qr-top-return a{display:inline-block!important;margin-top:14px!important;padding:12px 28px!important;border:1px solid #899098!important;border-radius:12px!important;background:linear-gradient(#4a5156,#171a1d)!important;color:#fff!important;font-size:18px!important;text-decoration:none!important;}',
+    '.qr-access.qr-page-bottom .qr-top-return{margin-top:28px!important;}',
+    '.bgm-credit{position:relative!important;margin:14px auto 24px!important;}',
+    'img{max-width:100%;}'
+   ].join('\n');
+   doc.head.appendChild(style);
+   var upper=doc.querySelectorAll('.entrance .entry-buttons a');
+   if(upper.length>=2){
+    upper[1].href='project.html';
+    upper[1].innerHTML='<b>伝助のインジケーター</b><span>伝助のインジケーター</span>';
+    upper[1].setAttribute('aria-label','伝助のインジケーター');
+   }
+   // Replace V29's QR-only block with the approved Management Q&A structure.
+   var oldQr=doc.querySelector('.qr-access.qr-desktop');
+   if(!oldQr)throw new Error('V29 QR section not found');
+   var cards=oldQr.querySelectorAll('.qr-card');
+   if(cards.length!==2)throw new Error('Expected two QR cards');
+   var qr=doc.createElement('section');
+   qr.className='qr-access qr-page-bottom';
+   qr.setAttribute('aria-label','スマートフォンでアクセス');
+   qr.innerHTML='<div class="qr-access-title">時間を共有しませんか</div><div class="qr-access-subtitle">スマートフォンでアクセス</div><div class="qr-access-note">QRコードを読み取ると、TRANSITION SYSTEM TOPページが開きます。</div><div class="qr-grid"></div><div class="qr-pc-url"><div class="qr-pc-url-title">PC版アクセスURL</div><div class="qr-pc-url-box">https://manda-fx-office.github.io/</div><button type="button" class="qr-copy-btn" onclick="(function(){var u=\'https://manda-fx-office.github.io/\';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(function(){alert(\'URLをコピーしました。\')}).catch(function(){window.prompt(\'URLをコピーしてください\',u)})}else{window.prompt(\'URLをコピーしてください\',u)}})()">URLをコピー</button></div><div class="qr-top-return"><a href="https://manda-fx-office.github.io/">⌂ TOPページに戻る</a></div>';
+   var grid=qr.querySelector('.qr-grid');
+   for(var qi=0;qi<cards.length;qi++)grid.appendChild(cards[qi].cloneNode(true));
+   oldQr.replaceWith(qr);
+   function revealAndSize(){
+    doc.documentElement.style.setProperty('height','auto','important');
+    doc.body.style.setProperty('height','auto','important');
+    doc.documentElement.style.setProperty('min-height','0','important');
+    doc.body.style.setProperty('min-height','0','important');
+    var h=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight);
+    if(h>0){
+     frame.style.height=(Math.ceil(h)+2)+'px';
+     frame.style.visibility='visible';
+    }
+   }
+   requestAnimationFrame(function(){requestAnimationFrame(revealAndSize);});
+   setTimeout(revealAndSize,350);
+   setTimeout(revealAndSize,1200);
+   Array.prototype.forEach.call(doc.images,function(img){
+    if(!img.complete)img.addEventListener('load',revealAndSize,{once:true});
+   });
+  }catch(e){
+   // Never leave the tablet with a blank page if enhancement fails.
+   frame.style.visibility='visible';
+   frame.style.height='100vh';
+  }
+ });
+})();
+</script>
+</body>
+</html>
