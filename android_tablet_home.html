@@ -2,52 +2,16 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000000">
-<title>TRANSITION SYSTEM HOME - Android Tablet Test 20261027</title>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<style>
-html,body{margin:0;width:100%;min-height:100%;overflow:auto;background:#000}
-#tabletHome{display:block;width:100%;height:100vh;min-height:100vh;border:0;background:#000}
-</style>
+<title>TRANSITION SYSTEM Android Tablet HOME</title>
 </head>
 <body>
-<iframe id="tabletHome" title="TRANSITION SYSTEM HOME" src="TRANSITION_SYSTEM_HOME_保存版_V6.html?v=20261027_logo_test1"></iframe>
+<p>Androidタブレット版 HOME 保存版を開いています…</p>
 <script>
-(function(){
- var frame=document.getElementById("tabletHome");
- function applyHomeFix(){
-  try{
-   var doc=frame.contentDocument||frame.contentWindow.document;
-   if(!doc||!doc.head||!doc.body)return;
-   var old=doc.getElementById("android-tablet-home-fix");
-   if(old)old.remove();
-   var style=doc.createElement("style");
-   style.id="android-tablet-home-fix";
-   style.textContent=[
-    "/* Androidタブレット専用の表示補正。保存版HOME本体・スマホ版・PC版は変更しない */",
-    ".mobile-taskbar{display:flex!important;position:fixed!important;top:0!important;left:0!important;right:0!important;height:72px!important;z-index:999999!important;background:rgba(4,4,4,.97)!important;border-bottom:1px solid #292d31!important;align-items:center!important;justify-content:flex-start!important;padding:0 24px!important;box-sizing:border-box!important;}",
-    ".mobile-taskbar a{display:flex!important;align-items:center!important;height:100%!important;width:auto!important;max-width:100%!important;overflow:visible!important;text-decoration:none!important;}",
-    ".mobile-taskbar img{display:block!important;width:auto!important;height:54px!important;max-width:230px!important;max-height:54px!important;object-fit:contain!important;object-position:left center!important;}",
-    ".topbar{display:none!important;}",
-    "body{padding-top:72px!important;}",
-    "html{scroll-padding-top:84px!important;}"
-   ].join("\n");
-   doc.head.appendChild(style);
-   /* タスクバーロゴは保存版HOMEに埋め込まれた基準画像をそのまま使用する */
-   doc.querySelectorAll(".mobile-taskbar a,.topbar a,a[aria-label='TOPページへ'],a[aria-label='TOP']").forEach(function(a){
-    a.href="android_tablet_top.html";
-    a.target="_top";
-   });
-   var height=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight,window.innerHeight);
-   frame.style.height=height+"px";
-  }catch(e){}
- }
- frame.addEventListener("load",function(){applyHomeFix();window.setTimeout(applyHomeFix,500);});
-})();
+window.location.replace("android_tablet_home_saved_V1.html?v=20261031_home_route");
 </script>
+<noscript><a href="android_tablet_home_saved_V1.html">HOMEを開く</a></noscript>
 </body>
 </html>
