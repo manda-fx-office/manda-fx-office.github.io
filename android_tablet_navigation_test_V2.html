@@ -62,10 +62,10 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     '.entrance .bgm-btn{position:absolute!important;top:18px!important;left:24px!important;right:auto!important;bottom:auto!important;z-index:5!important;}',
     '.entrance .music-credit{position:relative!important;margin:0 auto 18px!important;}',
     '.entrance .presentation-ticker{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;width:min(850px,calc(100% - 24px))!important;max-width:850px!important;height:auto!important;min-height:72px!important;margin:18px auto 36px!important;box-sizing:border-box!important;}',
-    '.entrance .entry-buttons{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(850px,calc(100% - 24px))!important;margin:0 auto 12px!important;z-index:3!important;}',
-    '.entrance .entry-buttons .entry-btn{display:block!important;position:relative!important;min-width:0!important;width:auto!important;box-sizing:border-box!important;padding:16px 12px!important;text-align:center!important;}',
-    '.entrance .entry-buttons .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1.5px!important;}',
-    '.entrance .entry-buttons .entry-btn span{display:block!important;font-size:13px!important;}',
+    '.entry-buttons{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(850px,calc(100% - 24px))!important;margin:0 auto 12px!important;z-index:3!important;}',
+    '.entry-buttons .entry-btn{display:block!important;position:relative!important;min-width:0!important;width:auto!important;box-sizing:border-box!important;padding:16px 12px!important;text-align:center!important;}',
+    '.entry-buttons .entry-btn b{display:block!important;font-size:clamp(17px,2.1vw,23px)!important;letter-spacing:1.5px!important;}',
+    '.entry-buttons .entry-btn span{display:block!important;font-size:13px!important;}',
     '.site-purpose{display:block!important;position:relative!important;height:auto!important;overflow:visible!important;}',
     '.community-preview{display:block!important;position:relative!important;height:auto!important;overflow:visible!important;}',
     '.community-preview-inner{max-width:1100px!important;margin:0 auto!important;}',
@@ -92,7 +92,7 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     'img{max-width:100%;}'
    ].join('\n');
    doc.head.appendChild(style);
-   var upper=doc.querySelectorAll('.entrance .entry-buttons a');
+   var upper=doc.querySelectorAll('.entry-buttons a.entry-btn');
    if(upper.length>=2){
     upper[1].href='project.html';
     upper[1].innerHTML='<b>伝助のインジケーター</b><span>伝助のインジケーター</span>';
