@@ -28,7 +28,7 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
    // Keep every same-site page transition inside this tablet-only wrapper.
    // Shared site files and all non-tablet entry points remain untouched.
    // On the tablet HOME page, show its mobile taskbar logo, not the separate legacy topbar logo.
-   if(/TRANSITION_SYSTEM_HOME_保存版_V6\\.html$/i.test(doc.location.pathname) && !doc.getElementById('tablet-densuke-taskbar-reference')){
+   if(doc.location.pathname.indexOf('TRANSITION_SYSTEM_HOME_保存版_V6.html')>=0 && !doc.getElementById('tablet-densuke-taskbar-reference')){
     var logoStyle=doc.createElement('style');
     logoStyle.id='tablet-densuke-taskbar-reference';
     logoStyle.textContent='body{padding-top:72px!important}.topbar{display:none!important}.mobile-taskbar{position:fixed!important;top:0!important;left:0!important;right:0!important;height:72px!important;min-height:72px!important;padding:0 24px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;box-sizing:border-box!important;z-index:99999!important}.mobile-taskbar a{height:72px!important;display:flex!important;align-items:center!important}.mobile-taskbar img{display:block!important;width:150px!important;min-width:150px!important;max-width:150px!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:left center!important}';
