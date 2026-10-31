@@ -37,13 +37,18 @@ h1{font-size:clamp(30px,5vw,48px);letter-spacing:4px;margin:0 0 12px}
 }
 
 .indicator-page-nav{
+  position:sticky;
+  bottom:0;
+  z-index:5;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  margin-top:24px;
-  padding-top:18px;
-  border-top:1px solid #30363b;
+  margin:24px -2px 0;
+  padding:14px 2px 10px;
+  border-top:1px solid #59636b;
+  background:linear-gradient(to bottom,rgba(8,9,10,.88),rgba(8,9,10,.98) 28%);
+  backdrop-filter:blur(8px);
 }
 .indicator-page-button{
   display:inline-flex;
@@ -64,7 +69,7 @@ h1{font-size:clamp(30px,5vw,48px);letter-spacing:4px;margin:0 0 12px}
 .indicator-page-button.next{margin-left:auto}
 .indicator-page-button.prev{margin-right:auto}
 @media(max-width:760px){
-  .indicator-page-nav{margin-top:18px;padding-top:14px;gap:10px}
+  .indicator-page-nav{margin-top:18px;padding:12px 2px 8px;gap:10px}
   .indicator-page-button{min-width:100px;min-height:42px;padding:9px 12px;font-size:14px}
 }
 </style>
@@ -259,24 +264,26 @@ body{padding-top:88px}
 .category-tile strong{font-size:clamp(12px,2vw,16px);line-height:1.35;overflow-wrap:anywhere}
 .category-tile:active{background:#252a2f}
 .indicator-window{
-  height: min(78vh, 900px);
+  height:min(78vh,900px);
   min-height:520px;
-  overflow-y:auto;
-  overflow-x:hidden;
-  overscroll-behavior:contain;
-  scroll-snap-type:y mandatory;
+  overflow:hidden;
   border:1px solid #444c52;
   border-radius:14px;
   background:rgba(8,9,10,.85);
+}
+.indicator-window[hidden]{display:none}
+.indicator-page{
+  height:100%;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
   scrollbar-width:thin;
   scrollbar-color:#626b72 #111;
 }
+.indicator-window[hidden]{display:none}
 .indicator-page{
-  min-height:100%;
   padding:24px;
-  scroll-margin-top:18px;
-  scroll-snap-align:start;
-  scroll-snap-stop:always;
   border-bottom:1px solid #30363b;
 }
 .indicator-page:last-child{border-bottom:0}
@@ -291,7 +298,7 @@ body{padding-top:88px}
   .category-tile{min-height:56px;padding:6px 4px;gap:3px}
   .category-tile span{font-size:11px}
   .indicator-window{height:76vh;min-height:460px}
-  .indicator-page{padding:16px;scroll-margin-top:18px}
+  .indicator-page{padding:16px}
   .indicator-page .card{padding:16px}
 }
 @media(max-width:380px){
@@ -336,7 +343,8 @@ body{padding-top:88px}
   <a class="category-tile" href="#indicator-page-6"><span>⑥</span><strong>TRADE SYSTEM</strong></a>
 </section>
 
-<section class="indicator-window" aria-label="インジケーター説明一覧">
+
+<section class="indicator-window" id="indicator-window-1" aria-label="分類1のインジケーター一覧">
   <section class="indicator-page" id="indicator-page-1">
     <div class="page-label">① / ACCESSORY</div>
     <h2>ACCESSORY インジケーター一覧</h2>
@@ -346,10 +354,68 @@ body{padding-top:88px}
       <h3>インジケーター追加欄</h3>
       <p>正式なインジケーター名・機能・表示例が決まったものから、1件ずつ一覧に追加します。</p>
     </article>
+    <p class="page-intro virtual-test-note">※以下5枚はスクロール確認用の仮想カードです。販売商品ではありません。</p>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">ACCESSORY / TEST 01</div>
+      <h3>仮想カード 01</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">ACCESSORY / TEST 02</div>
+      <h3>仮想カード 02</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">ACCESSORY / TEST 03</div>
+      <h3>仮想カード 03</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">ACCESSORY / TEST 04</div>
+      <h3>仮想カード 04</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">ACCESSORY / TEST 05</div>
+      <h3>仮想カード 05</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
   
     <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button next" href="#indicator-page-2">次へ　›</a></nav>
   </section>
+</section>
 
+<section class="indicator-window" id="indicator-window-2" aria-label="分類2のインジケーター一覧" hidden>
   <section class="indicator-page" id="indicator-page-2">
     <div class="page-label">② / BB / MA</div>
     <h2>BB / MA</h2>
@@ -373,10 +439,68 @@ body{padding-top:88px}
         <li>各MAのON/OFF</li>
       </ul>
     </article>
+    <p class="page-intro virtual-test-note">※以下5枚はスクロール確認用の仮想カードです。販売商品ではありません。</p>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">BB / MA / TEST 01</div>
+      <h3>仮想カード 01</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">BB / MA / TEST 02</div>
+      <h3>仮想カード 02</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">BB / MA / TEST 03</div>
+      <h3>仮想カード 03</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">BB / MA / TEST 04</div>
+      <h3>仮想カード 04</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">BB / MA / TEST 05</div>
+      <h3>仮想カード 05</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
   
     <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-1">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-3">次へ　›</a></nav>
   </section>
+</section>
 
+<section class="indicator-window" id="indicator-window-3" aria-label="分類3のインジケーター一覧" hidden>
   <section class="indicator-page" id="indicator-page-3">
     <div class="page-label">③ / MACD</div>
     <h2>MACD</h2>
@@ -390,10 +514,68 @@ body{padding-top:88px}
         <li>クロス背景表示</li>
       </ul>
     </article>
+    <p class="page-intro virtual-test-note">※以下5枚はスクロール確認用の仮想カードです。販売商品ではありません。</p>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">MACD / TEST 01</div>
+      <h3>仮想カード 01</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">MACD / TEST 02</div>
+      <h3>仮想カード 02</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">MACD / TEST 03</div>
+      <h3>仮想カード 03</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">MACD / TEST 04</div>
+      <h3>仮想カード 04</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">MACD / TEST 05</div>
+      <h3>仮想カード 05</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
   
     <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-2">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-4">次へ　›</a></nav>
   </section>
+</section>
 
+<section class="indicator-window" id="indicator-window-4" aria-label="分類4のインジケーター一覧" hidden>
   <section class="indicator-page" id="indicator-page-4">
     <div class="page-label">④ / CURRENCY STRENGTH</div>
     <h2>通貨強弱</h2>
@@ -402,10 +584,68 @@ body{padding-top:88px}
       <h3>追加予定</h3>
       <p>通貨強弱インジケーターの正式な名称と説明を、確定後にこのページへ追加します。</p>
     </article>
+    <p class="page-intro virtual-test-note">※以下5枚はスクロール確認用の仮想カードです。販売商品ではありません。</p>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">通貨強弱 / TEST 01</div>
+      <h3>仮想カード 01</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">通貨強弱 / TEST 02</div>
+      <h3>仮想カード 02</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">通貨強弱 / TEST 03</div>
+      <h3>仮想カード 03</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">通貨強弱 / TEST 04</div>
+      <h3>仮想カード 04</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">通貨強弱 / TEST 05</div>
+      <h3>仮想カード 05</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
   
     <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-3">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-5">次へ　›</a></nav>
   </section>
+</section>
 
+<section class="indicator-window" id="indicator-window-5" aria-label="分類5のインジケーター一覧" hidden>
   <section class="indicator-page" id="indicator-page-5">
     <div class="page-label">⑤ / SMC</div>
     <h2>SMC</h2>
@@ -414,10 +654,68 @@ body{padding-top:88px}
       <h3>追加予定</h3>
       <p>SMC関連インジケーターの名称・機能が決まり次第、このページに説明を追加します。</p>
     </article>
+    <p class="page-intro virtual-test-note">※以下5枚はスクロール確認用の仮想カードです。販売商品ではありません。</p>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">SMC / TEST 01</div>
+      <h3>仮想カード 01</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">SMC / TEST 02</div>
+      <h3>仮想カード 02</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">SMC / TEST 03</div>
+      <h3>仮想カード 03</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">SMC / TEST 04</div>
+      <h3>仮想カード 04</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">SMC / TEST 05</div>
+      <h3>仮想カード 05</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
   
     <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-4">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-6">次へ　›</a></nav>
   </section>
+</section>
 
+<section class="indicator-window" id="indicator-window-6" aria-label="分類6のインジケーター一覧" hidden>
   <section class="indicator-page" id="indicator-page-6">
     <div class="page-label">⑥ / TRADE SYSTEM</div>
     <h2>TRADE SYSTEM</h2>
@@ -430,6 +728,62 @@ body{padding-top:88px}
         <li>バンドウォーク判定</li>
         <li>3MACD方向表示</li>
         <li>H4 / D1 OHLC表示</li>
+      </ul>
+    </article>
+    <p class="page-intro virtual-test-note">※以下5枚はスクロール確認用の仮想カードです。販売商品ではありません。</p>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">TRADE SYSTEM / TEST 01</div>
+      <h3>仮想カード 01</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">TRADE SYSTEM / TEST 02</div>
+      <h3>仮想カード 02</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">TRADE SYSTEM / TEST 03</div>
+      <h3>仮想カード 03</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">TRADE SYSTEM / TEST 04</div>
+      <h3>仮想カード 04</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
+      </ul>
+    </article>
+ 
+    <article class="card planned-card virtual-test-card">
+      <div class="tag">TRADE SYSTEM / TEST 05</div>
+      <h3>仮想カード 05</h3>
+      <p>これはスクロール動作確認用の仮想カードです。実際の販売商品ではありません。説明文や商品情報を追加した場合の表示高さと読みやすさを確認します。</p>
+      <ul>
+        <li>機能・特徴の表示テスト</li>
+        <li>商品情報の追加テスト</li>
+        <li>カード間の余白の確認</li>
       </ul>
     </article>
   
@@ -446,27 +800,33 @@ body{padding-top:88px}
 <footer class="footer">TRANSITION SYSTEM | by Manda FX Office</footer>
 <script id="indicator-window-navigation">
 (function(){
-  const win = document.querySelector('.indicator-window');
-  if (!win) return;
+  const windows = Array.from(document.querySelectorAll('.indicator-window'));
+  if (!windows.length) return;
+  function showCategory(id, updateHash){
+    const match = /^indicator-page-([1-6])$/.exec(id || '');
+    if (!match) return false;
+    const n = match[1];
+    const selectedWindow = document.getElementById('indicator-window-' + n);
+    const selectedPage = document.getElementById(id);
+    if (!selectedWindow || !selectedPage) return false;
+    windows.forEach(function(win){ win.hidden = win !== selectedWindow; });
+    selectedWindow.scrollTop = 0;
+    const header = document.querySelector('.topbar');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const top = window.scrollY + selectedWindow.getBoundingClientRect().top - headerHeight - 8;
+    window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    if (updateHash) history.replaceState(null,'','#' + id);
+    return true;
+  }
   document.querySelectorAll('.category-tile, .indicator-page-button').forEach(function(link){
-    link.addEventListener('click', function(event){
+    link.addEventListener('click',function(event){
       const id = (link.getAttribute('href') || '').slice(1);
-      const target = document.getElementById(id);
-      if (!target || !target.classList.contains('indicator-page')) return;
+      if (!showCategory(id,true)) return;
       event.preventDefault();
-      // First bring the whole scroll window up beneath the sticky header.
-      const header = document.querySelector('.topbar');
-      const headerHeight = header ? header.getBoundingClientRect().height : 0;
-      const pageTop = window.scrollY + win.getBoundingClientRect().top - headerHeight - 8;
-      window.scrollTo({top: Math.max(0, pageTop), behavior:'smooth'});
-      // Then show the selected category from the top inside the window.
-      const winRect = win.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-      const top = win.scrollTop + targetRect.top - winRect.top - 10;
-      win.scrollTo({top: Math.max(0, top), behavior:'smooth'});
-      history.replaceState(null, '', '#' + id);
     });
   });
+  const initialId = (location.hash || '').slice(1);
+  if (initialId) showCategory(initialId,false);
 })();
 </script>
 </body>
