@@ -647,8 +647,24 @@ body{padding-top:88px}
     selectedPage.scrollLeft = 0;
     window.requestAnimationFrame(function(){
       selectedPage.scrollTop = 0;
-      selectedWindow.scrollIntoView({behavior:'smooth', block:'start', inline:'nearest'});
-      window.setTimeout(function(){ selectedPage.scrollTop = 0; }, 350);
+      var header = document.querySelector('.topbar');
+      var headerHeight = header ? header.getBoundingClientRect().height : 0;
+      // The tablet wrapper makes BODY (not WINDOW) the vertical scroll container.
+      // Scroll that exact container so the chosen category window reaches the top.
+      var bodyScroller = document.body;
+      var bodyTop = bodyScroller.scrollTop + selectedWindow.getBoundingClientRect().top - headerHeight - 8;
+      if (bodyScroller && typeof bodyScroller.scrollTo === 'function') {
+        bodyScroller.scrollTo({top:Math.max(0,bodyTop),behavior:'smooth'});
+      } else if (bodyScroller) {
+        bodyScroller.scrollTop = Math.max(0,bodyTop);
+      }
+      window.setTimeout(function(){
+        selectedPage.scrollTop = 0;
+        if (bodyScroller) {
+          var remaining = selectedWindow.getBoundingClientRect().top - headerHeight - 8;
+          if (Math.abs(remaining) > 3) bodyScroller.scrollTop += remaining;
+        }
+      }, 450);
     });
     if (updateHash) history.replaceState(null,'','#' + id);
     return true;
