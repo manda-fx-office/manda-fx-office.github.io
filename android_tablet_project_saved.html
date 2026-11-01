@@ -35,12 +35,281 @@ h1{font-size:clamp(30px,5vw,48px);letter-spacing:4px;margin:0 0 12px}
  .wrap{padding:28px 14px 55px}.hero{padding:30px 0 18px}.hero p{font-size:15px}
  .grid{grid-template-columns:1fr;gap:14px}.card{padding:20px}
 }
+
+.indicator-page-nav{
+  position:sticky;
+  bottom:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:24px -2px 0;
+  padding:14px 2px 10px;
+  border-top:1px solid #59636b;
+  background:linear-gradient(to bottom,rgba(8,9,10,.88),rgba(8,9,10,.98) 28%);
+  backdrop-filter:blur(8px);
+}
+.indicator-page-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:112px;
+  min-height:44px;
+  padding:10px 16px;
+  border:1px solid #747c83;
+  border-radius:10px;
+  background:linear-gradient(145deg,#3b4146,#17191b);
+  color:#f4f5f6;
+  font-weight:700;
+  text-decoration:none;
+  text-align:center;
+}
+.indicator-page-button:active{background:#4a5055}
+.indicator-page-button.next{margin-left:auto}
+.indicator-page-button.prev{margin-right:auto}
+@media(max-width:760px){
+  .indicator-page-nav{margin-top:18px;padding:12px 2px 8px;gap:10px}
+  .indicator-page-button{min-width:100px;min-height:42px;padding:9px 12px;font-size:14px}
+}
 </style>
 <style id="transition-fixed-taskbar">.topbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(4,4,4,.94);backdrop-filter:blur(10px);border-bottom:1px solid #292d31}.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:15px 22px}.brand-logo{display:block}.brand-logo img{width:150px;height:auto;display:block}.navlinks{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}.navlinks a{min-width:104px;height:58px;padding:7px 10px;border:1px solid rgba(210,215,220,.65);border-radius:8px;background:linear-gradient(180deg,#4a5158,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 5px #0006}.nav-en{font-size:13px;font-weight:700;letter-spacing:.5px}.nav-ja{margin-top:4px;font-size:10px;letter-spacing:1px}.navlinks a:hover{border-color:#e0e4e7;background:linear-gradient(180deg,#5b646d,#3b434b 55%,#292f35)}
 .topbar{box-shadow:0 2px 10px #0008}
 body{padding-top:88px}
 @media(max-width:900px){body{padding-top:0}.topbar{position:sticky;left:auto;right:auto}.navlinks{display:none}}
-</style></head>
+</style>
+<style>
+/* Smartphone / tablet unified HOME return button
+   Desktop appearance is preserved. */
+.mobile-home-return{display:none;}
+@media(max-width:900px){
+  .mobile-home-return{
+    display:block;
+    text-align:center;
+    margin:42px 18px 10px;
+    padding:0 0 10px;
+  }
+  .mobile-home-return a{
+    display:inline-block;
+    min-width:220px;
+    padding:14px 28px;
+    border:1px solid #8d949a;
+    border-radius:9px;
+    background:linear-gradient(#4b5156,#151719);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    letter-spacing:1.5px;
+    box-shadow:0 4px 12px rgba(0,0,0,.35);
+  }
+  .mobile-home-return a:active{transform:translateY(1px);}
+}
+</style>
+
+<style id="project-mobile-width-fix">
+@media (max-width: 900px) {
+  html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip !important;
+  }
+
+  body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    overflow-x: clip !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  body {
+    padding-top: 125px !important;
+  }
+
+  .nav {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 10px 12px;
+    gap: 0;
+  }
+
+  .brand-logo {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .brand-logo img {
+    display: block;
+    width: 120px;
+    max-width: 70vw;
+    height: auto;
+  }
+
+  .wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 28px 14px 55px;
+  }
+
+  .hero,
+  .grid,
+  .card,
+  .footer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .card {
+    padding: 20px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .card h2,
+  .card p,
+  .card li,
+  .hero p,
+  .kicker {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .card h2 {
+    font-size: clamp(16px, 4.5vw, 22px);
+    letter-spacing: 1px;
+  }
+
+  .mobile-home-return {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 42px auto 10px;
+    padding: 0 14px 10px;
+    text-align: center;
+  }
+
+  .mobile-home-return a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .footer {
+    text-align: center;
+  }
+}
+</style>
+
+<style id="indicator-category-window">
+.indicator-categories{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:28px 0 18px;
+}
+.category-tile{
+  min-width:0;
+  min-height:62px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:8px 6px;
+  border:1px solid #4b535a;
+  border-radius:12px;
+  background:linear-gradient(145deg,#191c1f,#090a0b);
+  text-align:center;
+  box-shadow:0 5px 14px #0006;
+}
+.category-tile span{color:#ff9f32;font-size:13px;letter-spacing:1px}
+.category-tile strong{font-size:clamp(12px,2vw,16px);line-height:1.35;overflow-wrap:anywhere}
+.category-tile:active{background:#252a2f}
+.indicator-window{
+  height:min(78vh,900px);
+  min-height:520px;
+  overflow:hidden;
+  border:1px solid #444c52;
+  border-radius:14px;
+  background:rgba(8,9,10,.85);
+}
+.indicator-window[hidden]{display:none}
+.indicator-page{
+  height:100%;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#626b72 #111;
+}
+.indicator-window[hidden]{display:none}
+.indicator-page{
+  padding:24px;
+  border-bottom:1px solid #30363b;
+}
+.indicator-page:last-child{border-bottom:0}
+.page-label{color:#ffad4d;font-size:12px;letter-spacing:2px;margin-bottom:10px}
+.indicator-page h2{font-size:clamp(22px,3vw,30px);margin:0 0 18px;overflow-wrap:anywhere}
+.indicator-page .page-intro{color:#bfc5ca;line-height:1.8}
+.indicator-page .card{margin:14px 0;padding:20px}
+.indicator-page .card h3{font-size:clamp(17px,2.6vw,22px);margin:8px 0 12px;letter-spacing:.5px;overflow-wrap:anywhere}
+.indicator-page .planned-card{border-style:dashed}
+@media(max-width:760px){
+  .indicator-categories{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:22px 0 14px}
+  .category-tile{min-height:56px;padding:6px 4px;gap:3px}
+  .category-tile span{font-size:11px}
+  .indicator-window{height:76vh;min-height:460px}
+  .indicator-page{padding:16px}
+  .indicator-page .card{padding:16px}
+}
+@media(max-width:380px){
+  .category-tile strong{font-size:11px}
+  .indicator-page{padding:12px}
+}
+</style>
+<style id="desktop-indicator-note">
+.desktop-only-note{margin-top:10px;font-size:.92em;color:#ffad4d;letter-spacing:.02em}
+</style>
+</head>
 <body>
 <header class="topbar">
 <nav class="nav">
@@ -59,59 +328,170 @@ body{padding-top:88px}
 
 <main class="wrap">
 <section class="hero">
-<div class="kicker">MY INDICATORS</div>
+<div class="kicker">TRANSITION SYSTEM</div>
 <h1>伝助のインジケーター</h1>
-<p>これまで制作してきたMT4専用の自作インジケーターを一覧で観覧できるページです。</p>
+<p>これまで制作してきたMT4専用の自作インジケーターを一覧で閲覧できるページです。</p>
+<p class="desktop-only-note">＊このインジケーターは、デスクトップPC版・MT4専用です。</p>
 </section>
 
-<section class="grid">
-<article class="card">
-<div class="tag">BB / MA</div>
-<h2>Transition_BB4_MA5_BIG</h2>
-<p>複数のボリンジャーバンドと5本のMAをまとめて表示する、TRANSITION SYSTEMの中心的なインジケーター。</p>
-<ul>
-<li>BB30 / BB90 / BB360 / BB1440</li>
-<li>5本のMA</li>
-<li>MAの上昇・下降・バンドウォーク表示</li>
-</ul>
-</article>
+<section class="indicator-categories" aria-label="インジケーター分類">
+  <a class="category-tile" href="#indicator-page-1"><span>①</span><strong>ACCESSORY</strong></a>
+  <a class="category-tile" href="#indicator-page-2"><span>②</span><strong>BB / MA</strong></a>
+  <a class="category-tile" href="#indicator-page-3"><span>③</span><strong>MACD</strong></a>
+  <a class="category-tile" href="#indicator-page-4"><span>④</span><strong>通貨強弱</strong></a>
+  <a class="category-tile" href="#indicator-page-5"><span>⑤</span><strong>SMC</strong></a>
+  <a class="category-tile" href="#indicator-page-6"><span>⑥</span><strong>TRADE SYSTEM</strong></a>
+</section>
 
-<article class="card">
-<div class="tag">3MACD</div>
-<h2>Transition_3MACD_CrossBackground</h2>
-<p>短期・中期・長期のMACDを階層表示し、クロス状態をチャート背景でも確認できるインジケーター。</p>
-<ul>
-<li>短期・中期・長期MACD</li>
-<li>6 / 24 / 96を色判定基準として使用</li>
-<li>クロス背景表示</li>
-</ul>
-</article>
 
-<article class="card">
-<div class="tag">3MA</div>
-<h2>Transition_3MA_Histogram</h2>
-<p>MA30・MA90・MA360の方向をヒストグラムで視覚化するインジケーター。</p>
-<ul>
-<li>MA30 / MA90 / MA360</li>
-<li>上昇・下降を色分け</li>
-<li>各MAのON/OFF</li>
-</ul>
-</article>
+<section class="indicator-window" id="indicator-window-1" aria-label="分類1のインジケーター一覧">
+  <section class="indicator-page" id="indicator-page-1">
+    <div class="page-label">① / ACCESSORY</div>
+    <h2>ACCESSORY インジケーター一覧</h2>
+    <p class="page-intro">小窓①を押すと、この分類に追加したインジケーターの一覧をここで確認できます。各インジケーターの説明カードを、この窓の中に順番に追加していきます。</p>
+    <article class="card planned-card">
+      <div class="tag">ACCESSORY</div>
+      <h3>インジケーター追加欄</h3>
+      <p>正式なインジケーター名・機能・表示例が決まったものから、1件ずつ一覧に追加します。</p>
+    </article>
+  
+    <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button next" href="#indicator-page-2">次へ　›</a></nav>
+  </section>
+</section>
 
-<article class="card">
-<div class="tag">TRADE SYSTEM</div>
-<h2>Transition_TradeSystem_4K_SP</h2>
-<p>BB・3MACD・OHLCなどの判定情報をまとめて表示する4K向けTrade System。</p>
-<ul>
-<li>BB30トリガー</li>
-<li>バンドウォーク判定</li>
-<li>3MACD方向表示</li>
-<li>H4 / D1 OHLC表示</li>
-</ul>
-</article>
+<section class="indicator-window" id="indicator-window-2" aria-label="分類2のインジケーター一覧" hidden>
+  <section class="indicator-page" id="indicator-page-2">
+    <div class="page-label">② / BB / MA</div>
+    <h2>BB / MA</h2>
+    <article class="card">
+      <div class="tag">BB / MA</div>
+      <h3>Transition_BB4_MA5_BIG</h3>
+      <p>複数のボリンジャーバンドと5本のMAをまとめて表示する、TRANSITION SYSTEMの中心的なインジケーター。</p>
+      <ul>
+        <li>BB30 / BB90 / BB360 / BB1440</li>
+        <li>5本のMA</li>
+        <li>MAの上昇・下降・バンドウォーク表示</li>
+      </ul>
+    </article>
+    <article class="card">
+      <div class="tag">3MA</div>
+      <h3>Transition_3MA_Histogram</h3>
+      <p>MA30・MA90・MA360の方向をヒストグラムで視覚化するインジケーター。</p>
+      <ul>
+        <li>MA30 / MA90 / MA360</li>
+        <li>上昇・下降を色分け</li>
+        <li>各MAのON/OFF</li>
+      </ul>
+    </article>
+  
+    <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-1">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-3">次へ　›</a></nav>
+  </section>
+</section>
+
+<section class="indicator-window" id="indicator-window-3" aria-label="分類3のインジケーター一覧" hidden>
+  <section class="indicator-page" id="indicator-page-3">
+    <div class="page-label">③ / MACD</div>
+    <h2>MACD</h2>
+    <article class="card">
+      <div class="tag">3MACD</div>
+      <h3>Transition_3MACD_CrossBackground</h3>
+      <p>短期・中期・長期のMACDを階層表示し、クロス状態をチャート背景でも確認できるインジケーター。</p>
+      <ul>
+        <li>短期・中期・長期MACD</li>
+        <li>6 / 24 / 96を色判定基準として使用</li>
+        <li>クロス背景表示</li>
+      </ul>
+    </article>
+  
+    <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-2">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-4">次へ　›</a></nav>
+  </section>
+</section>
+
+<section class="indicator-window" id="indicator-window-4" aria-label="分類4のインジケーター一覧" hidden>
+  <section class="indicator-page" id="indicator-page-4">
+    <div class="page-label">④ / CURRENCY STRENGTH</div>
+    <h2>通貨強弱</h2>
+    <article class="card planned-card">
+      <div class="tag">CURRENCY STRENGTH</div>
+      <h3>追加予定</h3>
+      <p>通貨強弱インジケーターの正式な名称と説明を、確定後にこのページへ追加します。</p>
+    </article>
+  
+    <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-3">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-5">次へ　›</a></nav>
+  </section>
+</section>
+
+<section class="indicator-window" id="indicator-window-5" aria-label="分類5のインジケーター一覧" hidden>
+  <section class="indicator-page" id="indicator-page-5">
+    <div class="page-label">⑤ / SMC</div>
+    <h2>SMC</h2>
+    <article class="card planned-card">
+      <div class="tag">SMC</div>
+      <h3>追加予定</h3>
+      <p>SMC関連インジケーターの名称・機能が決まり次第、このページに説明を追加します。</p>
+    </article>
+  
+    <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-4">‹　前へ</a><a class="indicator-page-button next" href="#indicator-page-6">次へ　›</a></nav>
+  </section>
+</section>
+
+<section class="indicator-window" id="indicator-window-6" aria-label="分類6のインジケーター一覧" hidden>
+  <section class="indicator-page" id="indicator-page-6">
+    <div class="page-label">⑥ / TRADE SYSTEM</div>
+    <h2>TRADE SYSTEM</h2>
+    <article class="card">
+      <div class="tag">TRADE SYSTEM</div>
+      <h3>Transition_TradeSystem_4K_SP</h3>
+      <p>BB・3MACD・OHLCなどの判定情報をまとめて表示する4K向けTrade System。</p>
+      <ul>
+        <li>BB30トリガー</li>
+        <li>バンドウォーク判定</li>
+        <li>3MACD方向表示</li>
+        <li>H4 / D1 OHLC表示</li>
+      </ul>
+    </article>
+  
+    <nav class="indicator-page-nav" aria-label="説明ページ移動"><a class="indicator-page-button prev" href="#indicator-page-5">‹　前へ</a></nav>
+  </section>
 </section>
 </main>
 
+
+<div class="mobile-home-return" aria-label="HOMEへ戻る">
+  <a href="home.html">⌂ HOMEに戻る</a>
+</div>
+
 <footer class="footer">TRANSITION SYSTEM | by Manda FX Office</footer>
+<script id="indicator-window-navigation">
+(function(){
+  const windows = Array.from(document.querySelectorAll('.indicator-window'));
+  if (!windows.length) return;
+  function showCategory(id, updateHash){
+    const match = /^indicator-page-([1-6])$/.exec(id || '');
+    if (!match) return false;
+    const n = match[1];
+    const selectedWindow = document.getElementById('indicator-window-' + n);
+    const selectedPage = document.getElementById(id);
+    if (!selectedWindow || !selectedPage) return false;
+    windows.forEach(function(win){ win.hidden = win !== selectedWindow; });
+    selectedWindow.scrollTop = 0;
+    const header = document.querySelector('.topbar');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const top = window.scrollY + selectedWindow.getBoundingClientRect().top - headerHeight - 8;
+    window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    if (updateHash) history.replaceState(null,'','#' + id);
+    return true;
+  }
+  document.querySelectorAll('.category-tile, .indicator-page-button').forEach(function(link){
+    link.addEventListener('click',function(event){
+      const id = (link.getAttribute('href') || '').slice(1);
+      if (!showCategory(id,true)) return;
+      event.preventDefault();
+    });
+  });
+  const initialId = (location.hash || '').slice(1);
+  if (initialId) showCategory(initialId,false);
+})();
+</script>
 </body>
 </html>
