@@ -264,6 +264,7 @@ body{padding-top:88px}
 .category-tile strong{font-size:clamp(12px,2vw,16px);line-height:1.35;overflow-wrap:anywhere}
 .category-tile:active{background:#252a2f}
 .indicator-window{
+  scroll-margin-top:100px;
   height:min(78vh,900px);
   min-height:520px;
   overflow:hidden;
@@ -642,11 +643,13 @@ body{padding-top:88px}
     const selectedPage = document.getElementById(id);
     if (!selectedWindow || !selectedPage) return false;
     windows.forEach(function(win){ win.hidden = win !== selectedWindow; });
-    selectedWindow.scrollTop = 0;
-    const header = document.querySelector('.topbar');
-    const headerHeight = header ? header.getBoundingClientRect().height : 0;
-    const top = window.scrollY + selectedWindow.getBoundingClientRect().top - headerHeight - 8;
-    window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    selectedPage.scrollTop = 0;
+    selectedPage.scrollLeft = 0;
+    window.requestAnimationFrame(function(){
+      selectedPage.scrollTop = 0;
+      selectedWindow.scrollIntoView({behavior:'smooth', block:'start', inline:'nearest'});
+      window.setTimeout(function(){ selectedPage.scrollTop = 0; }, 350);
+    });
     if (updateHash) history.replaceState(null,'','#' + id);
     return true;
   }
