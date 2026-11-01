@@ -239,6 +239,47 @@ body{padding-top:88px}
 }
 </style>
 
+<style id="tablet-page-top-return-visibility-fix">
+/* Tablet-only saved page: show both return controls as a clear vertical stack. */
+.mobile-home-return{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:30px auto 10px!important;
+  padding:0 14px 12px!important;
+  box-sizing:border-box!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+.mobile-home-return a,
+.mobile-home-return a.mobile-page-top-return{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  width:min(320px,100%)!important;
+  min-width:0!important;
+  min-height:50px!important;
+  margin:0 auto!important;
+  padding:13px 18px!important;
+  box-sizing:border-box!important;
+  border:1px solid #8d949a!important;
+  border-radius:9px!important;
+  background:linear-gradient(#4b5156,#151719)!important;
+  color:#fff!important;
+  text-decoration:none!important;
+  font-weight:700!important;
+  letter-spacing:1.5px!important;
+  text-align:center!important;
+  z-index:20!important;
+}
+</style>
 <style id="indicator-category-window">
 .indicator-categories{
   display:grid;
