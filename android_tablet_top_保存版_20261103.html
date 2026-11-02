@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>TRANSITION SYSTEM - Tablet TOP Preview V4</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+#phoneBase{display:block;width:100%;height:100vh;height:100dvh;min-height:100vh;min-height:100dvh;border:0;background:#000}
+</style>
+</head>
+<body>
+<iframe id="phoneBase" title="Androidスマホ正式保存版V29 タブレット表示確認"
+ src="./index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?tabletbase=20261103v4"
+ scrolling="yes"></iframe>
+<script>
+(function(){
+  "use strict";
+  var frame=document.getElementById("phoneBase");
+  function applyTabletLayout(){
+    try{
+      var doc=frame.contentDocument||frame.contentWindow.document;
+      if(!doc||!doc.head||!doc.body)return;
+      var old=doc.getElementById("android-tablet-top-v4");
+      if(old)old.remove();
+      var style=doc.createElement("style");
+      style.id="android-tablet-top-v4";
+      style.textContent=[
+        "/* V4 tablet preview: use saved V29 content, tablet-only geometry */",
+        "html,body{height:auto!important;min-height:100%!important;margin:0!important;overflow-x:hidden!important;overflow-y:auto!important;}",
+        ".site-header{height:86px!important;min-height:86px!important;padding:0 22px!important;box-sizing:border-box!important;overflow:hidden!important;}",
+        ".site-header{display:flex!important;align-items:center!important;justify-content:flex-start!important;}",
+        ".site-header{display:flex!important;align-items:center!important;justify-content:flex-start!important;height:86px!important;min-height:86px!important;max-height:86px!important;overflow:hidden!important;box-sizing:border-box!important;}",
+        ".site-header img,.site-header a img,.site-header-logo{display:block!important;width:auto!important;max-width:190px!important;min-width:0!important;height:auto!important;max-height:48px!important;object-fit:contain!important;object-position:left center!important;margin:0!important;flex:0 1 auto!important;}",
+        ".site-header a{display:flex!important;align-items:center!important;max-height:100%!important;overflow:hidden!important;}",
+        ".entrance{display:block!important;position:relative!important;width:100%!important;height:calc(100vh - 86px)!important;height:calc(100dvh - 86px)!important;min-height:calc(100vh - 86px)!important;min-height:calc(100dvh - 86px)!important;max-height:none!important;overflow:hidden!important;background:#000!important;}",
+        ".entrance:after{display:none!important;}",
+        ".entrance img.hero-logo{position:absolute!important;left:50%!important;right:auto!important;top:9%!important;bottom:auto!important;transform:translateX(-50%)!important;width:min(55vw,560px)!important;max-width:560px!important;height:auto!important;object-fit:contain!important;z-index:2!important;}",
+        ".entrance .bgm-btn{position:absolute!important;left:18px!important;right:auto!important;top:14px!important;z-index:8!important;padding:9px 14px!important;font-size:13px!important;}",
+        ".entrance .presentation-ticker{position:absolute!important;left:50%!important;top:55%!important;right:auto!important;bottom:auto!important;transform:translateX(-50%)!important;width:min(84vw,850px)!important;height:64px!important;min-height:64px!important;margin:0!important;box-sizing:border-box!important;z-index:4!important;}",
+        ".entrance .presentation-message{font-size:clamp(19px,2.7vw,27px)!important;line-height:1.15!important;padding:10px 32px!important;letter-spacing:1.2px!important;}",
+        ".entrance .presentation-message span{margin-right:38px!important;}",
+        ".entrance .entry-buttons{position:absolute!important;left:50%!important;top:auto!important;bottom:7%!important;right:auto!important;transform:translateX(-50%)!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:min(84vw,850px)!important;max-width:850px!important;margin:0!important;z-index:5!important;}",
+        ".entrance .entry-buttons .entry-btn{display:block!important;width:auto!important;min-width:0!important;padding:13px 10px!important;box-sizing:border-box!important;}",
+        ".entrance .entry-buttons .entry-btn b{font-size:clamp(16px,2.2vw,21px)!important;letter-spacing:1.4px!important;}",
+        ".entrance .entry-buttons .entry-btn span{font-size:11px!important;}",
+        ".smartphone-top-controls{display:none!important;}",
+        ".site-purpose{max-width:980px!important;margin:20px auto 35px!important;padding:0 20px!important;}",
+        ".community-preview{padding:48px 18px 64px!important;}",
+        ".community-preview-inner{max-width:1100px!important;}",
+        ".community-window{height:62svh!important;min-height:420px!important;max-height:720px!important;overflow:hidden!important;}",
+        ".community-feed{height:100%!important;overflow-y:auto!important;overscroll-behavior:contain!important;}",
+        ".qr-access.qr-desktop{display:block!important;max-width:760px!important;margin:28px auto!important;}",
+        "@media (orientation:landscape){.entrance img.hero-logo{top:5%!important;width:min(42vw,440px)!important;}.entrance .presentation-ticker{top:51%!important;height:54px!important;min-height:54px!important;}.entrance .entry-buttons{bottom:5%!important;gap:9px!important;}.entrance .entry-buttons .entry-btn{padding:9px 8px!important;}}"
+      ].join("\n");
+      doc.head.appendChild(style);
+      var buttons=doc.querySelectorAll(".entrance .entry-buttons a.entry-btn");
+      if(buttons.length===4){
+        buttons[0].href="android_tablet_navigation_test_V14_review.html?page=TRANSITION_SYSTEM_HOME_%E4%BF%9D%E5%AD%98%E7%89%88_V6.html";
+        buttons[1].href="project.html";
+        buttons[1].removeAttribute("target");
+        buttons[1].innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
+        buttons[1].setAttribute("aria-label","伝助のインジケーター");
+        buttons[2].href="fx_companies.html";
+        buttons[3].href="admin_qa.html";
+      }
+    }catch(e){
+      document.documentElement.setAttribute("data-tablet-layout-error","true");
+    }
+  }
+  frame.addEventListener("load",applyTabletLayout);
+})();
+</script>
+</body>
+</html>
