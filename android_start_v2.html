@@ -2,24 +2,30 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000000">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>TRANSITION SYSTEM 起動</title>
 <script>
 (function () {
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua);
   var isMobileUA = /Mobile/i.test(ua);
-  var w = Number(screen.width) || Number(window.innerWidth) || 0;
-  var h = Number(screen.height) || Number(window.innerHeight) || 0;
-  var smallSide = Math.min(w, h);
-  var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
-
-  // タブレットは中継ページを挟まず、今回の専用TOPファイルへ直接接続。
-  // Androidスマホ・iPhone・PCは index.html の従来導線を維持。
+  var sw = Number(screen.width) || 0;
+  var sh = Number(screen.height) || 0;
+  var iw = Number(window.innerWidth) || 0;
+  var ih = Number(window.innerHeight) || 0;
+  var smallest = Math.min.apply(Math, [sw, sh, iw, ih].filter(function(n){return n > 0;}));
+  var largest = Math.max(sw, sh, iw, ih);
+  // Androidタブレット判定: Mobile UAでない端末、または短辺600px以上、
+  // もしくは長辺1000px以上のAndroid端末をタブレット扱いにする。
+  // 一般的なAndroidスマホ(短辺が小さく長辺1000px未満)は従来のindex.htmlへ。
+  var isTablet = isAndroid && (!isMobileUA || smallest >= 600 || largest >= 1000);
   var target = isTablet
-    ? "android_tablet_top_%E4%BF%9D%E5%AD%98%E7%89%88_20261102_1911.html?baseline=20261102_1911"
+    ? "android_tablet_from_android_phone_V1_20261102.html?launch=20261102v1"
     : "index.html";
   window.location.replace(target);
 })();
@@ -27,6 +33,6 @@
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="android_tablet_top_%E4%BF%9D%E5%AD%98%E7%89%88_20261102_1911.html">Androidタブレット用TOPを開く</a></p>
+<p><a href="android_tablet_from_android_phone_V1_20261102.html">Androidタブレット用TOPを開く</a></p>
 </body>
 </html>
