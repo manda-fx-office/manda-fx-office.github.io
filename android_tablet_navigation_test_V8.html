@@ -19,8 +19,8 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
  var wrapperPath='/android_tablet_navigation_test_V8.html';
  var params=new URLSearchParams(window.location.search);
  var page=params.get('page');
- var v29='index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_start_saved_V1_20261030';
- frame.src=page?page:v29;
+ var tabletTop='android_tablet_saved_top.html?v=tablet_saved_top_restore_20261102';
+ frame.src=page?page:tabletTop;
  frame.addEventListener('load',function(){
   try{
    var doc=frame.contentDocument;
