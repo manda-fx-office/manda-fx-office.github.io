@@ -13,19 +13,27 @@
 (function () {
   var ua = navigator.userAgent || "";
   var isAndroid = /Android/i.test(ua);
-  var isMobileUA = /Mobile/i.test(ua);
+  var uaMobile = null;
+  if (navigator.userAgentData && typeof navigator.userAgentData.mobile === "boolean") {
+    uaMobile = navigator.userAgentData.mobile;
+  }
   var sw = Number(screen.width) || 0;
   var sh = Number(screen.height) || 0;
   var iw = Number(window.innerWidth) || 0;
   var ih = Number(window.innerHeight) || 0;
-  var smallest = Math.min.apply(Math, [sw, sh, iw, ih].filter(function(n){return n > 0;}));
-  var largest = Math.max(sw, sh, iw, ih);
-  // Androidタブレット判定: Mobile UAでない端末、または短辺600px以上、
-  // もしくは長辺1000px以上のAndroid端末をタブレット扱いにする。
-  // 一般的なAndroidスマホ(短辺が小さく長辺1000px未満)は従来のindex.htmlへ。
-  var isTablet = isAndroid && (!isMobileUA || smallest >= 600 || largest >= 1000);
+  var sizes = [sw, sh, iw, ih].filter(function (n) { return n > 0; });
+  var shortSide = sizes.length ? Math.min.apply(Math, sizes) : 0;
+  var tabletUA = /Tablet/i.test(ua);
+  // Do not classify a phone as a tablet merely because its long side exceeds 1000px.
+  // Prefer Chromium's mobile flag; otherwise use tablet UA or a tablet-sized CSS short side.
+  var isTablet = isAndroid && (
+    uaMobile === false ||
+    tabletUA ||
+    (uaMobile === null && !/Mobile/i.test(ua) && shortSide >= 450) ||
+    shortSide >= 600
+  );
   var target = isTablet
-    ? "android_tablet_from_android_phone_V1_20261102.html?launch=20261102v1"
+    ? "android_tablet_from_android_phone_V1_20261102.html?launch=20261102v2"
     : "index.html";
   window.location.replace(target);
 })();
@@ -33,6 +41,5 @@
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="android_tablet_from_android_phone_V1_20261102.html">Androidタブレット用TOPを開く</a></p>
 </body>
 </html>
