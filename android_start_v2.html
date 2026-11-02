@@ -24,8 +24,7 @@
   var sizes = [sw, sh, iw, ih].filter(function (n) { return n > 0; });
   var shortSide = sizes.length ? Math.min.apply(Math, sizes) : 0;
   var tabletUA = /Tablet/i.test(ua);
-  // Do not classify a phone as a tablet merely because its long side exceeds 1000px.
-  // Prefer Chromium's mobile flag; otherwise use tablet UA or a tablet-sized CSS short side.
+  // Android tablets use the V29 tablet wrapper. Android phones and other devices keep index.html.
   var isTablet = isAndroid && (
     uaMobile === false ||
     tabletUA ||
@@ -33,7 +32,7 @@
     shortSide >= 600
   );
   var target = isTablet
-    ? "android_tablet_from_android_phone_V2_20261102.html?launch=20261102v2"
+    ? "android_tablet_phone_v29_unified_v3.html?launch=20261103v3"
     : "index.html";
   window.location.replace(target);
 })();
