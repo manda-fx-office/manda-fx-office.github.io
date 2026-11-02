@@ -5,54 +5,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000000">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>TRANSITION SYSTEM - Android Tablet</title>
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
-#tabletTop{display:block;width:100%;height:100%;border:0;background:#000;visibility:hidden}
-#tabletTop.ready{visibility:visible}
+#tabletTop{display:block;width:100%;height:100%;border:0;background:#000}
 </style>
 </head>
 <body>
-<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E4%BF%9D%E5%AD%98%E7%89%88_8%E6%99%8235%E5%88%86%E5%9F%BA%E6%BA%96_4%E3%83%9C%E3%82%BF%E3%83%B3%E5%84%AA%E5%85%88_%E3%83%86%E3%83%AD%E3%83%83%E3%83%97%E3%81%95%E3%82%89%E3%81%AB%E4%B8%8A.html?v=20261027c"></iframe>
+<iframe id="tabletTop" title="TRANSITION SYSTEM TOP" src="index_TOP_スマホ正式保存版_V29.html"></iframe>
 <script>
 (function () {
- var frame=document.getElementById("tabletTop");
- function applyTabletSettings(){
-  try{
-   var doc=frame.contentDocument||frame.contentWindow.document;
-   if(!doc||!doc.head||!doc.body)return;
-   var old=doc.getElementById("android-tablet-smartphone-layout");if(old)old.remove();
-   var style=doc.createElement("style");
-   style.id="android-tablet-smartphone-layout";
-   style.textContent=".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important;bottom:18%!important}.entry-buttons .entry-btn{display:block!important;min-width:0!important;padding:12px 7px!important}.entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1px!important}.entry-buttons .entry-btn span{font-size:10px!important}.bgm-btn{left:24px!important;right:auto!important;top:10px!important;padding:8px 12px!important;font-size:11px!important}.entrance .presentation-ticker{width:calc(100% - 36px)!important;max-width:850px!important;left:50%!important;transform:translateX(-50%)!important}";
-   doc.head.appendChild(style);
-   // タブレット内のHOME/COMMUNITYクリックを最優先で捕捉し、誤リンクを防止。
-   doc.addEventListener("click",function(ev){
-    var el=ev.target;
-    while(el&&el!==doc&&!(/^(A|BUTTON)$/.test(el.tagName)||el.getAttribute&&el.getAttribute("role")==="button"))el=el.parentElement;
-    if(!el||el===doc)return;
-    var label=(el.innerText||el.textContent||"").replace(/\s+/g," ").trim();
-    if(/^HOME\b/i.test(label)||/^ホームページへ/.test(label)){
-      ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-      window.top.location.href="android_tablet_home.html?v=20261027c";return;
-    }
-    if(/COMMUNITY|コミュニティー|コミュニティ/i.test(label)){
-      ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-      window.top.location.href="project.html?v=20261027c";return;
-    }
-   },true);
-   var controls=Array.prototype.slice.call(doc.querySelectorAll("a,button,[role='button']"));
-   var community=controls.find(function(el){return /COMMUNITY|コミュニティー|コミュニティ/i.test((el.innerText||el.textContent||"").replace(/\s+/g," ").trim())});
-   if(community){community.href="project.html?v=20261027c";community.target="_top";community.removeAttribute("onclick");community.setAttribute("aria-label","伝助のインジケーター");community.innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";}
-   var home=controls.find(function(el){var t=(el.innerText||el.textContent||"").replace(/\s+/g," ").trim();return /^HOME\b/i.test(t)||/^ホームページへ/.test(t)});
-   if(home){home.href="android_tablet_home.html?v=20261027c";home.target="_top";home.removeAttribute("onclick");}
-   frame.classList.add("ready");
-  }catch(e){frame.classList.add("ready");}
- }
- frame.addEventListener("load",applyTabletSettings);
+  var frame = document.getElementById("tabletTop");
+
+  function applyTabletSettings() {
+    try {
+      var doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc || !doc.head || !doc.body) return;
+
+      // 昨日まで動作確認していたタブレット専用表示設定を復元。
+      // スマホ保存版本体・iPhone版・PC版のファイルは変更しない。
+      var old = doc.getElementById("android-tablet-menu-fix");
+      if (old) old.remove();
+
+      var style = doc.createElement("style");
+      style.id = "android-tablet-menu-fix";
+      style.textContent = [
+        ".entry-buttons{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;bottom:18%!important;width:calc(100% - 36px)!important;gap:10px!important;}",
+        ".entry-buttons .pc-only-entry-community{display:none!important;}",
+        ".entry-buttons .mobile-only-entry-densuke{display:flex!important;}",
+        ".entry-buttons .entry-btn{min-width:0!important;padding:11px 7px!important;}",
+        ".entry-buttons .entry-btn b{font-size:17px!important;letter-spacing:1.5px!important;}",
+        ".entry-buttons .entry-btn span{font-size:10px!important;}",
+        ".bgm-btn{left:24px!important;right:auto!important;top:10px!important;padding:8px 12px!important;font-size:11px!important;}"
+      ].join("\n");
+      doc.head.appendChild(style);
+
+      // HOMEボタンのみタブレット専用HOMEへ。見つからない場合は別ページへ誤誘導しない。
+      var home = doc.querySelector(".entry-buttons a.entry-btn[href*='home']");
+      if (home) {
+        home.href = "android_tablet_home.html";
+        home.target = "_top";
+      }
+
+      // TOPのロゴはクリックしても移動しない。ロゴ画像を含むリンクだけ無効化。
+      doc.querySelectorAll(".mobile-taskbar a, .topbar a, .site-header a, a[aria-label='TOPページへ'], a[aria-label='TOP'], a[aria-label='TOPへ']").forEach(function (a) {
+        var img = a.querySelector("img");
+        var label = (a.getAttribute("aria-label") || "").toLowerCase();
+        var logoClass = /logo/i.test(a.className || "") || !!(img && /logo/i.test(img.className || ""));
+        var isLogo = !!img || logoClass || label.indexOf("top") === 0;
+        if (!isLogo) return;
+        a.removeAttribute("href");
+        a.removeAttribute("target");
+        a.setAttribute("aria-disabled", "true");
+        a.style.cursor = "default";
+        a.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }, true);
+      });
+    } catch (e) {}
+  }
+
+  frame.addEventListener("load", applyTabletSettings);
 })();
 </script>
 </body>
