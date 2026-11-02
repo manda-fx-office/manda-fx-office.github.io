@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
 <title>TRANSITION SYSTEM 起動</title>
 <script>
 (function () {
@@ -15,15 +16,17 @@
   var smallSide = Math.min(w, h);
   var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
 
-  // AndroidタブレットだけAndroidスマホ保存版TOPへ直接進む。Androidスマホと他端末は従来の index.html。
-  // スマホ保存版HTML本体とPC版は変更しない。
-  var target = isTablet ? "android_tablet_start.html" : "index.html";
+  // タブレットは中継ページを挟まず、タブレット専用TOPへ直接接続する。
+  // Androidスマホ・iPhone・PCは従来どおり index.html を開く。
+  var target = isTablet
+    ? "android_tablet_top.html?direct_tablet_start=20261102"
+    : "index.html";
   window.location.replace(target);
 })();
 </script>
 </head>
 <body>
 <p>TRANSITION SYSTEM を起動しています…</p>
-<p><a href="index.html">TOPページを開く</a></p>
+<p><a href="android_tablet_top.html">Androidタブレット用TOPを開く</a></p>
 </body>
 </html>
