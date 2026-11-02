@@ -4,10 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#000000">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>TRANSITION SYSTEM 起動</title>
 <script>
 (function () {
@@ -17,12 +13,11 @@
   var w = Number(screen.width) || Number(window.innerWidth) || 0;
   var h = Number(screen.height) || Number(window.innerHeight) || 0;
   var smallSide = Math.min(w, h);
-  var isTablet = isAndroid && (!isMobileUA || /Tablet/i.test(ua) || smallSide >= 450);
+  var isTablet = isAndroid && (!isMobileUA || smallSide >= 600);
 
-  // 以前の正常起動経路へ復旧。タブレットは保存済みタブレットTOPへ。
-  // Androidスマホ・iPhone・PCの既存経路は維持。
-  var tabletTarget = "android_tablet_saved_top.html?v=20261027_tablet_saved_top";
-  var target = isTablet ? tabletTarget : "index.html";
+  // AndroidタブレットだけAndroidスマホ保存版TOPへ直接進む。Androidスマホと他端末は従来の index.html。
+  // スマホ保存版HTML本体とPC版は変更しない。
+  var target = isTablet ? "android_tablet_start.html" : "index.html";
   window.location.replace(target);
 })();
 </script>
