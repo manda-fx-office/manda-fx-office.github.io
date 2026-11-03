@@ -57,6 +57,10 @@ body.ready #bootMessage{display:none}
       doc.head.appendChild(style);
       var buttons=doc.querySelectorAll(".entrance .entry-buttons a.entry-btn");
       if(buttons.length===4){
+        // Tablet HOME must always open the saved HOME V6 through the tablet wrapper.
+        buttons[0].href="android_tablet_navigation_test_V8.html?page="+encodeURIComponent("TRANSITION_SYSTEM_HOME_保存版_V6.html");
+        buttons[0].setAttribute("target","_top");
+        buttons[0].setAttribute("aria-label","保存版HOMEへ");
         buttons[1].href="project.html";
         buttons[1].removeAttribute("target");
         buttons[1].innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
