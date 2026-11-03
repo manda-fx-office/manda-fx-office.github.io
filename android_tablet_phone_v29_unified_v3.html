@@ -50,21 +50,32 @@ body.ready #bootMessage{display:none}
         ".entrance .entry-buttons .entry-btn{display:block!important;width:auto!important;min-width:0!important;padding:14px 10px!important;box-sizing:border-box!important;}",
         ".entrance .entry-buttons .entry-btn b{font-size:19px!important;letter-spacing:1.5px!important;}",
         ".entrance .entry-buttons .entry-btn span{font-size:11px!important;}",
+        ".entrance .entry-buttons .tablet-densuke-btn{display:block!important;grid-column:1 / -1!important;}",
         ".smartphone-top-controls{display:none!important;}",
         ".site-purpose,.community-preview{height:auto!important;overflow:visible!important;}",
         "@media (orientation:landscape){.entrance img.hero-logo{top:10%!important;width:min(44vw,470px)!important;}.entrance .presentation-ticker{top:57%!important;}.entrance .entry-buttons{bottom:6%!important;gap:10px!important;}.entrance .entry-buttons .entry-btn{padding:10px 9px!important;}}"
       ].join("\n");
       doc.head.appendChild(style);
       var buttons=doc.querySelectorAll(".entrance .entry-buttons a.entry-btn");
-      if(buttons.length===4){
-        // Tablet HOME must always open the saved HOME V6 through the tablet wrapper.
-        buttons[0].href="android_tablet_navigation_test_V8.html?page="+encodeURIComponent("TRANSITION_SYSTEM_HOME_保存版_V6.html?tablet-home-v6=20261103route2")+"&routeversion=20261103route2";
-        buttons[0].setAttribute("target","_top");
-        buttons[0].setAttribute("aria-label","保存版HOMEへ");
-        buttons[1].href="project.html";
-        buttons[1].removeAttribute("target");
-        buttons[1].innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
-        buttons[1].setAttribute("aria-label","伝助のインジケーター");
+      if(buttons.length>=4){
+        // Keep the original four TOP buttons and insert Densuke immediately before HOME.
+        var homeButton=Array.prototype.slice.call(buttons).find(function(a){
+          return /HOME/.test((a.textContent||"").trim());
+        });
+        if(homeButton){
+          homeButton.href="android_tablet_navigation_test_V8.html?page="+encodeURIComponent("TRANSITION_SYSTEM_HOME_保存版_V6.html?tablet-home-v6=20261103route2")+"&routeversion=20261103route2";
+          homeButton.setAttribute("target","_top");
+          homeButton.setAttribute("aria-label","保存版HOMEへ");
+          if(!doc.querySelector(".entrance .entry-buttons .tablet-densuke-btn")){
+            var densuke=doc.createElement("a");
+            densuke.className="entry-btn tablet-densuke-btn";
+            densuke.href="/android_tablet_project_saved.html?tablet=20261103v2";
+            densuke.setAttribute("target","_top");
+            densuke.setAttribute("aria-label","伝助のインジケーター");
+            densuke.innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
+            homeButton.parentNode.insertBefore(densuke,homeButton);
+          }
+        }
       }
       // Reveal only after the tablet overrides have been installed.
       requestAnimationFrame(function(){
