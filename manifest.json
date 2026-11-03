@@ -1,7 +1,7 @@
 {
   "name": "TRANSITION SYSTEM",
   "short_name": "TRANSITION",
-  "start_url": "./android_start_v2.html?appbuild=20261102v2",
+  "start_url": "./android_start_v2.html?appbuild=20261103central_v1",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
