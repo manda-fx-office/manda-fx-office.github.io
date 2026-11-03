@@ -680,12 +680,8 @@ body{padding-top:88px}
   if(!button)return;
   button.addEventListener('click',function(event){
     event.preventDefault();
-    var scroller=document.body;
-    if(scroller && typeof scroller.scrollTo==='function'){
-      scroller.scrollTo({top:0,behavior:'smooth'});
-    }else if(scroller){
-      scroller.scrollTop=0;
-    }
+    var root=document.scrollingElement||document.documentElement;
+    root.scrollTo ? root.scrollTo({top:0,behavior:'smooth'}) : root.scrollTop=0;
     window.scrollTo({top:0,behavior:'smooth'});
     history.replaceState(null,'','#page-top');
   });
@@ -693,51 +689,37 @@ body{padding-top:88px}
 </script>
 <script id="indicator-window-navigation">
 (function(){
-  const windows = Array.from(document.querySelectorAll('.indicator-window'));
-  if (!windows.length) return;
-  function showCategory(id, updateHash){
-    const match = /^indicator-page-([1-6])$/.exec(id || '');
-    if (!match) return false;
-    const n = match[1];
-    const selectedWindow = document.getElementById('indicator-window-' + n);
-    const selectedPage = document.getElementById(id);
-    if (!selectedWindow || !selectedPage) return false;
-    windows.forEach(function(win){ win.hidden = win !== selectedWindow; });
-    selectedPage.scrollTop = 0;
-    selectedPage.scrollLeft = 0;
-    window.requestAnimationFrame(function(){
-      selectedPage.scrollTop = 0;
-      var header = document.querySelector('.topbar');
-      var headerHeight = header ? header.getBoundingClientRect().height : 0;
-      // The tablet wrapper makes BODY (not WINDOW) the vertical scroll container.
-      // Scroll that exact container so the chosen category window reaches the top.
-      var bodyScroller = document.body;
-      var bodyTop = bodyScroller.scrollTop + selectedWindow.getBoundingClientRect().top - headerHeight - 8;
-      if (bodyScroller && typeof bodyScroller.scrollTo === 'function') {
-        bodyScroller.scrollTo({top:Math.max(0,bodyTop),behavior:'smooth'});
-      } else if (bodyScroller) {
-        bodyScroller.scrollTop = Math.max(0,bodyTop);
-      }
-      window.setTimeout(function(){
-        selectedPage.scrollTop = 0;
-        if (bodyScroller) {
-          var remaining = selectedWindow.getBoundingClientRect().top - headerHeight - 8;
-          if (Math.abs(remaining) > 3) bodyScroller.scrollTop += remaining;
-        }
-      }, 450);
+  var windows=Array.from(document.querySelectorAll('.indicator-window'));
+  if(!windows.length)return;
+  function showCategory(id,updateHash){
+    var match=/^indicator-page-([1-6])$/.exec(id||'');
+    if(!match)return false;
+    var n=match[1], selectedWindow=document.getElementById('indicator-window-'+n);
+    var selectedPage=document.getElementById(id);
+    if(!selectedWindow||!selectedPage)return false;
+    windows.forEach(function(win){win.hidden=win!==selectedWindow;});
+    selectedPage.scrollTop=0;
+    selectedPage.scrollLeft=0;
+    if(updateHash)history.replaceState(null,'','#'+id);
+    requestAnimationFrame(function(){
+      selectedPage.scrollTop=0;
+      var header=document.querySelector('.topbar');
+      var headerHeight=header?header.getBoundingClientRect().height:0;
+      selectedWindow.style.scrollMarginTop=(headerHeight+10)+'px';
+      selectedWindow.scrollIntoView({behavior:'smooth',block:'start'});
+      window.setTimeout(function(){selectedPage.scrollTop=0;},450);
     });
-    if (updateHash) history.replaceState(null,'','#' + id);
     return true;
   }
-  document.querySelectorAll('.category-tile, .indicator-page-button').forEach(function(link){
+  document.querySelectorAll('.category-tile,.indicator-page-button').forEach(function(link){
     link.addEventListener('click',function(event){
-      const id = (link.getAttribute('href') || '').slice(1);
-      if (!showCategory(id,true)) return;
-      event.preventDefault();
+      var href=link.getAttribute('href')||'';
+      if(href.charAt(0)!=='#')return;
+      if(showCategory(href.slice(1),true))event.preventDefault();
     });
   });
-  const initialId = (location.hash || '').slice(1);
-  if (initialId) showCategory(initialId,false);
+  var initialId=(location.hash||'').slice(1);
+  if(initialId)showCategory(initialId,false);
 })();
 </script>
 </body>
