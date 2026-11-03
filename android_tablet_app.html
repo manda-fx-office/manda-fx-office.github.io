@@ -9,14 +9,69 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>TRANSITION SYSTEM Android Tablet</title>
-<script>
-(function(){
-  // Legacy tablet-app entry: hand off directly to the approved 2026-11-03 saved tablet TOP.
-  window.location.replace("android_tablet_saved_top_20261103.html?launch=20261103saved_top_legacy_app");
-})();
-</script>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+#tabletPage{display:block;width:100%;height:100%;border:0;background:#000}
+</style>
 </head>
 <body>
-<p>TRANSITION SYSTEM タブレット保存版を起動しています…</p>
+<iframe id="tabletPage" title="TRANSITION SYSTEM Android Tablet" src="index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?v=tablet_use_saved_v29_20261101"></iframe>
+<script>
+(function(){
+  var frame=document.getElementById("tabletPage");
+  var tabletStyle=[
+    "/* Androidタブレット専用。保存済みTOP本文とスマホ・PC版は変更しない */",
+    "@media (min-width:651px) and (max-width:1200px){",
+    "html,body{width:100%;min-height:100%;overflow-x:hidden;background:#000!important}",
+    ".site-header{height:58px!important;padding:0 18px!important}",
+    ".site-header-logo{width:150px!important;max-height:48px!important;object-fit:contain!important}",
+    ".entrance{min-height:calc(100svh - 58px)!important;height:calc(100svh - 58px)!important;overflow:hidden!important}",
+    ".entrance img.hero-logo{width:min(76vw,620px)!important;max-height:48vh!important;object-fit:contain!important;transform:translateY(-13vh)!important}",
+    ".bgm-btn{left:auto!important;right:24px!important;top:16px!important;padding:8px 12px!important;font-size:12px!important;letter-spacing:1px!important}",
+    ".presentation-ticker{left:50%!important;top:67%!important;transform:translate(-50%,-50%)!important;width:calc(100% - 56px)!important;min-height:54px!important;height:54px!important;margin:0!important;overflow:hidden!important}",
+    ".presentation-message{font-size:clamp(15px,2.4vw,22px)!important;line-height:1.2!important;padding:10px 24px!important;letter-spacing:1px!important}",
+    ".entry-buttons{left:50%!important;bottom:8%!important;transform:translateX(-50%)!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:calc(100% - 56px)!important;max-width:850px!important;gap:10px!important}",
+    ".entry-buttons .entry-btn{min-width:0!important;padding:12px 8px!important}",
+    ".entry-buttons .entry-btn b{font-size:clamp(15px,2.3vw,19px)!important;letter-spacing:1.5px!important}",
+    ".entry-buttons .entry-btn span{font-size:clamp(10px,1.4vw,12px)!important}",
+    "}"
+  ].join("\n");
+  function canonical(url){
+    var p=decodeURIComponent(url.pathname||"");
+    var lower=p.toLowerCase();
+    if(lower==="/"||lower.endsWith("/index.html")||lower.endsWith("/android_tablet_saved_top.html")) {
+      url.pathname="/android_tablet_saved_top.html";
+    } else if(lower.endsWith("/home.html")||lower.endsWith("/android_tablet_home.html")||lower.endsWith("/android_tablet_home_saved_v1.html")) {
+      url.pathname="/TRANSITION_SYSTEM_HOME_保存版_V6.html";
+    }
+    return url;
+  }
+  function install(){
+    try{
+      var doc=frame.contentDocument;
+      if(!doc||!doc.head||!doc.body)return;
+      var old=doc.getElementById("android-tablet-app-layout");
+      if(old)old.remove();
+      var style=doc.createElement("style");
+      style.id="android-tablet-app-layout";
+      style.textContent=tabletStyle;
+      doc.head.appendChild(style);
+      doc.addEventListener("click",function(ev){
+        var a=ev.target&&ev.target.closest?ev.target.closest("a[href]"):null;
+        if(!a)return;
+        var raw=a.getAttribute("href")||"";
+        if(!raw||raw.charAt(0)==="#"||/^(mailto:|tel:|javascript:)/i.test(raw))return;
+        var u;
+        try{u=new URL(raw,doc.location.href)}catch(e){return}
+        if(u.origin!==location.origin)return;
+        ev.preventDefault();
+        u=canonical(u);
+        frame.src=u.pathname+u.search+u.hash;
+      },true);
+    }catch(e){}
+  }
+  frame.addEventListener("load",install);
+})();
+</script>
 </body>
 </html>
