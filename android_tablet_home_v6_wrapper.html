@@ -32,6 +32,16 @@ html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden}
     'main,.wrap{max-width:1100px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;}'
    ].join('');
    d.querySelectorAll('.mobile-taskbar a[aria-label="TOPページへ"],a[aria-label="TOPページへ"],.topbar a[aria-label="TOP"]').forEach(function(a){a.href='/android_tablet_top_保存版_20261103.html?return=home';a.target='_top';});
+   // HOME内の「伝助のインジケーター」は、TOPボタンと同じタブレット保存版へ統一。
+   d.querySelectorAll('a[href]').forEach(function(a){
+    var href=a.getAttribute('href')||'';
+    var label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).toLowerCase();
+    var isIndicator=/project\.html(?:[?#]|$)/i.test(href)||/伝助のインジケーター/.test(label);
+    if(isIndicator){
+      a.setAttribute('href','/android_tablet_project_saved.html?tablet=20261103v2');
+      a.setAttribute('target','_top');
+    }
+   });
    if(!d.getElementById("tablet-shared-router")){var router=d.createElement("script");router.id="tablet-shared-router";router.src="/android_tablet_router.js?v=central_v1";d.head.appendChild(router);}
   }catch(e){}
  }
