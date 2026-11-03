@@ -6,7 +6,7 @@
  var ROUTES={
   top:'/android_tablet_top_保存版_20261103.html?route=central_v1',
   home:'/android_tablet_home_saved_V1.html?route=central_v2',
-  project:'/android_tablet_project_saved.html?route=central_v1'
+  project:'/android_tablet_project_saved.html?tablet=20261103v2'
  };
  function pathOf(url){try{return decodeURIComponent(url.pathname||'').toLowerCase()}catch(e){return (url.pathname||'').toLowerCase()}}
  function routeFor(a,u){
