@@ -32,14 +32,7 @@ html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden}
     'main,.wrap{max-width:1100px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;}'
    ].join('');
    d.querySelectorAll('.mobile-taskbar a[aria-label="TOPページへ"],a[aria-label="TOPページへ"],.topbar a[aria-label="TOP"]').forEach(function(a){a.href='/android_tablet_top_保存版_20261103.html?return=home';a.target='_top';});
-   d.addEventListener('click',function(ev){
-    var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;if(!a)return;
-    var label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')).toLowerCase();
-    var href=a.getAttribute('href')||'';
-    if(href==='android_tablet_top.html'||label.indexOf('topページに戻る')>=0){
-     ev.preventDefault();ev.stopPropagation();window.top.location.href='/android_tablet_top_保存版_20261103.html?return=home';
-    }
-   },true);
+   if(!d.getElementById("tablet-shared-router")){var router=d.createElement("script");router.id="tablet-shared-router";router.src="/android_tablet_router.js?v=central_v1";d.head.appendChild(router);}
   }catch(e){}
  }
  f.addEventListener('load',adapt);
