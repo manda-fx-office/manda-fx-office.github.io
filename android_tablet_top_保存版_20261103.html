@@ -59,6 +59,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
         "@media (orientation:landscape){.entrance img.hero-logo{top:5%!important;width:min(42vw,440px)!important;}.entrance .presentation-ticker{top:51%!important;height:54px!important;min-height:54px!important;}.entrance .entry-buttons{bottom:5%!important;gap:9px!important;}.entrance .entry-buttons .entry-btn{padding:9px 8px!important;}}"
       ].join("\n");
       doc.head.appendChild(style);
+      if(!doc.getElementById("tablet-shared-router")){var router=doc.createElement("script");router.id="tablet-shared-router";router.src="/android_tablet_router.js?v=central_v1";doc.head.appendChild(router);}
       var buttons=doc.querySelectorAll(".entrance .entry-buttons a.entry-btn");
       if(buttons.length===4){
         buttons[0].href="android_tablet_home_v6_wrapper.html?tablet-home=20261103direct";
