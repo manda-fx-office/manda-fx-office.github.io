@@ -56,6 +56,17 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     ].join('\n');
     doc.head.appendChild(learningStyle);
    }
+   if(tabletHomePath.indexOf('TRANSITION_SYSTEM_HOME_保存版_V6.html')>=0){
+    // HOME下部の伝助ボタンを、TOPの伝助ボタンと同じタブレット保存版へ固定する。
+    doc.querySelectorAll('a[href]').forEach(function(a){
+      var href=a.getAttribute('href')||'';
+      var label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||''));
+      if(/project\\.html(?:[?#]|$)/i.test(href) || /伝助のインジケーター/.test(label)){
+        a.setAttribute('href','/android_tablet_project_saved.html?tablet=20261103v2');
+        a.setAttribute('target','_top');
+      }
+    });
+   }
    if(tabletHomePath.indexOf('TRANSITION_SYSTEM_HOME_保存版_V6.html')>=0 && !doc.getElementById('tablet-densuke-taskbar-reference')){
     var logoStyle=doc.createElement('style');
     logoStyle.id='tablet-densuke-taskbar-reference';
