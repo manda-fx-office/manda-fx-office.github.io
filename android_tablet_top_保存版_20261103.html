@@ -16,7 +16,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
 </head>
 <body>
 <iframe id="phoneBase" title="Androidスマホ正式保存版V29 タブレット表示確認"
- src="./index_TOP_%E3%82%B9%E3%83%9E%E3%83%9B%E6%AD%A3%E5%BC%8F%E4%BF%9D%E5%AD%98%E7%89%88_V29_%E4%BF%AE%E6%AD%A3%E7%89%88_%E3%83%AD%E3%82%B4%E4%BF%AE%E6%AD%A3.html?tabletbase=20261103v4"
+ src="./android_tablet_saved_top.html?tabletbase=library_saved_20261031"
  scrolling="yes"></iframe>
 <script>
 (function(){
@@ -49,6 +49,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
         ".entrance .entry-buttons .entry-btn{display:block!important;width:auto!important;min-width:0!important;padding:13px 10px!important;box-sizing:border-box!important;}",
         ".entrance .entry-buttons .entry-btn b{font-size:clamp(16px,2.2vw,21px)!important;letter-spacing:1.4px!important;}",
         ".entrance .entry-buttons .entry-btn span{font-size:11px!important;}",
+        ".entrance .entry-buttons .tablet-densuke-btn{grid-column:1 / -1!important;}",
         ".smartphone-top-controls{display:none!important;}",
         ".site-purpose{max-width:980px!important;margin:20px auto 35px!important;padding:0 20px!important;}",
         ".community-preview{padding:48px 18px 64px!important;}",
@@ -62,14 +63,21 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
       if(!doc.getElementById("tablet-shared-router")){var router=doc.createElement("script");router.id="tablet-shared-router";router.src="/android_tablet_router.js?v=central_v1";doc.head.appendChild(router);}
       var buttons=doc.querySelectorAll(".entrance .entry-buttons a.entry-btn");
       if(buttons.length===4){
-        buttons[0].href="/android_tablet_home_saved_V1.html?tablet-home=20261103saved_v1";
-        buttons[0].removeAttribute("target");
-        buttons[1].href="android_tablet_project_saved.html?tablet=20261103v2";
-        buttons[1].removeAttribute("target");
-        buttons[1].innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
-        buttons[1].setAttribute("aria-label","伝助のインジケーター");
-        buttons[2].href="fx_companies.html";
-        buttons[3].href="admin_qa.html";
+        var homeButton=Array.prototype.slice.call(buttons).find(function(a){
+          return /HOME/.test((a.textContent||"").trim());
+        });
+        if(homeButton){
+          homeButton.href="android_tablet_home.html";
+          homeButton.removeAttribute("target");
+          if(!doc.querySelector(".entrance .entry-buttons .tablet-densuke-btn")){
+            var densuke=doc.createElement("a");
+            densuke.className="entry-btn tablet-densuke-btn";
+            densuke.href="/android_tablet_project_saved.html?tablet=20261103v2";
+            densuke.innerHTML="<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
+            densuke.setAttribute("aria-label","伝助のインジケーター");
+            homeButton.parentNode.insertBefore(densuke,homeButton);
+          }
+        }
       }
     }catch(e){
       document.documentElement.setAttribute("data-tablet-layout-error","true");
