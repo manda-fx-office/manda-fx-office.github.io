@@ -24,7 +24,6 @@
   var sizes = [sw, sh, iw, ih].filter(function (n) { return n > 0; });
   var shortSide = sizes.length ? Math.min.apply(Math, sizes) : 0;
   var tabletUA = /Tablet/i.test(ua);
-  // Android tablets use the V29 tablet wrapper. Android phones and other devices keep index.html.
   var isTablet = isAndroid && (
     uaMobile === false ||
     tabletUA ||
@@ -32,7 +31,7 @@
     shortSide >= 600
   );
   var target = isTablet
-    ? "android_tablet_top_%E4%BF%9D%E5%AD%98%E7%89%88_20261103.html?launch=library_saved_top_20261103"
+    ? "android_tablet_saved_top.html?launch=tablet_saved_direct_20261104"
     : "index.html";
   window.location.replace(target);
 })();
