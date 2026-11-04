@@ -1,0 +1,30 @@
+TRANSITION SYSTEM
+Androidタブレット導線・保存版記録
+作成日：2026年11月4日
+
+■ 保存版ファイル
+- android_tablet_navigation_test_V8_保存版_20261104.html
+- android_start_v2_保存版_20261104.html
+
+■ 公開中の起動・導線設定
+- android_start_v2.html：Androidタブレットの起動先を android_tablet_top_保存版_20261103.html?route=central_v3 に統一
+- android_start_v2.html：Androidスマホ側の index.html 分岐は維持
+- android_tablet_navigation_test_V8.html：初期TOP、HOMEロゴ、TOPへ戻るリンクを同じタブレット専用TOPラッパーに統一
+- HOME保存版、伝助ページ、学習画面スクロール設定は維持
+
+■ 2026年11月4日 実機確認
+1. 起動確認URLからタブレットTOP表示：確認済み
+2. TOPのHOMEボタンから保存版HOME表示：確認済み
+3. HOME左上ロゴから同じタブレットTOPへ復帰：確認済み
+4. TRANSITION SYSTEMアプリアイコンからタブレットTOP表示：確認済み
+5. QRコードからタブレットTOP表示：確認済み
+
+■ 変更対象外
+- PC版
+- iPhone版
+- Androidスマートフォン保存版
+- HOME本体の保存版ファイル
+
+■ 注意
+この記録は2026年11月4日に確認したAndroidタブレット実機の表示・導線結果を記録したものです。
+今後、公開設定を変更する場合は本保存版を基準にし、変更前にバックアップを保持してください。
