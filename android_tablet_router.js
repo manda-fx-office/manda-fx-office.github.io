@@ -2,10 +2,9 @@
  'use strict';
  if(window.__TS_TABLET_ROUTER_V1__)return;
  window.__TS_TABLET_ROUTER_V1__=true;
- var ROOT='/';
  var ROUTES={
-  top:'/android_tablet_top_保存版_20261103.html?route=central_v1',
-  home:'/android_tablet_home_saved_V1.html?route=central_v2',
+  top:'/android_tablet_saved_top_20261104_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8B%E4%BF%9D%E5%AD%98%E7%89%88.html?restore=V1',
+  home:'/android_tablet_navigation_test_V8.html?page=TRANSITION_SYSTEM_HOME_%E4%BF%9D%E5%AD%98%E7%89%88_V6.html&v=tablet_home_saved_V6',
   project:'/android_tablet_project_saved.html?tablet=20261103v2'
  };
  function pathOf(url){try{return decodeURIComponent(url.pathname||'').toLowerCase()}catch(e){return (url.pathname||'').toLowerCase()}}
