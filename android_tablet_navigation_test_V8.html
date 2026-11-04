@@ -89,6 +89,22 @@ html,body{margin:0;width:100%;min-height:100%;background:#000;overflow-x:hidden;
     taskbarLogoFix.textContent='.mobile-taskbar{height:72px!important;padding:0 24px!important;align-items:center!important;justify-content:flex-start!important}.mobile-taskbar a{height:100%!important;display:flex!important;align-items:center!important}.mobile-taskbar img{display:block!important;width:150px!important;height:auto!important;max-width:150px!important;max-height:54px!important;object-fit:contain!important;object-position:left center!important}';
     doc.head.appendChild(taskbarLogoFix);
    }
+   // The restored V1 TOP is the approved reference screen. Keep its original layout intact.
+   // Only the tablet navigation router above is injected; do not apply the V29 layout/QR changes.
+   var restoredV1Path='';
+   try{restoredV1Path=decodeURIComponent(doc.location.pathname);}catch(e){restoredV1Path=doc.location.pathname||'';}
+   if(restoredV1Path.indexOf('android_tablet_saved_top_20261104_ここに戻る保存版.html')>=0){
+    doc.documentElement.style.setProperty('height','100%','important');
+    doc.body.style.setProperty('height','100%','important');
+    doc.documentElement.style.setProperty('overflow-x','hidden','important');
+    doc.documentElement.style.setProperty('overflow-y','auto','important');
+    doc.body.style.setProperty('overflow-x','hidden','important');
+    doc.body.style.setProperty('overflow-y','auto','important');
+    frame.style.height='100vh';
+    frame.setAttribute('scrolling','auto');
+    frame.style.visibility='visible';
+    return;
+   }
    if(!doc.querySelector('.entrance')){
     /* Tablet-only: Android QR must pass through the Android device classifier. */
     var tabletAndroidQr=doc.querySelector('.qr-page-bottom .qr-card img[alt="Android版 QRコード"],.qr-access .qr-card img[alt="Android版 QRコード"]');
