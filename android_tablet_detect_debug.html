@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<title>Android端末判定 診断</title>
+<style>
+body{margin:0;padding:24px;background:#080d16;color:#f4f7fb;font:16px/1.7 system-ui,sans-serif}
+main{max-width:760px;margin:auto}
+h1{font-size:22px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#151e2b;border:1px solid #60758e;border-radius:10px;padding:16px}
+a{color:#9dd6ff}
+</style>
+</head>
+<body>
+<main>
+<h1>Androidタブレット起動判定 診断画面</h1>
+<p>この画面は端末情報を表示するだけです。設定変更や転送は行いません。</p>
+<pre id="out">計測中…</pre>
+<p><a href="/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105">保存版V2を直接開く</a></p>
+</main>
+<script>
+(function(){
+ var ua=navigator.userAgent||"";
+ var mobile=null;
+ try{if(navigator.userAgentData&&typeof navigator.userAgentData.mobile==="boolean")mobile=navigator.userAgentData.mobile;}catch(e){}
+ var sw=Number(screen.width)||0,sh=Number(screen.height)||0;
+ var iw=Number(innerWidth)||0,ih=Number(innerHeight)||0;
+ var shortSide=Math.min(sw,sh),longSide=Math.max(sw,sh);
+ var aspect=shortSide>0?longSide/shortSide:0;
+ var android=/Android/i.test(ua);
+ var tabletUA=/Tablet/i.test(ua);
+ var detect=android&&(mobile===false||tabletUA||(shortSide>=360&&aspect>0&&aspect<=1.90));
+ var data={
+  userAgent:ua,
+  android:android,
+  userAgentDataMobile:mobile,
+  tabletKeyword:tabletUA,
+  screenWidth:sw,
+  screenHeight:sh,
+  innerWidth:iw,
+  innerHeight:ih,
+  shortSide:shortSide,
+  aspectRatio:Number(aspect.toFixed(3)),
+  currentUrl:location.href,
+  revisedDetectorSaysTablet:detect,
+  expectedDestination:detect?"saved tablet V2":"index.html (legacy TOP)"
+ };
+ document.getElementById("out").textContent=JSON.stringify(data,null,2);
+})();
+</script>
+</body>
+</html>
