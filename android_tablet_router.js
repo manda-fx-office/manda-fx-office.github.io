@@ -11,6 +11,7 @@
  function routeFor(a,u){
   var p=pathOf(u), label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).toLowerCase();
   if(p==='/'||p.endsWith('/index.html')||p.indexOf('android_tablet_top')>=0||p.indexOf('android_start')>=0||label.indexOf('topページへ')>=0||label.indexOf('topページに戻る')>=0)return 'top';
+  if(p.indexOf('android_tablet_home_v6_preview_direct_v2_20261105.html')>=0)return null;
   if(p.endsWith('/home.html')||p.indexOf('transition_system_home_')>=0||p.indexOf('android_tablet_home')>=0||label.indexOf('home')>=0||label.indexOf('ホーム')>=0)return 'home';
   if(p.endsWith('/project.html')||p.indexOf('android_tablet_project')>=0||label.indexOf('伝助')>=0)return 'project';
   return null;
