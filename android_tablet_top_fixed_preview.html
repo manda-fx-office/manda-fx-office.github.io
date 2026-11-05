@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#050505">
+<title>TRANSITION SYSTEM タブレットTOP 固定ヘッダー確認</title>
+<style>
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#050505}
+iframe{display:block;width:100%;height:100%;height:100dvh;border:0;background:#050505}
+</style>
+</head>
+<body>
+<iframe id="tabletTop" title="保存版V2 固定ヘッダー確認"
+ src="/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?fixedHeaderPreview=20261105"></iframe>
+<script>
+(function(){
+ var frame=document.getElementById('tabletTop');
+ function applyFixedHeader(){
+  try{
+   var doc=frame.contentDocument;
+   if(!doc||!doc.head)return;
+   if(doc.getElementById('tablet-fixed-header-preview-style'))return;
+   var style=doc.createElement('style');
+   style.id='tablet-fixed-header-preview-style';
+   style.textContent=
+    '.site-header{position:sticky!important;top:0!important;z-index:1000!important;background:#050505!important;}';
+   doc.head.appendChild(style);
+  }catch(e){
+   document.body.innerHTML='<p style="color:white;padding:20px">固定ヘッダー確認用の読み込みに失敗しました。元の保存版は変更されていません。</p>';
+  }
+ }
+ frame.addEventListener('load',applyFixedHeader);
+})();
+</script>
+</body>
+</html>
