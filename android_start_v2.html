@@ -23,17 +23,25 @@
   var longSide = Math.max(sw, sh);
   var aspect = shortSide > 0 ? longSide / shortSide : 0;
   var tabletUA = /Tablet/i.test(ua);
+  var touchPoints = Number(navigator.maxTouchPoints) || 0;
 
-  // Android tablet: UA identifies tablet, or the viewport has tablet-like
-  // proportions. Some Android tablets report only 360-420 CSS pixels on
-  // their short side because of display scaling, so do not require 430px.
-  // Android phones in portrait normally have a taller aspect ratio (>1.90).
-  var isTablet = isAndroid && (
+  // Standard Android tablet detection.
+  var androidTablet = isAndroid && (
     uaMobile === false ||
     tabletUA ||
     (shortSide >= 360 && aspect > 0 && aspect <= 1.90)
   );
 
+  // Some Android tablets use Chrome desktop-site UA (Linux x86_64).
+  // For these, use tablet-like screen proportions plus touch support.
+  var desktopUA_TouchTablet =
+    !isAndroid &&
+    touchPoints > 0 &&
+    shortSide >= 600 &&
+    aspect > 0 &&
+    aspect <= 1.90;
+
+  var isTablet = androidTablet || desktopUA_TouchTablet;
   var target = isTablet
     ? "/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105"
     : "index.html";
