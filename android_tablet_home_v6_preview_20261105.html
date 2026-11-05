@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05070b">
+<title>TRANSITION SYSTEM - Android Tablet HOME V6 Preview</title>
+<style>
+html,body{margin:0;width:100%;min-height:100%;background:#000;overflow:hidden}
+#homePage{display:block;width:100%;height:100vh;height:100dvh;border:0;background:#000}
+</style>
+</head>
+<body>
+<iframe id="homePage" title="タブレット版HOME 保存版V6プレビュー"
+ src="./TRANSITION_SYSTEM_HOME_%E4%BF%9D%E5%AD%98%E7%89%88_V6.html?tablet-home-preview=20261105v1"></iframe>
+<script>
+(function(){
+ var f=document.getElementById('homePage');
+ var topUrl='/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105&from=tablet-home-v6-preview';
+ function adapt(){
+  try{
+   var d=f.contentDocument;if(!d||!d.head||!d.body)return;
+   if(!d.getElementById('tablet-home-v6-preview-style')){
+    var s=d.createElement('style');s.id='tablet-home-v6-preview-style';
+    s.textContent=[
+     'html,body{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;}',
+     'body{padding-top:72px!important;}',
+     '.topbar{display:none!important;}',
+     '.mobile-taskbar{display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;height:72px!important;min-height:72px!important;padding:0 24px!important;margin:0!important;align-items:center!important;justify-content:flex-start!important;box-sizing:border-box!important;z-index:999999!important;background:#05070b!important;border-bottom:1px solid rgba(180,210,235,.35)!important;}',
+     '.mobile-taskbar a{display:flex!important;visibility:visible!important;opacity:1!important;width:auto!important;height:72px!important;align-items:center!important;}',
+     '.mobile-taskbar img{display:block!important;visibility:visible!important;opacity:1!important;width:150px!important;min-width:150px!important;max-width:150px!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:left center!important;}',
+     '#learning-path.path{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;margin-top:22px!important;}',
+     '#learning-path .step-button{min-height:112px!important;padding:22px 14px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;border-radius:14px!important;}',
+     '#learning-path .step-button strong{font-size:clamp(20px,2.4vw,27px)!important;line-height:1.35!important;}',
+     '#learning-path .step-button span{font-size:clamp(15px,1.7vw,19px)!important;line-height:1.5!important;}',
+     '#learning-details.detail-mode{display:block!important;height:calc(100vh - 104px)!important;height:calc(100dvh - 104px)!important;max-height:calc(100vh - 104px)!important;max-height:calc(100dvh - 104px)!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;box-sizing:border-box!important;margin:12px 14px 18px!important;padding:14px!important;border:1px solid rgba(145,180,210,.55)!important;border-radius:14px!important;background:linear-gradient(145deg,#171d27,#080b11)!important;}',
+     '#learning-details.detail-mode .learn-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important;width:100%!important;max-width:none!important;}',
+     '#learning-details.detail-mode .learn-card{display:block!important;width:100%!important;max-width:none!important;min-width:0!important;max-height:none!important;overflow:visible!important;margin:0!important;padding:20px!important;box-sizing:border-box!important;}',
+     '#learning-details.detail-mode .learn-card[hidden]{display:none!important;}',
+     '#learning-details.detail-mode .detail-navigation{position:sticky!important;bottom:-14px!important;z-index:5!important;margin:14px -14px -14px!important;padding:12px 14px calc(12px + env(safe-area-inset-bottom))!important;text-align:center!important;background:rgba(5,8,13,.96)!important;border-top:1px solid rgba(145,180,210,.4)!important;}',
+     '@media(max-width:700px){#learning-path.path{grid-template-columns:repeat(2,minmax(0,1fr))!important;}#learning-path .step-button{min-height:92px!important;padding:16px 8px!important;}}'
+    ].join('\n');d.head.appendChild(s);
+   }
+   function routeLinks(){
+    d.querySelectorAll('a[href]').forEach(function(a){
+     var href=a.getAttribute('href')||'';
+     var label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).trim();
+     var isLogo=a.matches('.mobile-taskbar a,.topbar a,a[aria-label*="TOP"]') && /TOP|トップ/i.test(label+' '+href);
+     var isTopButton=/TOPページに戻る|TOPへ戻る|TOPに戻る|TOPページへ/i.test(label);
+     if(isLogo||isTopButton){a.setAttribute('href',topUrl);a.setAttribute('target','_top');}
+    });
+   }
+   routeLinks();
+   if(!d.getElementById('tablet-home-v6-preview-router')){
+    d.addEventListener('click',function(ev){
+     var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;if(!a)return;
+     var label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||''));
+     if(/TOPページに戻る|TOPへ戻る|TOPに戻る|TOPページへ/i.test(label)||a.matches('.mobile-taskbar a[aria-label*="TOP"],a[aria-label*="TOP"]')){
+      ev.preventDefault();ev.stopPropagation();window.top.location.href=topUrl;
+     }
+    },true);
+    var marker=d.createElement('meta');marker.id='tablet-home-v6-preview-router';marker.name='tablet-home-preview';marker.content='v1';d.head.appendChild(marker);
+   }
+   if(!d.getElementById('tablet-home-v6-preview-observer')){
+    var mo=new MutationObserver(routeLinks);mo.observe(d.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href','aria-label','title']});
+    var marker2=d.createElement('meta');marker2.id='tablet-home-v6-preview-observer';d.head.appendChild(marker2);
+   }
+  }catch(e){/* preview remains available even if adaptation is blocked */}
+ }
+ f.addEventListener('load',adapt);
+ if(f.contentDocument&&f.contentDocument.readyState==='complete')adapt();
+})();
+</script>
+</body>
+</html>
