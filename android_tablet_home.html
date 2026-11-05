@@ -16,20 +16,25 @@
 <script>
 (function(){
  var frame=document.getElementById("tabletHome");
- function routeTabletLogo(){
+ function routeTabletLinks(){
   try{
    var doc=frame.contentDocument;
    if(!doc)return;
    var top="/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105";
-   doc.querySelectorAll("a.brand-logo,a.mobile-taskbar a,a.topbar a[aria-label='TOP'],a[aria-label='TOPページへ'],a[aria-label='TOPへ']").forEach(function(a){a.setAttribute("href",top);});
+   doc.querySelectorAll("a").forEach(function(a){
+    var label=(a.innerText||a.textContent||"").replace(/\s+/g,"");
+    var isLogo=a.matches("a.brand-logo,a.mobile-taskbar a,a.topbar a[aria-label='TOP'],a[aria-label='TOPページへ'],a[aria-label='TOPへ']");
+    var isTopButton=/TOPページに戻る|TOPへ戻る|TOPに戻る/.test(label);
+    if(isLogo||isTopButton)a.setAttribute("href",top);
+   });
   }catch(e){}
  }
  frame.addEventListener("load",function(){
-  routeTabletLogo();
+  routeTabletLinks();
   try{
    var doc=frame.contentDocument;
    if(doc&&doc.body&&doc.defaultView&&doc.defaultView.MutationObserver){
-    new doc.defaultView.MutationObserver(routeTabletLogo).observe(doc.body,{childList:true,subtree:true});
+    new doc.defaultView.MutationObserver(routeTabletLinks).observe(doc.body,{childList:true,subtree:true});
    }
   }catch(e){}
  });
