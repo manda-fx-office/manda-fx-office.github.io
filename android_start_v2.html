@@ -19,19 +19,21 @@
   }
   var sw = Number(screen.width) || 0;
   var sh = Number(screen.height) || 0;
-  var iw = Number(window.innerWidth) || 0;
-  var ih = Number(window.innerHeight) || 0;
-  var sizes = [sw, sh, iw, ih].filter(function (n) { return n > 0; });
-  var shortSide = sizes.length ? Math.min.apply(Math, sizes) : 0;
+  var shortSide = Math.min(sw, sh);
+  var longSide = Math.max(sw, sh);
+  var aspect = shortSide > 0 ? longSide / shortSide : 0;
   var tabletUA = /Tablet/i.test(ua);
+
+  // Android tablet: UA identifies tablet, or the display has tablet-like
+  // proportions and sufficient CSS-pixel width. Do not change iPhone/PC routes.
   var isTablet = isAndroid && (
     uaMobile === false ||
     tabletUA ||
-    (uaMobile === null && !/Mobile/i.test(ua) && shortSide >= 450) ||
-    shortSide >= 600
+    (shortSide >= 430 && aspect > 0 && aspect <= 1.90)
   );
+
   var target = isTablet
-    ? "/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html"
+    ? "/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105"
     : "index.html";
   window.location.replace(target);
 })();
