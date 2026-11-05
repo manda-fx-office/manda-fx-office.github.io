@@ -24,12 +24,14 @@
   var aspect = shortSide > 0 ? longSide / shortSide : 0;
   var tabletUA = /Tablet/i.test(ua);
 
-  // Android tablet: UA identifies tablet, or the display has tablet-like
-  // proportions and sufficient CSS-pixel width. Do not change iPhone/PC routes.
+  // Android tablet: UA identifies tablet, or the viewport has tablet-like
+  // proportions. Some Android tablets report only 360-420 CSS pixels on
+  // their short side because of display scaling, so do not require 430px.
+  // Android phones in portrait normally have a taller aspect ratio (>1.90).
   var isTablet = isAndroid && (
     uaMobile === false ||
     tabletUA ||
-    (shortSide >= 430 && aspect > 0 && aspect <= 1.90)
+    (shortSide >= 360 && aspect > 0 && aspect <= 1.90)
   );
 
   var target = isTablet
