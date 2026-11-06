@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>TRANSITION SYSTEM Tablet TOP test</title>
+<style>html,body{margin:0;width:100%;height:100%;background:#050505;color:#eee;font-family:Arial,sans-serif}#status{padding:20px}</style></head><body><div id="status">保存版TOPを読み込んでいます…</div>
+<script>
+(async function(){
+ var source="https://raw.githubusercontent.com/manda-fx-office/manda-fx-office.github.io/main/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html";
+ var top="https://htmlpreview.github.io/?https://raw.githubusercontent.com/manda-fx-office/manda-fx-office.github.io/test/tablet-top-v2-20261106/android_tablet_saved_top_V2_taskbar_test_20261106.html";
+ var home="https://htmlpreview.github.io/?https://raw.githubusercontent.com/manda-fx-office/manda-fx-office.github.io/test/tablet-top-v2-20261106/android_tablet_home_saved_v6_test_20261106.html";
+ try{
+  var response=await fetch(source,{cache:"no-store"});
+  if(!response.ok)throw new Error("保存版TOPを取得できませんでした ("+response.status+")");
+  var html=await response.text();
+  html=html.replace('href="android_tablet_saved_top.html"','href="'+top+'"');
+  html=html.replace('href="android_tablet_home.html"','href="'+home+'"');
+  html=html.replace('<link rel="manifest" href="manifest.json">','');
+  document.open();document.write(html);document.close();
+ }catch(e){document.getElementById("status").textContent="読み込みに失敗しました："+e.message;}
+})();
+</script></body></html>
