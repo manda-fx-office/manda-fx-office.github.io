@@ -40,6 +40,25 @@ body{padding-top:88px}
 @media(min-width:601px){.mobile-taskbar{display:none!important}}
 </style>
 
+<style id="transition-tablet-taskbar-alignment">
+/* Android/iPad touch tablets: match the confirmed mobile TOP/HOME taskbar.
+   Desktop pointer/hover layouts remain unchanged. */
+@media (hover: none) and (pointer: coarse) and (min-width: 601px) and (max-width: 1100px) {
+  body{padding-top:72px!important}
+  .topbar{display:none!important}
+  .mobile-taskbar{
+    position:fixed!important;top:0!important;left:0!important;right:0!important;
+    height:72px!important;z-index:99999!important;
+    background:rgba(4,4,4,.96)!important;backdrop-filter:blur(10px);
+    border-bottom:1px solid #292d31!important;
+    display:flex!important;align-items:center!important;justify-content:flex-start!important;
+    padding:0 24px!important;
+  }
+  .mobile-taskbar a{display:flex!important;align-items:center!important;height:100%!important;text-decoration:none!important}
+  .mobile-taskbar img{display:block!important;width:auto!important;height:54px!important;max-width:230px!important;object-fit:contain!important}
+}
+</style>
+
 <style id="transition-mobile-qr">
 .qr-page-bottom{max-width:760px;margin:44px auto 34px;padding:22px 18px 26px;border:1px solid #34383c;border-radius:12px;background:linear-gradient(145deg,#171a1d,#090a0b);box-shadow:0 10px 30px #0008;text-align:center}
 .qr-page-bottom .qr-access-title{font-size:22px;letter-spacing:3px;margin-bottom:6px}
