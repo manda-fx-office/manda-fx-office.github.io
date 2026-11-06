@@ -51,6 +51,15 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
         community.setAttribute("aria-label", "伝助のインジケーター");
         community.innerHTML = "<b>伝助のインジケーター</b><span>伝助のインジケーター</span>";
       }
+      var adminQa = links.find(function (el) {
+        var label = (el.innerText || el.textContent || "").replace(/\\s+/g, " ").trim();
+        return /管理人\\s*Q\\s*&\\s*A/i.test(label) || /管理人.*Q.?A/.test(label);
+      });
+      if (adminQa) {
+        adminQa.href = "admin_qa.html?tablet-test=20261107-qa-logo";
+        adminQa.target = "_top";
+        adminQa.removeAttribute("onclick");
+      }
       frame.classList.add("ready");
     } catch (e) {
       // 読み込み途中の画面は表示せず、次回のloadで再試行する
