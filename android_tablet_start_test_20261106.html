@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>TRANSITION SYSTEM 起動・タブレット導線テスト</title>
+<script>
+(function () {
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua);
+  var uaMobile = null;
+  if (navigator.userAgentData && typeof navigator.userAgentData.mobile === "boolean") {
+    uaMobile = navigator.userAgentData.mobile;
+  }
+  var sw = Number(screen.width) || 0;
+  var sh = Number(screen.height) || 0;
+  var shortSide = Math.min(sw, sh);
+  var longSide = Math.max(sw, sh);
+  var aspect = shortSide > 0 ? longSide / shortSide : 0;
+  var tabletUA = /Tablet/i.test(ua);
+  var touchPoints = Number(navigator.maxTouchPoints) || 0;
+
+  // Standard Android tablet detection.
+  var androidTablet = isAndroid && (
+    uaMobile === false ||
+    tabletUA ||
+    (shortSide >= 360 && aspect > 0 && aspect <= 1.90)
+  );
+
+  // Some Android tablets use Chrome desktop-site UA (Linux x86_64).
+  // For these, use tablet-like screen proportions plus touch support.
+  var desktopUA_TouchTablet =
+    !isAndroid &&
+    touchPoints > 0 &&
+    shortSide >= 600 &&
+    aspect > 0 &&
+    aspect <= 1.90;
+
+  var isTablet = androidTablet || desktopUA_TouchTablet;
+  var target = isTablet
+    ? "/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105"
+    : "index.html";
+  window.location.replace(target);
+})();
+</script>
+</head>
+<body>
+<p>TRANSITION SYSTEM を起動しています…</p>
+</body>
+</html>
