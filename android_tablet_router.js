@@ -4,7 +4,7 @@
  window.__TS_TABLET_ROUTER_V1__=true;
  var ROUTES={
   top:'/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html',
-  home:'/TRANSITION_SYSTEM_HOME_保存版_V6.html?tablet-home-saved=20261106-test',
+  home:'/android_tablet_HOME_test_20261106.html?tablet-home-copy=20261106-test',
   project:'/android_tablet_project_saved.html?tablet=20261103v2'
  };
  function pathOf(url){try{return decodeURIComponent(url.pathname||'').toLowerCase()}catch(e){return (url.pathname||'').toLowerCase()}}
