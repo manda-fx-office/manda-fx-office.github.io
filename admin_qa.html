@@ -73,13 +73,11 @@ body{padding-top:88px}
 
 
 <style id="tablet-taskbar-match-saved-mobile">
-@media (min-width:601px) and (max-width:900px){
-  body{padding-top:72px!important}
-  .topbar{display:none!important}
-  .mobile-taskbar{position:fixed!important;top:0!important;left:0!important;right:0!important;height:72px!important;z-index:99999!important;background:rgba(4,4,4,.96)!important;backdrop-filter:blur(10px);border-bottom:1px solid #292d31;display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:0 24px!important}
-  .mobile-taskbar a{display:flex!important;align-items:center!important;height:100%!important;text-decoration:none}
-  .mobile-taskbar img{display:block!important;width:auto!important;height:54px!important;max-width:230px!important;object-fit:contain}
-}
+html.tablet-taskbar-active body{padding-top:72px!important}
+html.tablet-taskbar-active .topbar{display:none!important}
+html.tablet-taskbar-active .mobile-taskbar{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;height:72px!important;z-index:99999!important;background:rgba(4,4,4,.96)!important;backdrop-filter:blur(10px);border-bottom:1px solid #292d31;display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:0 24px!important;box-sizing:border-box!important}
+html.tablet-taskbar-active .mobile-taskbar a{display:flex!important;align-items:center!important;justify-content:flex-start!important;height:100%!important;text-decoration:none}
+html.tablet-taskbar-active .mobile-taskbar img{display:block!important;width:auto!important;height:54px!important;max-width:230px!important;object-fit:contain}
 </style>
 </head>
 <body>
@@ -139,6 +137,7 @@ body{padding-top:88px}
   var touchPoints=Number(navigator.maxTouchPoints)||0;
   var tablet=(isAndroid&&(uaMobile===false||tabletUA||(shortSide>=360&&aspect>0&&aspect<=1.90)))||(!isAndroid&&touchPoints>0&&shortSide>=600&&aspect>0&&aspect<=1.90);
   if(!tablet)return;
+  document.documentElement.classList.add("tablet-taskbar-active");
   var top="/android_tablet_saved_top_V2_taskbar_test_20261106.html?route=admin-qa-logo-test";
   document.querySelectorAll("a.brand-logo,a.mobile-taskbar a,a.topbar a[aria-label='TOP'],a[aria-label='TOPページへ'],a[aria-label='TOPへ']").forEach(function(a){a.setAttribute("href",top);});
 })();
