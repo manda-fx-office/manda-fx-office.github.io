@@ -8,41 +8,13 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>TRANSITION SYSTEM Android Tablet HOME</title>
-<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}#tabletHome{display:block;width:100%;height:100%;height:100dvh;border:0;background:#050505}</style>
+<title>TRANSITION SYSTEM HOME</title>
+<script>
+/* TOPページのHOMEボタン専用：スマホ保存版コピーへ直接移動 */
+window.location.replace("/android_tablet_HOME_test_20261106.html?tabletHome=smartphone-copy-20261106-v4");
+</script>
 </head>
 <body>
-<iframe id="tabletHome" title="TRANSITION SYSTEM HOME 写真照合修正版"></iframe>
-<script>
-(function(){
- var frame=document.getElementById("tabletHome");
- var top="/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105&from=tablet-home-reference";
- frame.src="/android_tablet_HOME_test_20261106.html?tabletHome=smartphone-copy-20261106-v3";
- function routeTabletLinks(){
-  try{
-   var doc=frame.contentDocument;
-   if(!doc)return;
-   doc.querySelectorAll("a").forEach(function(a){
-    var label=(a.innerText||a.textContent||"").replace(/\\s+/g,"");
-    var isLogo=a.matches("a.brand-logo,a.mobile-taskbar a,a.topbar a,a[aria-label='TOPページへ'],a[aria-label='TOP'],a[aria-label='TOPへ']");
-    var isTopButton=/TOPページに戻る|TOPへ戻る|TOPに戻る/.test(label);
-    if(isLogo||isTopButton){
-     a.setAttribute("href",top);
-     a.setAttribute("target","_top");
-    }
-   });
-  }catch(e){}
- }
- frame.addEventListener("load",function(){
-  routeTabletLinks();
-  try{
-   var doc=frame.contentDocument;
-   if(doc&&doc.body&&doc.defaultView&&doc.defaultView.MutationObserver){
-    new doc.defaultView.MutationObserver(routeTabletLinks).observe(doc.body,{childList:true,subtree:true,attributes:true,attributeFilter:["href"]});
-   }
-  }catch(e){}
- });
-})();
-</script>
+<p>HOMEページを開いています…</p>
 </body>
 </html>
