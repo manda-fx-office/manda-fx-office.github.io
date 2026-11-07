@@ -136,8 +136,7 @@ html.tablet-taskbar-active .mobile-taskbar img{display:block!important;width:150
   var tabletUA=/Tablet/i.test(ua);
   var touchPoints=Number(navigator.maxTouchPoints)||0;
   var tablet=(isAndroid&&(uaMobile===false||tabletUA||(shortSide>=360&&aspect>0&&aspect<=1.90)))||(!isAndroid&&touchPoints>0&&shortSide>=600&&aspect>0&&aspect<=1.90);
-  if(!tablet)return;
-  document.documentElement.classList.add("tablet-taskbar-active");
+  if(tablet)document.documentElement.classList.add("tablet-taskbar-active");
   var top="./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?route=tablet-v2-20261105";
   document.querySelectorAll("a.brand-logo,a.mobile-taskbar a,a.topbar a[aria-label='TOP'],a[aria-label='TOPページへ'],a[aria-label='TOPへ']").forEach(function(a){a.setAttribute("href",top);});
 })();
