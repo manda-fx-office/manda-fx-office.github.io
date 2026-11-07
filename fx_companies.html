@@ -17,7 +17,7 @@
 <a href="project.html"><span class="nav-en">伝助のインジケーター</span><span class="nav-ja">伝助のインジケーター</span></a>
 <a href="community.html"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a>
 <a href="board.html"><span class="nav-en">BOARD</span><span class="nav-ja">伝言板</span></a>
-<a href="/TRANSITION_SYSTEM_HOME_%E4%BF%9D%E5%AD%98%E7%89%88_V6.html?tablet-home-v6=20261106"><span class="nav-en">TOOLS</span><span class="nav-ja">ツール</span></a>
+<a href="home.html#tools"><span class="nav-en">TOOLS</span><span class="nav-ja">ツール</span></a>
 <a href="admin_qa.html"><span class="nav-en">管理人 Q&amp;A</span><span class="nav-ja">管理人 Q&amp;A</span></a>
 <a href="login.html"><span class="nav-en">LOGIN</span><span class="nav-ja">ログイン</span></a>
 </div>
@@ -61,6 +61,8 @@
   if(!tablet)return;
   var top="/android_tablet_saved_top_V2_taskbar_test_20261106.html?route=tablet-top-v2-20261106";
   document.querySelectorAll("a.brand-logo,a.mobile-taskbar a,a.topbar a[aria-label='TOP'],a[aria-label='TOPページへ'],a[aria-label='TOPへ']").forEach(function(a){a.setAttribute("href",top);});
+  var tabletHome="/TRANSITION_SYSTEM_HOME_%E4%BF%9D%E5%AD%98%E7%89%88_V6.html?tablet-home-v6=20261106";
+  document.querySelectorAll("a[href='home.html#tools']").forEach(function(a){a.setAttribute("href",tabletHome);});
 })();
 </script>
 </body>
