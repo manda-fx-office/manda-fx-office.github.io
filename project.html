@@ -705,24 +705,17 @@ body{padding-top:88px}
       selectedPage.scrollTop=0;
       selectedPage.scrollLeft=0;
       var header=document.querySelector('.topbar');
-      var headerHeight=header?header.getBoundingClientRect().height:0;
-      var root=document.scrollingElement||document.documentElement;
-      var targetTop=selectedWindow.getBoundingClientRect().top+(root.scrollTop||window.pageYOffset||0)-headerHeight-8;
-      if(root.scrollTo){
-        root.scrollTo({top:Math.max(0,targetTop),behavior:behavior||'auto'});
-      }else{
-        root.scrollTop=Math.max(0,targetTop);
-      }
-      window.scrollTo({top:Math.max(0,targetTop),behavior:behavior||'auto'});
+      var headerBottom=header?header.getBoundingClientRect().bottom:0;
+      var rect=selectedWindow.getBoundingClientRect();
+      var currentY=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+      var targetY=Math.max(0,currentY+rect.top-headerBottom-6);
+      window.scrollTo({top:targetY,behavior:behavior||'auto'});
     }
     requestAnimationFrame(function(){
-      moveWindowToTop('smooth');
+      moveWindowToTop('auto');
       requestAnimationFrame(function(){
         moveWindowToTop('auto');
-        window.setTimeout(function(){
-          selectedPage.scrollTop=0;
-          moveWindowToTop('auto');
-        },180);
+        window.setTimeout(function(){moveWindowToTop('auto');},250);
       });
     });
     return true;
