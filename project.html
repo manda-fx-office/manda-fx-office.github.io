@@ -701,13 +701,29 @@ body{padding-top:88px}
     selectedPage.scrollTop=0;
     selectedPage.scrollLeft=0;
     if(updateHash)history.replaceState(null,'','#'+id);
-    requestAnimationFrame(function(){
+    function moveWindowToTop(behavior){
       selectedPage.scrollTop=0;
+      selectedPage.scrollLeft=0;
       var header=document.querySelector('.topbar');
       var headerHeight=header?header.getBoundingClientRect().height:0;
-      selectedWindow.style.scrollMarginTop=(headerHeight+10)+'px';
-      selectedWindow.scrollIntoView({behavior:'smooth',block:'start'});
-      window.setTimeout(function(){selectedPage.scrollTop=0;},450);
+      var root=document.scrollingElement||document.documentElement;
+      var targetTop=selectedWindow.getBoundingClientRect().top+(root.scrollTop||window.pageYOffset||0)-headerHeight-8;
+      if(root.scrollTo){
+        root.scrollTo({top:Math.max(0,targetTop),behavior:behavior||'auto'});
+      }else{
+        root.scrollTop=Math.max(0,targetTop);
+      }
+      window.scrollTo({top:Math.max(0,targetTop),behavior:behavior||'auto'});
+    }
+    requestAnimationFrame(function(){
+      moveWindowToTop('smooth');
+      requestAnimationFrame(function(){
+        moveWindowToTop('auto');
+        window.setTimeout(function(){
+          selectedPage.scrollTop=0;
+          moveWindowToTop('auto');
+        },180);
+      });
     });
     return true;
   }
