@@ -689,14 +689,29 @@ body{padding-top:88px}
   if(!button)return;
   button.addEventListener('click',function(event){
     event.preventDefault();
+    event.stopPropagation();
+
+    /* Return the whole current page to its document top. */
     var activeWindow=document.querySelector('.indicator-window:not([hidden])');
     var activePage=activeWindow&&activeWindow.querySelector('.indicator-page');
     if(activePage){
-      if(activePage.scrollTo) activePage.scrollTo({top:0,left:0,behavior:'smooth'});
-      else {activePage.scrollTop=0;activePage.scrollLeft=0;}
+      activePage.scrollTop=0;
+      activePage.scrollLeft=0;
     }
+
+    var root=document.scrollingElement||document.documentElement;
+    if(root){
+      if(root.scrollTo) root.scrollTo({top:0,left:0,behavior:'smooth'});
+      root.scrollTop=0;
+      root.scrollLeft=0;
+    }
+    if(document.body){
+      document.body.scrollTop=0;
+      document.body.scrollLeft=0;
+    }
+    window.scrollTo({top:0,left:0,behavior:'smooth'});
     history.replaceState(null,'','#page-top');
-  });
+  },{passive:false});
 })();
 </script>
 <script id="indicator-window-navigation">
