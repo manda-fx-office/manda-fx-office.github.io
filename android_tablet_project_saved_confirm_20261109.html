@@ -686,29 +686,14 @@ body{padding-top:88px}
 <script id="tablet-page-top-scroll">
 (function(){
   var button=document.querySelector('.mobile-page-top-return');
-  if(!button)return;
+  var pageTop=document.getElementById('page-top');
+  if(!button||!pageTop)return;
   button.addEventListener('click',function(event){
     event.preventDefault();
     event.stopPropagation();
-
-    /* Return the whole current page to its document top. */
-    var activeWindow=document.querySelector('.indicator-window:not([hidden])');
-    var activePage=activeWindow&&activeWindow.querySelector('.indicator-page');
-    if(activePage){
-      activePage.scrollTop=0;
-      activePage.scrollLeft=0;
-    }
-
-    var root=document.scrollingElement||document.documentElement;
-    if(root){
-      if(root.scrollTo) root.scrollTo({top:0,left:0,behavior:'smooth'});
-      root.scrollTop=0;
-      root.scrollLeft=0;
-    }
-    if(document.body){
-      document.body.scrollTop=0;
-      document.body.scrollLeft=0;
-    }
+    /* Return to the top of the entire Densuke indicator page,
+       not the top of the inner scrollable indicator window. */
+    pageTop.scrollIntoView({behavior:'smooth',block:'start'});
     window.scrollTo({top:0,left:0,behavior:'smooth'});
     history.replaceState(null,'','#page-top');
   },{passive:false});
