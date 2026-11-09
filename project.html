@@ -641,32 +641,53 @@ body{padding-top:88px}
   var windows=Array.from(document.querySelectorAll('.indicator-window'));
   var buttons=Array.from(document.querySelectorAll('.category-tile'));
   if(windows.length!==6||buttons.length!==6)return;
+
+  function moveWindowToTop(selected){
+    requestAnimationFrame(function(){
+      var header=document.querySelector('.topbar');
+      var headerHeight=header?header.getBoundingClientRect().height:0;
+      var top=window.pageYOffset+selected.getBoundingClientRect().top-headerHeight-8;
+      window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    });
+  }
+
   function showCategory(id,updateHash){
     var match=/^indicator-page-([1-6])$/.exec(id||'');
     if(!match)return false;
-    var n=match[1], selected=document.getElementById('indicator-window-'+n);
+    var n=match[1];
+    var selected=document.getElementById('indicator-window-'+n);
     var page=document.getElementById(id);
     if(!selected||!page)return false;
-    windows.forEach(function(win){win.hidden=win!==selected;});
+
+    windows.forEach(function(win){
+      win.hidden=(win!==selected);
+    });
     page.scrollTop=0;
     page.scrollLeft=0;
     if(updateHash)history.replaceState(null,'','#'+id);
+
+    moveWindowToTop(selected);
     return true;
   }
+
   buttons.forEach(function(button){
     button.addEventListener('click',function(event){
       var href=button.getAttribute('href')||'';
       if(href.charAt(0)==='#'&&showCategory(href.slice(1),true))event.preventDefault();
     });
   });
+
   document.querySelectorAll('.indicator-page-button').forEach(function(button){
     button.addEventListener('click',function(event){
       var href=button.getAttribute('href')||'';
       if(href.charAt(0)==='#'&&showCategory(href.slice(1),true))event.preventDefault();
     });
   });
+
   var initial=(location.hash||'').slice(1);
-  if(!showCategory(initial,false))showCategory('indicator-page-1',false);
+  if(!showCategory(initial,false)){
+    windows.forEach(function(win,index){win.hidden=index!==0;});
+  }
 })();
 </script>
 <script src="/android_tablet_router.js?v=top_home_destination_20261105d"></script>
