@@ -33,6 +33,22 @@ if(label.includes('topページ')||label.includes('topへ戻る')||label.include
 if(label.includes('fxの入口')||/^home(?:\s|$)/i.test(label)||href==='home.html'||href.includes('android_tablet_home'))return 'home';
 return null;
 }
+function hideLegacyTaskbar(doc){
+ if(!doc.getElementById('tablet-single-bar-style')){
+  var style=doc.createElement('style');style.id='tablet-single-bar-style';
+  style.textContent='header, .site-header, .topbar, .top-bar, .taskbar, .task-bar, .navbar, .nav-bar, .global-header, #site-header, #header, #topbar, #taskbar {display:none !important;}';
+  (doc.head||doc.documentElement).appendChild(style);
+ }
+ // Fallback: remove only the small legacy logo strip at the very top.
+ doc.querySelectorAll('a,button').forEach(function(el){
+  var rect=el.getBoundingClientRect(),label=(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'');
+  var img=el.querySelector('img');
+  if(rect.top<85 && rect.height>0 && rect.height<90 && (img||/TOP|logo|ロゴ/i.test(label))){
+   var parent=el.closest('header,nav,.site-header,.topbar,.taskbar')||el.parentElement;
+   if(parent){var pr=parent.getBoundingClientRect();if(pr.top<90&&pr.height<115&&pr.width>doc.documentElement.clientWidth*.5)parent.style.setProperty('display','none','important');}
+  }
+ });
+}
 function rename(doc){
 if(pageKind()!=='top')return;
 doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
@@ -45,6 +61,7 @@ while((n=walker.nextNode())){if(/HOME/.test(n.nodeValue||'')){n.nodeValue=n.node
 page.addEventListener('load',function(){
 try{
 var doc=page.contentDocument;if(!doc)return;
+hideLegacyTaskbar(doc);
 rename(doc);
 if(pageKind()==='top'){
 var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
@@ -54,7 +71,8 @@ var observer=new MutationObserver(function(){rename(doc);});observer.observe(doc
 doc.addEventListener('click',function(ev){
 var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
 var raw=el.getAttribute('href')||'';
-if(/^(mailto:|tel:|https?:\/\/)/i.test(raw))return;
+if(/^(mailto:|tel:)/i.test(raw))return;
+if(/^https?:\/\//i.test(raw) && !/manda-fx-office|transition-tablet/i.test(raw))return;
 var key=routeFor(el);if(!key)return;
 ev.preventDefault();ev.stopImmediatePropagation();go(key);
 },true);
