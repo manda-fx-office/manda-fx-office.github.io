@@ -1,1 +1,16 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;background:#111}iframe{width:100%;height:100%;border:0;display:block}</style></head><body><iframe id="system" title="TRANSITION SYSTEM" src="./product_tradesystem.html"></iframe><script>(function(){var f=document.getElementById('system');f.addEventListener('load',function(){try{var d=f.contentDocument;var a=d.querySelector('.mobile-home-return a[href="home.html"]');if(!a){a=Array.from(d.querySelectorAll('a')).find(function(x){return /HOMEに戻る/.test(x.textContent||'')});}if(a){a.textContent='FXの入口に戻る';a.setAttribute('href','./android_tablet_fx_classic_layout_20261110.html');a.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();window.location.replace('./android_tablet_fx_classic_layout_20261110.html');},true);}var bar=d.createElement('style');bar.textContent='.mobile-taskbar,.topbar,.site-header,.taskbar,.task-bar,.global-header,#site-header,#topbar,#taskbar{display:none!important}';d.head.appendChild(bar);}catch(e){console.error(e)}});})();</script></body></html>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;background:#111}iframe{width:100%;height:100%;border:0;display:block}</style></head><body><iframe id="system" title="TRANSITION SYSTEM"></iframe><script>
+(function(){
+var frame=document.getElementById('system');
+fetch('./product_tradesystem.html',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('SYSTEM source HTTP '+r.status);return r.text();}).then(function(html){
+var doc=new DOMParser().parseFromString(html,'text/html');
+var a=doc.querySelector('.mobile-home-return a')||Array.from(doc.querySelectorAll('a')).find(function(el){return /HOMEに戻る/.test(el.textContent||'')});
+if(!a)throw Error('Return button missing');
+a.textContent='FXの入口に戻る';
+a.setAttribute('href','./android_tablet_fx_classic_layout_20261110.html');
+a.setAttribute('target','_top');
+var base=doc.createElement('base');base.href=new URL('./',location.href).href;doc.head.prepend(base);
+var style=doc.createElement('style');style.textContent='.mobile-taskbar,.topbar,.site-header,.taskbar,.task-bar,.global-header,#site-header,#topbar,#taskbar{display:none!important}';doc.head.appendChild(style);
+frame.srcdoc='<!doctype html>'+doc.documentElement.outerHTML;
+}).catch(function(err){document.body.insertAdjacentHTML('beforeend','<p style="color:white;padding:16px">SYSTEMページを読み込めませんでした。</p>');console.error(err);});
+})();
+</script></body></html>
