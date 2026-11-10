@@ -5,7 +5,7 @@
  var ROUTES={
   top:'/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html',
   home:'/android_tablet_HOME_test_20261106.html?tablet-home-copy=20261106-test-v2',
-  project:'/android_tablet_project_saved.html?tablet=20261103v2'
+  project:'/伝助のインジケータ_ここに戻る_V1.html?restore=1813-densuke-v1'
  };
  function pathOf(url){try{return decodeURIComponent(url.pathname||'').toLowerCase()}catch(e){return (url.pathname||'').toLowerCase()}}
  function routeFor(el,u){
