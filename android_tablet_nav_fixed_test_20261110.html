@@ -15,7 +15,8 @@ densuke:'./伝助のインジケータ_ここに戻る_V1.html?nav=20261110',
 fx:'./fx_companies.html?nav=20261110',
 qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
-login:'./login.html?nav=20261110'
+login:'./login.html?nav=20261110',
+system:'./android_tablet_tradesystem_5cards_return_fx_test_20261110.html?nav=20261110'
 };
 function go(key){if(routes[key])page.src=routes[key];}
 logo.addEventListener('click',function(){go('top');});
@@ -24,6 +25,7 @@ function labelFor(el){return ((el.innerText||el.textContent||'')+' '+(el.getAttr
 function routeFor(el){
 var label=labelFor(el).toLowerCase();
 var href=(el.getAttribute('href')||'').toLowerCase();
+if(pageKind()==='top' && (/^system(?:\s|$)/i.test(label)||label.includes('systemを見る')||href.includes('product_tradesystem')||href.includes('android_tablet_tradesystem')))return 'system';
 if(label.includes('伝助')||href.includes('project.html')||href.includes('android_tablet_project'))return 'densuke';
 if(label.includes('管理人')&&label.includes('q')||href.includes('admin_qa'))return 'qa';
 if(label.includes('コミュニティ')||label.includes('community')||href.includes('community.html'))return 'community';
