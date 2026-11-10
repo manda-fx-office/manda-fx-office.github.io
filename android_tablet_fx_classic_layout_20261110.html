@@ -23,10 +23,10 @@ logoLinks.forEach(function(a){var el=a;for(var i=0;i<5&&el;i++,el=el.parentEleme
 
 var path=d.getElementById('learning-path'),details=d.getElementById('learning-details'),grid=details&&details.querySelector('.learn-grid');if(!path||!details||!grid)return;
 var links=Array.from(path.querySelectorAll('a[href^="#detail-"]')),cards=Array.from(grid.querySelectorAll('.learn-card'));
-function select(n){cards.forEach(function(card){card.classList.toggle('fx-visible',card.id==='detail-'+n)});links.forEach(function(link){link.classList.toggle('fx-selected',link.getAttribute('href')==='#detail-'+n)});grid.scrollTop=0;var heading=path.closest('section');if(heading){heading.scrollIntoView({behavior:'smooth',block:'start'});}}
+function select(n){cards.forEach(function(card){card.classList.toggle('fx-visible',card.id==='detail-'+n)});links.forEach(function(link){link.classList.toggle('fx-selected',link.getAttribute('href')==='#detail-'+n)});grid.scrollTop=0;details.scrollIntoView({behavior:'smooth',block:'start'});}
 links.forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();select(link.getAttribute('href').replace('#detail-',''));},true);});
 var back=details.querySelector('.back-to-path');if(!back){back=d.createElement('button');back.textContent='学ぶ順番に戻る';back.className='back-to-path';details.appendChild(back);}else{back.textContent='学ぶ順番に戻る';}
-back.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();d.documentElement.scrollTo({top:0,behavior:'smooth'});d.body.scrollTo({top:0,behavior:'smooth'});frame.contentWindow.scrollTo({top:0,behavior:'smooth'});},true);
+back.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();var learningSection=path.closest('section');if(learningSection){learningSection.scrollIntoView({behavior:'smooth',block:'start'});}},true);
 cards.forEach(function(c,i){c.classList.toggle('fx-visible',i===0);});
 }catch(e){console.error('FX layout:',e);}
 });
