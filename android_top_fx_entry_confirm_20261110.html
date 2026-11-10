@@ -25,9 +25,14 @@ var observer=new MutationObserver(fix);observer.observe(doc.documentElement,{chi
 doc.addEventListener('click',function(ev){
 var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
 var label=(el.innerText||el.textContent||'').replace(/\s+/g,' ').trim();
-if(label.indexOf('伝助')<0)return;
+var destination=null;
+if(label.indexOf('伝助')>=0)destination='./伝助のインジケータ_ここに戻る_V1.html?from=fx-check';
+else if(label.indexOf('FXの入口')>=0 || /^HOME(?:\\s|$)/i.test(label))destination='./android_tablet_HOME_test_20261106.html?from=fx-check';
+else if(label.indexOf('証券会社')>=0)destination='./fx_companies.html?from=fx-check';
+else if(label.indexOf('管理人')>=0 && /Q\\s*&?\\s*A/i.test(label))destination='./admin_qa.html?from=fx-check';
+if(!destination)return;
 ev.preventDefault();ev.stopImmediatePropagation();
-window.location.assign('./伝助のインジケータ_ここに戻る_V1.html?from=fx-check');
+window.location.assign(destination);
 },true);
 }catch(e){}
 });
