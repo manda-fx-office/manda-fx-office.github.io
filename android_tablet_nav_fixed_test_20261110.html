@@ -65,6 +65,14 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
+if(page.contentWindow.location.pathname.includes('伝助のインジケータ_ここに戻る_V1.html')){
+ doc.querySelectorAll('.mobile-home-return a').forEach(function(a){
+  if(/HOMEに戻る|HOMEへ戻る/.test(a.textContent||'')){
+   a.textContent='⌂ FXの入口に戻る';
+   a.setAttribute('href','./android_tablet_fx_classic_layout_20261110.html');
+  }
+ });
+}
 if(pageKind()==='top'){
 var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
 if(imgs.length){logo.innerHTML='';var im=doc.createElement('img');im.src=imgs[0].src;im.alt='TRANSITION SYSTEM';logo.appendChild(im);}
