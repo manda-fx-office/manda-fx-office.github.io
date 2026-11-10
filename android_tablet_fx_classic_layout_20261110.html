@@ -1,0 +1,30 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FXの入口・保存デザイン調整</title><style>html,body{margin:0;width:100%;height:100%;background:#111}iframe{display:block;width:100%;height:100%;border:0}</style></head><body><iframe id="original" title="FXの入口・既存ページ" src="./android_tablet_HOME_test_20261106.html?layout=classic-20261110"></iframe><script>
+(function(){
+var frame=document.getElementById('original');
+frame.addEventListener('load',function(){
+try{
+var d=frame.contentDocument;if(!d||d.getElementById('fx-classic-fix'))return;
+var style=d.createElement('style');style.id='fx-classic-fix';
+style.textContent=[
+'#learning-path.path{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}',
+'#learning-path .step{width:100%!important;min-width:0!important;max-width:none!important;background:rgba(25,25,27,.65)!important;border:1px solid #777!important;color:#f0f0f0!important;box-shadow:none!important}',
+'#learning-path .step strong,#learning-path .step span{color:#f0f0f0!important}',
+'#learning-path .step.fx-selected{border:2px solid #c5c5c5!important;background:#343434!important}',
+'#learning-details .learn-grid{display:block!important;max-height:58vh!important;overflow-y:auto!important;overscroll-behavior:contain!important;border:1px solid #777!important;border-radius:12px!important;padding:14px!important;background:rgba(20,20,22,.55)!important}',
+'#learning-details .learn-card{display:none!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;box-sizing:border-box!important;background:rgba(29,29,31,.8)!important;border:1px solid #888!important;color:#f5f5f5!important}',
+'#learning-details .learn-card.fx-visible{display:block!important}',
+'#learning-details .back-to-path{display:block!important;margin:16px auto!important}',
+'@media(min-width:800px){#learning-details .learn-grid{max-height:62vh!important}}'
+].join('');
+d.head.appendChild(style);
+var path=d.getElementById('learning-path'),details=d.getElementById('learning-details'),grid=details&&details.querySelector('.learn-grid');if(!path||!details||!grid)return;
+var links=Array.from(path.querySelectorAll('a[href^="#detail-"]')),cards=Array.from(grid.querySelectorAll('.learn-card'));
+function select(n){cards.forEach(function(card){card.classList.toggle('fx-visible',card.id==='detail-'+n)});links.forEach(function(link){link.classList.toggle('fx-selected',link.getAttribute('href')==='#detail-'+n)});grid.scrollTop=0;details.scrollIntoView({behavior:'smooth',block:'start'});}
+links.forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();select(link.getAttribute('href').replace('#detail-',''));},true);});
+var back=details.querySelector('.back-to-path');if(!back){back=d.createElement('button');back.textContent='学ぶ順番に戻る';back.className='back-to-path';details.appendChild(back);}else{back.textContent='学ぶ順番に戻る';}
+back.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();d.documentElement.scrollTo({top:0,behavior:'smooth'});d.body.scrollTo({top:0,behavior:'smooth'});frame.contentWindow.scrollTo({top:0,behavior:'smooth'});},true);
+cards.forEach(function(c,i){c.classList.toggle('fx-visible',i===0);});
+}catch(e){console.error('FX layout:',e);}
+});
+})();
+</script></body></html>
