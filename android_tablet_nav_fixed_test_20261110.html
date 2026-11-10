@@ -11,7 +11,7 @@ var page=document.getElementById('page'),logo=document.getElementById('logo');
 var routes={
 top:'./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?nav=20261110',
 home:'./android_tablet_fx_classic_layout_20261110.html?nav=20261110-system5-v3',
-densuke:'./伝助のインジケータ_ここに戻る_V1.html?nav=20261110',
+densuke:'./android_tablet_densuke_return_fx_test_20261111.html?nav=20261111',
 fx:'./fx_companies.html?nav=20261110',
 qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
@@ -65,7 +65,7 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
-if(decodeURIComponent(page.contentWindow.location.pathname).includes('伝助のインジケータ_ここに戻る_V1.html')){
+if(decodeURIComponent(page.contentWindow.location.pathname).includes('android_tablet_densuke_return_fx_test_20261111.html')){
  doc.querySelectorAll('.mobile-home-return a').forEach(function(a){
   if(/HOMEに戻る|HOMEへ戻る|FXの入口に戻る/.test(a.textContent||'')){
    a.textContent='⌂ FXの入口に戻る';
