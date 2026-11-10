@@ -51,6 +51,20 @@ function hideLegacyTaskbar(doc){
   }
  });
 }
+function enforceHomeLayout(doc){
+ if(!doc||!doc.getElementById('learning-path'))return;
+ if(doc.getElementById('tablet-home-2col-force'))return;
+ var s=doc.createElement('style');s.id='tablet-home-2col-force';
+ s.textContent='#learning-path{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}#learning-path>*{width:100%!important;min-width:0!important;max-width:none!important}';
+ (doc.head||doc.documentElement).appendChild(s);
+}
+function fixNestedHome(doc){
+ var inner=doc.getElementById('original');
+ if(inner&&inner.tagName==='IFRAME'){
+  var apply=function(){try{enforceHomeLayout(inner.contentDocument)}catch(e){}};
+  inner.addEventListener('load',apply);apply();
+ }else enforceHomeLayout(doc);
+}
 function rename(doc){
 if(pageKind()!=='top')return;
 doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
@@ -65,6 +79,7 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
+fixNestedHome(doc);
 if(decodeURIComponent(page.contentWindow.location.pathname).includes('android_tablet_densuke_return_fx_test_20261111.html')){
  doc.querySelectorAll('.mobile-home-return a').forEach(function(a){
   if(/HOMEに戻る|HOMEへ戻る|FXの入口に戻る/.test(a.textContent||'')){
