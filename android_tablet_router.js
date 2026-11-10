@@ -21,22 +21,22 @@
   if(p.endsWith('/project.html')||p.indexOf('android_tablet_project')>=0)return 'project';
   return null;
  }
- // Rename only the TOP page HOME navigation button; preserve its destination.
+ // TOP-only label correction. Runs after page scripts and on late DOM changes.
  function renameTopHomeButton(){
   var path='';try{path=decodeURIComponent(location.pathname)}catch(e){path=location.pathname}
   if(path.indexOf('android_tablet_saved_top_')<0)return;
   document.querySelectorAll('a,button,[role="button"]').forEach(function(el){
-   var label=(el.textContent||'').replace(/\\s+/g,' ').trim();
-   if(label!=='HOME' && label!=='HOMEページ')return;
-   var nodes=[];var walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null);
-   while(walker.nextNode())nodes.push(walker.currentNode);
-   var changed=false;
-   nodes.forEach(function(n){if(/HOME/.test(n.nodeValue||'')){n.nodeValue=n.nodeValue.replace(/HOME(?:ページ)?/g,'FXの入口');changed=true;}});
-   if(changed)el.setAttribute('aria-label','FXの入口');
+   var t=(el.innerText||el.textContent||'').replace(/\\s+/g,' ').trim();
+   if(!/^HOME(?:\\s|$)/i.test(t))return;
+   var walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),n;
+   while((n=walker.nextNode())){
+    if(/HOME/.test(n.nodeValue||'')){n.nodeValue=n.nodeValue.replace(/HOME/g,'FXの入口');break;}
+   }
   });
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',renameTopHomeButton);
  else renameTopHomeButton();
+ if(document.documentElement){var obs=new MutationObserver(renameTopHomeButton);obs.observe(document.documentElement,{childList:true,subtree:true});}
  document.addEventListener('click',function(ev){
   var el=ev.target&&ev.target.closest?ev.target.closest('a,button,[role="button"]'):null;
   if(!el)return;
