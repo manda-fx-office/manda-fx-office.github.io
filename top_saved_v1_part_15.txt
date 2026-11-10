@@ -7,7 +7,7 @@ LwazJtbbdjOay5y0jfFhZxjAQUG2t/uhBiuVGrFud9Nk1f0aq5h8p05jgX7mKv2t08OCO3FcUupDPJq/
     <div class="community-more"><a href="community.html" class="community-more-btn">コミュニティー　›</a></div>
 <div class="smartphone-top-controls" aria-label="PC版HOME操作メニュー（スマホ版）">
   <a class="entry-btn" href="product_tradesystem.html"><b>SYSTEM</b><span>システム</span></a>
-  <a class="entry-btn" href="project.html"><b>伝助のインジケーター</b><span>伝助のインジケーター</span></a>
+  <a class="entry-btn" href="伝助のインジケータ_ここに戻る_V1.html"><b>伝助のインジケーター</b><span>伝助のインジケーター</span></a>
   <a class="entry-btn" href="board.html"><b>BOARD</b><span>伝言板</span></a>
   <a class="entry-btn" href="login.html"><b>LOGIN</b><span>ログイン</span></a>
 </div>
