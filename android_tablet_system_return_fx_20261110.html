@@ -7,7 +7,7 @@ var a=doc.querySelector('.mobile-home-return a')||Array.from(doc.querySelectorAl
 if(!a)throw Error('Return button missing');
 a.textContent='FXの入口に戻る';
 a.setAttribute('href','./android_tablet_fx_classic_layout_20261110.html');
-a.setAttribute('target','_top');
+a.setAttribute('target','_parent');
 var base=doc.createElement('base');base.href=new URL('./',location.href).href;doc.head.prepend(base);
 var style=doc.createElement('style');style.textContent='.mobile-taskbar,.topbar,.site-header,.taskbar,.task-bar,.global-header,#site-header,#topbar,#taskbar{display:none!important}';doc.head.appendChild(style);
 frame.srcdoc='<!doctype html>'+doc.documentElement.outerHTML;
