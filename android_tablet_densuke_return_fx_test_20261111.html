@@ -743,6 +743,19 @@ body{padding-top:88px}
   if(initialId)showCategory(initialId,false);
 })();
 </script>
-<script src="/android_tablet_router.js?v=top_home_destination_20261105d"></script>
+<script id="tablet-densuke-home-direct-route">
+(function(){
+  var target='./android_tablet_HOME_direct_2col_test_20261111.html?from=densuke-v3';
+  var button=document.querySelector('.mobile-home-return a:not(.mobile-page-top-return)');
+  if(!button)return;
+  button.href=target;
+  button.textContent='⌂ FXの入口に戻る';
+  button.addEventListener('click',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.location.assign(target);
+  },true);
+})();
+</script>
 </body>
 </html>
