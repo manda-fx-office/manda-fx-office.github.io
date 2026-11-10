@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05070b"><title>TRANSITION TRADE SYSTEM | Tablet</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#07090d;color:#f1f4f7;font-family:Arial,"Noto Sans JP",sans-serif}
+body{padding-bottom:18px}.topbar{height:66px;padding:10px 20px;background:#05070b;border-bottom:1px solid #29313b;display:flex;align-items:center}
+.brand{font-size:13px;font-weight:800;letter-spacing:2px;color:#dfe8f0}.brand small{display:block;font-size:9px;color:#82909d;letter-spacing:1.4px;margin-top:3px}
+main{width:min(900px,calc(100% - 32px));margin:24px auto 0}.tag{display:inline-block;border:1px solid #697887;border-radius:20px;padding:5px 11px;font-size:10px;letter-spacing:1px;color:#c5d1dc}
+h1{font-size:clamp(25px,4vw,38px);letter-spacing:2px;line-height:1.15;margin:13px 0 10px}.lead{color:#b9c2cb;font-size:14px;line-height:1.75;margin:0 0 20px}
+.panel{border:1px solid #485563;border-radius:13px;background:linear-gradient(145deg,#18212c,#0b1017);padding:15px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;margin:0 2px 12px}.panel-head h2{font-size:17px;margin:0;letter-spacing:1px}.panel-head span{font-size:11px;color:#91a1b0}
+.card-window{height: min(57vh,560px);min-height:330px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:2px 5px 10px 2px;scrollbar-width:thin;scrollbar-color:#667889 #111923}
+.cards{display:grid;grid-template-columns:1fr;gap:13px}
+.card{display:grid;grid-template-columns: minmax(112px,32%) 1fr;gap:14px;align-items:center;min-height:142px;padding:12px;border:1px solid #465463;border-radius:11px;background:linear-gradient(135deg,#202b38,#111820);box-shadow:inset 0 1px 0 #ffffff12}
+.art{height:112px;border-radius:8px;background:radial-gradient(circle at 50% 35%,#334b62,#101821 75%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.art svg{width:100%;height:100%;display:block}.card h3{font-size:17px;margin:0 0 7px;color:#f3f6f8}.card p{font-size:12px;line-height:1.65;color:#b6c1cb;margin:0}.num{font-size:10px;color:#9db2c5;letter-spacing:1.5px;margin-bottom:5px}
+.hint{text-align:center;font-size:11px;color:#82909d;margin:10px 0 0}
+.home{text-align:center;margin:24px auto 16px}.home a{display:inline-block;min-width:190px;padding:12px 25px;border:1px solid #8998a6;border-radius:9px;background:linear-gradient(#46515c,#171e26);color:#fff;font-weight:700;text-decoration:none}
+footer{text-align:center;border-top:1px solid #202833;padding:18px 10px;color:#75818c;font-size:11px}
+@media(min-width:760px){.cards{grid-template-columns:1fr 1fr}.card{grid-template-columns:1fr;align-items:start}.art{height:140px}.card h3{font-size:16px}}
+</style></head><body>
+<header class="topbar" style="display:none"><div class="brand">TRANSITION SYSTEM<small>by Manda FX Office</small></div></header>
+<main><span class="tag">TRADE SYSTEM</span><h1>TRANSITION TRADE SYSTEM</h1>
+<p class="lead">OHLC・BB・3MACD・MAなどを組み合わせ、相場の方向とトリガーを確認するためのシステムです。</p>
+<section class="panel" aria-label="システム画像カード"><div class="panel-head"><h2>システム構成</h2><span>5 FEATURES</span></div>
+<div class="card-window" tabindex="0" aria-label="カード一覧・上下にスクロール">
+<div class="cards">
+<article class="card"><div class="art"><svg viewBox="0 0 220 120" aria-hidden="true"><g stroke="#8da4b8" stroke-width="2"><path d="M35 20v78M75 30v60M115 14v88M155 26v68M190 12v90"/></g><g stroke-width="8" stroke-linecap="round"><path d="M35 42v24" stroke="#56c6a7"/><path d="M75 46v22" stroke="#e47e79"/><path d="M115 40v30" stroke="#56c6a7"/><path d="M155 44v25" stroke="#e47e79"/><path d="M190 34v28" stroke="#56c6a7"/></g><path d="M15 104H205" stroke="#637b90"/></svg></div><div><div class="num">01 / MARKET DATA</div><h3>OHLC分析</h3><p>始値・高値・安値・終値から、ローソク足の方向性と値動きの状態を確認します。</p></div></article>
+<article class="card"><div class="art"><svg viewBox="0 0 220 120" aria-hidden="true"><path d="M12 60 Q55 5 110 35 T208 55 M12 60 Q55 115 110 85 T208 65" fill="none" stroke="#70b7df" stroke-width="3"/><path d="M12 60 Q55 25 110 55 T208 60" fill="none" stroke="#e4bd69" stroke-width="2"/><path d="M12 60H208" stroke="#7e91a2" stroke-dasharray="4 5"/><path d="M110 8V112" stroke="#526a80" stroke-dasharray="3 5"/></svg></div><div><div class="num">02 / VOLATILITY</div><h3>ボリンジャーバンド（BB）</h3><p>複数期間のバンド幅と価格位置を見て、バンドウォークや相場の変化を捉えます。</p></div></article>
+<article class="card"><div class="art"><svg viewBox="0 0 220 120" aria-hidden="true"><path d="M12 92 C45 82 55 25 95 48 S145 100 208 24" fill="none" stroke="#e6bd68" stroke-width="4"/><path d="M12 72 C60 62 85 57 115 60 S175 53 208 44" fill="none" stroke="#66b9d9" stroke-width="4"/><path d="M12 103H208" stroke="#62788b"/></svg></div><div><div class="num">03 / TREND</div><h3>移動平均線（MA）</h3><p>短期・中期・長期の移動平均線を比較し、トレンドの向きと位置関係を確認します。</p></div></article>
+<article class="card"><div class="art"><svg viewBox="0 0 220 120" aria-hidden="true"><path d="M10 60H210" stroke="#718496" stroke-dasharray="4 4"/><path d="M12 80 C42 80 45 28 75 30 S112 92 142 72 S178 25 208 24" fill="none" stroke="#61c5a8" stroke-width="3"/><path d="M12 43 C45 44 55 70 82 67 S126 34 150 48 S182 77 208 72" fill="none" stroke="#e2ad62" stroke-width="3"/><path d="M12 98 C48 96 62 88 88 88 S140 100 164 90 S190 85 208 82" fill="none" stroke="#7daee0" stroke-width="3"/></svg></div><div><div class="num">04 / MOMENTUM</div><h3>3MACD</h3><p>短期・中期・長期のMACDを重ね、勢いの変化と方向感を多角的に判断します。</p></div></article>
+<article class="card"><div class="art"><svg viewBox="0 0 220 120" aria-hidden="true"><circle cx="110" cy="60" r="42" fill="none" stroke="#5b7185" stroke-width="9"/><path d="M110 18 A42 42 0 0 1 150 48" fill="none" stroke="#63c7a7" stroke-width="9" stroke-linecap="round"/><path d="M110 60L139 37" stroke="#e9c16d" stroke-width="4" stroke-linecap="round"/><circle cx="110" cy="60" r="6" fill="#e9c16d"/><path d="M25 103H195" stroke="#526a80"/></svg></div><div><div class="num">05 / SIGNAL</div><h3>トリガー表示・総合判定</h3><p>各指標の条件をまとめ、売買を検討するタイミングと相場状況を見やすく表示します。</p></div></article>
+</div></div><p class="hint">カード表示エリアを上下にスクロールできます</p></section>
+<div class="home" style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:24px"><a href="/android_tablet_project_saved.html?tablet=20261103v2">伝助のインジケータ</a><a href="./android_tablet_fx_classic_layout_20261110.html">⌂ FXの入口に戻る</a></div></main>
+<footer>TRANSITION SYSTEM / by Manda FX Office</footer></body></html>
