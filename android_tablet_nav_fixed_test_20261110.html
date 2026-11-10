@@ -10,8 +10,8 @@
 var page=document.getElementById('page'),logo=document.getElementById('logo');
 var routes={
 top:'./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?nav=20261110',
-home:'./android_tablet_HOME_direct_2col_test_20261111.html?nav=20261111-direct2col',
-densuke:'./android_tablet_densuke_return_fx_test_20261111.html?nav=20261111-return-v2',
+home:'./android_tablet_HOME_direct_2col_test_20261111.html?nav=densuke-fixed-v3',
+densuke:'./android_tablet_densuke_return_fx_test_20261111.html?nav=densuke-fixed-v3',
 fx:'./fx_companies.html?nav=20261110',
 qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
@@ -26,7 +26,7 @@ function routeFor(el){
 var label=labelFor(el).toLowerCase();
 var href=(el.getAttribute('href')||'').toLowerCase();
 if(pageKind()==='top' && (/^system(?:\s|$)/i.test(label)||label.includes('systemを見る')||href.includes('product_tradesystem')||href.includes('android_tablet_tradesystem')))return 'system';
-if(label.includes('伝助')||href.includes('project.html')||href.includes('android_tablet_project'))return 'densuke';
+if(label.includes('伝助')||href.includes('project.html')||href.includes('android_tablet_project')||href.includes('android_tablet_densuke_return_fx_test'))return 'densuke';
 if(label.includes('管理人')&&label.includes('q')||href.includes('admin_qa'))return 'qa';
 if(label.includes('コミュニティ')||label.includes('community')||href.includes('community.html'))return 'community';
 if(label.includes('login')||label.includes('ログイン')||href.includes('login.html'))return 'login';
