@@ -1,0 +1,1000 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>TRANSITION SYSTEM</title>
+<style>
+:root{
+  --bg:#050505;--panel:#0d0f11;--panel2:#15181b;--silver:#d9dce0;
+  --muted:#9da3a8;--line:#4d5359;--accent:#bfc5ca;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% 0%,#17191c 0,#070707 38%,#000 100%);
+color:#eee;font-family:Arial,"Noto Sans JP",sans-serif}
+a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.92);backdrop-filter:blur(10px);border-bottom:1px solid #292d31}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:15px 22px}
+.brand{font-weight:800;letter-spacing:3px}.brand small{display:block;color:#8f9499;font-size:10px;letter-spacing:2px;margin-top:3px}
+.navlinks{display:flex;gap:8px}.navlinks a{padding:9px 13px;border:1px solid transparent;color:#bfc3c7;font-size:13px}
+.navlinks a:hover{border-color:#555;background:#151719}
+.container{max-width:1180px;margin:auto;padding:60px 22px}
+.hero{min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.7),rgba(0,0,0,.15),rgba(0,0,0,.7));}
+.hero-content{position:relative;z-index:1;max-width:850px}
+.kicker{font-size:12px;letter-spacing:5px;color:#aab0b5}
+h1{font-size:clamp(42px,7vw,82px);letter-spacing:7px;margin:18px 0 4px}
+.hero p{color:#b7bcc1;font-size:18px;line-height:1.8}
+.cta{display:inline-block;margin:22px 7px 0;padding:14px 32px;border:1px solid #777;background:linear-gradient(#3b4045,#0d0e10);border-radius:7px;letter-spacing:2px;box-shadow:inset 0 0 15px #ffffff12,0 0 20px #000}
+.cta:hover{border-color:#ddd;transform:translateY(-1px)}
+.section-title{text-align:center;margin-bottom:36px}.section-title h2{font-size:30px;letter-spacing:4px;margin:0}.section-title p{color:#8f959a}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:linear-gradient(145deg,#171a1d,#090a0b);border:1px solid #34383c;border-radius:10px;padding:25px;min-height:180px;box-shadow:0 10px 30px #0008}
+.card h3{letter-spacing:2px;margin-top:0}.card p{color:#aeb3b7;line-height:1.7;font-size:14px}
+footer{border-top:1px solid #24272a;text-align:center;color:#70767b;padding:35px 20px;font-size:12px}
+.login-wrap{min-height:calc(100vh - 72px);display:flex;align-items:center;justify-content:center;padding:35px 20px}
+.login-box{width:min(440px,100%);padding:38px;background:linear-gradient(145deg,#181b1e,#080909);border:1px solid #555;border-radius:12px;box-shadow:0 20px 60px #000}
+.login-box h1{font-size:30px;text-align:center;letter-spacing:4px}
+.field{width:100%;padding:14px;margin:7px 0;background:#050606;border:1px solid #454a4e;border-radius:6px;color:#fff}
+.login-btn{width:100%;padding:14px;margin-top:13px;background:linear-gradient(#4b5156,#17191b);border:1px solid #999;border-radius:7px;color:white;cursor:pointer}
+.note{font-size:12px;color:#777;text-align:center;margin-top:18px;line-height:1.6}
+.member-hero{padding:55px 0 30px}.member-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.status{display:inline-block;border:1px solid #5e656b;padding:7px 12px;border-radius:20px;font-size:12px;color:#c7cbd0}
+@media(max-width:800px){.navlinks{display:none}.grid,.member-grid{grid-template-columns:1fr}.hero{min-height:560px}h1{letter-spacing:3px}.container{padding-top:45px}}
+
+body{background:#000}
+.entrance{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:#000}
+.entrance img{position:absolute;width:100%;height:100%;object-fit:contain;object-position:center}
+.entrance:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.35))}
+.entry-buttons{position:absolute;z-index:2;bottom:7%;display:flex;gap:20px;width:min(850px,88%)}
+.entry-btn{flex:1;padding:20px 18px;text-align:center;border:1px solid #777;border-radius:9px;background:linear-gradient(180deg,#383d42,#08090a);box-shadow:inset 0 0 18px #fff1,0 0 24px #000;color:white}
+.entry-btn:hover{border-color:#ddd;transform:translateY(-2px)}
+.bgm-btn{position:absolute;right:24px;top:24px;z-index:4;padding:9px 14px;border:1px solid #666;border-radius:20px;background:rgba(8,9,10,.78);color:#ddd;font-size:12px;letter-spacing:1px;cursor:pointer;backdrop-filter:blur(6px)}
+.bgm-btn:hover{border-color:#bbb;color:#fff}
+.bgm-btn.on{border-color:#aaa;color:#fff;background:rgba(35,37,40,.9)}
+.music-credit{position:absolute;z-index:3;left:50%;bottom:2.5%;transform:translateX(-50%);font-size:10px;letter-spacing:.3px;color:#8f9499;text-align:center;white-space:nowrap}.music-credit a{color:#aeb3b7;text-decoration:none}.music-credit a:hover{text-decoration:underline;color:#ddd}
+@media(max-width:650px){.music-credit{font-size:8px;bottom:2%;max-width:92%;white-space:normal}}
+@media(max-width:650px){.bgm-btn{right:12px;top:12px;padding:8px 11px;font-size:11px}}
+.entry-btn b{display:block;font-size:25px;letter-spacing:4px}.entry-btn span{font-size:12px;color:#bbb}
+@media(max-width:650px){.entry-buttons{gap:10px}.entry-btn{padding:15px 8px}.entry-btn b{font-size:18px;letter-spacing:2px}}
+
+/* === TOP COMMUNITY preview window === */
+.community-preview{background:#050505;padding:70px 18px 80px;border-top:1px solid #25282b;}
+.community-preview-inner{max-width:1100px;margin:0 auto;}
+.community-preview-title{text-align:center;margin-bottom:24px;}
+.community-kicker{font-size:11px;letter-spacing:4px;color:#8f969c;margin-bottom:8px;}
+.community-preview-title h2{margin:0;font-size:34px;letter-spacing:5px;color:#e4e7e9;}
+.community-preview-title p{margin:8px 0 0;color:#9ea5aa;font-size:14px;}
+.community-window{height:650px;overflow:hidden;border:1px solid #555d63;border-radius:10px;background:#080909;box-shadow:0 16px 45px #0009;}
+.community-window iframe{display:block;width:100%;height:100%;border:0;background:#050505;}
+.community-more{text-align:center;margin-top:22px;}
+.community-more-btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;padding:13px 24px;border:1px solid #8b9298;border-radius:8px;background:linear-gradient(180deg,#4a5056,#171a1d);color:#fff;font-weight:700;letter-spacing:1px;}
+.community-more-btn:hover{border-color:#ddd;transform:translateY(-1px);}
+
+.community-feed{height:100%;overflow-y:auto;padding:22px 24px 30px;box-sizing:border-box;scroll-behavior:smooth;}
+.community-feed::-webkit-scrollbar{width:10px;}
+.community-feed::-webkit-scrollbar-track{background:#101214;border-radius:10px;}
+.community-feed::-webkit-scrollbar-thumb{background:#4a5056;border-radius:10px;border:2px solid #101214;}
+.preview-post{max-width:760px;margin:0 auto 28px;padding:18px 18px 20px;background:linear-gradient(145deg,#15181b,#0b0c0e);border:1px solid #343a3f;border-radius:10px;box-shadow:0 10px 28px #0008;}
+.preview-post-head{margin-bottom:14px;}
+.preview-post-label{display:inline-block;font-size:10px;letter-spacing:2px;color:#9ea5aa;margin-bottom:6px;}
+.preview-post h3{margin:0;color:#f0f2f3;font-size:20px;letter-spacing:1px;}
+.preview-image-wrap{text-align:center;background:#070809;border-radius:7px;border:1px solid #2e3337;overflow:hidden;}
+.preview-image-wrap img{display:block;margin:0 auto;max-width:100%;height:auto;}
+.preview-image-wrap.portrait img{max-height:360px;width:auto;}
+.preview-image-wrap.landscape img{max-height:360px;width:auto;max-width:100%;}
+.preview-post p{margin:14px 4px 0;color:#c8cdd1;line-height:1.8;font-size:14px;}
+.preview-end{text-align:center;color:#aeb4b9;line-height:1.8;padding:8px 0 20px;font-size:13px;}
+.preview-end span{color:#d8dde0;}
+@media(max-width:650px){
+  .community-feed{padding:14px 10px 24px;}
+  .preview-post{padding:14px;margin-bottom:18px;}
+  .preview-post h3{font-size:17px;}
+  .preview-image-wrap.portrait img,.preview-image-wrap.landscape img{max-height:300px;}
+  .preview-post p{font-size:13px;}
+}
+
+@media(max-width:650px){
+  .community-preview{padding:48px 10px 60px;}
+  .community-preview-title h2{font-size:28px;letter-spacing:4px;}
+  .community-window{height:600px;border-radius:8px;}
+  .community-more-btn{min-width:170px;padding:12px 20px;}
+}
+
+.site-purpose{max-width:980px;margin:20px auto 35px;padding:0 20px}
+.site-purpose-inner{padding:20px 24px;border:1px solid #3f454a;border-radius:10px;background:linear-gradient(145deg,#111417,#080909);text-align:center;color:#d3d7da;line-height:1.8;box-shadow:0 10px 28px #0007}
+.site-purpose-title{font-size:18px;letter-spacing:2px;font-weight:700;margin-bottom:8px;color:#fff}
+.site-purpose p{margin:5px 0}.site-purpose strong{color:#ffb25d}.site-purpose-note{font-size:12px;color:#9fa6ab}
+@media(max-width:600px){.site-purpose{padding:0 12px}.site-purpose-inner{padding:18px 15px}.site-purpose-title{font-size:16px}}
+
+.site-header{height:86px;background:#050505;border-bottom:1px solid #24282c;display:flex;align-items:center;padding:0 28px;box-sizing:border-box;position:relative;z-index:10}
+.site-header-logo{width:205px;height:auto;display:block}
+.hero-logo{position:relative;z-index:2;width:min(330px,48vw);height:auto;object-fit:contain}
+.entrance img.hero-logo{position:relative;width:min(760px,78vw);height:auto;object-fit:contain;z-index:2}
+@media(max-width:650px){.site-header{height:72px;padding:0 24px}.site-header-logo{width:180px}.hero-logo,.entrance img.hero-logo{width:88vw}}
+
+.qr-access{max-width:760px;margin:34px auto 10px;padding:22px 18px 26px;border:1px solid #34383c;border-radius:12px;background:linear-gradient(145deg,#171a1d,#090a0b);box-shadow:0 10px 30px #0008;text-align:center}.qr-access-title{font-size:22px;letter-spacing:3px;margin-bottom:6px}.qr-access-note{color:#9aa0a5;font-size:13px;margin-bottom:18px}.qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:560px;margin:0 auto}.qr-card{background:#f7f7f7;border-radius:10px;padding:12px 12px 14px;color:#111;box-shadow:0 5px 18px #0006}.qr-card img{display:block;width:100%;max-width:220px;margin:0 auto 10px}.qr-label{font-weight:700;letter-spacing:2px;font-size:16px}.qr-sub{font-size:11px;color:#555;margin-top:4px}@media(max-width:650px){.qr-grid{grid-template-columns:1fr;max-width:280px}.qr-access{margin-left:12px;margin-right:12px}.qr-access-title{font-size:19px}}
+
+.qr-mobile-slot{display:none}
+@media(max-width:650px){
+  .qr-mobile-slot{display:block}
+  .qr-mobile-slot .qr-access{margin-top:24px;margin-bottom:24px}
+}
+/* === TRANSITION SYSTEM テロップ 9項目版（2026-09-29） === */
+.presentation-ticker{
+  width:min(850px,calc(100% - 40px));
+  min-height:96px;
+  margin:8px auto 24px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  background:#070808;
+  border:1px solid #555b60;
+  border-radius:6px;
+  box-shadow:inset 0 0 20px rgba(255,255,255,.03);
+}
+.presentation-track{
+  display:flex;
+  width:max-content;
+  animation:transitionTicker 50s linear infinite;
+}
+.presentation-message{
+  white-space:nowrap;
+  padding:18px 60px;
+  color:#d9dde1;
+  font-size:40px;
+  line-height:1.3;
+  letter-spacing:2px;
+}
+.presentation-message span{display:inline-block;margin-right:72px}
+.presentation-message .ticker-gold{color:#e0b45a;font-weight:600}
+.presentation-message .ticker-blue{color:#78b7ff;font-weight:700;letter-spacing:4px}
+.presentation-message .ticker-silver{color:#d9dce0;font-weight:500}
+@keyframes transitionTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:900px){
+  .presentation-ticker{width:calc(100% - 32px);min-height:84px}
+  .presentation-message{font-size:32px;padding:16px 44px}
+  .presentation-message span{margin-right:52px}
+}
+@media(max-width:700px){
+  .presentation-ticker{width:calc(100% - 24px);min-height:72px}
+  .presentation-message{font-size:27px;padding:14px 30px}
+  .presentation-message span{margin-right:38px}
+}
+
+</style>
+<style id="mobile-qr-fix">
+/* Mobile-only QR placement: TOP keeps the existing PC layout; on smartphones TOP QR is hidden. */
+@media (max-width: 650px){
+  .qr-mobile-only{display:block !important;}
+  .qr-mobile-only .qr-grid{display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .qr-mobile-only .qr-card{width:min(75%, 360px);max-width:360px;}
+  .qr-mobile-only .qr-card img{width:100%;height:auto;}
+}
+@media (min-width: 651px){
+  .qr-mobile-only{display:none !important;}
+}
+/* === PC TOP: balance adjustment based on latest smartphone baseline === */
+@media (min-width:651px){
+  /* PC TOP: move the main logo and 4 buttons further upward for a tighter balance. */
+  .entrance img.hero-logo{transform:translateY(-27vh);}
+  .entry-buttons{bottom:36%;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;align-items:stretch;}
+  .entry-btn{padding:15px 18px;}
+  .entry-btn b{font-size:21px;letter-spacing:3px;}
+}
+
+/* === Smartphone TOP: show all 4 entry buttons in a compact 2x2 layout === */
+@media (max-width:650px){
+  .entry-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    bottom:6%;
+    width:calc(100% - 36px);
+  }
+  .entry-buttons .admin-qa-btn,
+  .entry-buttons .securities-btn{
+    display:block;
+  }
+  .entry-btn{
+    padding:11px 6px;
+  }
+  .entry-btn b{
+    font-size:16px;
+    letter-spacing:1.5px;
+  }
+  .entry-btn span{
+    font-size:10px;
+  }
+}
+
+</style>
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="transition_ts_icon_192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="transition_ts_icon_180.png">
+<meta name="theme-color" content="#000000">
+
+<style id="mobile-top-balance-v2">
+/* Smartphone TOP: keep header logo position; move BGM below the logo and rebalance the hero. */
+@media(max-width:650px){
+  .bgm-btn{
+    left:24px;
+    right:auto;
+    top:10px;
+    padding:8px 12px;
+    font-size:11px;
+    letter-spacing:1px;
+  }
+  /* Smartphone TOP: move the main logo upward while keeping its size. */
+  .entrance img.hero-logo{
+    width:82vw;
+    transform:translateY(-13vh);
+  }
+  /* Smartphone TOP: move the 4-button block upward as a compact 2x2 group. */
+  .entry-buttons{
+    bottom:18%;
+    width:calc(100% - 36px);
+    gap:10px;
+  }
+  .entry-btn{
+    padding:11px 7px;
+  }
+  .entry-btn b{
+    font-size:17px;
+    letter-spacing:1.5px;
+  }
+  .entry-btn span{
+    font-size:10px;
+  }
+}
+</style>
+
+<style id="mobile-top-balance-v6">
+/* Smartphone TOP V6: correct the previous direction and move the main logo/buttons upward. */
+@media (max-width:650px){
+  .entrance img.hero-logo{
+    transform:translateY(-17vh);
+  }
+  .entry-buttons{
+    bottom:24%;
+  }
+}
+</style>
+
+
+<style id="top-layout-v8">
+/* TOP V8: logo -> ticker -> 4 buttons */
+.presentation-ticker{
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:67%;
+  transform:translate(-50%,-50%);
+  width:70%;
+  min-height:54px;
+  margin:0;
+  border-radius:5px;
+}
+.presentation-message{
+  font-size:22px;
+  padding:10px 36px;
+}
+.presentation-message span{margin-right:48px}
+
+@media (min-width:651px){
+  .entrance img.hero-logo{transform:translateY(-27vh);}
+  .entry-buttons{
+    bottom:8%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 20px;
+    align-items:stretch;
+  }
+  .entry-btn{padding:15px 18px;}
+  .entry-btn b{font-size:21px;letter-spacing:3px;}
+}
+
+@media (max-width:650px){
+  .presentation-ticker{
+    top:67%;
+    width:88%;
+    min-height:44px;
+  }
+  .presentation-message{
+    font-size:15px;
+    padding:8px 22px;
+    letter-spacing:1px;
+  }
+  .presentation-message span{margin-right:28px}
+  .entrance img.hero-logo{
+    width:82vw;
+    transform:translateY(-17vh);
+  }
+  .entry-buttons{
+    bottom:9%;
+    width:calc(100% - 36px);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .entry-buttons .admin-qa-btn,
+  .entry-buttons .securities-btn{display:block;}
+  .entry-btn{padding:11px 7px;}
+  .entry-btn b{font-size:17px;letter-spacing:1.5px;}
+  .entry-btn span{font-size:10px;}
+}
+</style>
+
+
+<style id="top-layout-v9">
+/* TOP V9: align ticker width/height with the 4-button block and rebalance vertical spacing. */
+@media (min-width:651px){
+  .entrance img.hero-logo{transform:translateY(-23vh);}
+  .presentation-ticker{
+    top:72%;
+    width:min(850px,88%);
+    height:58px;
+    min-height:58px;
+    box-sizing:border-box;
+  }
+  .presentation-message{
+    font-size:18px;
+    line-height:1.2;
+    padding:8px 28px;
+    letter-spacing:1.5px;
+  }
+  .presentation-message span{margin-right:42px}
+  .entry-buttons{
+    bottom:11%;
+  }
+}
+@media (max-width:650px){
+  .presentation-ticker{
+    top:72%;
+    width:calc(100% - 36px);
+    height:58px;
+    min-height:58px;
+    box-sizing:border-box;
+  }
+  .presentation-message{
+    font-size:13px;
+    line-height:1.2;
+    padding:8px 18px;
+    letter-spacing:1px;
+  }
+  .presentation-message span{margin-right:24px}
+  .entrance img.hero-logo{
+    transform:translateY(-14vh);
+  }
+  .entry-buttons{
+    bottom:12%;
+  }
+}
+</style>
+
+
+<style id="top-layout-v10">
+/* TOP V10: ticker clearly above the 4-button group; enlarge ticker text; move logo slightly down and buttons up. */
+@media (min-width:651px){
+  .entrance img.hero-logo{transform:translateY(-20vh);}
+  .presentation-ticker{
+    top:64%;
+    width:min(850px,88%);
+    height:58px;
+    min-height:58px;
+  }
+  .presentation-message{
+    font-size:22px;
+    line-height:1.2;
+    padding:8px 28px;
+    letter-spacing:1.5px;
+  }
+  .presentation-message span{margin-right:42px}
+  .entry-buttons{bottom:16%;}
+}
+@media (max-width:650px){
+  .entrance img.hero-logo{transform:translateY(-12vh);}
+  .presentation-ticker{
+    top:58%;
+    width:calc(100% - 36px);
+    height:58px;
+    min-height:58px;
+  }
+  .presentation-message{
+    font-size:16px;
+    line-height:1.2;
+    padding:8px 18px;
+    letter-spacing:1px;
+  }
+  .presentation-message span{margin-right:24px}
+  .entry-buttons{bottom:16%;}
+}
+</style>
+
+<style id="top-layout-v11">
+/* TOP V11: clear vertical gaps; ticker above buttons at button-like height. */
+@media (min-width:651px){
+  .entrance img.hero-logo{transform:translateY(-17vh);}
+  .presentation-ticker{
+    top:60%;
+    width:min(850px,88%);
+    height:60px;
+    min-height:60px;
+    box-sizing:border-box;
+  }
+  .presentation-message{
+    font-size:24px;
+    line-height:1.15;
+    padding:8px 28px;
+    letter-spacing:1.5px;
+  }
+  .presentation-message span{margin-right:42px}
+  .entry-buttons{bottom:18%;}
+}
+@media (max-width:650px){
+  .entrance img.hero-logo{transform:translateY(-10vh);}
+  .presentation-ticker{
+    top:50%;
+    width:calc(100% - 36px);
+    height:56px;
+    min-height:56px;
+    box-sizing:border-box;
+  }
+  .presentation-message{
+    font-size:16px;
+    line-height:1.15;
+    padding:8px 18px;
+    letter-spacing:1px;
+  }
+  .presentation-message span{margin-right:24px}
+  .entry-buttons{bottom:14%;}
+}
+</style>
+
+<style id="top-balance-v12">
+/* V12: move logo slightly upward and increase the gap between ticker and buttons. */
+@media (min-width:651px){
+  .entrance img.hero-logo{
+    transform:translateY(-3vh);
+  }
+  .entry-buttons{
+    margin-top:28px !important;
+  }
+}
+@media (max-width:650px){
+  .entrance img.hero-logo{
+    transform:translateY(-3vh);
+  }
+  .entry-buttons{
+    margin-top:28px !important;
+  }
+}
+</style>
+
+
+<style id="top-balance-v13">
+/* V13 PC TOP: logo higher, ticker centered between logo and unchanged 4-button group. */
+@media (min-width:651px){
+  .entrance img.hero-logo{
+    transform:translateY(-24vh);
+  }
+  .presentation-ticker{
+    top:64%;
+    left:50%;
+    width:min(900px,90%);
+    height:72px;
+    min-height:72px;
+    margin:0;
+    box-sizing:border-box;
+    transform:translate(-50%,-50%);
+    border-radius:7px;
+  }
+  .presentation-message{
+    font-size:27px;
+    line-height:1.15;
+    padding:10px 30px;
+    letter-spacing:1.8px;
+  }
+  .presentation-message span{
+    margin-right:46px;
+  }
+  /* Keep the current 4-button position unchanged. */
+  .entry-buttons{
+    bottom:18%;
+    margin-top:0 !important;
+  }
+}
+</style>
+
+
+<style id="top-balance-v14">
+/* V14 PC TOP: keep logo and 4-button positions exactly as V13; place ticker cleanly between them. */
+@media (min-width:651px){
+  /* Logo: unchanged from V13 */
+  .entrance img.hero-logo{
+    transform:translateY(-24vh);
+  }
+  /* Ticker: centered between logo and button group, same width as the 4-button block. */
+  .presentation-ticker{
+    top:55%;
+    left:50%;
+    width:min(850px,88%);
+    height:72px;
+    min-height:72px;
+    margin:0;
+    box-sizing:border-box;
+    transform:translate(-50%,-50%);
+    border-radius:7px;
+  }
+  .presentation-message{
+    font-size:27px;
+    line-height:1.15;
+    padding:10px 30px;
+    letter-spacing:1.8px;
+  }
+  .presentation-message span{
+    margin-right:46px;
+  }
+  /* 4 buttons: unchanged from V13 */
+  .entry-buttons{
+    bottom:18%;
+    margin-top:0 !important;
+  }
+}
+</style>
+
+
+<style id="mobile-top-v17">
+/* === TRANSITION SYSTEM TOP / Smartphone V17 === */
+@media (max-width:650px){
+  /* 最上段：ロゴを大きく表示 */
+  .site-header{
+    height:155px;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    background:#050505;
+  }
+  .site-header-logo{
+    width:48vw;
+    max-width:410px;
+    min-width:300px;
+    height:auto;
+    margin-left:0;
+  }
+
+  /* メイン表示エリアを固定した縦レイアウトにする */
+  .entrance{
+    min-height:calc(100svh - 155px);
+    height:calc(100svh - 155px);
+    display:block;
+    position:relative;
+    overflow:hidden;
+  }
+  .entrance:after{display:none;}
+
+  /* 中央のメインロゴ：大きく */
+  .entrance img.hero-logo{
+    position:absolute;
+    z-index:2;
+    top:52px;
+    left:50%;
+    transform:translateX(-50%);
+    width:92vw;
+    max-width:none;
+    height:auto;
+  }
+
+  /* BGM：左上、最上段ロゴのすぐ下 */
+  .entrance .bgm-btn{
+    position:absolute;
+    z-index:5;
+    top:18px;
+    left:12px;
+    right:auto;
+    padding:10px 16px;
+    font-size:14px;
+    letter-spacing:2px;
+  }
+
+  /* テロップ：大きなロゴと4ボタンの中間 */
+  .entrance .presentation-ticker{
+    position:absolute;
+    z-index:4;
+    top:49%;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 34px);
+    min-height:76px;
+    height:76px;
+    margin:0;
+  }
+  .entrance .presentation-message{
+    padding:14px 40px;
+    font-size:25px;
+    letter-spacing:1px;
+  }
+  .entrance .presentation-message span{margin-right:48px;}
+
+  /* 4ボタン：画面下端ではなく、テロップのすぐ下 */
+  .entrance .entry-buttons{
+    position:absolute;
+    z-index:4;
+    top:64%;
+    bottom:auto;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 34px);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin:0;
+  }
+  .entrance .entry-btn{
+    width:auto;
+    min-width:0;
+    padding:16px 8px 15px;
+    border-radius:10px;
+  }
+  .entrance .entry-btn b{
+    font-size:19px;
+    letter-spacing:2px;
+  }
+  .entrance .entry-btn span{font-size:11px;}
+}
+</style>
+
+<style id="mobile-top-v18">
+/* V18: 上部ロゴを指定スクリーンショットのサイズ感に合わせる */
+@media (max-width:650px){
+  .site-header{height:155px;padding:0;display:flex;align-items:center;justify-content:flex-start;}
+  .site-header-logo{
+    width:46vw;
+    max-width:400px;
+    min-width:0;
+    height:auto;
+    margin-left:0;
+  }
+}
+</style>
+
+<style id="mobile-top-v19">
+/* V19: 上部ロゴ表示枠だけ高さをコンパクト化。ロゴサイズはV18のまま。 */
+@media (max-width:650px){
+  .site-header{
+    height:105px;
+    min-height:105px;
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    overflow:hidden;
+  }
+  .site-header-logo{
+    width:46vw;
+    max-width:400px;
+    min-width:0;
+    height:auto;
+    margin-left:0;
+  }
+}
+</style>
+<style id="mobile-top-v22">
+/* V22: スマホ起動時も表示位置が変わらない固定レイアウト
+   V21を土台に、vh/%依存だったテロップ・4ボタンを固定px位置へ変更。
+   上部ロゴ/BGM/中央ロゴのデザインは維持。 */
+@media (max-width:650px){
+  .entrance{
+    min-height:calc(100svh - 105px);
+    height:calc(100svh - 105px);
+    overflow:hidden;
+  }
+
+  /* V25：中央ロゴをBGMとテロップの中間へ移動 */
+  .entrance img.hero-logo{
+    top:-250px !important;
+  }
+
+  /* テロップ：固定位置。中央ロゴと4ボタンの中間 */
+  .entrance .presentation-ticker{
+    top:225px !important;
+    bottom:auto !important;
+  }
+
+  /* 4ボタン：固定位置。起動直後から4個すべて見える位置 */
+  .entrance .entry-buttons{
+    top:315px !important;
+    bottom:auto !important;
+  }
+}
+</style>
+
+<style id="smartphone-top-final-v29-corrected">
+/* V29修正版：スマホTOPのみ。PC版ファイルには変更を加えない。 */
+.smartphone-top-controls{display:none;}
+@media(max-width:650px){
+  /* 中央メインロゴ：V29で画面外へ移動していたため復元 */
+  .entrance img.hero-logo{
+    top:8px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    width:62vw !important;
+    max-width:420px;
+    height:auto;
+    z-index:2;
+  }
+  .smartphone-top-controls{
+    width:calc(100% - 36px);
+    margin:24px auto 18px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .smartphone-top-controls .entry-btn{
+    width:auto; min-width:0; box-sizing:border-box;
+    padding:11px 7px; border-radius:10px;
+  }
+  .smartphone-top-controls .entry-btn b{font-size:17px;letter-spacing:1.5px;}
+  .smartphone-top-controls .entry-btn span{font-size:10px;}
+  .smartphone-top-controls .entry-btn:nth-child(2) b{font-size:13px;letter-spacing:.5px;}
+  .qr-access.qr-desktop{display:block !important; margin:24px 12px 28px; padding:18px 10px 20px;}
+  .qr-access.qr-desktop .qr-access-title{font-size:18px;letter-spacing:2px;margin-bottom:5px;}
+  .qr-access.qr-desktop .qr-access-note{font-size:11px;line-height:1.5;margin-bottom:12px;}
+  .qr-access.qr-desktop .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:320px;width:100%;margin:0 auto;}
+  .qr-access.qr-desktop .qr-card{width:150px;max-width:150px;min-width:0;box-sizing:border-box;padding:5px;margin:0 auto;}
+  .qr-access.qr-desktop .qr-card img{display:block;width:140px;max-width:100%;height:auto;margin:0 auto 4px;}
+  .qr-access.qr-desktop .qr-label{font-size:10px;line-height:1.2;letter-spacing:.3px;}
+  .qr-access.qr-desktop .qr-sub{font-size:9px;margin-top:3px;}
+}
+</style>
+
+<style id="smartphone-top-balance-final">
+/* スマホTOP 最終バランス調整
+   PC版には影響しない */
+@media (max-width:650px){
+
+  /* メインロゴ：大きくして、現在より下へ */
+  .entrance img.hero-logo{
+    top:58px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    width:80vw !important;
+    max-width:none !important;
+    height:auto !important;
+  }
+
+  /* テロップ：高さを小さく */
+  .entrance .presentation-ticker{
+    top:57% !important;
+    width:calc(100% - 36px) !important;
+    height:48px !important;
+    min-height:48px !important;
+  }
+
+  .entrance .presentation-message{
+    padding:7px 18px !important;
+    font-size:14px !important;
+    line-height:1.15 !important;
+  }
+
+  .entrance .presentation-message span{
+    margin-right:24px !important;
+  }
+
+  /* 上段4ボタン：高さを小さく */
+  .entrance .entry-buttons{
+    top:68% !important;
+    bottom:auto !important;
+    width:calc(100% - 36px) !important;
+    gap:8px !important;
+  }
+
+  .entrance .entry-btn{
+    padding:8px 6px !important;
+    min-height:0 !important;
+    border-radius:9px !important;
+  }
+
+  .entrance .entry-btn b{
+    font-size:15px !important;
+    letter-spacing:1.2px !important;
+    line-height:1.2 !important;
+  }
+
+  .entrance .entry-btn span{
+    font-size:9px !important;
+    line-height:1.2 !important;
+  }
+}
+</style>
+
+
+<style id="android-tablet-saved-layout-v1">
+/* Android tablet only: apply the saved smartphone TOP composition at tablet width.
+   Keep the saved V29 content and PC/smartphone source files untouched. */
+@media (min-width:651px) and (max-width:1200px){
+  html,body{width:100%;min-height:100%;overflow-x:hidden;background:#000!important}
+  .site-header{height:58px!important;padding:0 18px!important}
+  .site-header-logo{width:150px!important;max-height:48px!important;object-fit:contain!important}
+  .entrance{min-height:calc(100svh - 58px)!important;height:calc(100svh - 58px)!important;overflow:hidden!important}
+  .entrance img.hero-logo{width:min(76vw,620px)!important;max-height:48vh!important;object-fit:contain!important;transform:translateY(-13vh)!important}
+  .bgm-btn{left:auto!important;right:24px!important;top:16px!important;padding:8px 12px!important;font-size:12px!important;letter-spacing:1px!important}
+  .presentation-ticker{left:50%!important;top:67%!important;transform:translate(-50%,-50%)!important;width:calc(100% - 56px)!important;min-height:54px!important;height:54px!important;margin:0!important;overflow:hidden!important}
+  .presentation-message{font-size:clamp(15px,2.4vw,22px)!important;line-height:1.2!important;padding:10px 24px!important;letter-spacing:1px!important}
+  .entry-buttons{left:50%!important;bottom:8%!important;transform:translateX(-50%)!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:calc(100% - 56px)!important;max-width:850px!important;gap:10px!important}
+  .entry-buttons .entry-btn{min-width:0!important;padding:12px 8px!important}
+  .entry-buttons .entry-btn b{font-size:clamp(15px,2.3vw,19px)!important;letter-spacing:1.5px!important}
+  .entry-buttons .entry-btn span{font-size:clamp(10px,1.4vw,12px)!important}
+}
+</style>
+
+
+<style id="tablet-bgm-left-only">
+/* Tablet-only adjustment: move the BGM control to the left.
+   No other layout, content, links, or startup routing is changed. */
+@media (min-width: 651px) and (max-width: 1100px) {
+  .bgm-btn {
+    left: 24px !important;
+    right: auto !important;
+    top: 24px !important;
+  }
+}
+</style>
+
+
+<style id="tablet-community-four-controls-v1">
+/* Android tablet only: show the four smartphone-style navigation buttons
+   below the Community button and above the QR access panel. */
+@media (min-width: 651px) and (max-width: 1200px) {
+  .smartphone-top-controls {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: calc(100% - 72px) !important;
+    max-width: 760px !important;
+    margin: 24px auto 28px !important;
+    box-sizing: border-box !important;
+  }
+  .smartphone-top-controls .entry-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 88px !important;
+    padding: 16px 10px !important;
+    border: 1px solid #777 !important;
+    border-radius: 12px !important;
+    background: linear-gradient(180deg, #383d42, #08090a) !important;
+    box-shadow: inset 0 0 18px #ffffff11, 0 0 18px #00000066 !important;
+    color: #fff !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+  .smartphone-top-controls .entry-btn b {
+    display: block !important;
+    font-size: clamp(16px, 2.2vw, 21px) !important;
+    line-height: 1.25 !important;
+    letter-spacing: 1.5px !important;
+    white-space: normal !important;
+  }
+  .smartphone-top-controls .entry-btn span {
+    display: block !important;
+    margin-top: 6px !important;
+    color: #bbb !important;
+    font-size: clamp(10px, 1.25vw, 13px) !important;
+    line-height: 1.3 !important;
+  }
+  .smartphone-top-controls .entry-btn:nth-child(2) b {
+    font-size: clamp(14px, 1.9vw, 19px) !important;
+    letter-spacing: .5px !important;
+  }
+}
+</style>
+
+
+<style id="tablet-qr-panel-v1">
+@media (min-width: 651px) and (max-width: 1200px) {
+  .qr-access.qr-desktop {
+    display: block !important;
+    width: min(760px, calc(100% - 36px)) !important;
+    max-width: 760px !important;
+    margin: 34px auto 28px !important;
+    padding: 24px 20px 30px !important;
+    border: 1px solid #34383c !important;
+    border-radius: 14px !important;
+    background: linear-gradient(145deg, #171a1d, #090a0b) !important;
+    box-shadow: 0 10px 30px #0008 !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+  .qr-access.qr-desktop .qr-access-title {
+    font-size: clamp(22px, 2.4vw, 30px) !important;
+    letter-spacing: 2px !important;
+    margin: 0 0 8px !important;
+    color: #f0f0f0 !important;
+  }
+  .qr-access.qr-desktop .qr-access-subtitle {
+    font-size: clamp(20px, 2vw, 25px) !important;
+    letter-spacing: 2px !important;
+    margin: 0 0 8px !important;
+    color: #e8e9ea !important;
+  }
+  .qr-access.qr-desktop .qr-access-note {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: #9aa0a5 !important;
+    margin: 0 0 18px !important;
+  }
+  .qr-access.qr-desktop .qr-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: min(620px, 100%) !important;
+    max-width: 620px !important;
+    margin: 0 auto !important;
+  }
+  .qr-access.qr-desktop .qr-card {
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 12px 12px 14px !important;
+    background: #f7f7f7 !important;
+    color: #111 !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+  }
+  .qr-access.qr-desktop .qr-card img {
+    display: block !important;
+    width: 82% !important;
+    max-width: 230px !important;
+    height: auto !important;
+    margin: 0 auto 10px !important;
+  }
+  .qr-access.qr-desktop .qr-label {
+    font-size: 16px !important;
+    letter-spacing: 2px !important;
+    color: #111 !important;
+  }
+  .qr-access.qr-desktop .qr-sub {
+    font-size: 11px !important;
+    color: #555 !important;
+  }
+  .qr-access.qr-desktop .qr-pc-url {
+    margin-top: 26px !important;
+  }
+  .qr-access.qr-desktop .qr-pc-url-title {
+    font-size: clamp(20px, 2vw, 24px) !important;
+    letter-spacing: 2px !important;
+    margin: 24px 0 10px !important;
+    color: #eee !important;
+  }
+  .qr-access.qr-desktop .qr-pc-url-box {
+    border: 2px solid #697078 !important;
+    border-radius: 12px !important;
+    background: #050505 !important;
+    padding: 16px 10px !important;
+    font-size: clamp(16px, 1.8vw, 20px) !important;
+    overflow-wrap: anywhere !important;
+    color: #eee !important;
+  }
+  .qr-access.qr-desktop .qr-copy-btn,
+  .qr-access.qr-desktop .qr-top-return a {
+    display: inline-block !important;
+    margin-top: 14px !important;
+    padding: 12px 28px !important;
+    border: 1px solid #899098 !important;
+    border-radius: 12px !important;
+    background: linear-gradient(#4a5156, #171a1d) !important;
+    color: #fff !important;
+    font-size: 18px !important;
+    text-decoration: none !important;
+  }
+  .qr-access.qr-desktop .qr-top-return {
+    margin-top: 28px !important;
+  }
+}
+</style>
+
+</head><body>
