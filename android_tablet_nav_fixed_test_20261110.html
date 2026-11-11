@@ -138,7 +138,7 @@ function sizeCommunityExamples(doc){
  // Remove only the obsolete short Honnoji sample card shown in the third screenshot.
  // Preserve the full-story and trailer cards, their images, and all unrelated posts.
  Array.from(gallery.querySelectorAll(':scope > article, :scope > .post-card, :scope > .feed-card, :scope > .community-card')).forEach(function(card){
-  var content=(card.innerText||card.textContent||'').replace(/\\s+/g,' ');
+  var content=(card.innerText||card.textContent||'').replace(/\s+/g,' ');
   if(content.includes('歴史の謎に迫る、もう一つの') && content.includes('この作品の世界観をお楽しみください') && !content.includes('第1回投稿用') && !content.includes('第2回投稿用'))card.remove();
  });
  if(doc.getElementById('tablet-community-gallery-nav'))return;
