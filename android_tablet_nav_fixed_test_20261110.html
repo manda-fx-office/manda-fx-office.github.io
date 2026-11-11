@@ -122,10 +122,10 @@ function addSharedQR(doc){
 function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
- // Tablet test only: the existing 80vh gallery window is reduced to 30% (24vh).
+ // Tablet test only: the 24vh gallery window is increased to 140% (33.6vh).
  if(!doc.getElementById('tablet-community-gallery-30-percent')){
   var style=doc.createElement('style');style.id='tablet-community-gallery-30-percent';
-  style.textContent='.gallery{height:24vh!important;max-height:24vh!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}';
+  style.textContent='.gallery{height:33.6vh!important;max-height:33.6vh!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}';
   (doc.head||doc.documentElement).appendChild(style);
  }
 }
