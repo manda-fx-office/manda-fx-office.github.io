@@ -118,25 +118,41 @@ function addSharedQR(doc){
   var footer=doc.querySelector('footer');if(footer&&footer.parentNode)footer.parentNode.insertBefore(section,footer);else doc.body.appendChild(section);
  });
 }
-// Tablet-only COMMUNITY: resize the example-post scroll window to 80% of the visible page.
+// COMMUNITY: constrain the actual post-card viewport, not the outer page.
 function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
- if(!doc.getElementById('tablet-community-example-80-style')){
-  var css=doc.createElement('style');css.id='tablet-community-example-80-style';
-  css.textContent='.post-window,.posts-window,.post-list-window,.posts-scroll,.post-scroll,.community-scroll,.community-window,.feed-window,.feed-scroll,.sample-posts,.example-posts,.posts-container,.posts-viewport{height:80vh!important;max-height:80vh!important;overflow-y:auto!important;overscroll-behavior:contain!important}';
-  (doc.head||doc.documentElement).appendChild(css);
+ var heads=Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,legend,.section-title,.window-title')).filter(function(el){return /投稿例/.test(el.textContent||'');});
+ if(!heads.length)return;
+ var heading=heads[0], root=heading.closest('section,main,article')||heading.parentElement;
+ if(!root)return;
+ // Identify the post list by the repeated cards, below the 投稿例 heading.
+ var cards=Array.from(root.querySelectorAll('article,.post-card,.feed-card,.community-card,.example-card'));
+ if(cards.length<2){
+  var images=Array.from(root.querySelectorAll('img')).filter(function(im){return im.getBoundingClientRect().width>80&&im.getBoundingClientRect().height>80;});
+  if(images.length>=2){
+   var p=images[0].parentElement;
+   while(p&&p!==root){if(images.every(function(im){return p.contains(im)}))break;p=p.parentElement;}
+   if(p&&p!==root)cards=[p];
+  }
  }
- var headings=Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,legend,.section-title,.window-title')).filter(function(el){return /投稿例/.test(el.textContent||'');});
- headings.forEach(function(h){
-  var parent=h.parentElement;if(!parent)return;
-  var candidates=Array.from(parent.querySelectorAll('div,section,article,ul')).filter(function(el){
-   var cs=doc.defaultView.getComputedStyle(el),scroll=cs.overflowY;
-   return /auto|scroll/.test(scroll)&&el.getBoundingClientRect().width>doc.documentElement.clientWidth*.35;
-  });
-  if(!candidates.length&&parent.parentElement){candidates=Array.from(parent.parentElement.querySelectorAll('div,section,article,ul')).filter(function(el){var cs=doc.defaultView.getComputedStyle(el);return /auto|scroll/.test(cs.overflowY)&&el.getBoundingClientRect().width>doc.documentElement.clientWidth*.35;});}
-  if(candidates.length){var target=candidates.sort(function(a,b){return a.getBoundingClientRect().height-b.getBoundingClientRect().height;})[0];target.style.setProperty('height','80vh','important');target.style.setProperty('max-height','80vh','important');target.style.setProperty('overflow-y','auto','important');}
- });
+ var viewport=null;
+ if(cards.length>=2){
+  var p=cards[0].parentElement;
+  while(p&&p!==root){if(cards.every(function(c){return p.contains(c)})){viewport=p;break;}p=p.parentElement;}
+ }else if(cards.length===1){viewport=cards[0];}
+ if(!viewport){
+  var possible=Array.from(root.querySelectorAll('div,section')).filter(function(el){var rect=el.getBoundingClientRect();return rect.width>doc.documentElement.clientWidth*.55&&el.querySelectorAll('img').length>=2&&!el.contains(heading)});
+  possible.sort(function(a,b){return a.querySelectorAll('*').length-b.querySelectorAll('*').length;});viewport=possible[0];
+ }
+ if(!viewport||viewport.contains(heading))return;
+ viewport.style.setProperty('height','80vh','important');
+ viewport.style.setProperty('max-height','80vh','important');
+ viewport.style.setProperty('overflow-y','auto','important');
+ viewport.style.setProperty('-webkit-overflow-scrolling','touch','important');
+ viewport.style.setProperty('overscroll-behavior','contain','important');
+ viewport.style.setProperty('scrollbar-width','thin','important');
+ viewport.setAttribute('data-tablet-community-post-window','80-percent');
 }
 function rename(doc){
 if(pageKind()!=='top')return;
@@ -197,7 +213,7 @@ if(pageKind()==='top'){
 var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
 if(imgs.length){logo.innerHTML='';var im=doc.createElement('img');im.src=imgs[0].src;im.alt='TRANSITION SYSTEM';logo.appendChild(im);}
 }
-var observer=new MutationObserver(function(){rename(doc);});observer.observe(doc.documentElement,{childList:true,subtree:true});
+var observer=new MutationObserver(function(){rename(doc);if(page.contentWindow.location.pathname.endsWith('/community.html')&&!doc.querySelector('[data-tablet-community-post-window]'))sizeCommunityExamples(doc);});observer.observe(doc.documentElement,{childList:true,subtree:true});
 doc.addEventListener('click',function(ev){
 var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
 var raw=el.getAttribute('href')||'';
