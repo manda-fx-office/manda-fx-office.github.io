@@ -65,6 +65,32 @@ function fixNestedHome(doc){
   inner.addEventListener('load',apply);apply();
  }else enforceHomeLayout(doc);
 }
+
+// Tablet-only: reuse the two original QR images and copy section from the existing HOME page.
+var qrSourcePromise=null;
+function qrSource(){
+ if(!qrSourcePromise)qrSourcePromise=fetch('./android_tablet_HOME_test_20261106.html',{cache:'force-cache'})
+  .then(function(r){if(!r.ok)throw new Error('QR source unavailable');return r.text();})
+  .then(function(html){var d=new DOMParser().parseFromString(html,'text/html');return d.querySelector('section.qr-access');})
+  .catch(function(){return null;});
+ return qrSourcePromise;
+}
+function addSharedQR(doc){
+ var path='';try{path=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
+ var allowed=['android_tablet_HOME_direct_2col_test_20261111','android_tablet_densuke_return_fx_test_20261111','fx_companies.html','admin_qa.html'];
+ if(!allowed.some(function(p){return path.includes(p)}))return;
+ if(doc.querySelector('section.qr-access')||doc.getElementById('tablet-shared-qr'))return;
+ qrSource().then(function(source){
+  if(!source||!doc.body||!doc.defaultView||doc.querySelector('section.qr-access')||doc.getElementById('tablet-shared-qr'))return;
+  var s=doc.createElement('style');s.id='tablet-shared-qr-style';
+  s.textContent='#tablet-shared-qr{box-sizing:border-box;max-width:860px;margin:48px auto 32px;padding:24px 18px;border:1px solid #4e647e;border-radius:14px;background:#111b2b;color:#eaf2ff;text-align:center;font-family:Arial,sans-serif}#tablet-shared-qr *{box-sizing:border-box}#tablet-shared-qr .qr-access-title{font-size:23px;font-weight:700;margin-bottom:10px}#tablet-shared-qr .qr-access-subtitle{font-size:20px;margin-bottom:8px}#tablet-shared-qr .qr-access-note{font-size:13px;margin-bottom:20px}#tablet-shared-qr .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#tablet-shared-qr .qr-card{background:#d7ebff;color:#263a52;border-radius:9px;padding:15px 8px}#tablet-shared-qr .qr-card img{display:block;width:100%;max-width:190px;height:auto;aspect-ratio:1;object-fit:contain;margin:0 auto 8px}#tablet-shared-qr .qr-label{font-size:16px;font-weight:700}#tablet-shared-qr .qr-sub{font-size:11px}#tablet-shared-qr .qr-pc-url{margin-top:20px}#tablet-shared-qr .qr-pc-url-title{font-size:18px;margin-bottom:10px}#tablet-shared-qr .qr-pc-url-box{overflow-wrap:anywhere;border:1px solid #7495bc;padding:13px 8px;border-radius:9px}#tablet-shared-qr .qr-copy-btn,#tablet-shared-qr .qr-top-return a{display:inline-block;margin-top:13px;padding:11px 22px;border:1px solid #9bc6ef;border-radius:9px;background:linear-gradient(#6488ad,#263c5b);color:white;font-size:15px;text-decoration:none;cursor:pointer}';
+  (doc.head||doc.documentElement).appendChild(s);
+  var section=doc.importNode(source,true);section.id='tablet-shared-qr';section.removeAttribute('aria-label');
+  var back=section.querySelector('.qr-top-return a');if(back){back.href=routes.top;back.textContent='⌂ TOPページに戻る';}
+  var copy=section.querySelector('.qr-copy-btn');if(copy){copy.removeAttribute('onclick');copy.addEventListener('click',function(){var u='https://manda-fx-office.github.io/';if(doc.defaultView.navigator.clipboard&&doc.defaultView.navigator.clipboard.writeText){doc.defaultView.navigator.clipboard.writeText(u).then(function(){doc.defaultView.alert('URLをコピーしました。')}).catch(function(){doc.defaultView.prompt('URLをコピーしてください',u)})}else doc.defaultView.prompt('URLをコピーしてください',u);});}
+  var footer=doc.querySelector('footer');if(footer&&footer.parentNode)footer.parentNode.insertBefore(section,footer);else doc.body.appendChild(section);
+ });
+}
 function rename(doc){
 if(pageKind()!=='top')return;
 doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
@@ -80,6 +106,7 @@ var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
 fixNestedHome(doc);
+addSharedQR(doc);
 if(decodeURIComponent(page.contentWindow.location.pathname).includes('android_tablet_densuke_return_fx_test_20261111.html')){
  doc.querySelectorAll('.mobile-home-return a').forEach(function(a){
   if(/HOMEに戻る|HOMEへ戻る|FXの入口に戻る/.test(a.textContent||'')){
