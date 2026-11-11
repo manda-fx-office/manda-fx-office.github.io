@@ -139,12 +139,17 @@ if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/login.htm
  if(loginWrap){
   loginWrap.querySelectorAll('a.back').forEach(function(a){if(/HOME.*戻る/.test(a.textContent||''))a.remove();});
   var areaLogin=doc.createElement('div');areaLogin.id='tablet-login-home-return';
-  areaLogin.style.cssText='display:flex;justify-content:center;clear:both;padding:20px 14px 34px';
+  areaLogin.style.cssText='display:flex;justify-content:center;clear:both;padding:16px 14px 24px;margin:0 auto;position:relative;z-index:2';
   var loginBack=doc.createElement('a');loginBack.href=routes.home;loginBack.textContent='⌂ FXの入口に戻る';
   loginBack.style.cssText='display:inline-block;min-width:250px;padding:15px 26px;text-align:center;border:1px solid #9bc6ef;border-radius:9px;background:linear-gradient(#68737e,#38424d);color:#fff;font-size:17px;font-weight:bold;text-decoration:none';
   loginBack.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();go('home');},true);
   areaLogin.appendChild(loginBack);
   loginWrap.insertAdjacentElement('afterend',areaLogin);
+  // The original login layout vertically centers the window in a full-height
+  // container. Put the return control immediately under the window instead.
+  var layoutStyle=doc.createElement('style');layoutStyle.id='tablet-login-layout-fix';
+  layoutStyle.textContent='.login-wrap{min-height:0!important;height:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;padding-top:clamp(42px,8vh,90px)!important;padding-bottom:0!important;margin-bottom:0!important}#tablet-login-home-return{margin-top:0!important}';
+  (doc.head||doc.documentElement).appendChild(layoutStyle);
  }
 }
 if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/board.html') && !doc.getElementById('tablet-board-home-return')){
