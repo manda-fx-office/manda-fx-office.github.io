@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COMMUNITY タブレット80%テスト</title>
+<style>html,body{margin:0;width:100%;height:100%;background:#050505;color:white}iframe{border:0;width:100%;height:100%;display:block}#status{position:fixed;right:8px;bottom:8px;background:#111c;padding:5px 10px;font:12px sans-serif}</style>
+</head><body><iframe id="community" title="COMMUNITY テスト" src="community.html"></iframe><div id="status">読み込み中</div>
+<script>
+(function(){
+const f=document.getElementById('community'),s=document.getElementById('status');
+f.addEventListener('load',function(){
+ try{
+  const d=f.contentDocument;
+  if(!d){s.textContent='確認できません';return}
+  const style=d.createElement('style');
+  style.textContent='@media (pointer:coarse) and (min-width:600px){.gallery,.post-examples .gallery{height:80dvh!important;max-height:80dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important}}';
+  d.head.appendChild(style);
+  s.textContent='タブレット表示：投稿例80%テスト';
+ }catch(e){s.textContent='同一サイト内の読み込みを確認してください'}
+});
+})();
+</script></body></html>
