@@ -16,6 +16,7 @@ fx:'./fx_companies.html?nav=20261110',
 qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
 login:'./login.html?nav=20261110',
+board:'./board.html?nav=20261111',
 system:'./android_tablet_tradesystem_5cards_return_fx_test_20261110.html?nav=20261110'
 };
 function go(key){if(routes[key])page.src=routes[key];}
@@ -30,6 +31,7 @@ if(label.includes('伝助')||href.includes('project.html')||href.includes('andro
 if(label.includes('管理人')&&label.includes('q')||href.includes('admin_qa'))return 'qa';
 if(label.includes('コミュニティ')||label.includes('community')||href.includes('community.html'))return 'community';
 if(label.includes('login')||label.includes('ログイン')||href.includes('login.html'))return 'login';
+if(label.includes('board')||label.includes('伝言板')||href.includes('board.html'))return 'board';
 if(label.includes('証券会社')||href.includes('fx_companies'))return 'fx';
 if(label.includes('topページ')||label.includes('topへ戻る')||label.includes('トップページ')||href==='index.html'||href==='/')return 'top';
 if(href.includes('android_tablet_fx_classic_layout')||href.includes('android_tablet_home_direct_2col')||label.includes('fxの入口')||/^home(?:\s|$)/i.test(label)||href==='home.html'||href.includes('android_tablet_home'))return 'home';
@@ -132,6 +134,14 @@ hideLegacyTaskbar(doc);
 rename(doc);
 fixNestedHome(doc);
 addSharedQR(doc);
+if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/board.html') && !doc.getElementById('tablet-board-home-return')){
+ var footerBoard=doc.querySelector('footer');
+ var area=doc.createElement('div');area.id='tablet-board-home-return';area.style.cssText='display:flex;justify-content:center;padding:28px 14px 36px;clear:both';
+ var btn=doc.createElement('a');btn.href=routes.home;btn.textContent='⌂ FXの入口に戻る';btn.style.cssText='display:inline-block;min-width:250px;padding:15px 26px;text-align:center;border:1px solid #9bc6ef;border-radius:9px;background:linear-gradient(#68737e,#38424d);color:#fff;font-size:17px;font-weight:bold;text-decoration:none';
+ btn.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();go('home');},true);
+ area.appendChild(btn);
+ if(footerBoard&&footerBoard.parentNode)footerBoard.parentNode.insertBefore(area,footerBoard);else doc.body.appendChild(area);
+}
 var nested=doc.getElementById('original');if(nested&&nested.tagName==='IFRAME'){var addInnerQR=function(){try{addSharedQR(nested.contentDocument)}catch(e){}};nested.addEventListener('load',addInnerQR);addInnerQR();}
 if(decodeURIComponent(page.contentWindow.location.pathname).includes('android_tablet_densuke_return_fx_test_20261111.html')){
  doc.querySelectorAll('.mobile-home-return a').forEach(function(a){
