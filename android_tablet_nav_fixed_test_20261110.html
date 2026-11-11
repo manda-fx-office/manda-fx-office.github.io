@@ -148,7 +148,7 @@ if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/login.htm
   // The original login layout vertically centers the window in a full-height
   // container. Put the return control immediately under the window instead.
   var layoutStyle=doc.createElement('style');layoutStyle.id='tablet-login-layout-fix';
-  layoutStyle.textContent='.login-wrap{min-height:0!important;height:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;padding-top:clamp(42px,8vh,90px)!important;padding-bottom:0!important;margin-bottom:0!important}#tablet-login-home-return{margin-top:0!important}';
+  layoutStyle.textContent='.login-wrap{min-height:0!important;height:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;padding-top:clamp(110px,17vh,185px)!important;padding-bottom:0!important;margin-bottom:0!important}#tablet-login-home-return{margin-top:0!important}';
   (doc.head||doc.documentElement).appendChild(layoutStyle);
  }
 }
