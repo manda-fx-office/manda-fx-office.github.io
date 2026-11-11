@@ -122,19 +122,34 @@ function addSharedQR(doc){
 function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
- // Reduce the current post-card scrolling window to 50% of its previous height.
  var gallery=doc.querySelector('.gallery');if(!gallery)return;
- var height='calc((100dvh - 115px) * 0.35)';
- if(!doc.getElementById('tablet-community-gallery-fullscreen-style')){
-  var style=doc.createElement('style');style.id='tablet-community-gallery-fullscreen-style';
-  style.textContent='html body .gallery,body .card .gallery{height:'+height+'!important;max-height:'+height+'!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}';
+ // V6 gallery height increased by 20%, only in the tablet test wrapper.
+ var height='calc((100dvh - 115px) * 0.42)';
+ if(!doc.getElementById('tablet-community-gallery-v7-style')){
+  var style=doc.createElement('style');style.id='tablet-community-gallery-v7-style';
+  style.textContent='html body .gallery,body .card .gallery{height:'+height+'!important;max-height:'+height+'!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}#tablet-community-gallery-nav{display:flex;justify-content:center;gap:16px;margin:14px auto 18px;clear:both}#tablet-community-gallery-nav button{min-width:120px;padding:12px 22px;background:#35475a;color:#fff;border:1px solid #91aec9;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer}';
   (doc.head||doc.documentElement).appendChild(style);
  }
  gallery.style.setProperty('height',height,'important');
  gallery.style.setProperty('max-height',height,'important');
  gallery.style.setProperty('min-height','0','important');
  gallery.style.setProperty('overflow-y','auto','important');
- gallery.setAttribute('data-tablet-community-post-window','viewport-height');
+ gallery.setAttribute('data-tablet-community-post-window','v7-120-percent');
+ if(doc.getElementById('tablet-community-gallery-nav'))return;
+ var nav=doc.createElement('div');nav.id='tablet-community-gallery-nav';
+ var prev=doc.createElement('button'),next=doc.createElement('button');
+ prev.type='button';prev.textContent='戻る';next.type='button';next.textContent='次へ';
+ function cards(){return Array.from(gallery.querySelectorAll(':scope > article, :scope > .post-card, :scope > .feed-card, :scope > .community-card'));}
+ function move(delta){
+  var list=cards();if(!list.length){gallery.scrollBy({top:delta*gallery.clientHeight,behavior:'smooth'});return;}
+  var top=gallery.scrollTop;var index=0,dist=Infinity;
+  list.forEach(function(card,i){var d=Math.abs(card.offsetTop-list[0].offsetTop-top);if(d<dist){dist=d;index=i;}});
+  var target=Math.max(0,Math.min(list.length-1,index+delta));
+  gallery.scrollTo({top:list[target].offsetTop-list[0].offsetTop,behavior:'smooth'});
+ }
+ prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();move(-1);});
+ next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();move(1);});
+ nav.appendChild(prev);nav.appendChild(next);gallery.insertAdjacentElement('afterend',nav);
 }
 function rename(doc){
 if(pageKind()!=='top')return;
