@@ -155,7 +155,7 @@ function sizeCommunityExamples(doc){
  }
  prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();move(-1);});
  next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();move(1);});
- nav.appendChild(prev);nav.appendChild(next);gallery.insertAdjacentElement('afterend',nav);
+ nav.appendChild(prev);nav.appendChild(next);gallery.insertAdjacentElement('beforebegin',nav);
  // The original invitation is div.freebox inside the same section.card.
  // Move that exact existing element outside the post section; do not clone its content.
  var postSection=gallery.closest('section.card')||gallery.closest('section');
