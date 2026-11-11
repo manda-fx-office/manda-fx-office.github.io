@@ -122,37 +122,12 @@ function addSharedQR(doc){
 function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
- var heads=Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,legend,.section-title,.window-title')).filter(function(el){return /投稿例/.test(el.textContent||'');});
- if(!heads.length)return;
- var heading=heads[0], root=heading.closest('section,main,article')||heading.parentElement;
- if(!root)return;
- // Identify the post list by the repeated cards, below the 投稿例 heading.
- var cards=Array.from(root.querySelectorAll('article,.post-card,.feed-card,.community-card,.example-card'));
- if(cards.length<2){
-  var images=Array.from(root.querySelectorAll('img')).filter(function(im){return im.getBoundingClientRect().width>80&&im.getBoundingClientRect().height>80;});
-  if(images.length>=2){
-   var p=images[0].parentElement;
-   while(p&&p!==root){if(images.every(function(im){return p.contains(im)}))break;p=p.parentElement;}
-   if(p&&p!==root)cards=[p];
-  }
+ // Tablet test only: the existing 80vh gallery window is reduced to 30% (24vh).
+ if(!doc.getElementById('tablet-community-gallery-30-percent')){
+  var style=doc.createElement('style');style.id='tablet-community-gallery-30-percent';
+  style.textContent='.gallery{height:24vh!important;max-height:24vh!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}';
+  (doc.head||doc.documentElement).appendChild(style);
  }
- var viewport=null;
- if(cards.length>=2){
-  var p=cards[0].parentElement;
-  while(p&&p!==root){if(cards.every(function(c){return p.contains(c)})){viewport=p;break;}p=p.parentElement;}
- }else if(cards.length===1){viewport=cards[0];}
- if(!viewport){
-  var possible=Array.from(root.querySelectorAll('div,section')).filter(function(el){var rect=el.getBoundingClientRect();return rect.width>doc.documentElement.clientWidth*.55&&el.querySelectorAll('img').length>=2&&!el.contains(heading)});
-  possible.sort(function(a,b){return a.querySelectorAll('*').length-b.querySelectorAll('*').length;});viewport=possible[0];
- }
- if(!viewport||viewport.contains(heading))return;
- viewport.style.setProperty('height','80vh','important');
- viewport.style.setProperty('max-height','80vh','important');
- viewport.style.setProperty('overflow-y','auto','important');
- viewport.style.setProperty('-webkit-overflow-scrolling','touch','important');
- viewport.style.setProperty('overscroll-behavior','contain','important');
- viewport.style.setProperty('scrollbar-width','thin','important');
- viewport.setAttribute('data-tablet-community-post-window','80-percent');
 }
 function rename(doc){
 if(pageKind()!=='top')return;
