@@ -122,9 +122,9 @@ function addSharedQR(doc){
 function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
- // Make only the post-card scrolling window nearly fill the tablet viewport.
+ // Reduce the current post-card scrolling window to 70% of its previous height.
  var gallery=doc.querySelector('.gallery');if(!gallery)return;
- var height='calc(100dvh - 115px)';
+ var height='calc((100dvh - 115px) * 0.7)';
  if(!doc.getElementById('tablet-community-gallery-fullscreen-style')){
   var style=doc.createElement('style');style.id='tablet-community-gallery-fullscreen-style';
   style.textContent='html body .gallery,body .card .gallery{height:'+height+'!important;max-height:'+height+'!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}';
