@@ -79,6 +79,19 @@ function addSharedQR(doc){
  var path='';try{path=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  var allowed=['android_tablet_HOME_direct_2col_test_20261111','android_tablet_HOME_test_20261106','android_tablet_densuke_return_fx_test_20261111','fx_companies.html','admin_qa.html'];
  if(!allowed.some(function(p){return path.includes(p)}) && !(doc.getElementById('learning-path')||doc.querySelector('.qa-container,.qa-page')))return;
+ var existing=doc.querySelector('section.qr-access');
+ if(existing){
+  existing.id='tablet-shared-qr';
+  existing.classList.add('tablet-qr-visible');
+  if(!doc.getElementById('tablet-shared-qr-visible-style')){
+   var visibleStyle=doc.createElement('style');visibleStyle.id='tablet-shared-qr-visible-style';
+   visibleStyle.textContent='#tablet-shared-qr{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;max-width:860px!important;margin:42px auto 35px!important;clear:both!important;transform:none!important}#tablet-shared-qr .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}#tablet-shared-qr img{visibility:visible!important;opacity:1!important;max-width:100%!important;height:auto!important}';
+   (doc.head||doc.documentElement).appendChild(visibleStyle);
+  }
+  var existingFooter=doc.querySelector('footer');
+  if(existingFooter&&existingFooter.parentNode)existingFooter.parentNode.insertBefore(existing,existingFooter);else doc.body.appendChild(existing);
+  return;
+ }
  if(doc.getElementById('tablet-shared-qr'))return;
  qrSource().then(function(source){
   if(!source||!doc.body||!doc.defaultView||doc.getElementById('tablet-shared-qr'))return;
