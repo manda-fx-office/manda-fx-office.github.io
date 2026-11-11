@@ -135,20 +135,12 @@ function sizeCommunityExamples(doc){
  gallery.style.setProperty('min-height','0','important');
  gallery.style.setProperty('overflow-y','auto','important');
  gallery.setAttribute('data-tablet-community-post-window','v7-120-percent');
- // Add the verified Honnoji image as a new post card at the top, without altering originals.
- if(!gallery.querySelector('[data-tablet-honnoji-added="20261111"]')){
-  var source=Array.from(gallery.querySelectorAll(':scope > article')).find(function(card){
-   return (card.querySelector('.post-title')||{}).textContent?.includes('本能寺の変');
-  });
-  if(source){
-   var added=source.cloneNode(true);
-   added.setAttribute('data-tablet-honnoji-added','20261111');
-   var title=added.querySelector('.post-title');
-   if(title)title.textContent='【新着・11月11日更新】本能寺の変 ― 蜘蛛の糸';
-   gallery.insertBefore(added,gallery.firstElementChild);
-   gallery.scrollTop=0;
-  }
- }
+ // Remove only the obsolete short Honnoji sample card shown in the third screenshot.
+ // Preserve the full-story and trailer cards, their images, and all unrelated posts.
+ Array.from(gallery.querySelectorAll(':scope > article, :scope > .post-card, :scope > .feed-card, :scope > .community-card')).forEach(function(card){
+  var content=(card.innerText||card.textContent||'').replace(/\\s+/g,' ');
+  if(content.includes('歴史の謎に迫る、もう一つの') && content.includes('この作品の世界観をお楽しみください') && !content.includes('第1回投稿用') && !content.includes('第2回投稿用'))card.remove();
+ });
  if(doc.getElementById('tablet-community-gallery-nav'))return;
  var nav=doc.createElement('div');nav.id='tablet-community-gallery-nav';
  var prev=doc.createElement('button'),next=doc.createElement('button');
