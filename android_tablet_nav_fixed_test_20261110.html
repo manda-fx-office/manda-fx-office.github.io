@@ -123,23 +123,15 @@ function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
  var gallery=doc.querySelector('.gallery');if(!gallery)return;
- // Increase the current community gallery height to 130%, only in the tablet test wrapper.
- var height='';
+ // V6 gallery height increased by 20%, only in the tablet test wrapper.
+ var height='calc((100dvh - 115px) * 0.42)';
  if(!doc.getElementById('tablet-community-gallery-v7-style')){
   var style=doc.createElement('style');style.id='tablet-community-gallery-v7-style';
-  style.textContent='html body .gallery,body .card .gallery{min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}#tablet-community-gallery-nav{display:flex;justify-content:center;gap:16px;margin:14px auto 18px;clear:both}#tablet-community-gallery-nav button{min-width:120px;padding:12px 22px;background:#35475a;color:#fff;border:1px solid #91aec9;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer}';
+  style.textContent='html body .gallery,body .card .gallery{height:'+height+'!important;max-height:'+height+'!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}#tablet-community-gallery-nav{display:flex;justify-content:center;gap:16px;margin:14px auto 18px;clear:both}#tablet-community-gallery-nav button{min-width:120px;padding:12px 22px;background:#35475a;color:#fff;border:1px solid #91aec9;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer}';
   (doc.head||doc.documentElement).appendChild(style);
  }
- // Measure the actual displayed window and enlarge it by 30% exactly once.
- if(!gallery.hasAttribute('data-tablet-gallery-measured-height')){
-  var measured=gallery.getBoundingClientRect().height;
-  if(measured>50){
-   height=Math.round(measured*1.3)+'px';
-   gallery.style.setProperty('height',height,'important');
-   gallery.style.setProperty('max-height',height,'important');
-   gallery.setAttribute('data-tablet-gallery-measured-height',height);
-  }
- }
+ gallery.style.setProperty('height',height,'important');
+ gallery.style.setProperty('max-height',height,'important');
  gallery.style.setProperty('min-height','0','important');
  gallery.style.setProperty('overflow-y','auto','important');
  gallery.setAttribute('data-tablet-community-post-window','v7-120-percent');
