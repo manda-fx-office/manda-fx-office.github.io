@@ -150,19 +150,18 @@ function sizeCommunityExamples(doc){
  prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();move(-1);});
  next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();move(1);});
  nav.appendChild(prev);nav.appendChild(next);gallery.insertAdjacentElement('afterend',nav);
- // Move the existing invitation panel into its own card below the post gallery.
+ // The original invitation is div.freebox inside the same section.card.
+ // Move that exact existing element outside the post section; do not clone its content.
  var postSection=gallery.closest('section.card')||gallery.closest('section');
- if(postSection && !doc.getElementById('tablet-community-invitation-panel')){
-  var invitationHeading=Array.from(postSection.querySelectorAll('h1,h2,h3,h4,strong,b')).find(function(el){return /あなたの.*好き.*投稿してください/.test((el.textContent||'').replace(/\\s+/g,''));});
-  if(invitationHeading){
-   var panel=invitationHeading;
-   while(panel.parentElement && panel.parentElement!==postSection)panel=panel.parentElement;
-   if(panel!==postSection && panel!==gallery && !panel.contains(gallery)){
-    var outer=doc.createElement('section');outer.id='tablet-community-invitation-panel';outer.className='card';
-    outer.style.cssText='margin:16px auto 20px;box-sizing:border-box;';
-    postSection.insertAdjacentElement('afterend',outer);
-    outer.appendChild(panel);
-   }
+ if(postSection){
+  var invitation=postSection.querySelector(':scope > .freebox');
+  if(invitation && !doc.getElementById('tablet-community-invitation-panel')){
+   var separate=doc.createElement('section');
+   separate.id='tablet-community-invitation-panel';
+   separate.className='card';
+   separate.style.cssText='margin:16px auto 20px;box-sizing:border-box;';
+   postSection.insertAdjacentElement('afterend',separate);
+   separate.appendChild(invitation);
   }
  }
 }
