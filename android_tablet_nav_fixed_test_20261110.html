@@ -77,13 +77,13 @@ function qrSource(){
 }
 function addSharedQR(doc){
  var path='';try{path=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
- var allowed=['android_tablet_HOME_direct_2col_test_20261111','android_tablet_densuke_return_fx_test_20261111','fx_companies.html','admin_qa.html'];
- if(!allowed.some(function(p){return path.includes(p)}))return;
- if(doc.querySelector('section.qr-access')||doc.getElementById('tablet-shared-qr'))return;
+ var allowed=['android_tablet_HOME_direct_2col_test_20261111','android_tablet_HOME_test_20261106','android_tablet_densuke_return_fx_test_20261111','fx_companies.html','admin_qa.html'];
+ if(!allowed.some(function(p){return path.includes(p)}) && !(doc.getElementById('learning-path')||doc.querySelector('.qa-container,.qa-page')))return;
+ if(doc.getElementById('tablet-shared-qr'))return;
  qrSource().then(function(source){
-  if(!source||!doc.body||!doc.defaultView||doc.querySelector('section.qr-access')||doc.getElementById('tablet-shared-qr'))return;
+  if(!source||!doc.body||!doc.defaultView||doc.getElementById('tablet-shared-qr'))return;
   var s=doc.createElement('style');s.id='tablet-shared-qr-style';
-  s.textContent='#tablet-shared-qr{box-sizing:border-box;max-width:860px;margin:48px auto 32px;padding:24px 18px;border:1px solid #4e647e;border-radius:14px;background:#111b2b;color:#eaf2ff;text-align:center;font-family:Arial,sans-serif}#tablet-shared-qr *{box-sizing:border-box}#tablet-shared-qr .qr-access-title{font-size:23px;font-weight:700;margin-bottom:10px}#tablet-shared-qr .qr-access-subtitle{font-size:20px;margin-bottom:8px}#tablet-shared-qr .qr-access-note{font-size:13px;margin-bottom:20px}#tablet-shared-qr .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#tablet-shared-qr .qr-card{background:#d7ebff;color:#263a52;border-radius:9px;padding:15px 8px}#tablet-shared-qr .qr-card img{display:block;width:100%;max-width:190px;height:auto;aspect-ratio:1;object-fit:contain;margin:0 auto 8px}#tablet-shared-qr .qr-label{font-size:16px;font-weight:700}#tablet-shared-qr .qr-sub{font-size:11px}#tablet-shared-qr .qr-pc-url{margin-top:20px}#tablet-shared-qr .qr-pc-url-title{font-size:18px;margin-bottom:10px}#tablet-shared-qr .qr-pc-url-box{overflow-wrap:anywhere;border:1px solid #7495bc;padding:13px 8px;border-radius:9px}#tablet-shared-qr .qr-copy-btn,#tablet-shared-qr .qr-top-return a{display:inline-block;margin-top:13px;padding:11px 22px;border:1px solid #9bc6ef;border-radius:9px;background:linear-gradient(#6488ad,#263c5b);color:white;font-size:15px;text-decoration:none;cursor:pointer}';
+  s.textContent='#tablet-shared-qr{box-sizing:border-box;max-width:860px;margin:48px auto 32px;padding:24px 18px;border:1px solid #4e647e;border-radius:14px;background:#20252c;color:#f2f4f7;text-align:center;font-family:Arial,sans-serif}#tablet-shared-qr *{box-sizing:border-box}#tablet-shared-qr .qr-access-title{font-size:23px;font-weight:700;margin-bottom:10px}#tablet-shared-qr .qr-access-subtitle{font-size:20px;margin-bottom:8px}#tablet-shared-qr .qr-access-note{font-size:13px;margin-bottom:20px}#tablet-shared-qr .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#tablet-shared-qr .qr-card{background:#c6d5df;color:#1c2936;border-radius:9px;padding:15px 8px}#tablet-shared-qr .qr-card img{display:block;width:100%;max-width:190px;height:auto;aspect-ratio:1;object-fit:contain;margin:0 auto 8px}#tablet-shared-qr .qr-label{font-size:16px;font-weight:700}#tablet-shared-qr .qr-sub{font-size:11px}#tablet-shared-qr .qr-pc-url{margin-top:20px}#tablet-shared-qr .qr-pc-url-title{font-size:18px;margin-bottom:10px}#tablet-shared-qr .qr-pc-url-box{overflow-wrap:anywhere;border:1px solid #7495bc;padding:13px 8px;border-radius:9px}#tablet-shared-qr .qr-copy-btn,#tablet-shared-qr .qr-top-return a{display:inline-block;margin-top:13px;padding:11px 22px;border:1px solid #9bc6ef;border-radius:9px;background:linear-gradient(#68737e,#38424d);color:white;font-size:15px;text-decoration:none;cursor:pointer}';
   (doc.head||doc.documentElement).appendChild(s);
   var section=doc.importNode(source,true);section.id='tablet-shared-qr';section.removeAttribute('aria-label');
   var back=section.querySelector('.qr-top-return a');if(back){back.href=routes.top;back.textContent='⌂ TOPページに戻る';}
@@ -107,6 +107,7 @@ hideLegacyTaskbar(doc);
 rename(doc);
 fixNestedHome(doc);
 addSharedQR(doc);
+var nested=doc.getElementById('original');if(nested&&nested.tagName==='IFRAME'){var addInnerQR=function(){try{addSharedQR(nested.contentDocument)}catch(e){}};nested.addEventListener('load',addInnerQR);addInnerQR();}
 if(decodeURIComponent(page.contentWindow.location.pathname).includes('android_tablet_densuke_return_fx_test_20261111.html')){
  doc.querySelectorAll('.mobile-home-return a').forEach(function(a){
   if(/HOMEに戻る|HOMEへ戻る|FXの入口に戻る/.test(a.textContent||'')){
