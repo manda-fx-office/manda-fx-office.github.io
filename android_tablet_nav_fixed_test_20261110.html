@@ -124,7 +124,7 @@ function sizeCommunityExamples(doc){
  if(!pathname.endsWith('/community.html'))return;
  var gallery=doc.querySelector('.gallery');if(!gallery)return;
  // Increase the currently approved gallery height by 40%, only in the tablet test wrapper.
- var height='calc((100dvh - 115px) * 0.588)';
+ var height='calc(58.8dvh - 67.62px)';
  if(!doc.getElementById('tablet-community-gallery-v7-style')){
   var style=doc.createElement('style');style.id='tablet-community-gallery-v7-style';
   style.textContent='html body .gallery,body .card .gallery{height:'+height+'!important;max-height:'+height+'!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}#tablet-community-gallery-nav{display:flex;justify-content:center;gap:16px;margin:14px auto 18px;clear:both}#tablet-community-gallery-nav button{min-width:120px;padding:12px 22px;background:#35475a;color:#fff;border:1px solid #91aec9;border-radius:9px;font-size:16px;font-weight:bold;cursor:pointer}';
