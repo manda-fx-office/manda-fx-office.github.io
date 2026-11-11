@@ -88,6 +88,12 @@ function addSharedQR(doc){
    visibleStyle.textContent='#tablet-shared-qr{display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;max-width:860px!important;margin:42px auto 35px!important;clear:both!important;transform:none!important}#tablet-shared-qr .qr-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}#tablet-shared-qr img{visibility:visible!important;opacity:1!important;max-width:100%!important;height:auto!important}';
    (doc.head||doc.documentElement).appendChild(visibleStyle);
   }
+  // FX company has its own QR section: the early-return branch must receive the palette too.
+  if(path.includes('fx_companies.html')&&!doc.getElementById('tablet-fx-qr-palette')){
+   var fxPalette=doc.createElement('style');fxPalette.id='tablet-fx-qr-palette';
+   fxPalette.textContent='#tablet-shared-qr{background:linear-gradient(145deg,#171a1d,#090a0b)!important;border:1px solid #34383c!important;color:#fff!important;box-shadow:0 10px 30px #0008!important}#tablet-shared-qr .qr-card{background:#f7f7f7!important;color:#111!important;border:0!important;box-shadow:0 5px 18px #0006!important}#tablet-shared-qr .qr-access-note{color:#9aa0a5!important}#tablet-shared-qr .qr-sub{color:#555!important}#tablet-shared-qr .qr-pc-url-box{background:#050505!important;border:2px solid #697078!important;color:#fff!important}#tablet-shared-qr .qr-copy-btn,#tablet-shared-qr .qr-top-return a{background:linear-gradient(#4a5156,#171a1d)!important;border:1px solid #899098!important;color:#fff!important;box-shadow:none!important}';
+   (doc.head||doc.documentElement).appendChild(fxPalette);
+  }
   var existingFooter=doc.querySelector('footer');
   if(existingFooter&&existingFooter.parentNode)existingFooter.parentNode.insertBefore(existing,existingFooter);else doc.body.appendChild(existing);
   return;
