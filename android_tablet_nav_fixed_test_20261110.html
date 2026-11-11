@@ -134,6 +134,19 @@ hideLegacyTaskbar(doc);
 rename(doc);
 fixNestedHome(doc);
 addSharedQR(doc);
+if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/login.html') && !doc.getElementById('tablet-login-home-return')){
+ var loginWrap=doc.querySelector('.login-wrap');
+ if(loginWrap){
+  loginWrap.querySelectorAll('a.back').forEach(function(a){if(/HOME.*戻る/.test(a.textContent||''))a.remove();});
+  var areaLogin=doc.createElement('div');areaLogin.id='tablet-login-home-return';
+  areaLogin.style.cssText='display:flex;justify-content:center;clear:both;padding:20px 14px 34px';
+  var loginBack=doc.createElement('a');loginBack.href=routes.home;loginBack.textContent='⌂ FXの入口に戻る';
+  loginBack.style.cssText='display:inline-block;min-width:250px;padding:15px 26px;text-align:center;border:1px solid #9bc6ef;border-radius:9px;background:linear-gradient(#68737e,#38424d);color:#fff;font-size:17px;font-weight:bold;text-decoration:none';
+  loginBack.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();go('home');},true);
+  areaLogin.appendChild(loginBack);
+  loginWrap.insertAdjacentElement('afterend',areaLogin);
+ }
+}
 if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/board.html') && !doc.getElementById('tablet-board-home-return')){
  var footerBoard=doc.querySelector('footer');
  var area=doc.createElement('div');area.id='tablet-board-home-return';area.style.cssText='display:flex;justify-content:center;padding:28px 14px 36px;clear:both';
