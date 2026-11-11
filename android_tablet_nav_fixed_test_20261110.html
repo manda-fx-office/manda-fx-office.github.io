@@ -135,6 +135,20 @@ function sizeCommunityExamples(doc){
  gallery.style.setProperty('min-height','0','important');
  gallery.style.setProperty('overflow-y','auto','important');
  gallery.setAttribute('data-tablet-community-post-window','v7-120-percent');
+ // Add the verified Honnoji image as a new post card at the top, without altering originals.
+ if(!gallery.querySelector('[data-tablet-honnoji-added="20261111"]')){
+  var source=Array.from(gallery.querySelectorAll(':scope > article')).find(function(card){
+   return (card.querySelector('.post-title')||{}).textContent?.includes('本能寺の変');
+  });
+  if(source){
+   var added=source.cloneNode(true);
+   added.setAttribute('data-tablet-honnoji-added','20261111');
+   var title=added.querySelector('.post-title');
+   if(title)title.textContent='本能寺の変 ― 蜘蛛の糸（新規投稿）';
+   gallery.insertBefore(added,gallery.firstElementChild);
+   gallery.scrollTop=0;
+  }
+ }
  if(doc.getElementById('tablet-community-gallery-nav'))return;
  var nav=doc.createElement('div');nav.id='tablet-community-gallery-nav';
  var prev=doc.createElement('button'),next=doc.createElement('button');
