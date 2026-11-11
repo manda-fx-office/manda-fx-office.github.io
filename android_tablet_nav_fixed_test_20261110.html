@@ -122,12 +122,20 @@ function addSharedQR(doc){
 function sizeCommunityExamples(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/community.html'))return;
- // Tablet test only: the 24vh gallery window is increased to 140% (33.6vh).
- if(!doc.getElementById('tablet-community-gallery-30-percent')){
-  var style=doc.createElement('style');style.id='tablet-community-gallery-30-percent';
-  style.textContent='.gallery{height:33.6vh!important;max-height:33.6vh!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}';
-  (doc.head||doc.documentElement).appendChild(style);
+ // Apply directly to the actual post window, not to an inferred parent.
+ var gallery=doc.querySelector('.gallery');
+ if(!gallery)return;
+ var css='height:33.6vh!important;max-height:33.6vh!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;';
+ if(!doc.getElementById('tablet-community-gallery-336-style')){
+  var st=doc.createElement('style');st.id='tablet-community-gallery-336-style';
+  st.textContent='html body .gallery,body .card .gallery{'+css+'}';
+  (doc.head||doc.documentElement).appendChild(st);
  }
+ gallery.style.setProperty('height','33.6vh','important');
+ gallery.style.setProperty('max-height','33.6vh','important');
+ gallery.style.setProperty('min-height','0','important');
+ gallery.style.setProperty('overflow-y','auto','important');
+ gallery.setAttribute('data-tablet-community-post-window','33.6vh');
 }
 function rename(doc){
 if(pageKind()!=='top')return;
