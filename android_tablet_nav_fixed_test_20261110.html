@@ -170,8 +170,8 @@ function communityDensukeReturn(doc){
  var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
  if(!pathname.endsWith('/COMMUNITY_ここに戻るV1_20261112.html'))return;
  doc.querySelectorAll('a,button').forEach(function(el){
-  var label=(el.textContent||'').replace(/\\s+/g,' ').trim();
-  if(!/HOME\\s*(?:ページ)?\\s*(?:に|へ)?\\s*戻る/i.test(label))return;
+  var label=(el.textContent||'').replace(/\s+/g,' ').trim();
+  if(!/HOME\s*(?:ページ)?\s*(?:に|へ)?\s*戻る/i.test(label))return;
   if(el.dataset.tabletDensukeReturn==='v2')return;
   el.dataset.tabletDensukeReturn='v2';
   el.textContent='伝助のインジケータ';
