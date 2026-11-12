@@ -5,7 +5,8 @@
  var ROUTES={
   top:'/android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html',
   home:'/android_tablet_HOME_test_20261106.html?tablet-home-copy=20261106-test-v2',
-  project:'/伝助のインジケータ_ここに戻る_V1.html?restore=1813-densuke-v1'
+  project:'/伝助のインジケータ_ここに戻る_V1.html?restore=1813-densuke-v1',
+  community:'/COMMUNITY_ここに戻るV2_20261112.html'
  };
  function pathOf(url){try{return decodeURIComponent(url.pathname||'').toLowerCase()}catch(e){return (url.pathname||'').toLowerCase()}}
  function routeFor(el,u){
@@ -14,10 +15,12 @@
   if(label.indexOf('topページへ')>=0||label.indexOf('topページに戻る')>=0)return 'top';
   if(label.indexOf('home')>=0||label.indexOf('ホーム')>=0||label.indexOf('fxの入口')>=0)return 'home';
   if(label.indexOf('伝助')>=0)return 'project';
+  if(label.indexOf('コミュニティ')>=0||label.indexOf('コミニティ')>=0||label.indexOf('community')>=0)return 'community';
   if(!u)return null;
   if(p==='/'||p.endsWith('/index.html')||p.indexOf('android_tablet_top')>=0||p.indexOf('android_start')>=0)return 'top';
   if(p.indexOf('android_tablet_home_v6_preview_direct_v2_20261105.html')>=0)return null;
   if(p.endsWith('/home.html')||p.indexOf('transition_system_home_')>=0||p.indexOf('android_tablet_home')>=0)return 'home';
+  if(p.endsWith('/community.html')||p.indexOf('community_')>=0)return 'community';
   if(p.endsWith('/project.html')||p.indexOf('android_tablet_project')>=0)return 'project';
   return null;
  }
