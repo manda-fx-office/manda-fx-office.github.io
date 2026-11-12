@@ -165,6 +165,20 @@ function sizeCommunityExamples(doc){
   }
  }
 }
+// Tablet COMMUNITY saved V1: replace only the existing bottom HOME return link.
+function communityDensukeReturn(doc){
+ var pathname='';try{pathname=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}
+ if(!pathname.endsWith('/COMMUNITY_ここに戻るV1_20261112.html'))return;
+ doc.querySelectorAll('a,button').forEach(function(el){
+  var label=(el.textContent||'').replace(/\\s+/g,' ').trim();
+  if(!/HOME\\s*(?:ページ)?\\s*(?:に|へ)?\\s*戻る/i.test(label))return;
+  if(el.dataset.tabletDensukeReturn==='v2')return;
+  el.dataset.tabletDensukeReturn='v2';
+  el.textContent='伝助のインジケータ';
+  if(el.tagName==='A')el.setAttribute('href',routes.densuke);
+  el.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();go('densuke');},true);
+ });
+}
 function rename(doc){
 if(pageKind()!=='top')return;
 doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
@@ -182,6 +196,7 @@ rename(doc);
 fixNestedHome(doc);
 addSharedQR(doc);
 sizeCommunityExamples(doc);
+communityDensukeReturn(doc);
 if(decodeURIComponent(page.contentWindow.location.pathname).endsWith('/login.html') && !doc.getElementById('tablet-login-home-return')){
  var loginWrap=doc.querySelector('.login-wrap');
  if(loginWrap){
@@ -224,7 +239,7 @@ if(pageKind()==='top'){
 var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
 if(imgs.length){logo.innerHTML='';var im=doc.createElement('img');im.src=imgs[0].src;im.alt='TRANSITION SYSTEM';logo.appendChild(im);}
 }
-var observer=new MutationObserver(function(){rename(doc);if(page.contentWindow.location.pathname.endsWith('/community.html')&&!doc.querySelector('[data-tablet-community-post-window]'))sizeCommunityExamples(doc);});observer.observe(doc.documentElement,{childList:true,subtree:true});
+var observer=new MutationObserver(function(){rename(doc);communityDensukeReturn(doc);if(page.contentWindow.location.pathname.endsWith('/community.html')&&!doc.querySelector('[data-tablet-community-post-window]'))sizeCommunityExamples(doc);});observer.observe(doc.documentElement,{childList:true,subtree:true});
 doc.addEventListener('click',function(ev){
 var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
 var raw=el.getAttribute('href')||'';
