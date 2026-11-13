@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TRANSITION SYSTEM タブレットTOP導線復旧</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}iframe{width:100%;height:100%;border:0;display:block}</style></head>
+<body><iframe id="top" title="TRANSITION SYSTEM TOP" src="/android_tablet_top_v1_bgm_single_test.html?restore=20261113" allow="autoplay"></iframe>
+<script>
+(function(){
+ var f=document.getElementById('top');
+ var routes={home:'/android_tablet_HOME_direct_2col_test_20261111.html',project:'/伝助のインジケータ_ここに戻る_V1.html',community:'/COMMUNITY_ここに戻るV2_20261112.html',system:'/android_tablet_tradesystem_5cards_return_fx_test_20261110.html',board:'/board.html',login:'/login.html',qa:'/admin_qa.html',broker:'/fx_company.html'};
+ function key(el){
+  var t=((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')).toLowerCase().replace(/\s+/g,' ');
+  var h=(el.getAttribute('href')||'').toLowerCase();
+  if(/コミュニティ|コミニティ|community/.test(t)||/community/.test(h))return 'community';
+  if(/伝助/.test(t)||/project/.test(h))return 'project';
+  if(/fxの入口|\bhome\b|ホーム/.test(t)||/tablet_home|home\.html/.test(h))return 'home';
+  if(/trade system|\bsystem\b|システム/.test(t)||/tradesystem/.test(h))return 'system';
+  if(/\bboard\b|掲示板/.test(t)||/board\.html/.test(h))return 'board';
+  if(/\blogin\b|ログイン/.test(t)||/login\.html/.test(h))return 'login';
+  if(/管理人|q\s*&\s*a/.test(t)||/admin_qa/.test(h))return 'qa';
+  if(/証券会社|fx会社/.test(t))return 'broker';
+  return null;
+ }
+ function setup(){
+  try{
+   var d=f.contentDocument;if(!d)return;
+   d.querySelectorAll('a,button,[role="button"]').forEach(function(el){
+    var t=(el.innerText||el.textContent||'').trim();
+    if(/^HOME(?:\s|$)/i.test(t)){
+     var w=d.createTreeWalker(el,NodeFilter.SHOW_TEXT),n;
+     while((n=w.nextNode())){if(/HOME/.test(n.nodeValue)){n.nodeValue=n.nodeValue.replace(/HOME/g,'FXの入口');break}}
+    }
+   });
+   if(d.__tabletNavigationRestored)return;
+   d.__tabletNavigationRestored=true;
+   d.addEventListener('click',function(ev){
+    var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
+    var k=key(el);if(!k||!routes[k])return;
+    ev.preventDefault();ev.stopImmediatePropagation();
+    window.location.assign(routes[k]);
+   },true);
+  }catch(e){console.error('tablet navigation restore',e)}
+ }
+ f.addEventListener('load',function(){setup();});
+})();
+</script></body></html>
