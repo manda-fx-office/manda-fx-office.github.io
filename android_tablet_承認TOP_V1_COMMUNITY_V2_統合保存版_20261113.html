@@ -103,6 +103,19 @@ function repair(){
     if(title)title.textContent='FXの入口';
    }
   }
+  // Keep the saved Densuke logo artwork, but route its click directly to the approved TOP.
+  if(page==='伝助のインジケータ_ここに戻る_V1.html'){
+   d.querySelectorAll('header.topbar a.brand-logo').forEach(function(a){
+    a.setAttribute('href',pages.top);
+    a.removeAttribute('target');
+    if(!a.__approvedTopRoute){
+     a.__approvedTopRoute=true;
+     a.addEventListener('click',function(e){
+      e.preventDefault();e.stopImmediatePropagation();go('top','');
+     },true);
+    }
+   });
+  }
   // Restore the approved tablet footer labels without altering the saved V1 file.
   if(page==='伝助のインジケータ_ここに戻る_V1.html'){
    d.querySelectorAll('a').forEach(function(a){
