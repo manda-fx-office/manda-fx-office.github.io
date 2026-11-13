@@ -97,7 +97,7 @@ function bindDocument(d){
     var type=el.closest('header.topbar')&&el.closest('a.brand-logo')?'top':(/FXの入口|HOMEに戻る/.test(txt)?'home':null);
     if(type){
      e.preventDefault();e.stopImmediatePropagation();
-     window.location.assign(location.pathname+'?page='+type);
+     go(type,'');
      return;
     }
    }
@@ -173,6 +173,14 @@ function repair(){
    if(mapped && pages[mapped.type]){
     a.setAttribute('href',pages[mapped.type]+(mapped.hash||''));
     a.removeAttribute('target');
+   }
+  });
+  // All FX entrance return links must lead to the same tablet HOME, never
+  // to the legacy homepage or an intermediate navigation test file.
+  d.querySelectorAll('a').forEach(function(a){
+   var label=(a.textContent||'').replace(/\\s+/g,' ').trim();
+   if(/FXの入口/.test(label) && !/ページトップ/.test(label)){
+    a.setAttribute('href',pages.home);a.removeAttribute('target');
    }
   });
   // Explicitly pin the TOP's FX entrance by its visible label, even if its
