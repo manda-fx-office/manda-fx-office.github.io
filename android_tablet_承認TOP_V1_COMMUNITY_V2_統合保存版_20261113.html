@@ -93,6 +93,16 @@ function repair(){
   var d=frame.contentDocument;if(!d)return;
   bindDocument(d);
   var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
+  // Mount the completed FX entrance page behind the approved TOP's first entry.
+  // This changes only the test controller's live DOM; no saved HTML file is edited.
+  if(page==='android_tablet_top_v1_bgm_single_test.html'){
+   var entrance=d.querySelector('.entry-buttons a.entry-btn[href="android_tablet_home.html"]');
+   if(entrance){
+    entrance.setAttribute('href',pages.home);
+    var title=entrance.querySelector('b');
+    if(title)title.textContent='FXの入口';
+   }
+  }
   d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
    if(fromHref(a.getAttribute('href'))||fromLabel(a)||isLogo(a))a.removeAttribute('target');
   });
