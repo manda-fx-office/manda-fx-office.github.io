@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TRANSITION SYSTEM - 承認TOP V1 統合保存版</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}iframe{display:block;width:100%;height:100%;border:0;visibility:hidden}</style></head><body>
-<iframe id="tablet-page" title="TRANSITION SYSTEM" src="/android_tablet_top_v1_bgm_single_test.html?tablet=approved-top-v1" allow="autoplay"></iframe>
+<iframe id="tablet-page" title="TRANSITION SYSTEM" src="/android_tablet_saved_top_20261105_ここに戻るV2.html?tablet=approved-top-v1" allow="autoplay"></iframe>
 <script>
 (function(){
 'use strict';
 var frame=document.getElementById('tablet-page');
 var pages={
- top:'/android_tablet_top_v1_bgm_single_test.html',
- home:'/android_tablet_HOME_direct_2col_test_20261111.html',
+ top:'/android_tablet_saved_top_20261105_ここに戻るV2.html',
+ home:'/android_tablet_home_v6_preview_direct_V2_20261105.html',
  project:'/伝助のインジケータ_ここに戻る_V1.html',
  community:'/COMMUNITY_ここに戻るV2_20261112.html',
  system:'/android_tablet_tradesystem_5cards_return_fx_test_20261110.html',
@@ -16,7 +16,7 @@ var pages={
 var routes={
  'index.html':'top','android_start_v2.html':'top','android_tablet_top_保存版_20261103.html':'top',
  'home.html':'home','android_tablet_home.html':'home','android_tablet_HOME_test_20261106.html':'home',
- 'android_tablet_HOME_direct_2col_test_20261111.html':'home',
+ 'android_tablet_home_v6_preview_direct_V2_20261105.html':'home',
  'project.html':'project','android_tablet_project_saved.html':'project','fx.html':'home','android_tablet_home_v6_preview_direct_V2_20261105.html':'home',
  'community.html':'community','product_tradesystem.html':'system','board.html':'board',
  'login.html':'login','admin_qa.html':'qa','fx_companies.html':'broker'
@@ -71,8 +71,8 @@ function bindDocument(d){
   try{
    var active=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
    var raw=el.getAttribute('href')||'';
-   if(active==='android_tablet_top_v1_bgm_single_test.html' ||
-      active==='android_tablet_HOME_direct_2col_test_20261111.html'){
+   if(active==='android_tablet_saved_top_20261105_ここに戻るV2.html' ||
+      active==='android_tablet_home_v6_preview_direct_V2_20261105.html'){
     if(raw && raw.charAt(0)!=='#'){
      var target=fromHref(raw);
      if(!target && /^https:\/\/manda-fx-office\.github\.io\/?(?:[?#].*)?$/.test(raw))
@@ -128,7 +128,7 @@ function repair(){
   var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
   // Mount the completed FX entrance page behind the approved TOP's first entry.
   // This changes only the test controller's live DOM; no saved HTML file is edited.
-  if(page==='android_tablet_top_v1_bgm_single_test.html'){
+  if(page==='android_tablet_saved_top_20261105_ここに戻るV2.html'){
    var entrance=d.querySelector('.entry-buttons a.entry-btn[href="android_tablet_home.html"]');
    if(entrance){
     entrance.setAttribute('href',pages.home);
