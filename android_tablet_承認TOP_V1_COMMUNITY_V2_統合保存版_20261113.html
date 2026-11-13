@@ -103,6 +103,18 @@ function repair(){
     if(title)title.textContent='FXの入口';
    }
   }
+  // Restore the approved tablet footer labels without altering the saved V1 file.
+  if(page==='伝助のインジケータ_ここに戻る_V1.html'){
+   d.querySelectorAll('a').forEach(function(a){
+    var t=(a.textContent||'').replace(/\s+/g,' ').trim();
+    if(/ページTOPに戻る|ページトップに戻る/.test(t)){
+     a.textContent='⌂ ページトップに戻る';
+    }else if(/HOMEに戻る|FXの入口/.test(t)){
+     a.textContent='⌂ FXの入口';
+     a.setAttribute('href',pages.home);
+    }
+   });
+  }
   d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
    if(fromHref(a.getAttribute('href'))||fromLabel(a)||isLogo(a))a.removeAttribute('target');
   });
