@@ -36,10 +36,10 @@ function fromLabel(el){
  var t=((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')).replace(/\s+/g,' ').trim();
  if(/コミュニティ|コミニティ/i.test(t))return 'community';
  if(/伝助のインジケータ/i.test(t))return 'project';
- if(/FXの入口|HOMEページに戻る|\bHOME\b|ホームページに戻る/i.test(t))return 'home';
+ if(/FXの入口|HOMEページに戻る|\bHOME\b|ホームページに戻る|ホームページへ/i.test(t))return 'home';
  if(/ページトップに戻る|前へ|次へ|コピー|再生|停止/i.test(t))return null;
  if(/管理人Q\s*&\s*A/i.test(t))return 'qa';
- if(/証券会社|FX会社紹介/i.test(t))return 'broker';
+ if(/証券会社|FX会社紹介|FX会社を見る|MT4対応 FX会社/i.test(t))return 'broker';
  if(/\bBOARD\b/i.test(t))return 'board';
  if(/\bLOGIN\b|ログイン/i.test(t))return 'login';
  if(/\bSYSTEM\b|TRADE SYSTEM/i.test(t))return 'system';
@@ -66,6 +66,25 @@ function bindDocument(d){
  d.addEventListener('click',function(e){
   var el=e.target&&e.target.closest&&e.target.closest('a,button,[role="button"]');
   if(!el)return;
+  // On the TOP and HOME pages, use the actual link destination, not
+  // ambiguous button text. Keep in-page anchors and external links intact.
+  try{
+   var active=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
+   var raw=el.getAttribute('href')||'';
+   if(active==='android_tablet_top_v1_bgm_single_test.html' ||
+      active==='android_tablet_HOME_direct_2col_test_20261111.html'){
+    if(raw && raw.charAt(0)!=='#'){
+     var target=fromHref(raw);
+     if(!target && /^https:\/\/manda-fx-office\.github\.io\/?(?:[?#].*)?$/.test(raw))
+      target={type:'top',hash:''};
+     if(target){
+      e.preventDefault();e.stopImmediatePropagation();
+      go(target.type,target.hash);
+      return;
+     }
+    }
+   }
+  }catch(ignore){}
   // Saved Densuke footer/logo: navigate the parent controller itself,
   // not the old standalone links or a nested iframe destination.
   try{
