@@ -69,6 +69,8 @@ function repair(){
    var el=e.target.closest&&e.target.closest('a,button,[role="button"]');
    if(!el)return;
    var href=el.getAttribute('href');
+   // Learning steps 01-05 are internal controls, not navigation to another page.
+   if(href && href.charAt(0)==='#')return;
    var dest=fromHref(href);
    if(!dest){
     var label=fromLabel(el);
