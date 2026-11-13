@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}iframe{display:block;width:100%;height:100%;border:0}</style></head><body>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}iframe{display:block;width:100%;height:100%;border:0;visibility:hidden}</style></head><body>
 <iframe id="tablet-page" title="TRANSITION SYSTEM" src="/android_tablet_top_v1_bgm_single_test.html?tablet=approved-top-v1" allow="autoplay"></iframe>
 <script>
 (function(){
@@ -48,6 +48,7 @@ function fromLabel(el){
 function go(type,hash){
  var target=pages[type];if(!target)return;
  if(hash)target+=hash;
+ frame.style.visibility='hidden';
  frame.src=target;
  try{history.replaceState(null,'',location.pathname+'?page='+encodeURIComponent(type))}catch(e){}
 }
@@ -85,7 +86,7 @@ function repair(){
   d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
    if(fromHref(a.getAttribute('href')))a.removeAttribute('target');
   });
- }catch(e){console.error('tablet route setup',e)}
+ }catch(e){console.error('tablet route setup',e)}finally{frame.style.visibility='visible';}
 }
 frame.addEventListener('load',repair);
 })();
