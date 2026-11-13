@@ -51,6 +51,9 @@ function fromLabel(el){
 function go(type,hash){
  var target=pages[type];if(!target)return;
  if(hash)target+=hash;
+ // HOME must open as its own complete document, not inside the controller iframe.
+ // This preserves the saved V6 QR section and its original page layout.
+ if(type==='home'){window.location.assign(target);return;}
  frame.style.visibility='hidden';
  frame.src=target;
  try{history.replaceState(null,'',location.pathname+'?page='+encodeURIComponent(type))}catch(e){}
