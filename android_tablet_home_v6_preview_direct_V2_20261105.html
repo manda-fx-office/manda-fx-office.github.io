@@ -217,4 +217,25 @@ TRANSITION SYSTEMでは、チャートの読み方やテクニカル分析を通
  try{new MutationObserver(fix).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['href','aria-label','title']});}catch(e){}
 })();
 </script>
+<style id="tablet-home-qr-visible-fix">
+/* Tablet HOME: show the QR section irrespective of legacy responsive rules. */
+@media (min-width:601px){
+ main.wrap > section.qr-access.qr-page-bottom,
+ main.wrap > section.qr-access.qr-page-bottom[hidden]{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ main.wrap > section.qr-access.qr-page-bottom .qr-grid{display:grid!important}
+ main.wrap > section.qr-access.qr-page-bottom .qr-card img{display:block!important;visibility:visible!important}
+}
+</style>
+<script id="tablet-home-qr-visibility-guard">
+(function(){
+ function ensureQR(){
+  var qr=document.querySelector('main.wrap > section.qr-access.qr-page-bottom');
+  if(!qr)return;
+  qr.hidden=false;
+  qr.removeAttribute('aria-hidden');
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensureQR);
+ else ensureQR();
+})();
+</script>
 </body></html>
