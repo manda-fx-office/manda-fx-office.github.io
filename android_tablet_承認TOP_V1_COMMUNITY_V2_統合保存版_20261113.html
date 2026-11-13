@@ -164,6 +164,27 @@ function repair(){
     }
    });
   }
+  // Replace legacy internal destinations in the live tablet page before any click.
+  // Keep the saved source files unchanged and preserve in-page anchors.
+  d.querySelectorAll('a[href]').forEach(function(a){
+   var raw=a.getAttribute('href')||'';
+   if(!raw||raw.charAt(0)==='#')return;
+   var mapped=fromHref(raw);
+   if(mapped && pages[mapped.type]){
+    a.setAttribute('href',pages[mapped.type]+(mapped.hash||''));
+    a.removeAttribute('target');
+   }
+  });
+  // Explicitly pin the TOP's FX entrance by its visible label, even if its
+  // original href is an obsolete or unlisted HOME filename.
+  if(page==='android_tablet_saved_top_20261105_ここに戻るV2.html'){
+   d.querySelectorAll('a').forEach(function(a){
+    var label=(a.textContent||'').replace(/\\s+/g,' ').trim();
+    if(/FXの入口|HOMEページ/.test(label) && !/ページトップに戻る/.test(label)){
+     a.setAttribute('href',pages.home);a.removeAttribute('target');
+    }
+   });
+  }
   // Normalize legacy return buttons across every tablet page, not just Densuke.
   d.querySelectorAll('a').forEach(function(a){
    var label=(a.textContent||'').replace(/\\s+/g,' ').trim();
