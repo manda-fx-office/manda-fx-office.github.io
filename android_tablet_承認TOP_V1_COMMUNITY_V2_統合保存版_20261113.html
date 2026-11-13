@@ -96,7 +96,7 @@ function repair(){
   if(page==='android_tablet_top_v1_bgm_single_test.html'){
    d.querySelectorAll('a,button,[role="button"]').forEach(function(el){
     var t=(el.innerText||el.textContent||'').trim();
-    if(/^HOME(?:\\s|$)/i.test(t)){
+    if(/^HOME(?:\s|$)/i.test(t)){
      var w=d.createTreeWalker(el,NodeFilter.SHOW_TEXT),n;
      while((n=w.nextNode())){if(/HOME/.test(n.nodeValue)){n.nodeValue=n.nodeValue.replace(/HOME/g,'FXの入口');break;}}
     }
