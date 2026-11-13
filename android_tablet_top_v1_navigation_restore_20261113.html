@@ -89,5 +89,7 @@ function repair(){
  }catch(e){console.error('tablet route setup',e)}finally{frame.style.visibility='visible';}
 }
 frame.addEventListener('load',repair);
+// Direct navigation into the same controller used by the TOP FX entrance.
+try{var requested=new URLSearchParams(location.search).get('page');if(requested&&pages[requested])go(requested,'');}catch(e){}
 })();
 </script></body></html>
