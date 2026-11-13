@@ -203,7 +203,7 @@ TRANSITION SYSTEMでは、チャートの読み方やテクニカル分析を通
    var label=((a.textContent||'')+' '+(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'')).trim();
    var isLogo=a.matches('.mobile-taskbar a,.topbar a,a[aria-label*="TOP"]') && /TOP|トップ/i.test(label+' '+(a.getAttribute('href')||''));
    var isTopButton=/TOPページに戻る|TOPへ戻る|TOPに戻る|TOPページへ/i.test(label);
-   if(isLogo||isTopButton){a.setAttribute('href',topUrl);a.setAttribute('target','_top');}
+   if(isLogo||isTopButton){if(a.getAttribute('href')!==topUrl)a.setAttribute('href',topUrl);if(a.getAttribute('target')!=='_top')a.setAttribute('target','_top');}
   });
  }
  fix();
