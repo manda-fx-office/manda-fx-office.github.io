@@ -66,6 +66,20 @@ function bindDocument(d){
  d.addEventListener('click',function(e){
   var el=e.target&&e.target.closest&&e.target.closest('a,button,[role="button"]');
   if(!el)return;
+  // Saved Densuke footer/logo: navigate the parent controller itself,
+  // not the old standalone links or a nested iframe destination.
+  try{
+   var current=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
+   if(current==='伝助のインジケータ_ここに戻る_V1.html'){
+    var txt=(el.textContent||'').replace(/\\s+/g,' ').trim();
+    var type=el.closest('header.topbar')&&el.closest('a.brand-logo')?'top':(/FXの入口|HOMEに戻る/.test(txt)?'home':null);
+    if(type){
+     e.preventDefault();e.stopImmediatePropagation();
+     window.location.assign(location.pathname+'?page='+type);
+     return;
+    }
+   }
+  }catch(ignore){}
   var href=el.getAttribute('href')||'';
   if(href.charAt(0)==='#')return;
   var dest=null;
