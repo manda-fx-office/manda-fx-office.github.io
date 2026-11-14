@@ -31,27 +31,39 @@ function setup(){
    style.textContent='.community-mobile-home{width:100%!important;max-width:none!important;margin:14px auto 10px!important;text-align:center!important;display:flex!important;justify-content:center!important;align-items:center!important;padding:0 12px!important;box-sizing:border-box!important}.community-mobile-home a{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:0!important;max-width:240px!important;padding:9px 18px!important;font-size:14px!important;line-height:1.4!important;min-height:38px!important;box-sizing:border-box!important}';
    d.head.appendChild(style);
   }
-  // Identify the QR code in the BOTTOM content area, never the header/taskbar.
-  // The previous first-match selector could mistakenly select a header element.
-  var candidates=Array.from(d.querySelectorAll('[class*="qr" i], [id*="qr" i], img,canvas,svg, h2,h3,h4,p,span'));
-  var bottomQR=candidates.filter(function(el){
-   if(group.contains(el)||el.closest('header,nav,.topbar,.taskbar,[class*="taskbar" i],[class*="topbar" i]'))return false;
-   var desc=((el.getAttribute('src')||'')+' '+(el.getAttribute('alt')||'')+' '+(el.getAttribute('class')||'')+' '+(el.getAttribute('id')||''));
-   var label=(el.children.length===0 ? el.textContent||'' : '');
-   if(!(/qr(?:code|[-_ ]?code)?/i.test(desc)||/QRコード|QR code/i.test(label)))return false;
-   var rect=el.getBoundingClientRect();
-   return rect.width>0 && rect.height>0 && rect.top>Math.max(180,d.documentElement.clientHeight*.35);
-  }).sort(function(a,b){return b.getBoundingClientRect().top-a.getBoundingClientRect().top;})[0];
-  if(bottomQR){
-   // Prefer a small enclosing QR section, but never move into a header.
-   var qrSection=bottomQR.closest('section,figure,[class*="qr-section" i],[class*="qr-wrap" i]')||bottomQR.parentElement;
-   var target=(qrSection && qrSection!==group && !qrSection.contains(group) && qrSection.getBoundingClientRect().top>180)?qrSection:bottomQR;
-   if(target.parentNode && !target.contains(group)){
-    target.parentNode.insertBefore(group,target);
-   }
+  // Place the small navigation button BEFORE the entire QR card, never inside it.
+  // Match the card by its visible heading, not by ambiguous QR classes in the header.
+  var heading=Array.from(d.querySelectorAll('h1,h2,h3,h4,p,div,span')).find(function(el){
+    return el.children.length===0 && /時間を共有しませんか/.test(el.textContent||'');
+  });
+  var qrCard=null;
+  if(heading){
+    var node=heading;
+    while(node && node!==d.body){
+      var rect=node.getBoundingClientRect();
+      if(rect.width>=d.documentElement.clientWidth*.65 && rect.height>=240 && rect.top>120){
+        qrCard=node;break;
+      }
+      node=node.parentElement;
+    }
   }
-  // If no bottom QR can be confidently identified, leave the button where it
-  // originally was rather than incorrectly inserting it into the taskbar.
+  if(qrCard && qrCard.parentNode && !qrCard.contains(group)){
+    // Remove any fixed positioning inherited from the original footer.
+    group.style.setProperty('position','relative','important');
+    group.style.setProperty('top','auto','important');
+    group.style.setProperty('bottom','auto','important');
+    group.style.setProperty('left','auto','important');
+    group.style.setProperty('right','auto','important');
+    group.style.setProperty('transform','none','important');
+    group.style.setProperty('visibility','visible','important');
+    group.style.setProperty('opacity','1','important');
+    group.style.setProperty('z-index','2','important');
+    qrCard.parentNode.insertBefore(group,qrCard);
+  } else {
+    // Safe fallback: do not hide or detach the existing button.
+    group.style.setProperty('visibility','visible','important');
+    group.style.setProperty('display','flex','important');
+  }
  }catch(e){console.error('COMMUNITY V2 button placement',e);}
 }
 frame.addEventListener('load',setup);
