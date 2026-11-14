@@ -53,20 +53,25 @@ function hideLegacyTaskbar(doc){
 }
 
 function transplantCommunityWindow(doc){
- if(!doc.getElementById('v6-community-scroll-window')){
-  var style=doc.createElement('style');style.id='v6-community-scroll-window';
-  style.textContent='@media(min-width:651px) and (max-width:1366px){#community-preview .ts-v2-window{height:min(80vh,800px)!important;min-height:420px!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}#community-preview .ts-v2-stage{display:block!important;flex:1!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;scroll-snap-type:y mandatory!important;-webkit-overflow-scrolling:touch!important;scroll-behavior:smooth!important}#community-preview .ts-v2-stage>.ts-v2-card{display:grid!important;height:100%!important;min-height:100%!important;scroll-snap-align:start!important;scroll-snap-stop:always!important;margin-bottom:8px!important;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)!important}#community-preview .ts-v2-stage>.ts-v2-card img{object-fit:contain!important;max-height:100%!important}}';
-  (doc.head||doc.documentElement).appendChild(style);
- }
- var stage=doc.querySelector('#community-preview .ts-v2-stage');if(!stage||stage.dataset.v6Window==='yes')return;
- stage.dataset.v6Window='yes';var cards=Array.from(stage.querySelectorAll(':scope > .ts-v2-card'));
- var prev=doc.getElementById('ts-v2-prev'),next=doc.getElementById('ts-v2-next'),count=doc.getElementById('ts-v2-count');
- function current(){var n=0,best=Infinity;cards.forEach(function(c,i){var d=Math.abs(c.offsetTop-stage.offsetTop-stage.scrollTop);if(d<best){best=d;n=i;}});return n;}
- function update(){if(count)count.textContent=(current()+1)+' / '+cards.length;if(prev)prev.disabled=current()===0;if(next)next.disabled=current()===cards.length-1;}
- function navigate(delta){var i=Math.max(0,Math.min(cards.length-1,current()+delta));if(cards[i])stage.scrollTo({top:cards[i].offsetTop-stage.offsetTop,behavior:'smooth'});}
- if(prev)prev.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();navigate(-1);},true);
- if(next)next.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();navigate(1);},true);
- stage.addEventListener('scroll',update,{passive:true});update();
+ var section=doc.querySelector('#community-preview');if(!section||section.dataset.savedCommunity==='yes')return;
+ var windowBox=section.querySelector('.community-window');if(!windowBox)return;
+ section.dataset.savedCommunity='yes';
+ var frame=doc.createElement('iframe');frame.title='保存版COMMUNITY 投稿例';frame.src='./COMMUNITY_ここに戻るV1_20261112.html';
+ frame.style.cssText='display:block;width:100%;height:min(82vh,850px);min-height:520px;border:0;border-radius:10px;background:#090d16';
+ windowBox.replaceWith(frame);
+ frame.addEventListener('load',function(){try{
+  var id=frame.contentDocument;if(!id)return;
+  var gallery=id.querySelector('.gallery');var post=gallery&&gallery.closest('section.card');if(!post)return;
+  var clone=post.cloneNode(true);
+  id.body.replaceChildren(clone);
+  id.body.style.cssText='margin:0!important;padding:0!important;max-width:none!important;background:#090d16!important;overflow:hidden!important';
+  clone.style.cssText='display:block!important;width:100%!important;max-width:none!important;height:100vh!important;box-sizing:border-box!important;margin:0!important;padding:12px!important;overflow:hidden!important';
+  var css=id.createElement('style');css.textContent='.gallery{height:calc(100vh - 180px)!important;max-height:none!important;overflow-y:auto!important;display:block!important;scroll-snap-type:y proximity!important}.gallery .post-card{display:block!important;margin:0 0 12px!important;scroll-snap-align:start!important}.community-mobile-pagination{display:flex!important;align-items:center!important;justify-content:center!important;gap:16px!important;margin:8px 0!important}.community-page-btn{display:inline-block!important;padding:10px 22px!important;color:#fff!important;background:#314a70!important;border:1px solid #8da9cb!important;border-radius:8px!important}.community-scroll-hint{display:block!important}';id.head.appendChild(css);
+  var cards=Array.from(clone.querySelectorAll('.post-card'));var pager=id.createElement('div');pager.className='community-mobile-pagination';
+  var prev=id.createElement('button'),count=id.createElement('span'),next=id.createElement('button');prev.className=next.className='community-page-btn';prev.textContent='戻る';next.textContent='次へ';pager.append(prev,count,next);clone.appendChild(pager);
+  var index=0;function show(i){index=Math.max(0,Math.min(cards.length-1,i));cards.forEach(function(c,n){c.style.display=n===index?'block':'none';});count.textContent=(index+1)+' / '+cards.length;prev.disabled=index===0;next.disabled=index===cards.length-1;gallery.scrollTop=0;}
+  prev.addEventListener('click',function(){show(index-1)});next.addEventListener('click',function(){show(index+1)});show(0);
+ }catch(e){console.error('saved community transplant',e)}});
 }
 function rename(doc){
 if(pageKind()!=='top')return;
