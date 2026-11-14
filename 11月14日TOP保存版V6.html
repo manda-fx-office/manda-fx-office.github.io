@@ -57,7 +57,7 @@ function transplantCommunityWindow(doc){
  var windowBox=section.querySelector('.community-window');if(!windowBox)return;
  section.dataset.savedCommunity='yes';
  var frame=doc.createElement('iframe');frame.title='保存版COMMUNITY 投稿例';frame.src='./COMMUNITY_ここに戻るV1_20261112.html';
- frame.style.cssText='display:block;width:100%;height:min(82vh,850px);min-height:520px;border:0;border-radius:10px;background:#090d16';
+ frame.style.cssText='display:block;width:100%;height:min(105vh,1050px);min-height:760px;border:0;border-radius:10px;background:#090d16';
  windowBox.replaceWith(frame);
  frame.addEventListener('load',function(){try{
   var id=frame.contentDocument;if(!id)return;
@@ -65,10 +65,10 @@ function transplantCommunityWindow(doc){
   var clone=post.cloneNode(true);
   id.body.replaceChildren(clone);
   id.body.style.cssText='margin:0!important;padding:0!important;max-width:none!important;background:#090d16!important;overflow:hidden!important';
-  clone.style.cssText='display:block!important;width:100%!important;max-width:none!important;height:100vh!important;box-sizing:border-box!important;margin:0!important;padding:12px!important;overflow:hidden!important';
-  var css=id.createElement('style');css.textContent='.gallery{height:calc(100vh - 180px)!important;max-height:none!important;overflow-y:auto!important;display:block!important;scroll-snap-type:y proximity!important}.gallery .post-card{display:block!important;margin:0 0 12px!important;scroll-snap-align:start!important}.community-mobile-pagination{display:flex!important;align-items:center!important;justify-content:center!important;gap:16px!important;margin:8px 0!important}.community-page-btn{display:inline-block!important;padding:10px 22px!important;color:#fff!important;background:#314a70!important;border:1px solid #8da9cb!important;border-radius:8px!important}.community-scroll-hint{display:block!important}';id.head.appendChild(css);
+  clone.style.cssText='display:block!important;width:100%!important;max-width:none!important;height:100vh!important;box-sizing:border-box!important;margin:0!important;padding:12px!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;gap:8px!important';
+  var css=id.createElement('style');css.textContent='.gallery{height:auto!important;max-height:none!important;min-height:0!important;flex:1 1 auto!important;overflow-y:auto!important;display:block!important;scroll-snap-type:y proximity!important}.card>h2,.card>p,.community-scroll-hint{flex:0 0 auto!important;margin:4px 0!important}.community-mobile-pagination{flex:0 0 62px!important;position:relative!important;z-index:2!important}.gallery .post-card{display:block!important;margin:0 0 12px!important;scroll-snap-align:start!important}.community-mobile-pagination{display:flex!important;align-items:center!important;justify-content:center!important;gap:16px!important;margin:8px 0!important}.community-page-btn{display:inline-block!important;padding:10px 22px!important;color:#fff!important;background:#314a70!important;border:1px solid #8da9cb!important;border-radius:8px!important}.community-scroll-hint{display:block!important}';id.head.appendChild(css);
   var cards=Array.from(clone.querySelectorAll('.post-card'));var pager=id.createElement('div');pager.className='community-mobile-pagination';
-  var prev=id.createElement('button'),count=id.createElement('span'),next=id.createElement('button');prev.className=next.className='community-page-btn';prev.textContent='戻る';next.textContent='次へ';pager.append(prev,count,next);clone.appendChild(pager);
+  var prev=id.createElement('button'),count=id.createElement('span'),next=id.createElement('button');prev.className=next.className='community-page-btn';prev.textContent='戻る';next.textContent='次へ';pager.append(prev,count,next);clone.appendChild(pager);pager.style.cssText='display:flex!important;flex:0 0 62px!important;align-items:center!important;justify-content:center!important;gap:16px!important;background:#111b2b!important;border-radius:8px!important';
   var index=0;function show(i){index=Math.max(0,Math.min(cards.length-1,i));cards.forEach(function(c,n){c.style.display=n===index?'block':'none';});count.textContent=(index+1)+' / '+cards.length;prev.disabled=index===0;next.disabled=index===cards.length-1;gallery.scrollTop=0;}
   prev.addEventListener('click',function(){show(index-1)});next.addEventListener('click',function(){show(index+1)});show(0);
  }catch(e){console.error('saved community transplant',e)}});
