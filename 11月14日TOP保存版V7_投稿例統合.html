@@ -96,7 +96,20 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
-transplantSavedPostWindow(doc);
+if(pageKind()==='top'){
+ var postSection=doc.getElementById('community-preview');
+ if(postSection && 'IntersectionObserver' in doc.defaultView){
+  var lazyObserver=new doc.defaultView.IntersectionObserver(function(entries){
+   if(entries.some(function(entry){return entry.isIntersecting})){
+    lazyObserver.disconnect();
+    transplantSavedPostWindow(doc);
+   }
+  },{root:null,rootMargin:'500px 0px'});
+  lazyObserver.observe(postSection);
+ }else{
+  transplantSavedPostWindow(doc);
+ }
+}
 if(pageKind()!=='top'){
  var inner=doc.getElementById('home');
  if(inner&&inner.tagName==='IFRAME'){
@@ -109,7 +122,7 @@ if(pageKind()==='top'){
 var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
 if(imgs.length){logo.innerHTML='';var im=doc.createElement('img');im.src=imgs[0].src;im.alt='TRANSITION SYSTEM';logo.appendChild(im);}
 }
-var observer=new MutationObserver(function(){rename(doc);});observer.observe(doc.documentElement,{childList:true,subtree:true});
+var renameQueued=false;var observer=new MutationObserver(function(){if(renameQueued)return;renameQueued=true;doc.defaultView.requestAnimationFrame(function(){renameQueued=false;rename(doc);});});observer.observe(doc.documentElement,{childList:true,subtree:true});
 doc.addEventListener('click',function(ev){
 var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
 var raw=el.getAttribute('href')||'';
