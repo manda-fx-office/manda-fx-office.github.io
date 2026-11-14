@@ -51,6 +51,35 @@ function hideLegacyTaskbar(doc){
   }
  });
 }
+function transplantSavedPostWindow(doc){
+ if(pageKind()!=='top')return;
+ var section=doc.getElementById('community-preview');
+ if(!section||section.dataset.postWindow==='yes')return;
+ var windowBox=section.querySelector('.community-window');if(!windowBox)return;
+ section.dataset.postWindow='yes';
+ var frame=doc.createElement('iframe');
+ frame.title='COMMUNITY保存版 投稿窓';
+ frame.src='./COMMUNITY_ここに戻るV1_20261112.html';
+ frame.style.cssText='width:100%;height:calc(100vh - 110px);min-height:680px;border:0;display:block;background:#090d16';
+ windowBox.style.cssText='height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;padding:0!important;display:block!important';
+ windowBox.replaceChildren(frame);
+ frame.addEventListener('load',function(){try{
+  var d=frame.contentDocument;if(!d)return;
+  var gallery=d.querySelector('section.card .gallery');
+  var nav=d.getElementById('tablet-v4-nav');
+  if(!gallery||!nav)return;
+  // 保存版のCSS、カード構造、8枚切替スクリプト、色を一切書き換えない。
+  // 投稿窓以外を非表示にするだけ。
+  var card=gallery.closest('section.card');
+  Array.from(d.body.children).forEach(function(el){if(el!==card.parentElement)el.style.setProperty('display','none','important')});
+  var main=card.parentElement;
+  Array.from(main.children).forEach(function(el){if(el!==card)el.style.setProperty('display','none','important')});
+  Array.from(card.children).forEach(function(el){if(el!==gallery&&el!==nav)el.style.setProperty('display','none','important')});
+  var st=d.createElement('style');st.id='top-post-window-only';
+  st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}';
+  d.head.appendChild(st);
+ }catch(e){console.error('saved post window',e)}});
+}
 function rename(doc){
 if(pageKind()!=='top')return;
 doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
@@ -65,6 +94,7 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
+transplantSavedPostWindow(doc);
 if(pageKind()!=='top'){
  var inner=doc.getElementById('home');
  if(inner&&inner.tagName==='IFRAME'){
