@@ -17,7 +17,7 @@ qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
 login:'./login.html?nav=20261110'
 };
-function go(key){if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
+function go(key){if(key==='home'){window.location.href=routes.home;return;}if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
 logo.addEventListener('click',function(){go('top');});
 function pageKind(){var p='';try{p=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}return p.indexOf('android_tablet_saved_top_')>=0?'top':'other';}
 function labelFor(el){return ((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'')).replace(/\s+/g,' ').trim();}
