@@ -8,6 +8,7 @@
 (function(){
 'use strict';
 var page=document.getElementById('page'),logo=document.getElementById('logo');
+page.style.visibility='visible';
 var routes={
 top:'./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?nav=20261110',
 home:'./FXの入口起動画面ここに戻るV1.html?integration=20261114',
@@ -90,6 +91,7 @@ while((n=walker.nextNode())){if(/HOME/.test(n.nodeValue||'')){n.nodeValue=n.node
 });
 }
 page.addEventListener('load',function(){
+page.style.visibility='visible';
 try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
@@ -116,7 +118,7 @@ if(/^https?:\/\//i.test(raw) && !/manda-fx-office|transition-tablet/i.test(raw))
 var key=routeFor(el);if(!key)return;
 ev.preventDefault();ev.stopImmediatePropagation();go(key);
 },true);
-}catch(e){ }
+}catch(e){console.error('TOP navigation initialization',e);page.style.visibility='visible';}
 });
 })();
 </script></body></html>
