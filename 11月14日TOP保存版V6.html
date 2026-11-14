@@ -51,6 +51,32 @@ function hideLegacyTaskbar(doc){
   }
  });
 }
+
+function transplantSavedCommunity(doc){
+ if(pageKind()!=='top')return;
+ var section=doc.getElementById('community-preview');
+ if(!section||section.dataset.savedWindowInstalled==='yes')return;
+ var old=section.querySelector('.community-window');if(!old)return;
+ section.dataset.savedWindowInstalled='yes';
+ var frame=doc.createElement('iframe');frame.title='COMMUNITY保存版V2 投稿例';
+ frame.src='./COMMUNITY_ここに戻るV2_20261112.html';
+ frame.style.cssText='display:block;width:100%;height:calc(100vh - 110px);min-height:680px;border:0;border-radius:10px;background:#090d16';
+ old.style.cssText='height:auto!important;max-height:none!important;overflow:visible!important;padding:0!important;display:block!important';
+ old.replaceChildren(frame);
+ function setup(){try{
+  var outer=frame.contentDocument;if(!outer)return;
+  var inner=outer.getElementById('community-v1');if(!inner)return;
+  function apply(){try{
+   var d=inner.contentDocument;if(!d||d.getElementById('v6-top-window-style'))return;
+   var gallery=d.querySelector('.gallery');if(!gallery)return;
+   var st=d.createElement('style');st.id='v6-top-window-style';
+   st.textContent='html,body{height:100%!important;overflow:hidden!important;background:#0c111a!important}.topbar,.hero-mini,.community-mobile-home,.community-qr-mobile,.freebox,.footer,footer{display:none!important}.wrap{padding:0!important;margin:0!important;max-width:none!important}.wrap>section:not(:has(.gallery)){display:none!important}section.card:has(.gallery){height:100vh!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;margin:0!important;padding:12px!important;gap:7px!important}section.card:has(.gallery)>h2,section.card:has(.gallery)>p,section.card:has(.gallery)>.community-scroll-hint{flex:none!important;margin:0!important}section.card:has(.gallery)>.gallery{flex:1 1 auto!important;min-height:0!important;height:auto!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:none!important;scroll-behavior:auto!important}section.card:has(.gallery)>.gallery>article.post-card{height:auto!important;min-height:100%!important;max-height:none!important;display:block!important;overflow:visible!important;scroll-snap-align:none!important;margin:0 0 12px!important}section.card:has(.gallery)>.gallery>article.post-card>img{width:100%!important;height:260px!important;max-height:260px!important;object-fit:contain!important}section.card:has(.gallery)>.gallery>article.post-card>.community-card-text,section.card:has(.gallery)>.gallery>article.post-card>.honnoji-original-text{height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;white-space:pre-wrap!important}#tablet-v4-nav{flex:0 0 60px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;margin:0!important}#tablet-v4-nav button{background:linear-gradient(#607da3,#2d496e)!important;border:1px solid #b0c8e4!important;border-radius:9px!important;color:#fff!important;padding:10px 22px!important}.community-mobile-pagination{display:none!important}';
+   d.head.appendChild(st);
+  }catch(e){console.error('COMMUNITY source window',e)}}
+  inner.addEventListener('load',apply);apply();
+ }catch(e){console.error('COMMUNITY outer window',e)}}
+ frame.addEventListener('load',setup);setup();
+}
 function rename(doc){
 if(pageKind()!=='top')return;
 doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
@@ -65,6 +91,7 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
+transplantSavedCommunity(doc);
 if(pageKind()!=='top'){
  var inner=doc.getElementById('home');
  if(inner&&inner.tagName==='IFRAME'){
