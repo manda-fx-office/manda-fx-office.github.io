@@ -19,7 +19,7 @@ community:'./COMMUNITY_ここに戻るV2_20261112.html',
 login:'./login.html?nav=20261110',
 system:'./システムここに戻るV1.html'
 };
-function go(key){if(key==='home'||key==='system'){window.location.href=routes[key];return;}if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
+function go(key){if(key==='top'&&pageKind()==='top'){try{page.contentWindow.scrollTo({top:0,behavior:'instant'});}catch(e){}return;}if(key==='home'||key==='system'){window.location.href=routes[key];return;}if(routes[key]){page.src=routes[key];}}
 logo.addEventListener('click',function(){go('top');});
 function pageKind(){var p='';try{p=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}return p.indexOf('android_tablet_saved_top_')>=0?'top':'other';}
 function labelFor(el){return ((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'')).replace(/\s+/g,' ').trim();}
