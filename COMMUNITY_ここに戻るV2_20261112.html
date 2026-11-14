@@ -31,28 +31,27 @@ function setup(){
    style.textContent='.community-mobile-home{width:100%!important;max-width:none!important;margin:14px auto 10px!important;text-align:center!important;display:flex!important;justify-content:center!important;align-items:center!important;padding:0 12px!important;box-sizing:border-box!important}.community-mobile-home a{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:0!important;max-width:240px!important;padding:9px 18px!important;font-size:14px!important;line-height:1.4!important;min-height:38px!important;box-sizing:border-box!important}';
    d.head.appendChild(style);
   }
-  // Locate the existing QR section by its image or explicit QR label, then
-  // move the original button group immediately BEFORE that section.
-  var qr=d.querySelector('[class*="qr-section" i], [id*="qr-section" i], [class*="qr-wrap" i], [id*="qr-wrap" i], [class*="qrcode" i], [id*="qrcode" i], [class*="qr-code" i], [id*="qr-code" i]');
-  if(!qr){
-   var image=Array.from(d.querySelectorAll('img,canvas,svg')).find(function(el){
-    return /qr(?:code|[-_ ]?code)?/i.test((el.getAttribute('src')||'')+' '+(el.getAttribute('alt')||'')+' '+(el.getAttribute('class')||'')+' '+(el.getAttribute('id')||''));
-   });
-   if(image)qr=image.closest('section,figure,[class*="qr" i]')||image.parentElement;
-  }
-  if(!qr){
-   var label=Array.from(d.querySelectorAll('h2,h3,h4,p,div,span')).find(function(el){
-    return el.children.length===0 && /QRコード|QR code/i.test((el.textContent||'').trim());
-   });
-   if(label)qr=label.closest('section,figure')||label.parentElement;
-  }
-  if(qr && !group.contains(qr) && qr!==group){
-   var target=qr;
-   // Preserve the QR section and place the button directly above it.
-   if(target.parentNode && target.parentNode!==group && !target.contains(group)){
+  // Identify the QR code in the BOTTOM content area, never the header/taskbar.
+  // The previous first-match selector could mistakenly select a header element.
+  var candidates=Array.from(d.querySelectorAll('[class*="qr" i], [id*="qr" i], img,canvas,svg, h2,h3,h4,p,span'));
+  var bottomQR=candidates.filter(function(el){
+   if(group.contains(el)||el.closest('header,nav,.topbar,.taskbar,[class*="taskbar" i],[class*="topbar" i]'))return false;
+   var desc=((el.getAttribute('src')||'')+' '+(el.getAttribute('alt')||'')+' '+(el.getAttribute('class')||'')+' '+(el.getAttribute('id')||''));
+   var label=(el.children.length===0 ? el.textContent||'' : '');
+   if(!(/qr(?:code|[-_ ]?code)?/i.test(desc)||/QRコード|QR code/i.test(label)))return false;
+   var rect=el.getBoundingClientRect();
+   return rect.width>0 && rect.height>0 && rect.top>Math.max(180,d.documentElement.clientHeight*.35);
+  }).sort(function(a,b){return b.getBoundingClientRect().top-a.getBoundingClientRect().top;})[0];
+  if(bottomQR){
+   // Prefer a small enclosing QR section, but never move into a header.
+   var qrSection=bottomQR.closest('section,figure,[class*="qr-section" i],[class*="qr-wrap" i]')||bottomQR.parentElement;
+   var target=(qrSection && qrSection!==group && !qrSection.contains(group) && qrSection.getBoundingClientRect().top>180)?qrSection:bottomQR;
+   if(target.parentNode && !target.contains(group)){
     target.parentNode.insertBefore(group,target);
    }
   }
+  // If no bottom QR can be confidently identified, leave the button where it
+  // originally was rather than incorrectly inserting it into the taskbar.
  }catch(e){console.error('COMMUNITY V2 button placement',e);}
 }
 frame.addEventListener('load',setup);
