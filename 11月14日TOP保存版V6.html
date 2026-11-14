@@ -1,0 +1,92 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>TOP ナビゲーション修正テスト</title><style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#090d16;color:#fff;font-family:Arial,sans-serif}
+#bar{position:fixed;z-index:2147483000;top:0;left:0;right:0;height:48px;display:flex;align-items:center;padding:4px 18px;background:#090d16;border-bottom:1px solid #344154}
+#logo{display:flex;align-items:center;gap:8px;background:none;border:0;color:#dbe8f6;font-size:13px;font-weight:bold;cursor:pointer}
+#logo img{height:36px;max-width:140px;object-fit:contain}
+#page{position:absolute;top:48px;left:0;width:100%;height:calc(100% - 48px);border:0;background:#090d16;visibility:hidden}
+</style></head><body><div id="bar"><button id="logo" type="button" aria-label="TOPページに戻る"><span>TRANSITION SYSTEM</span></button></div><iframe id="page" title="TRANSITION SYSTEM ページ" src="./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?nav=20261110"></iframe><script>
+(function(){
+'use strict';
+var page=document.getElementById('page'),logo=document.getElementById('logo');
+var routes={
+top:'./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?nav=20261110',
+home:'./FXの入口起動画面ここに戻るV1.html?integration=20261114',
+densuke:'./伝助のインジケータV2_統合テスト.html',
+fx:'./fx_companies.html?nav=20261110',
+qa:'./admin_qa.html?nav=20261110',
+community:'./community.html?nav=20261110',
+login:'./login.html?nav=20261110',
+system:'./システムここに戻るV1.html'
+};
+function go(key){if(key==='home'||key==='system'){window.location.href=routes[key];return;}if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
+logo.addEventListener('click',function(){go('top');});
+function pageKind(){var p='';try{p=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}return p.indexOf('android_tablet_saved_top_')>=0?'top':'other';}
+function labelFor(el){return ((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'')).replace(/\s+/g,' ').trim();}
+function routeFor(el){
+var label=labelFor(el).toLowerCase();
+var href=(el.getAttribute('href')||'').toLowerCase();
+if(label.includes('system')||label.includes('システム')||href.includes('product_tradesystem')||href.includes('android_tablet_tradesystem'))return 'system';
+if(label.includes('伝助')||href.includes('project.html')||href.includes('android_tablet_project'))return 'densuke';
+if(label.includes('管理人')&&label.includes('q')||href.includes('admin_qa'))return 'qa';
+if(label.includes('コミュニティ')||label.includes('community')||href.includes('community.html'))return 'community';
+if(label.includes('login')||label.includes('ログイン')||href.includes('login.html'))return 'login';
+if(label.includes('証券会社')||href.includes('fx_companies'))return 'fx';
+if(label.includes('topページ')||label.includes('topへ戻る')||label.includes('トップページ')||href==='index.html'||href==='/')return 'top';
+if(label.includes('fxの入口')||/^home(?:\s|$)/i.test(label)||href==='home.html'||href.includes('android_tablet_home'))return 'home';
+return null;
+}
+function hideLegacyTaskbar(doc){
+ if(!doc.getElementById('tablet-single-bar-style')){
+  var style=doc.createElement('style');style.id='tablet-single-bar-style';
+  style.textContent='header, .site-header, .topbar, .top-bar, .taskbar, .task-bar, .navbar, .nav-bar, .global-header, #site-header, #header, #topbar, #taskbar {display:none !important;}';
+  (doc.head||doc.documentElement).appendChild(style);
+ }
+ // Fallback: remove only the small legacy logo strip at the very top.
+ doc.querySelectorAll('a,button').forEach(function(el){
+  var rect=el.getBoundingClientRect(),label=(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'');
+  var img=el.querySelector('img');
+  if(rect.top<85 && rect.height>0 && rect.height<90 && (img||/TOP|logo|ロゴ/i.test(label))){
+   var parent=el.closest('header,nav,.site-header,.topbar,.taskbar')||el.parentElement;
+   if(parent){var pr=parent.getBoundingClientRect();if(pr.top<90&&pr.height<115&&pr.width>doc.documentElement.clientWidth*.5)parent.style.setProperty('display','none','important');}
+  }
+ });
+}
+function rename(doc){
+if(pageKind()!=='top')return;
+doc.querySelectorAll('a,button,[role="button"]').forEach(function(el){
+var label=(el.innerText||el.textContent||'').replace(/\s+/g,' ').trim();
+if(!/^HOME(?:\s|$)/i.test(label))return;
+var walker=doc.createTreeWalker(el,NodeFilter.SHOW_TEXT),n;
+while((n=walker.nextNode())){if(/HOME/.test(n.nodeValue||'')){n.nodeValue=n.nodeValue.replace(/HOME/g,'FXの入口');break;}}
+});
+}
+page.addEventListener('load',function(){
+try{
+var doc=page.contentDocument;if(!doc)return;
+hideLegacyTaskbar(doc);
+rename(doc);
+if(pageKind()!=='top'){
+ var inner=doc.getElementById('home');
+ if(inner&&inner.tagName==='IFRAME'){
+  function cleanInner(){try{var id=inner.contentDocument;if(id){hideLegacyTaskbar(id);id.querySelectorAll('header,.site-header,.topbar,.taskbar').forEach(function(el){el.style.setProperty('display','none','important')});}}catch(e){}}
+  inner.addEventListener('load',cleanInner);cleanInner();
+ }
+}
+page.style.visibility='visible';
+if(pageKind()==='top'){
+var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
+if(imgs.length){logo.innerHTML='';var im=doc.createElement('img');im.src=imgs[0].src;im.alt='TRANSITION SYSTEM';logo.appendChild(im);}
+}
+var observer=new MutationObserver(function(){rename(doc);});observer.observe(doc.documentElement,{childList:true,subtree:true});
+doc.addEventListener('click',function(ev){
+var el=ev.target.closest&&ev.target.closest('a,button,[role="button"]');if(!el)return;
+var raw=el.getAttribute('href')||'';
+if(/^(mailto:|tel:)/i.test(raw))return;
+if(/^https?:\/\//i.test(raw) && !/manda-fx-office|transition-tablet/i.test(raw))return;
+var key=routeFor(el);if(!key)return;
+ev.preventDefault();ev.stopImmediatePropagation();go(key);
+},true);
+}catch(e){ }
+});
+})();
+</script></body></html>
