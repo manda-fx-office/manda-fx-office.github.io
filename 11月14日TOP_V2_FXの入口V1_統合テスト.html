@@ -15,15 +15,17 @@ densuke:'./伝助のインジケータ_ここに戻る_V1.html?nav=20261110',
 fx:'./fx_companies.html?nav=20261110',
 qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
-login:'./login.html?nav=20261110'
+login:'./login.html?nav=20261110',
+system:'./システムここに戻るV1.html'
 };
-function go(key){if(key==='home'){window.location.href=routes.home;return;}if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
+function go(key){if(key==='home'||key==='system'){window.location.href=routes[key];return;}if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
 logo.addEventListener('click',function(){go('top');});
 function pageKind(){var p='';try{p=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}return p.indexOf('android_tablet_saved_top_')>=0?'top':'other';}
 function labelFor(el){return ((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'')).replace(/\s+/g,' ').trim();}
 function routeFor(el){
 var label=labelFor(el).toLowerCase();
 var href=(el.getAttribute('href')||'').toLowerCase();
+if(label.includes('system')||label.includes('システム')||href.includes('product_tradesystem')||href.includes('android_tablet_tradesystem'))return 'system';
 if(label.includes('伝助')||href.includes('project.html')||href.includes('android_tablet_project'))return 'densuke';
 if(label.includes('管理人')&&label.includes('q')||href.includes('admin_qa'))return 'qa';
 if(label.includes('コミュニティ')||label.includes('community')||href.includes('community.html'))return 'community';
