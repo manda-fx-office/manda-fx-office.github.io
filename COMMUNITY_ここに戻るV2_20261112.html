@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>COMMUNITY ここに戻るV2</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>COMMUNITY ここに戻るV2 — タブレット配置修正テスト</title>
 <style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#090d16}#community-v1{display:block;border:0;width:100%;height:100%}</style></head><body>
 <iframe id="community-v1" title="COMMUNITY ここに戻るV2 投稿画面" src="./COMMUNITY_ここに戻るV1_20261112.html"></iframe>
 <script>
@@ -10,7 +10,10 @@ var densuke='./伝助のインジケータ_ここに戻る_V1.html';
 function setup(){
  try{
   var d=frame.contentDocument;if(!d)return;
-  d.querySelectorAll('.community-mobile-home a').forEach(function(a){
+  var group=d.querySelector('.community-mobile-home');
+  if(!group)return;
+  var links=group.querySelectorAll('a');
+  links.forEach(function(a){
    a.textContent='伝助のインジケータ';
    a.setAttribute('href',densuke);
    a.setAttribute('target','_parent');
@@ -21,7 +24,36 @@ function setup(){
     window.location.href=densuke;
    },true);
   });
- }catch(e){console.error('COMMUNITY V2 navigation',e);}
+  // Only style this community V2 iframe. Do not change V1, TOP, phone or PC files.
+  if(!d.getElementById('community-v2-small-densuke')){
+   var style=d.createElement('style');
+   style.id='community-v2-small-densuke';
+   style.textContent='.community-mobile-home{width:100%!important;max-width:none!important;margin:14px auto 10px!important;text-align:center!important;display:flex!important;justify-content:center!important;align-items:center!important;padding:0 12px!important;box-sizing:border-box!important}.community-mobile-home a{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:0!important;max-width:240px!important;padding:9px 18px!important;font-size:14px!important;line-height:1.4!important;min-height:38px!important;box-sizing:border-box!important}';
+   d.head.appendChild(style);
+  }
+  // Locate the existing QR section by its image or explicit QR label, then
+  // move the original button group immediately BEFORE that section.
+  var qr=d.querySelector('[class*="qr-section" i], [id*="qr-section" i], [class*="qr-wrap" i], [id*="qr-wrap" i], [class*="qrcode" i], [id*="qrcode" i], [class*="qr-code" i], [id*="qr-code" i]');
+  if(!qr){
+   var image=Array.from(d.querySelectorAll('img,canvas,svg')).find(function(el){
+    return /qr(?:code|[-_ ]?code)?/i.test((el.getAttribute('src')||'')+' '+(el.getAttribute('alt')||'')+' '+(el.getAttribute('class')||'')+' '+(el.getAttribute('id')||''));
+   });
+   if(image)qr=image.closest('section,figure,[class*="qr" i]')||image.parentElement;
+  }
+  if(!qr){
+   var label=Array.from(d.querySelectorAll('h2,h3,h4,p,div,span')).find(function(el){
+    return el.children.length===0 && /QRコード|QR code/i.test((el.textContent||'').trim());
+   });
+   if(label)qr=label.closest('section,figure')||label.parentElement;
+  }
+  if(qr && !group.contains(qr) && qr!==group){
+   var target=qr;
+   // Preserve the QR section and place the button directly above it.
+   if(target.parentNode && target.parentNode!==group && !target.contains(group)){
+    target.parentNode.insertBefore(group,target);
+   }
+  }
+ }catch(e){console.error('COMMUNITY V2 button placement',e);}
 }
 frame.addEventListener('load',setup);
 })();
