@@ -3,7 +3,7 @@
 #bar{position:fixed;z-index:2147483000;top:0;left:0;right:0;height:48px;display:flex;align-items:center;padding:4px 18px;background:#090d16;border-bottom:1px solid #344154}
 #logo{display:flex;align-items:center;gap:8px;background:none;border:0;color:#dbe8f6;font-size:13px;font-weight:bold;cursor:pointer}
 #logo img{height:36px;max-width:140px;object-fit:contain}
-#page{position:absolute;top:48px;left:0;width:100%;height:calc(100% - 48px);border:0;background:#090d16}
+#page{position:absolute;top:48px;left:0;width:100%;height:calc(100% - 48px);border:0;background:#090d16;visibility:hidden}
 </style></head><body><div id="bar"><button id="logo" type="button" aria-label="TOPページに戻る"><span>TRANSITION SYSTEM</span></button></div><iframe id="page" title="TRANSITION SYSTEM ページ" src="./android_tablet_saved_top_20261105_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV2.html?nav=20261110"></iframe><script>
 (function(){
 'use strict';
@@ -17,7 +17,7 @@ qa:'./admin_qa.html?nav=20261110',
 community:'./community.html?nav=20261110',
 login:'./login.html?nav=20261110'
 };
-function go(key){if(routes[key])page.src=routes[key];}
+function go(key){if(routes[key]){page.style.visibility='hidden';page.src=routes[key];}}
 logo.addEventListener('click',function(){go('top');});
 function pageKind(){var p='';try{p=decodeURIComponent(page.contentWindow.location.pathname)}catch(e){}return p.indexOf('android_tablet_saved_top_')>=0?'top':'other';}
 function labelFor(el){return ((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')+' '+(el.getAttribute('title')||'')).replace(/\s+/g,' ').trim();}
@@ -63,6 +63,14 @@ try{
 var doc=page.contentDocument;if(!doc)return;
 hideLegacyTaskbar(doc);
 rename(doc);
+if(pageKind()!=='top'){
+ var inner=doc.getElementById('home');
+ if(inner&&inner.tagName==='IFRAME'){
+  function cleanInner(){try{var id=inner.contentDocument;if(id){hideLegacyTaskbar(id);id.querySelectorAll('header,.site-header,.topbar,.taskbar').forEach(function(el){el.style.setProperty('display','none','important')});}}catch(e){}}
+  inner.addEventListener('load',cleanInner);cleanInner();
+ }
+}
+page.style.visibility='visible';
 if(pageKind()==='top'){
 var imgs=Array.from(doc.images).filter(function(im){return /logo|transition/i.test(im.alt+' '+im.src)&&im.getBoundingClientRect().width<300;});
 if(imgs.length){logo.innerHTML='';var im=doc.createElement('img');im.src=imgs[0].src;im.alt='TRANSITION SYSTEM';logo.appendChild(im);}
