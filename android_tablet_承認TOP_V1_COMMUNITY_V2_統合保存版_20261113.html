@@ -201,7 +201,7 @@ function transplantCommunityWindowToDensuke(d){
  ratio.textContent=[
  '.indicator-page>.scroll-test-cards>.card[data-two-to-one="yes"]{display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:10px!important;box-sizing:border-box!important}',
  '.densuke-card-image{flex:2 1 0!important;min-height:0!important;display:flex!important;align-items:center!important;justify-content:center!important;border:1px dashed #3c464e!important;border-radius:8px!important;background:#101820!important;color:#89949c!important;font-size:13px!important;letter-spacing:1px!important}',
- '.densuke-card-text{flex:1 1 0!important;min-height:0!important;overflow-y:auto!important;padding:8px 4px!important}',
+ '.densuke-card-text{flex:1 1 0!important;min-height:0!important;max-height:33.333%!important;overflow-y:scroll!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-width:thin!important;scrollbar-color:#aeb8c0 #14191e!important;padding:8px 10px!important;border-top:1px solid #49535b!important}',
  '.densuke-card-text h3{margin:4px 0 6px!important}',
  '.densuke-card-text p{margin:0!important}'
  ].join('');
