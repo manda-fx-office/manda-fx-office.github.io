@@ -156,11 +156,31 @@ function transplantSavedPostWindow(d){
   }catch(e){console.error('saved post window',e)}
  });
 }
+// Reuse the approved TOP COMMUNITY post-window layout for the six Densuke category windows.
+// The original Densuke V1 file is never modified.
+function transplantCommunityWindowToDensuke(d){
+ if(d.getElementById('densuke-community-window-style'))return;
+ var style=d.createElement('style');
+ style.id='densuke-community-window-style';
+ style.textContent=[
+ '.indicator-window{height:calc(100dvh - 115px)!important;min-height:460px!important;max-height:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;border:1px solid #444c52!important;border-radius:14px!important;background:#090d16!important}',
+ '.indicator-window[hidden]{display:none!important}',
+ '.indicator-page{display:flex!important;flex-direction:column!important;flex:1 1 auto!important;min-height:0!important;height:100%!important;overflow:hidden!important;padding:12px!important}',
+ '.indicator-page>.page-label,.indicator-page>h2,.indicator-page>.page-intro{flex:0 0 auto!important}',
+ '.indicator-page>.scroll-test-cards{display:block!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scroll-snap-type:y proximity!important;padding:4px 8px!important}',
+ '.indicator-page>.scroll-test-cards>.card{min-height:calc(100% - 16px)!important;margin:8px 0!important;scroll-snap-align:start!important}',
+ '.indicator-page>.indicator-page-nav{position:relative!important;bottom:auto!important;flex:0 0 auto!important;margin:8px 0 0!important;padding:8px 2px!important}',
+ '.indicator-page>.card{flex:0 0 auto!important;max-height:150px!important;overflow-y:auto!important}',
+ '@media(max-width:760px){.indicator-page{padding:10px!important}.indicator-page>.scroll-test-cards>.card{min-height:calc(100% - 12px)!important}}'
+ ].join('');
+ d.head.appendChild(style);
+}
 function repair(){
  try{
   var d=frame.contentDocument;if(!d)return;
   bindDocument(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_saved_top_20261105_ここに戻るV2.html')transplantSavedPostWindow(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='伝助のインジケータ_ここに戻る_V1.html')transplantCommunityWindowToDensuke(d);
   var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
   // Mount the completed FX entrance page behind the approved TOP's first entry.
   // This changes only the test controller's live DOM; no saved HTML file is edited.
