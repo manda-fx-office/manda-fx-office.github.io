@@ -147,7 +147,7 @@ body{padding-top:88px}
     /* Use the existing tablet-only V29 wrapper. It applies the tablet navigation
        corrections (including the four-button TOP) without changing shared pages. */
     var tabletTop="/android_tablet_%E6%89%BF%E8%AA%8DTOP_V1_COMMUNITY_V2_%E7%B5%B1%E5%90%88%E4%BF%9D%E5%AD%98%E7%89%88_20261113.html?from=admin-qa-v1-test";
-    document.querySelectorAll('.mobile-taskbar a, .topbar a[aria-label="TOP"]').forEach(function(a){
+    document.querySelectorAll('.mobile-taskbar a, .topbar .brand-logo').forEach(function(a){
       a.setAttribute("href",tabletTop);
       a.setAttribute("target","_top");
     });
