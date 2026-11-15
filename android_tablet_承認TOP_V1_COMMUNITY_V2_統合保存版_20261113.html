@@ -197,6 +197,27 @@ function transplantCommunityWindowToDensuke(d){
   visual.textContent='画像表示エリア';
   card.appendChild(visual);card.appendChild(content);
  });
+ // Scroll verification only: ten test lines in ACCESSORY virtual card 1.
+ var testCard=d.querySelector('#indicator-window-1 .scroll-test-card');
+ if(testCard){
+  var testParagraph=testCard.querySelector('.densuke-card-text p');
+  if(testParagraph){
+   testParagraph.textContent=[
+    '【スクロール確認用テスト文章】',
+    '01　アクセサリーの仮想カード①です。',
+    '02　文章窓の上部から読み始めます。',
+    '03　指で文章部分を上下に動かしてください。',
+    '04　画像表示エリアはそのまま維持します。',
+    '05　文章だけがスクロールするか確認します。',
+    '06　カード全体の表示位置は変わりません。',
+    '07　長い説明文でも読めるか確認します。',
+    '08　文章窓の下端まで移動してください。',
+    '09　上方向にも戻れるか確認してください。',
+    '10　ここがテスト文章の最終行です。'
+   ].join('\\n');
+   testParagraph.style.whiteSpace='pre-line';
+  }
+ }
  var ratio=d.createElement('style');ratio.id='densuke-two-to-one-layout';
  ratio.textContent=[
  '.indicator-page>.scroll-test-cards>.card[data-two-to-one="yes"]{display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:10px!important;box-sizing:border-box!important}',
