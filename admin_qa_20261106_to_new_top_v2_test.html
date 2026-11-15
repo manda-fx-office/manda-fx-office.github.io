@@ -90,6 +90,11 @@ body{padding-top:88px}
 @media(min-width:651px){.qr-page-bottom{display:none!important}}
 /* Tablet-only: reveal the existing Android/iPhone QR section at the page bottom. */
 html.tablet-qa-qr .qr-page-bottom{display:block!important}
+html.tablet-qa-qr .qa-densuke-outside{max-width:760px;margin:26px auto 12px;text-align:center}
+html.tablet-qa-qr .qa-densuke-outside a{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 28px;border:1px solid #899098;border-radius:12px;background:linear-gradient(#4a5156,#171a1d);color:#fff;text-decoration:none;font-size:18px;font-weight:700}
+html.tablet-qa-qr .qr-page-bottom{margin-top:12px}
+html.tablet-qa-qr .qa-signature-below-qr{text-align:center;margin:20px auto 34px}
+
 
 
 </style>
@@ -149,6 +154,23 @@ html.tablet-qa-qr .qr-page-bottom{display:block!important}
   var isTablet=isAndroid&&(!isMobileUA||Math.min(w,h)>=600);
   if(isTablet){
     document.documentElement.classList.add('tablet-qa-qr');
+    /* Tablet-only: position the Densuke button OUTSIDE and above the large QR panel,
+       and move the existing site signature OUTSIDE and below that panel. */
+    var qrPanel=document.querySelector('.qr-access.qr-page-bottom');
+    var signature=document.querySelector('.footer');
+    if(qrPanel){
+      var densukeWrap=document.createElement('div');
+      densukeWrap.className='qa-densuke-outside';
+      var densukeLink=document.createElement('a');
+      densukeLink.href='/伝助のインジケータ_ここに戻る_V1.html';
+      densukeLink.textContent='伝助のインジケータ';
+      densukeWrap.appendChild(densukeLink);
+      qrPanel.parentNode.insertBefore(densukeWrap,qrPanel);
+      if(signature){
+        qrPanel.parentNode.insertBefore(signature,qrPanel.nextSibling);
+        signature.classList.add('qa-signature-below-qr');
+      }
+    }
     /* Use the existing tablet-only V29 wrapper. It applies the tablet navigation
        corrections (including the four-button TOP) without changing shared pages. */
     var tabletTop="/android_tablet_%E6%89%BF%E8%AA%8DTOP_V1_COMMUNITY_V2_%E7%B5%B1%E5%90%88%E4%BF%9D%E5%AD%98%E7%89%88_20261113.html?from=admin-qa-v1-test";
