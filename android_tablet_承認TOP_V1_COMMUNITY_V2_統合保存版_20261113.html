@@ -19,7 +19,7 @@ var routes={
  'android_tablet_home_v6_preview_direct_V2_20261105.html':'home',
  'project.html':'project','android_tablet_project_saved.html':'project','fx.html':'home','android_tablet_home_v6_preview_direct_V2_20261105.html':'home',
  'community.html':'community','COMMUNITY_ここに戻るV2_20261112.html':'community','product_tradesystem.html':'system','android_tablet_tradesystem_5cards_return_fx_test_20261110.html':'system','board.html':'board',
- 'login.html':'login','admin_qa.html':'qa','fx_companies.html':'broker',
+ 'login.html':'login','admin_qa.html':'qa','preview_admin_qa_20261106.html':'qa','admin_qa_20261106_to_new_top_v2_test.html':'qa','fx_companies.html':'broker',
  '伝助のインジケータ_ここに戻る_V1.html':'project',
  'android_tablet_saved_top_20261105_ここに戻るV2.html':'top',
  'android_tablet_home_v6_preview_direct_V2_20261105.html':'home'
@@ -30,7 +30,7 @@ function fromHref(href){
   var u=new URL(href,frame.contentWindow.location.href);
   if(u.origin!==location.origin && u.hostname!=='manda-fx-office.github.io')return null;
   var name=decodeURIComponent(u.pathname.split('/').pop());
-  var type=routes[name]||null;
+  var type=routes[name]||(/^admin_qa(?:_[^/]*)?\.html$/i.test(name)?'qa':null);
   if(!type)return null;
   return {type:type,hash:u.hash};
  }catch(e){return null;}
