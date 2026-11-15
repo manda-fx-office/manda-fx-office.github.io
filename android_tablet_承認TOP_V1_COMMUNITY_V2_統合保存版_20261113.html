@@ -170,10 +170,21 @@ function transplantCommunityWindowToDensuke(d){
  '.indicator-page>.scroll-test-cards{display:block!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scroll-snap-type:y proximity!important;padding:4px 8px!important}',
  '.indicator-page>.scroll-test-cards>.card{min-height:calc(100% - 16px)!important;margin:8px 0!important;scroll-snap-align:start!important}',
  '.indicator-page>.indicator-page-nav{position:relative!important;bottom:auto!important;flex:0 0 auto!important;margin:8px 0 0!important;padding:8px 2px!important}',
- '.indicator-page>.card{flex:0 0 auto!important;max-height:150px!important;overflow-y:auto!important}',
+ '.indicator-page>.card{display:none!important}',
  '@media(max-width:760px){.indicator-page{padding:10px!important}.indicator-page>.scroll-test-cards>.card{min-height:calc(100% - 12px)!important}}'
  ].join('');
  d.head.appendChild(style);
+ // On each category destination, place ALL existing description cards
+ // inside its ONE scroll window, ahead of the existing test cards.
+ d.querySelectorAll('.indicator-window .indicator-page').forEach(function(page){
+  var scroll=page.querySelector(':scope > .scroll-test-cards');
+  if(!scroll)return;
+  var originals=Array.from(page.children).filter(function(el){
+   return el.matches && el.matches('article.card');
+  });
+  originals.forEach(function(card){scroll.insertBefore(card,scroll.firstChild);});
+  scroll.scrollTop=0;
+ });
  // Keep all saved cards and wording intact. Reserve a 2:1 image/text layout
  // without inventing images where the original saved V1 contains none.
  d.querySelectorAll('.indicator-window .scroll-test-cards > .card').forEach(function(card){
