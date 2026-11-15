@@ -241,9 +241,9 @@ function transplantDensukeWindowToSystem(d){
  '.card-window{height:calc(100dvh - 225px)!important;min-height:420px!important;max-height:850px!important;overflow:hidden!important;padding:8px!important;border:1px solid #444c52!important;border-radius:12px!important;background:#090d16!important}',
  '.card-window .cards{display:block!important;height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:y mandatory!important;scrollbar-width:thin!important;scrollbar-color:#8998a5 #14191e!important}',
  '.card-window .cards>.card{display:flex!important;flex-direction:column!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;margin:0!important;padding:10px!important;box-sizing:border-box!important;overflow:hidden!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
- '.card-window .cards>.card .art{display:flex!important;flex:2 1 0!important;height:auto!important;min-height:0!important;width:100%!important;border:1px dashed #536474!important;background:#142237!important}',
+ '.card-window .cards>.card .art{display:flex!important;flex:2 1 0!important;align-self:stretch!important;box-sizing:border-box!important;height:auto!important;min-height:0!important;width:100%!important;border:1px dashed #536474!important;background:#142237!important}',
  '.card-window .cards>.card .art svg{width:100%!important;height:100%!important;object-fit:contain!important}',
- '.card-window .cards>.card .system-card-text{display:block!important;flex:1 1 0!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important}',
+ '.card-window .cards>.card .system-card-text{display:block!important;flex:1 1 0!important;align-self:stretch!important;width:100%!important;box-sizing:border-box!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important}',
  '.system-window-nav{display:flex!important;justify-content:space-between!important;gap:12px!important;padding:10px 2px 2px!important}',
  '.system-window-nav button{min-width:96px!important;padding:10px 16px!important;border:1px solid #8998a6!important;border-radius:9px!important;background:linear-gradient(#46515c,#171e26)!important;color:#fff!important;font-weight:700!important}',
  '.card-window .cards>.card p{font-size:14px!important;line-height:1.7!important}'
@@ -255,6 +255,27 @@ function transplantDensukeWindowToSystem(d){
   var body=art&&art.nextElementSibling;
   if(body)body.classList.add('system-card-text');
  });
+ // Test only: ten readable lines in the first (OHLC) card's text window.
+ var firstText=cards.querySelector(':scope > .card:first-child .system-card-text');
+ if(firstText && !firstText.querySelector('.system-scroll-test')){
+  var sample=d.createElement('div');
+  sample.className='system-scroll-test';
+  sample.style.cssText='white-space:pre-line;line-height:1.85;font-size:14px;margin-top:10px;color:#e1e8ee';
+  sample.textContent=[
+   '【文章スクロール確認用】',
+   '01　OHLC分析の仮想テスト文章です。',
+   '02　この文章枠だけを指で上下に動かします。',
+   '03　画像枠は動かさず、そのまま表示します。',
+   '04　文章が下に続く場合の動作を確認します。',
+   '05　始値・高値・安値・終値を確認します。',
+   '06　ローソク足の方向を読み取ります。',
+   '07　値動きの強弱を比較します。',
+   '08　文章窓の下端までスクロールしてください。',
+   '09　上方向にも戻れるか確認してください。',
+   '10　ここがテスト文章の最終行です。'
+  ].join('\\n');
+  firstText.appendChild(sample);
+ }
  var nav=d.createElement('nav');nav.className='system-window-nav';nav.setAttribute('aria-label','システムカード送り');
  var prev=d.createElement('button'),next=d.createElement('button');
  prev.type='button';prev.textContent='‹ 前へ';next.type='button';next.textContent='次へ ›';
