@@ -231,12 +231,51 @@ function transplantCommunityWindowToDensuke(d){
  ].join('');
  d.head.appendChild(ratio);
 }
+function transplantDensukeWindowToSystem(d){
+ if(d.getElementById('system-densuke-window-style'))return;
+ var panel=d.querySelector('.panel'), windowEl=d.querySelector('.card-window'), cards=d.querySelector('.card-window .cards');
+ if(!panel||!windowEl||!cards)return;
+ var style=d.createElement('style');style.id='system-densuke-window-style';
+ style.textContent=[
+ '.panel{display:flex!important;flex-direction:column!important;min-height:0!important;background:#090d16!important}',
+ '.card-window{height:calc(100dvh - 225px)!important;min-height:420px!important;max-height:850px!important;overflow:hidden!important;padding:8px!important;border:1px solid #444c52!important;border-radius:12px!important;background:#090d16!important}',
+ '.card-window .cards{display:block!important;height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:y mandatory!important;scrollbar-width:thin!important;scrollbar-color:#8998a5 #14191e!important}',
+ '.card-window .cards>.card{display:flex!important;flex-direction:column!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;margin:0!important;padding:10px!important;box-sizing:border-box!important;overflow:hidden!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+ '.card-window .cards>.card .art{display:flex!important;flex:2 1 0!important;height:auto!important;min-height:0!important;width:100%!important;border:1px dashed #536474!important;background:#142237!important}',
+ '.card-window .cards>.card .art svg{width:100%!important;height:100%!important;object-fit:contain!important}',
+ '.card-window .cards>.card .system-card-text{display:block!important;flex:1 1 0!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important}',
+ '.system-window-nav{display:flex!important;justify-content:space-between!important;gap:12px!important;padding:10px 2px 2px!important}',
+ '.system-window-nav button{min-width:96px!important;padding:10px 16px!important;border:1px solid #8998a6!important;border-radius:9px!important;background:linear-gradient(#46515c,#171e26)!important;color:#fff!important;font-weight:700!important}',
+ '.card-window .cards>.card p{font-size:14px!important;line-height:1.7!important}'
+ ].join('');
+ d.head.appendChild(style);
+ Array.from(cards.children).forEach(function(card){
+  if(!card.matches('.card'))return;
+  var art=card.querySelector(':scope > .art');
+  var body=art&&art.nextElementSibling;
+  if(body)body.classList.add('system-card-text');
+ });
+ var nav=d.createElement('nav');nav.className='system-window-nav';nav.setAttribute('aria-label','システムカード送り');
+ var prev=d.createElement('button'),next=d.createElement('button');
+ prev.type='button';prev.textContent='‹ 前へ';next.type='button';next.textContent='次へ ›';
+ nav.appendChild(prev);nav.appendChild(next);panel.appendChild(nav);
+ var items=Array.from(cards.querySelectorAll(':scope > .card'));
+ function move(delta){
+  var top=cards.scrollTop, h=cards.clientHeight||1;
+  var idx=Math.round(top/h);
+  var target=Math.max(0,Math.min(items.length-1,idx+delta));
+  cards.scrollTo({top:items[target].offsetTop-items[0].offsetTop,behavior:'smooth'});
+ }
+ prev.addEventListener('click',function(){move(-1)});
+ next.addEventListener('click',function(){move(1)});
+}
 function repair(){
  try{
   var d=frame.contentDocument;if(!d)return;
   bindDocument(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_saved_top_20261105_ここに戻るV2.html')transplantSavedPostWindow(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='伝助のインジケータ_ここに戻る_V1.html')transplantCommunityWindowToDensuke(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_tradesystem_5cards_return_fx_test_20261110.html')transplantDensukeWindowToSystem(d);
   var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
   // Mount the completed FX entrance page behind the approved TOP's first entry.
   // This changes only the test controller's live DOM; no saved HTML file is edited.
