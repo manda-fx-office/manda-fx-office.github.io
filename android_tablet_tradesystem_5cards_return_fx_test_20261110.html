@@ -18,6 +18,38 @@ h1{font-size:clamp(25px,4vw,38px);letter-spacing:2px;line-height:1.15;margin:13p
 .home{text-align:center;margin:24px auto 16px}.home a{display:inline-block;min-width:190px;padding:12px 25px;border:1px solid #8998a6;border-radius:9px;background:linear-gradient(#46515c,#171e26);color:#fff;font-weight:700;text-decoration:none}
 footer{text-align:center;border-top:1px solid #202833;padding:18px 10px;color:#75818c;font-size:11px}
 @media(min-width:760px){.cards{grid-template-columns:1fr 1fr}.card{grid-template-columns:1fr;align-items:start}.art{height:140px}.card h3{font-size:16px}}
+/* Tablet test: transplant only the Densuke V2 scrolling window.
+   Preserve all five original system cards, SVG images, descriptions and links. */
+.card-window{
+ height:calc(100dvh - 180px);min-height:460px;max-height:900px;
+ overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+ -webkit-overflow-scrolling:touch;touch-action:pan-y;
+ scroll-snap-type:y proximity;padding:8px;
+ border:1px solid #444c52;border-radius:14px;background:#090d16;
+ scrollbar-width:thin;scrollbar-color:#8998a5 #14191e;
+}
+.cards{display:block;height:100%}
+.card{
+ display:flex;flex-direction:column;align-items:stretch;
+ height:calc(100% - 12px);min-height:0;overflow:hidden;
+ margin:0 0 12px;padding:10px;gap:8px;
+ scroll-snap-align:start;box-sizing:border-box;
+}
+.card .art{
+ flex:2 1 0;height:auto;min-height:0;width:100%;
+ border:1px dashed #3c464e;border-radius:8px;
+}
+.card .art svg{width:100%;height:100%;object-fit:contain}
+.card > div:not(.art){
+ flex:1 1 0;height:33.333%;min-height:0;max-height:33.333%;
+ overflow-y:auto;overflow-x:hidden;touch-action:pan-y;
+ -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+ scrollbar-width:thin;scrollbar-color:#aeb8c0 #14191e;
+ padding:12px;border:1px solid #76818b;border-radius:8px;background:#121b27;
+}
+.card-window::-webkit-scrollbar,.card > div:not(.art)::-webkit-scrollbar{width:9px}
+.card-window::-webkit-scrollbar-thumb,.card > div:not(.art)::-webkit-scrollbar-thumb{background:#8998a5;border-radius:6px}
+@media(min-width:760px){.cards{display:block}.card{display:flex;flex-direction:column}.art{height:auto}}
 </style></head><body>
 <header class="topbar" style="display:none"><div class="brand">TRANSITION SYSTEM<small>by Manda FX Office</small></div></header>
 <main><span class="tag">TRADE SYSTEM</span><h1>TRANSITION TRADE SYSTEM</h1>
