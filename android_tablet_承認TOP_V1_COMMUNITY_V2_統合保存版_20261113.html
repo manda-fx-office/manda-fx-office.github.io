@@ -290,6 +290,63 @@ function transplantDensukeWindowToSystem(d){
  prev.addEventListener('click',function(){move(-1)});
  next.addEventListener('click',function(){move(1)});
 }
+function transplantSystemWindowToBoard(d){
+ if(d.getElementById('board-system-window-style'))return;
+ var list=d.querySelector('.post-list');
+ if(!list)return;
+ var section=list.closest('section.card');
+ if(!section)return;
+ var style=d.createElement('style');style.id='board-system-window-style';
+ style.textContent=[
+ '.board-post-window{height:calc(100dvh - 225px)!important;min-height:420px!important;max-height:850px!important;overflow:hidden!important;padding:8px!important;border:1px solid #444c52!important;border-radius:12px!important;background:#090d16!important}',
+ '.board-post-window .post-list{display:block!important;height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:y mandatory!important;scrollbar-width:thin!important;scrollbar-color:#8998a5 #14191e!important}',
+ '.board-post-window .post-list>.post{display:flex!important;flex-direction:column!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;margin:0!important;padding:10px!important;box-sizing:border-box!important;overflow:hidden!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+ '.board-post-window .board-post-image{display:flex!important;flex:2 1 0!important;align-self:stretch!important;box-sizing:border-box!important;min-height:0!important;width:100%!important;align-items:center!important;justify-content:center!important;border:1px dashed #536474!important;border-radius:8px!important;background:#142237!important;color:#91a5b8!important;font-size:14px!important}',
+ '.board-post-window .board-post-text{display:block!important;flex:1 1 0!important;align-self:stretch!important;width:100%!important;box-sizing:border-box!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important}',
+ '.board-window-nav{display:flex!important;justify-content:space-between!important;gap:12px!important;padding:10px 2px 2px!important}',
+ '.board-window-nav button{min-width:96px!important;padding:10px 16px!important;border:1px solid #8998a6!important;border-radius:9px!important;background:linear-gradient(#46515c,#171e26)!important;color:#fff!important;font-weight:700!important}'
+ ].join('');
+ d.head.appendChild(style);
+ var outer=d.createElement('div');outer.className='board-post-window';
+ list.parentNode.insertBefore(outer,list);outer.appendChild(list);
+ var posts=Array.from(list.querySelectorAll(':scope > .post'));
+ posts.forEach(function(post){
+  var art=d.createElement('div');art.className='board-post-image';art.textContent='画像表示エリア（画像未登録）';
+  var body=d.createElement('div');body.className='board-post-text';
+  while(post.firstChild)body.appendChild(post.firstChild);
+  post.appendChild(art);post.appendChild(body);
+ });
+ if(posts[0]){
+  var body=posts[0].querySelector('.board-post-text');
+  var test=d.createElement('div');test.className='board-scroll-test';
+  test.style.cssText='white-space:pre-line;line-height:1.85;font-size:14px;margin-top:10px;color:#e1e8ee';
+  test.textContent=[
+   '【BOARD 文章スクロール確認用】',
+   '01　最近の投稿窓のテスト文章です。',
+   '02　この下部の文章枠を上下に動かしてください。',
+   '03　上部の画像表示エリアは固定します。',
+   '04　文章だけがスクロールするか確認します。',
+   '05　既存の投稿内容はそのまま残します。',
+   '06　長い文章の読みやすさを確認します。',
+   '07　文章枠の幅は画像枠と同じです。',
+   '08　下端までスクロールしてください。',
+   '09　上方向にも戻れるか確認してください。',
+   '10　ここがテスト文章の最終行です。'
+  ].join('\\n');
+  body.appendChild(test);
+ }
+ var nav=d.createElement('nav');nav.className='board-window-nav';nav.setAttribute('aria-label','最近の投稿送り');
+ var prev=d.createElement('button'),next=d.createElement('button');
+ prev.type='button';prev.textContent='‹ 前へ';next.type='button';next.textContent='次へ ›';
+ nav.appendChild(prev);nav.appendChild(next);outer.insertAdjacentElement('afterend',nav);
+ function move(delta){
+  var top=list.scrollTop,h=list.clientHeight||1;
+  var idx=Math.round(top/h),target=Math.max(0,Math.min(posts.length-1,idx+delta));
+  list.scrollTo({top:posts[target].offsetTop-posts[0].offsetTop,behavior:'smooth'});
+ }
+ prev.addEventListener('click',function(){move(-1)});
+ next.addEventListener('click',function(){move(1)});
+}
 function repair(){
  try{
   var d=frame.contentDocument;if(!d)return;
@@ -297,6 +354,7 @@ function repair(){
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_saved_top_20261105_ここに戻るV2.html')transplantSavedPostWindow(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='伝助のインジケータ_ここに戻る_V1.html')transplantCommunityWindowToDensuke(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_tradesystem_5cards_return_fx_test_20261110.html')transplantDensukeWindowToSystem(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='board.html')transplantSystemWindowToBoard(d);
   var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
   // Mount the completed FX entrance page behind the approved TOP's first entry.
   // This changes only the test controller's live DOM; no saved HTML file is edited.
