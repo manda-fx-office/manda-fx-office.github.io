@@ -339,6 +339,16 @@ function transplantSystemWindowToBoard(d){
  var prev=d.createElement('button'),next=d.createElement('button');
  prev.type='button';prev.textContent='‹ 前へ';next.type='button';next.textContent='次へ ›';
  nav.appendChild(prev);nav.appendChild(next);outer.insertAdjacentElement('afterend',nav);
+ // Community button immediately below the recent-post window controls.
+ var communityRow=d.createElement('div');
+ communityRow.className='board-community-link';
+ communityRow.style.cssText='display:flex;justify-content:center;margin:20px auto 8px';
+ var communityLink=d.createElement('a');
+ communityLink.href=pages.community;
+ communityLink.textContent='コミュニティー';
+ communityLink.style.cssText='display:inline-flex;align-items:center;justify-content:center;min-width:210px;min-height:52px;padding:12px 25px;border:1px solid #8998a6;border-radius:9px;background:linear-gradient(#46515c,#171e26);color:#fff;font-size:16px;font-weight:700;text-decoration:none';
+ communityRow.appendChild(communityLink);
+ nav.insertAdjacentElement('afterend',communityRow);
  function move(delta){
   var top=list.scrollTop,h=list.clientHeight||1;
   var idx=Math.round(top/h),target=Math.max(0,Math.min(posts.length-1,idx+delta));
