@@ -197,6 +197,16 @@ function repair(){
     }
    });
   }
+  // Broker page only: replace the bottom FX entrance button with the saved Densuke page.
+  if(page==='fx_companies.html'){
+   d.querySelectorAll('.actions a').forEach(function(a){
+    if(/FXの入口/.test((a.textContent||'').trim())){
+     a.textContent='伝助のインジケータ';
+     a.setAttribute('href',pages.project);
+     a.removeAttribute('target');
+    }
+   });
+  }
   // Replace legacy internal destinations in the live tablet page before any click.
   // Keep the saved source files unchanged and preserve in-page anchors.
   d.querySelectorAll('a[href]').forEach(function(a){
