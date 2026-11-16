@@ -424,18 +424,26 @@ function transplantSystemWindowToBoard(d){
  next.addEventListener('click',function(){move(1)});
 }
 function transplantIntoCommunityPage(d){
- if(d.getElementById('community-preview'))return;
- var gallery=d.querySelector('section.card .gallery');if(!gallery)return;
- var card=gallery.closest('section.card');if(!card)return;
- var nav=d.getElementById('tablet-v4-nav');
- var wrapper=d.createElement('div');wrapper.id='community-preview';
+ if(d.getElementById('iphone-community-page-replaced'))return;
+ var gallery=d.querySelector('.gallery');
+ if(!gallery)return;
+ var card=gallery.closest('section.card')||gallery.parentElement;
+ var wrapper=d.createElement('section');
+ wrapper.id='community-preview';
+ wrapper.style.cssText='width:100%;height:calc(100dvh - 180px);min-height:490px;overflow:hidden;display:block;margin:0 auto';
  var slot=d.createElement('div');slot.className='community-window';
+ slot.style.cssText='height:100%;min-height:0;overflow:hidden';
  wrapper.appendChild(slot);
- wrapper.style.cssText='height:calc(100dvh - 170px);min-height:420px;width:100%;overflow:hidden';
- gallery.style.setProperty('display','none','important');
- if(nav)nav.style.setProperty('display','none','important');
- card.appendChild(wrapper);
+ // Replace the original gallery at its exact position, not append below it.
+ gallery.replaceWith(wrapper);
+ d.querySelectorAll('#tablet-v4-nav,#tablet-community-gallery-nav,#tablet-v4-status').forEach(function(n){n.style.setProperty('display','none','important')});
+ wrapper.id='iphone-community-page-replaced';
+ // The approved V2 transplant expects #community-preview.
+ wrapper.id='community-preview';
  transplantSavedPostWindow(d);
+ wrapper.id='iphone-community-page-replaced';
+ var nested=slot.querySelector('iframe');
+ if(nested)nested.style.cssText='width:100%;height:100%;min-height:0;border:0;display:block;background:#090d16';
 }
 function repair(){
  try{
