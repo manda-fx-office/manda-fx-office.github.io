@@ -1,0 +1,78 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>iPhone コミュニティー投稿窓移植テスト</title><style>html,body{margin:0;background:#090d12;color:white;font-family:system-ui,sans-serif}header{background:#050505;padding:16px 18px;border-bottom:1px solid #30363c}header a{color:#fff;text-decoration:none;font-weight:bold}h1{font-size:21px;margin:12px 16px}#community-preview{height:calc(100dvh - 180px);min-height:440px;padding:0 12px;box-sizing:border-box}.community-window{height:100%;overflow:hidden;border:1px solid #394452;border-radius:12px}footer{padding:14px;text-align:center}footer a{color:#b8d7f7}</style></head><body><header><a href="/TEST_iPhone_コミュニティーページ窓移植_20261116.html">TRANSITION SYSTEM</a></header><h1>コミュニティー</h1><section id="community-preview"><div class="community-window"></div></section><footer><a href="/TEST_iPhone_コミュニティーページ窓移植_20261116.html">TOPページへ戻る</a></footer><script>function transplantSavedPostWindow(d){
+ var section=d.getElementById('community-preview');
+ if(!section||section.dataset.postWindow==='yes')return;
+ var windowBox=section.querySelector('.community-window');
+ if(!windowBox)return;
+ section.dataset.postWindow='yes';
+ var nested=d.createElement('iframe');
+ nested.title='COMMUNITY保存版 投稿窓';
+ nested.src='/11_15main起動V1/COMMUNITY_ここに戻るV1_20261112.html';
+ nested.style.cssText='width:100%;height:calc(100vh - 110px);min-height:680px;border:0;display:block;background:#090d16';
+ windowBox.style.cssText='height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;padding:0!important;display:block!important';
+ windowBox.replaceChildren(nested);
+ nested.addEventListener('load',function(){
+  try{
+   var nd=nested.contentDocument;if(!nd)return;
+   var gallery=nd.querySelector('section.card .gallery');
+   var nav=nd.getElementById('tablet-v4-nav');
+   if(!gallery||!nav)return;
+   var card=gallery.closest('section.card');
+   Array.from(nd.body.children).forEach(function(el){if(el!==card.parentElement)el.style.setProperty('display','none','important')});
+   var main=card.parentElement;
+   Array.from(main.children).forEach(function(el){if(el!==card)el.style.setProperty('display','none','important')});
+   Array.from(card.children).forEach(function(el){if(el!==gallery&&el!==nav)el.style.setProperty('display','none','important')});
+   var st=nd.createElement('style');st.id='top-post-window-only';
+   st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}';
+   nd.head.appendChild(st);
+   // iPhone only: exact selectors verified against Library COMMUNITY saved V1.
+   // Native iOS scrolling, not synthetic swipe on a display:none card.
+   var fix=nd.createElement('style');fix.id='iphone-community-native-scroll';
+   fix.textContent=[
+    'html,body{overflow:hidden!important}',
+    'main.wrap>section.card:has(.gallery)>.gallery{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;scroll-snap-type:y mandatory!important;scroll-behavior:smooth!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;height:100%!important}',
+    '.gallery>article.post-card,.gallery>article.post-card.iphone-active{display:grid!important;position:relative!important;visibility:visible!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;box-sizing:border-box!important;overflow:hidden!important;padding:8px!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+    '.gallery>article.post-card>h3{grid-row:1!important;min-height:0!important;margin:0!important;font-size:16px!important;line-height:1.4!important}',
+    '.gallery>article.post-card>img{grid-row:2!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;object-fit:contain!important}',
+    '.gallery>article.post-card>.community-card-text,.gallery>article.post-card>.honnoji-original-text{grid-row:3!important;display:block!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;overscroll-behavior:contain!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;box-sizing:border-box!important;padding:12px!important;background:#080b10!important;border:1px solid #60738a!important;border-radius:8px!important;position:relative!important;transform:none!important;opacity:1!important}',
+    '#tablet-v4-nav{display:flex!important;justify-content:center!important;gap:12px!important}'
+   ].join('');
+   nd.head.appendChild(fix);
+   var posts=Array.from(gallery.querySelectorAll(':scope>article.post-card'));
+   if(posts.length){
+    nav.replaceChildren();
+    nav.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:10px 4px!important;flex:0 0 auto!important';
+    var prev=nd.createElement('button'),next=nd.createElement('button'),count=nd.createElement('span');
+    prev.type='button';prev.textContent='戻る';next.type='button';next.textContent='次へ';
+    count.setAttribute('aria-live','polite');count.style.cssText='color:white;font-size:16px;font-weight:bold;min-width:62px;text-align:center';
+    [prev,next].forEach(function(btn){btn.style.cssText='padding:10px 16px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700'});
+    nav.append(prev,count,next);
+    var current=0;
+    function update(i){
+      current=Math.max(0,Math.min(posts.length-1,i));
+      count.textContent=(current+1)+' / '+posts.length;
+      prev.disabled=current===0;next.disabled=current===posts.length-1;
+      prev.style.opacity=prev.disabled?'.45':'1';next.style.opacity=next.disabled?'.45':'1';
+    }
+    function jump(i){
+      update(i);
+      gallery.scrollTo({top:posts[current].offsetTop-posts[0].offsetTop,behavior:'smooth'});
+    }
+    prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();jump(current-1)});
+    next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();jump(current+1)});
+    var scrollTick=0;
+    gallery.addEventListener('scroll',function(){
+      if(scrollTick)return;
+      scrollTick=nd.defaultView.requestAnimationFrame(function(){
+        scrollTick=0;
+        var h=gallery.clientHeight;if(h>0)update(Math.round(gallery.scrollTop/h));
+      });
+    },{passive:true});
+    gallery.scrollTop=0;update(0);
+   }
+  }catch(e){console.error('saved post window',e)}
+ });
+}
+// Reuse the approved TOP COMMUNITY post-window layout for the six Densuke category windows.
+// The original Densuke V1 file is never modified.
+
+transplantSavedPostWindow(document);</script></body></html>
