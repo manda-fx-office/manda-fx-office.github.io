@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>iPhone コミュニティーナビ修正テスト | TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}iframe{display:block;width:100%;height:100%;border:0;visibility:visible}#tablet-loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#050505;color:#b7d9ee;font:16px sans-serif;z-index:9}#tablet-loading[hidden]{display:none}</style></head><body>
+<div id="tablet-loading" role="status" aria-live="polite">TRANSITION SYSTEM を読み込んでいます…</div>
+<iframe id="tablet-page" title="TRANSITION SYSTEM" src="/android_tablet_saved_top_20261105_ここに戻るV2.html?tablet=approved-top-v1&rev=20261116d" allow="autoplay"></iframe>
+<script>
+(function(){
+'use strict';
+var frame=document.getElementById('tablet-page');
+var loading=document.getElementById('tablet-loading');
+var pages={
+ top:'/android_tablet_saved_top_20261105_ここに戻るV2.html?rev=20261116d',
+ home:'/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html',
+ project:'/iPhone伝助のインジケータここに戻る保存版V2.html',
+ community:'/iPhoneコミュニティーページ窓ここに戻る保存版V2.html',
+ system:'/11_15main起動V1/android_tablet_tradesystem_5cards_return_fx_test_20261110.html',
+ board:'/11_15main起動V1/board.html',login:'/11_15main起動V1/login.html',qa:'/11_15main起動V1/admin_qa_20261106_to_new_top_v2_test.html',broker:'/11_15main起動V1/fx_companies.html'
+};
+var routes={
+ 'index.html':'top','android_start_v2.html':'top','android_tablet_top_保存版_20261103.html':'top',
+ 'home.html':'home','android_tablet_home.html':'home','android_tablet_HOME_test_20261106.html':'home',
+ 'android_tablet_home_v6_preview_direct_V2_20261105.html':'home',
+ 'project.html':'project','android_tablet_project_saved.html':'project','fx.html':'home','android_tablet_home_v6_preview_direct_V2_20261105.html':'home',
+ 'community.html':'community','COMMUNITY_ここに戻るV2_20261112.html':'community','product_tradesystem.html':'system','android_tablet_tradesystem_5cards_return_fx_test_20261110.html':'system','board.html':'board',
+ 'login.html':'login','admin_qa.html':'qa','preview_admin_qa_20261106.html':'qa','admin_qa_20261106_to_new_top_v2_test.html':'qa','fx_companies.html':'broker',
+ '伝助のインジケータ_ここに戻る_V1.html':'project',
+ 'android_tablet_saved_top_20261105_ここに戻るV2.html':'top',
+ 'android_tablet_home_v6_preview_direct_V2_20261105.html':'home'
+};
+function fromHref(href){
+ if(!href||href.charAt(0)==='#'||/^(javascript:|mailto:|tel:)/i.test(href))return null;
+ try{
+  var u=new URL(href,frame.contentWindow.location.href);
+  if(u.origin!==location.origin && u.hostname!=='manda-fx-office.github.io')return null;
+  var name=decodeURIComponent(u.pathname.split('/').pop());
+  var type=routes[name]||(/^admin_qa(?:_[^/]*)?\.html$/i.test(name)?'qa':null);
+  if(!type)return null;
+  return {type:type,hash:u.hash};
+ }catch(e){return null;}
+}
+function fromLabel(el){
+ var t=((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')).replace(/\s+/g,' ').trim();
+ if(/コミュニティ|コミニティ/i.test(t))return 'community';
+ if(/伝助のインジケータ/i.test(t))return 'project';
+ if(/FXの入口|HOMEページに戻る|HOMEに戻る|\bHOME\b|ホームページに戻る|ホームページへ/i.test(t))return 'home';
+ if(/ページトップに戻る|前へ|次へ|コピー|再生|停止/i.test(t))return null;
+ if(/管理人Q\s*&\s*A/i.test(t))return 'qa';
+ if(/証券会社|FX会社紹介|FX会社を見る|MT4対応 FX会社/i.test(t))return 'broker';
+ if(/\bBOARD\b/i.test(t))return 'board';
+ if(/\bLOGIN\b|ログイン/i.test(t))return 'login';
+ if(/\bSYSTEM\b|TRADE SYSTEM/i.test(t))return 'system';
+ return null;
+}
+var topFrame=frame;
+var detailFrame=null;
+function go(type,hash){
+ var target=pages[type];if(!target)return;
+ if(hash)target+=hash;
+ if(type==='top'){
+  if(detailFrame)detailFrame.style.display='none';
+  frame=topFrame;
+  topFrame.style.display='block';
+  topFrame.style.visibility='visible';
+  if(loading)loading.hidden=true;
+ }else{
+  if(!detailFrame){
+   detailFrame=document.createElement('iframe');
+   detailFrame.title='TRANSITION SYSTEM ページ';
+   detailFrame.setAttribute('allow','autoplay');
+   detailFrame.style.cssText='display:none;width:100%;height:100%;border:0;visibility:hidden';
+   topFrame.parentNode.insertBefore(detailFrame,topFrame.nextSibling);
+   detailFrame.addEventListener('load',function(){
+    if(frame===detailFrame)repair();
+   });
+  }
+  detailFrame.style.display='block';
+  detailFrame.style.visibility='hidden';
+  frame=detailFrame;
+  detailFrame.src=target;
+ }
+ try{history.replaceState(null,'',location.pathname+'?page='+encodeURIComponent(type))}catch(e){}
+}
+function isLogo(el){
+ var a=el.closest&&el.closest('a,button,[role="button"]');
+ if(!a)return false;
+ var bar=a.closest('.topbar,.taskbar,.mobile-taskbar,header,nav,[class*="taskbar"],[class*="topbar"]');
+ var logo=a.matches('.brand-logo,[class*="logo"]')||!!a.querySelector('img.logo,.brand-logo,img[class*="logo"],svg[class*="logo"]');
+ var title=(a.getAttribute('aria-label')||'')+' '+(a.getAttribute('title')||'');
+ return !!bar&&(logo||(/TOPページ|トップページ/.test(title)&&!!a.querySelector('img,svg')));
+}
+function bindDocument(d){
+ if(!d||d.__tabletApprovedRoutes)return;
+ d.__tabletApprovedRoutes=true;
+ d.addEventListener('click',function(e){
+  var el=e.target&&e.target.closest&&e.target.closest('a,button,[role="button"]');
+  if(!el)return;
+  // On the TOP and HOME pages, use the actual link destination, not
+  // ambiguous button text. Keep in-page anchors and external links intact.
+  try{
+   var active=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
+   var raw=el.getAttribute('href')||'';
+   if(active==='android_tablet_saved_top_20261105_ここに戻るV2.html' ||
+      active==='android_tablet_home_v6_preview_direct_V2_20261105.html'){
+    if(raw && raw.charAt(0)!=='#'){
+     var target=fromHref(raw);
+     if(!target && /^https:\/\/manda-fx-office\.github\.io\/?(?:[?#].*)?$/.test(raw))
+      target={type:'top',hash:''};
+     if(target){
+      e.preventDefault();e.stopImmediatePropagation();
+      go(target.type,target.hash);
+      return;
+     }
+    }
+   }
+  }catch(ignore){}
+  // Saved Densuke footer/logo: navigate the parent controller itself,
+  // not the old standalone links or a nested iframe destination.
+  try{
+   var current=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
+   if(current==='伝助のインジケータ_ここに戻る_V1.html'){
+    var txt=(el.textContent||'').replace(/\\s+/g,' ').trim();
+    var type=el.closest('header.topbar')&&el.closest('a.brand-logo')?'top':(/FXの入口|HOMEに戻る/.test(txt)?'home':null);
+    if(type){
+     e.preventDefault();e.stopImmediatePropagation();
+     go(type,'');
+     return;
+    }
+   }
+  }catch(ignore){}
+  var href=el.getAttribute('href')||'';
+  if(href.charAt(0)==='#')return;
+  var dest=null;
+  if(isLogo(el))dest={type:'top',hash:''};
+  else{
+   var label=fromLabel(el);
+   if(label)dest={type:label,hash:''};
+   else dest=fromHref(href);
+  }
+  if(!dest)return;
+  e.preventDefault();e.stopImmediatePropagation();
+  go(dest.type,dest.hash);
+ },true);
+ function bindChildren(){
+  d.querySelectorAll('iframe').forEach(function(f){
+   try{bindDocument(f.contentDocument)}catch(e){}
+   if(!f.__tabletApprovedLoad){f.__tabletApprovedLoad=true;f.addEventListener('load',function(){try{bindDocument(f.contentDocument)}catch(e){}})}
+  });
+ }
+ bindChildren();
+ try{new MutationObserver(bindChildren).observe(d.documentElement,{childList:true,subtree:true})}catch(e){}
+}
+function transplantSavedPostWindow(d){
+ var section=d.getElementById('community-preview');
+ if(!section||section.dataset.postWindow==='yes')return;
+ var windowBox=section.querySelector('.community-window');
+ if(!windowBox)return;
+ section.dataset.postWindow='yes';
+ var nested=d.createElement('iframe');
+ nested.title='COMMUNITY保存版 投稿窓';
+ nested.src='/11_15main起動V1/COMMUNITY_ここに戻るV1_20261112.html';
+ nested.style.cssText='width:100%;height:calc(100vh - 110px);min-height:680px;border:0;display:block;background:#090d16';
+ windowBox.style.cssText='height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;padding:0!important;display:block!important';
+ windowBox.replaceChildren(nested);
+ nested.addEventListener('load',function(){
+  try{
+   var nd=nested.contentDocument;if(!nd)return;
+   var gallery=nd.querySelector('section.card .gallery');
+   var nav=nd.getElementById('tablet-v4-nav');
+   if(!gallery||!nav)return;
+   var card=gallery.closest('section.card');
+   Array.from(nd.body.children).forEach(function(el){if(el!==card.parentElement)el.style.setProperty('display','none','important')});
+   var main=card.parentElement;
+   Array.from(main.children).forEach(function(el){if(el!==card)el.style.setProperty('display','none','important')});
+   Array.from(card.children).forEach(function(el){if(el!==gallery&&el!==nav)el.style.setProperty('display','none','important')});
+   var st=nd.createElement('style');st.id='top-post-window-only';
+   st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}';
+   nd.head.appendChild(st);
+   // iPhone only: exact selectors verified against Library COMMUNITY saved V1.
+   // Native iOS scrolling, not synthetic swipe on a display:none card.
+   var fix=nd.createElement('style');fix.id='iphone-community-native-scroll';
+   fix.textContent=[
+    'html,body{overflow:hidden!important}',
+    'main.wrap>section.card:has(.gallery)>.gallery{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;scroll-snap-type:y mandatory!important;scroll-behavior:smooth!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;height:100%!important}',
+    '.gallery>article.post-card,.gallery>article.post-card.iphone-active{display:grid!important;position:relative!important;visibility:visible!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;box-sizing:border-box!important;overflow:hidden!important;padding:8px!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+    '.gallery>article.post-card>h3{grid-row:1!important;min-height:0!important;margin:0!important;font-size:16px!important;line-height:1.4!important}',
+    '.gallery>article.post-card>img{grid-row:2!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;object-fit:contain!important}',
+    '.gallery>article.post-card>.community-card-text,.gallery>article.post-card>.honnoji-original-text{grid-row:3!important;display:block!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;overscroll-behavior:contain!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;box-sizing:border-box!important;padding:12px!important;background:#080b10!important;border:1px solid #60738a!important;border-radius:8px!important;position:relative!important;transform:none!important;opacity:1!important}',
+    '#tablet-v4-nav{display:flex!important;justify-content:center!important;gap:12px!important}'
+   ].join('');
+   nd.head.appendChild(fix);
+   var posts=Array.from(gallery.querySelectorAll(':scope>article.post-card'));
+   if(posts.length){
+    nav.replaceChildren();
+    nav.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:10px 4px!important;flex:0 0 auto!important';
+    var prev=nd.createElement('button'),next=nd.createElement('button'),count=nd.createElement('span');
+    prev.type='button';prev.textContent='戻る';next.type='button';next.textContent='次へ';
+    count.setAttribute('aria-live','polite');count.style.cssText='color:white;font-size:16px;font-weight:bold;min-width:62px;text-align:center';
+    [prev,next].forEach(function(btn){btn.style.cssText='padding:10px 16px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700'});
+    nav.append(prev,count,next);
+    var current=0;
+    function update(i){
+      current=Math.max(0,Math.min(posts.length-1,i));
+      count.textContent=(current+1)+' / '+posts.length;
+      prev.disabled=current===0;next.disabled=current===posts.length-1;
+      prev.style.opacity=prev.disabled?'.45':'1';next.style.opacity=next.disabled?'.45':'1';
+    }
+    function jump(i){
+      update(i);
+      gallery.scrollTo({top:posts[current].offsetTop-posts[0].offsetTop,behavior:'smooth'});
+    }
+    prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();jump(current-1)});
+    next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();jump(current+1)});
+    var scrollTick=0;
+    gallery.addEventListener('scroll',function(){
+      if(scrollTick)return;
+      scrollTick=nd.defaultView.requestAnimationFrame(function(){
+        scrollTick=0;
+        var h=gallery.clientHeight;if(h>0)update(Math.round(gallery.scrollTop/h));
+      });
+    },{passive:true});
+    gallery.scrollTop=0;update(0);
+   }
+  }catch(e){console.error('saved post window',e)}
+ });
+}
+// Reuse the approved TOP COMMUNITY post-window layout for the six Densuke category windows.
+// The original Densuke V1 file is never modified.
+function transplantCommunityWindowToDensuke(d){
+ if(d.getElementById('densuke-community-window-style'))return;
+ var style=d.createElement('style');
+ style.id='densuke-community-window-style';
+ style.textContent=[
+ '.indicator-window{height:calc(100dvh - 115px)!important;min-height:460px!important;max-height:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;border:1px solid #444c52!important;border-radius:14px!important;background:#090d16!important}',
+ '.indicator-window[hidden]{display:none!important}',
+ '.indicator-page{display:flex!important;flex-direction:column!important;flex:1 1 auto!important;min-height:0!important;height:100%!important;overflow:hidden!important;padding:12px!important}',
+ '.indicator-page>.page-label,.indicator-page>h2,.indicator-page>.page-intro{flex:0 0 auto!important}',
+ '.indicator-page>.scroll-test-cards{display:block!important;flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scroll-snap-type:y proximity!important;padding:4px 8px!important}',
+ '.indicator-page>.scroll-test-cards>.card{min-height:calc(100% - 16px)!important;margin:8px 0!important;scroll-snap-align:start!important}',
+ '.indicator-page>.indicator-page-nav{position:relative!important;bottom:auto!important;flex:0 0 auto!important;margin:8px 0 0!important;padding:8px 2px!important}',
+ '.indicator-page>.card{display:none!important}',
+ '@media(max-width:760px){.indicator-page{padding:10px!important}.indicator-page>.scroll-test-cards>.card{min-height:calc(100% - 12px)!important}}'
+ ].join('');
+ d.head.appendChild(style);
+ // On each category destination, place ALL existing description cards
+ // inside its ONE scroll window, ahead of the existing test cards.
+ d.querySelectorAll('.indicator-window .indicator-page').forEach(function(page){
+  var scroll=page.querySelector(':scope > .scroll-test-cards');
+  if(!scroll)return;
+  var originals=Array.from(page.children).filter(function(el){
+   return el.matches && el.matches('article.card');
+  });
+  originals.forEach(function(card){scroll.insertBefore(card,scroll.firstChild);});
+  scroll.scrollTop=0;
+ });
+ // Keep all saved cards and wording intact. Reserve a 2:1 image/text layout
+ // without inventing images where the original saved V1 contains none.
+ d.querySelectorAll('.indicator-window .scroll-test-cards > .card').forEach(function(card){
+  if(card.dataset.twoToOne==='yes')return;
+  card.dataset.twoToOne='yes';
+  var content=d.createElement('div');content.className='densuke-card-text';
+  while(card.firstChild)content.appendChild(card.firstChild);
+  var visual=d.createElement('div');visual.className='densuke-card-image';
+  visual.setAttribute('aria-label','画像表示エリア（画像未登録）');
+  visual.textContent='画像表示エリア';
+  card.appendChild(visual);card.appendChild(content);
+ });
+ // Scroll verification only: ten test lines in ACCESSORY virtual card 1.
+ var testCard=d.querySelector('#indicator-window-1 .scroll-test-card');
+ if(testCard){
+  var testParagraph=testCard.querySelector('.densuke-card-text p');
+  if(testParagraph){
+   testParagraph.textContent=[
+    '【スクロール確認用テスト文章】',
+    '01　アクセサリーの仮想カード①です。',
+    '02　文章窓の上部から読み始めます。',
+    '03　指で文章部分を上下に動かしてください。',
+    '04　画像表示エリアはそのまま維持します。',
+    '05　文章だけがスクロールするか確認します。',
+    '06　カード全体の表示位置は変わりません。',
+    '07　長い説明文でも読めるか確認します。',
+    '08　文章窓の下端まで移動してください。',
+    '09　上方向にも戻れるか確認してください。',
+    '10　ここがテスト文章の最終行です。'
+   ].join('\n');
+   testParagraph.style.whiteSpace='pre-line';
+  }
+ }
+ var ratio=d.createElement('style');ratio.id='densuke-two-to-one-layout';
+ ratio.textContent=[
+ '.indicator-page>.scroll-test-cards>.card[data-two-to-one="yes"]{display:flex!important;flex-direction:column!important;overflow:hidden!important;padding:10px!important;box-sizing:border-box!important}',
+ '.densuke-card-image{flex:2 1 0!important;min-height:0!important;display:flex!important;align-items:center!important;justify-content:center!important;border:1px dashed #3c464e!important;border-radius:8px!important;background:#101820!important;color:#89949c!important;font-size:13px!important;letter-spacing:1px!important}',
+ '.densuke-card-text{flex:1 1 0!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;scrollbar-width:thin!important;scrollbar-color:#aeb8c0 #14191e!important;padding:12px 18px 12px 12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important;box-shadow:inset 0 0 0 1px #263746!important;position:relative!important}',
+ '.densuke-card-text::-webkit-scrollbar{width:9px!important}',
+ '.densuke-card-text::-webkit-scrollbar-track{background:#17202b!important;border-radius:6px!important}',
+ '.densuke-card-text::-webkit-scrollbar-thumb{background:#8998a5!important;border-radius:6px!important}',
+ '.densuke-card-text h3{margin:4px 0 6px!important}',
+ '.densuke-card-text p{margin:0!important}'
+ ].join('');
+ d.head.appendChild(ratio);
+}
+function transplantDensukeWindowToSystem(d){
+ if(d.getElementById('system-densuke-window-style'))return;
+ var panel=d.querySelector('.panel'), windowEl=d.querySelector('.card-window'), cards=d.querySelector('.card-window .cards');
+ if(!panel||!windowEl||!cards)return;
+ var style=d.createElement('style');style.id='system-densuke-window-style';
+ style.textContent=[
+ '.panel{display:flex!important;flex-direction:column!important;min-height:0!important;background:#090d16!important}',
+ '.card-window{height:calc(100dvh - 225px)!important;min-height:420px!important;max-height:850px!important;overflow:hidden!important;padding:8px!important;border:1px solid #444c52!important;border-radius:12px!important;background:#090d16!important}',
+ '.card-window .cards{display:block!important;height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:y mandatory!important;scrollbar-width:thin!important;scrollbar-color:#8998a5 #14191e!important}',
+ '.card-window .cards>.card{display:flex!important;flex-direction:column!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;margin:0!important;padding:10px!important;box-sizing:border-box!important;overflow:hidden!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+ '.card-window .cards>.card .art{display:flex!important;flex:2 1 0!important;align-self:stretch!important;box-sizing:border-box!important;height:auto!important;min-height:0!important;width:100%!important;border:1px dashed #536474!important;background:#142237!important}',
+ '.card-window .cards>.card .art svg{width:100%!important;height:100%!important;object-fit:contain!important}',
+ '.card-window .cards>.card .system-card-text{display:block!important;flex:1 1 0!important;align-self:stretch!important;width:100%!important;box-sizing:border-box!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important}',
+ '.system-window-nav{display:flex!important;justify-content:space-between!important;gap:12px!important;padding:10px 2px 2px!important}',
+ '.system-window-nav button{min-width:96px!important;padding:10px 16px!important;border:1px solid #8998a6!important;border-radius:9px!important;background:linear-gradient(#46515c,#171e26)!important;color:#fff!important;font-weight:700!important}',
+ '.card-window .cards>.card p{font-size:14px!important;line-height:1.7!important}'
+ ].join('');
+ d.head.appendChild(style);
+ Array.from(cards.children).forEach(function(card){
+  if(!card.matches('.card'))return;
+  var art=card.querySelector(':scope > .art');
+  var body=art&&art.nextElementSibling;
+  if(body)body.classList.add('system-card-text');
+ });
+ // Test only: ten readable lines in the first (OHLC) card's text window.
+ var firstText=cards.querySelector(':scope > .card:first-child .system-card-text');
+ if(firstText && !firstText.querySelector('.system-scroll-test')){
+  var sample=d.createElement('div');
+  sample.className='system-scroll-test';
+  sample.style.cssText='white-space:pre-line;line-height:1.85;font-size:14px;margin-top:10px;color:#e1e8ee';
+  sample.textContent=[
+   '【文章スクロール確認用】',
+   '01　OHLC分析の仮想テスト文章です。',
+   '02　この文章枠だけを指で上下に動かします。',
+   '03　画像枠は動かさず、そのまま表示します。',
+   '04　文章が下に続く場合の動作を確認します。',
+   '05　始値・高値・安値・終値を確認します。',
+   '06　ローソク足の方向を読み取ります。',
+   '07　値動きの強弱を比較します。',
+   '08　文章窓の下端までスクロールしてください。',
+   '09　上方向にも戻れるか確認してください。',
+   '10　ここがテスト文章の最終行です。'
+  ].join('\n');
+  firstText.appendChild(sample);
+ }
+ var nav=d.createElement('nav');nav.className='system-window-nav';nav.setAttribute('aria-label','システムカード送り');
+ var prev=d.createElement('button'),next=d.createElement('button');
+ prev.type='button';prev.textContent='‹ 前へ';next.type='button';next.textContent='次へ ›';
+ nav.appendChild(prev);nav.appendChild(next);panel.appendChild(nav);
+ var items=Array.from(cards.querySelectorAll(':scope > .card'));
+ function move(delta){
+  var top=cards.scrollTop, h=cards.clientHeight||1;
+  var idx=Math.round(top/h);
+  var target=Math.max(0,Math.min(items.length-1,idx+delta));
+  cards.scrollTo({top:items[target].offsetTop-items[0].offsetTop,behavior:'smooth'});
+ }
+ prev.addEventListener('click',function(){move(-1)});
+ next.addEventListener('click',function(){move(1)});
+}
+function transplantSystemWindowToBoard(d){
+ if(d.getElementById('board-system-window-style'))return;
+ var list=d.querySelector('.post-list');
+ if(!list)return;
+ var section=list.closest('section.card');
+ if(!section)return;
+ var style=d.createElement('style');style.id='board-system-window-style';
+ style.textContent=[
+ '.board-post-window{height:calc(100dvh - 225px)!important;min-height:420px!important;max-height:850px!important;overflow:hidden!important;padding:8px!important;border:1px solid #444c52!important;border-radius:12px!important;background:#090d16!important}',
+ '.board-post-window .post-list{display:block!important;height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;scroll-snap-type:y mandatory!important;scrollbar-width:thin!important;scrollbar-color:#8998a5 #14191e!important}',
+ '.board-post-window .post-list>.post{display:flex!important;flex-direction:column!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;margin:0!important;padding:10px!important;box-sizing:border-box!important;overflow:hidden!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+ '.board-post-window .board-post-image{display:flex!important;flex:2 1 0!important;align-self:stretch!important;box-sizing:border-box!important;min-height:0!important;width:100%!important;align-items:center!important;justify-content:center!important;border:1px dashed #536474!important;border-radius:8px!important;background:#142237!important;color:#91a5b8!important;font-size:14px!important}',
+ '.board-post-window .board-post-text{display:block!important;flex:1 1 0!important;align-self:stretch!important;width:100%!important;box-sizing:border-box!important;height:33.333%!important;min-height:0!important;max-height:33.333%!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;scrollbar-gutter:stable!important;padding:12px!important;border:1px solid #76818b!important;border-radius:8px!important;background:#121b27!important}',
+ '.board-window-nav{display:flex!important;justify-content:space-between!important;gap:12px!important;padding:10px 2px 2px!important}',
+ '.board-window-nav button{min-width:96px!important;padding:10px 16px!important;border:1px solid #8998a6!important;border-radius:9px!important;background:linear-gradient(#46515c,#171e26)!important;color:#fff!important;font-weight:700!important}'
+ ].join('');
+ d.head.appendChild(style);
+ var outer=d.createElement('div');outer.className='board-post-window';
+ list.parentNode.insertBefore(outer,list);outer.appendChild(list);
+ var posts=Array.from(list.querySelectorAll(':scope > .post'));
+ posts.forEach(function(post){
+  var art=d.createElement('div');art.className='board-post-image';art.textContent='画像表示エリア（画像未登録）';
+  var body=d.createElement('div');body.className='board-post-text';
+  while(post.firstChild)body.appendChild(post.firstChild);
+  post.appendChild(art);post.appendChild(body);
+ });
+ if(posts[0]){
+  var body=posts[0].querySelector('.board-post-text');
+  var test=d.createElement('div');test.className='board-scroll-test';
+  test.style.cssText='white-space:pre-line;line-height:1.85;font-size:14px;margin-top:10px;color:#e1e8ee';
+  test.textContent=[
+   '【BOARD 文章スクロール確認用】',
+   '01　最近の投稿窓のテスト文章です。',
+   '02　この下部の文章枠を上下に動かしてください。',
+   '03　上部の画像表示エリアは固定します。',
+   '04　文章だけがスクロールするか確認します。',
+   '05　既存の投稿内容はそのまま残します。',
+   '06　長い文章の読みやすさを確認します。',
+   '07　文章枠の幅は画像枠と同じです。',
+   '08　下端までスクロールしてください。',
+   '09　上方向にも戻れるか確認してください。',
+   '10　ここがテスト文章の最終行です。'
+  ].join('\n');
+  body.appendChild(test);
+ }
+ var nav=d.createElement('nav');nav.className='board-window-nav';nav.setAttribute('aria-label','最近の投稿送り');
+ var prev=d.createElement('button'),next=d.createElement('button');
+ prev.type='button';prev.textContent='‹ 前へ';next.type='button';next.textContent='次へ ›';
+ nav.appendChild(prev);nav.appendChild(next);outer.insertAdjacentElement('afterend',nav);
+ // Community button immediately below the recent-post window controls.
+ var communityRow=d.createElement('div');
+ communityRow.className='board-community-link';
+ communityRow.style.cssText='display:flex;justify-content:center;margin:20px auto 8px';
+ var communityLink=d.createElement('a');
+ communityLink.href=pages.community;
+ communityLink.textContent='コミュニティー';
+ communityLink.style.cssText='display:inline-flex;align-items:center;justify-content:center;min-width:210px;min-height:52px;padding:12px 25px;border:1px solid #8998a6;border-radius:9px;background:linear-gradient(#46515c,#171e26);color:#fff;font-size:16px;font-weight:700;text-decoration:none';
+ communityRow.appendChild(communityLink);
+ nav.insertAdjacentElement('afterend',communityRow);
+ function move(delta){
+  var top=list.scrollTop,h=list.clientHeight||1;
+  var idx=Math.round(top/h),target=Math.max(0,Math.min(posts.length-1,idx+delta));
+  list.scrollTo({top:posts[target].offsetTop-posts[0].offsetTop,behavior:'smooth'});
+ }
+ prev.addEventListener('click',function(){move(-1)});
+ next.addEventListener('click',function(){move(1)});
+}
+function transplantIntoCommunityPage(d){
+ if(d.getElementById('iphone-community-page-replaced'))return true;
+ var gallery=d.querySelector('.gallery');
+ if(!gallery)return false;
+ var card=gallery.closest('section.card')||gallery.parentElement;
+ var wrapper=d.createElement('div');
+ wrapper.id='community-preview';
+ wrapper.style.cssText='display:block!important;width:100%!important;height:calc(100dvh - 170px)!important;min-height:440px!important;margin:0!important;overflow:hidden!important';
+ var slot=d.createElement('div');slot.className='community-window';
+ slot.style.cssText='height:100%!important;min-height:0!important;overflow:hidden!important';
+ wrapper.appendChild(slot);
+ gallery.replaceWith(wrapper);
+ d.querySelectorAll('#tablet-v4-nav,#tablet-community-gallery-nav,#tablet-v4-status').forEach(function(n){n.style.setProperty('display','none','important')});
+ transplantSavedPostWindow(d);
+ wrapper.id='iphone-community-page-replaced';
+ var nested=slot.querySelector('iframe');
+ if(nested)nested.style.cssText='width:100%!important;height:100%!important;min-height:0!important;border:0;display:block';
+ return !!nested;
+}
+function ensureCommunityPageTransplant(d){
+ if(transplantIntoCommunityPage(d))return;
+ if(d.__iphoneCommunityWatcher)return;
+ d.__iphoneCommunityWatcher=true;
+ var tries=0;
+ var observer=new MutationObserver(function(){
+  if(transplantIntoCommunityPage(d)||++tries>200)observer.disconnect();
+ });
+ observer.observe(d.documentElement,{subtree:true,childList:true});
+}
+function repair(){
+ try{
+  var d=frame.contentDocument;if(!d)return;
+  bindDocument(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_saved_top_20261105_ここに戻るV2.html')transplantSavedPostWindow(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='伝助のインジケータ_ここに戻る_V1.html')transplantCommunityWindowToDensuke(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_tradesystem_5cards_return_fx_test_20261110.html')transplantDensukeWindowToSystem(d);
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='board.html')transplantSystemWindowToBoard(d);
+  var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
+  if(page==='COMMUNITY_ここに戻るV2_20261112.html')ensureCommunityPageTransplant(d);
+  // Tablet TOP Android QR only: point to the approved 11/15 main launcher.
+  // Leave iPhone QR and all saved TOP source files untouched.
+  if(page==='android_tablet_saved_top_20261105_ここに戻るV2.html'){
+   var androidQR=d.querySelector('img[alt="Android版 QRコード"]');
+   if(androidQR)androidQR.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAADXAQAAAAChBvkYAAACUElEQVR42u1YMW7cMBCcPRqgur0f8D5i6b5l4C6iIwN5VkTlI9QPqI4CdJoUspPKrTdFtuQ2g+XszJBCfFY84fP63/u6HrgDQKsxkIzBj7qhHg0DnEpWKS6tpyVi/QYEdGS2mdmrgLJe/OPcZ/998RmUJ7v7Ez5BXHlc1r68iD2X6vPZpQr8oCGWnuAZ8KNGNNAICDcbLItIA7i8XvGGyjNmJJGLxU4fVRAgjMdwjqPdQF90YJXS5wo4+l0jmDhkCywsjtw1wu860O+4Bc9ipHV4kfW0kMByv6xXuFQn9CZax7OjjnjIctIh10mla6BPwcaPelYpAHeN4K7MVUgbvnAD/zhiFW6oUnojLEOuwkPhAqQg1K4g2HD30fkRCNyXIdfnwORfz2bcTet12eZmAuZmwltAq3cxylLBJ26BJHPtSk+0JlkK3OFYW7gMKS77UUkALtt4wBb8iBtqxwiSA/2oNn5ExoBWYwDQZ46Hvmwme0TZ4Ic5AlC5NMCjQwuXrDJD7QqCTwVgYgy1KzbcJWPwLAhoNcInDjxuy0Z3iY7x2Cg/4ga/m3F3Cz6Vnu9YdAtm3rgD4e92Q8hMWuU6Dtmn4lihA5neqQyrudRWh+zf88sGABY+/ZH5dSBHIFQoM3e14MsJFBG5LqtAuM2NlDesV6s/DyVrxwi/4/Yhc7oZZalXAZYtLK5gbhgi5GT9ttddh1wn9PT7MiQzLAw+12l5gqaCGZPeL3Z8KY6ejKjCLaCFowlfFpGG4X7BBJf9zzNQfzHOXz8X+f+/+8/3fgOJIdJdo3MqcAAAAABJRU5ErkJggg==';
+  }
+  // Mount the completed FX entrance page behind the approved TOP's first entry.
+  // This changes only the test controller's live DOM; no saved HTML file is edited.
+  if(page==='android_tablet_saved_top_20261105_ここに戻るV2.html'){
+   var entrance=d.querySelector('.entry-buttons a.entry-btn[href="android_tablet_home.html"]');
+   if(entrance){
+    entrance.setAttribute('href',pages.home);
+    var title=entrance.querySelector('b');
+    if(title)title.textContent='FXの入口';
+   }
+  }
+  // Keep the saved Densuke logo artwork, but route its click directly to the approved TOP.
+  if(page==='伝助のインジケータ_ここに戻る_V1.html'){
+   d.querySelectorAll('header.topbar a.brand-logo').forEach(function(a){
+    a.setAttribute('href',pages.top);
+    a.removeAttribute('target');
+    if(!a.__approvedTopRoute){
+     a.__approvedTopRoute=true;
+     a.addEventListener('click',function(e){
+      e.preventDefault();e.stopImmediatePropagation();go('top','');
+     },true);
+    }
+   });
+  }
+  // Restore the approved tablet footer labels without altering the saved V1 file.
+  if(page==='伝助のインジケータ_ここに戻る_V1.html'){
+   d.querySelectorAll('a').forEach(function(a){
+    var t=(a.textContent||'').replace(/\s+/g,' ').trim();
+    if(/ページTOPに戻る|ページトップに戻る/.test(t)){
+     a.textContent='⌂ ページトップに戻る';
+    }else if(/HOMEに戻る|FXの入口/.test(t)){
+     a.textContent='⌂ FXの入口';
+     a.setAttribute('href',pages.home);
+    }
+   });
+  }
+  // Broker page only: replace the bottom FX entrance button with the saved Densuke page.
+  if(page==='fx_companies.html'){
+   d.querySelectorAll('.actions a').forEach(function(a){
+    if(/FXの入口/.test((a.textContent||'').trim())){
+     a.textContent='伝助のインジケータ';
+     a.setAttribute('href',pages.project);
+     a.removeAttribute('target');
+    }
+   });
+  }
+  // Replace legacy internal destinations in the live tablet page before any click.
+  // Keep the saved source files unchanged and preserve in-page anchors.
+  d.querySelectorAll('a[href]').forEach(function(a){
+   var raw=a.getAttribute('href')||'';
+   if(!raw||raw.charAt(0)==='#')return;
+   var mapped=fromHref(raw);
+   if(mapped && pages[mapped.type]){
+    a.setAttribute('href',pages[mapped.type]+(mapped.hash||''));
+    a.removeAttribute('target');
+   }
+  });
+  // All FX entrance return links must lead to the same tablet HOME, never
+  // to the legacy homepage or an intermediate navigation test file.
+  d.querySelectorAll('a').forEach(function(a){
+   var label=(a.textContent||'').replace(/\\s+/g,' ').trim();
+   if(/FXの入口/.test(label) && !/ページトップ/.test(label)){
+    a.setAttribute('href',pages.home);a.removeAttribute('target');
+   }
+  });
+  // Explicitly pin the TOP's FX entrance by its visible label, even if its
+  // original href is an obsolete or unlisted HOME filename.
+  if(page==='android_tablet_saved_top_20261105_ここに戻るV2.html'){
+   d.querySelectorAll('a').forEach(function(a){
+    var label=(a.textContent||'').replace(/\\s+/g,' ').trim();
+    if(/FXの入口|HOMEページ/.test(label) && !/ページトップに戻る/.test(label)){
+     a.setAttribute('href',pages.home);a.removeAttribute('target');
+    }
+   });
+  }
+  // Normalize legacy return buttons across every tablet page, not just Densuke.
+  d.querySelectorAll('a').forEach(function(a){
+   var label=(a.textContent||'').replace(/\\s+/g,' ').trim();
+   if(/^(?:[⌂←\\s]*)?(?:HOMEに戻る|HOMEへ戻る|HOMEページに戻る|FXの入口(?:へ|に)?戻る)$/.test(label)){
+    a.textContent='FXの入口';
+    a.setAttribute('href',pages.home);
+    a.removeAttribute('target');
+   }
+  });
+  d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
+   if(fromHref(a.getAttribute('href'))||fromLabel(a)||isLogo(a))a.removeAttribute('target');
+  });
+ }catch(e){console.error('tablet approved routes',e)}finally{frame.style.visibility='visible';if(frame===detailFrame&&detailFrame)topFrame.style.display='none';if(loading)loading.hidden=true;}
+}
+frame.addEventListener('load',repair);
+// Direct navigation into the same controller used by the TOP FX entrance.
+try{var requested=new URLSearchParams(location.search).get('page');if(requested&&pages[requested])go(requested,'');}catch(e){}
+})();
+</script></body></html>
