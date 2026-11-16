@@ -174,18 +174,28 @@ function transplantSavedPostWindow(d){
    var st=nd.createElement('style');st.id='top-post-window-only';
    st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}';
    nd.head.appendChild(st);
-   // iPhone preview only: keep picture and written content in distinct panes.
-   var splitStyle=nd.createElement('style');
-   splitStyle.id='iphone-post-image-text-split';
-   splitStyle.textContent=[
-    '@media(max-width:800px){',
-    'main.wrap>section.card:has(.gallery)>.gallery{overflow-y:auto!important;}',
-    '.gallery article,.gallery .post-card,.gallery .gallery-item,.gallery .item{display:flex!important;flex-direction:column!important;min-height:0!important;}',
-    '.gallery article img,.gallery .post-card img,.gallery .gallery-item img,.gallery .item img{max-width:100%!important;max-height:54vh!important;object-fit:contain!important;}',
-    '.gallery article p,.gallery .post-card p,.gallery .gallery-item p,.gallery .item p{overflow-y:auto!important;max-height:26vh!important;min-height:60px!important;padding:10px!important;border:1px solid #536173!important;border-radius:8px!important;}',
-    '}'
+   // iPhone only: exact selectors verified against Library COMMUNITY saved V1.
+   var fix=nd.createElement('style');fix.id='iphone-community-real-card-layout';
+   fix.textContent=[
+    'html,body{overflow:hidden!important}',
+    '.gallery{height:100%!important;overflow:hidden!important;scroll-snap-type:none!important;display:block!important}',
+    '.gallery>article.post-card{display:none!important}',
+    '.gallery>article.post-card.iphone-active{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;height:100%!important;min-height:0!important;max-height:100%!important;box-sizing:border-box!important;overflow:hidden!important;padding:8px!important}',
+    '.gallery>article.post-card.iphone-active>h3{grid-row:1!important;min-height:0!important;margin:0!important;font-size:16px!important;line-height:1.4!important;white-space:normal!important}',
+    '.gallery>article.post-card.iphone-active>img{grid-row:2!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;object-fit:contain!important;border-radius:8px!important}',
+    '.gallery>article.post-card.iphone-active>.community-card-text,.gallery>article.post-card.iphone-active>.honnoji-original-text{grid-row:3!important;display:block!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;box-sizing:border-box!important;padding:12px!important;background:#080b10!important;border:1px solid #60738a!important;border-radius:8px!important;position:relative!important;transform:none!important;opacity:1!important}',
+    '.gallery>article.post-card.iphone-active .community-card-text *{max-width:100%!important}',
+    '#tablet-v4-nav{display:flex!important;justify-content:center!important;gap:12px!important}'
    ].join('');
-   nd.head.appendChild(splitStyle);
+   nd.head.appendChild(fix);
+   var posts=Array.from(gallery.querySelectorAll(':scope>article.post-card'));
+   if(posts.length){
+    var current=0;
+    function showPost(i){current=(i+posts.length)%posts.length;posts.forEach(function(p,n){p.classList.toggle('iphone-active',n===current)});var t=posts[current].querySelector('.community-card-text,.honnoji-original-text');if(t)t.scrollTop=0;}
+    showPost(0);
+    var buttons=Array.from(nav.querySelectorAll('button'));
+    buttons.forEach(function(btn){btn.addEventListener('click',function(e){var label=(btn.textContent||'').trim();if(/次|進|▶|→/.test(label)){e.preventDefault();e.stopImmediatePropagation();showPost(current+1)}else if(/前|戻|◀|←/.test(label)){e.preventDefault();e.stopImmediatePropagation();showPost(current-1)}},true)});
+   }
   }catch(e){console.error('saved post window',e)}
  });
 }
