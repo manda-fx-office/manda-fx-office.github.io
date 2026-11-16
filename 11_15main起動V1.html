@@ -50,14 +50,33 @@ function fromLabel(el){
  if(/\bSYSTEM\b|TRADE SYSTEM/i.test(t))return 'system';
  return null;
 }
+var topFrame=frame;
+var detailFrame=null;
 function go(type,hash){
  var target=pages[type];if(!target)return;
  if(hash)target+=hash;
- // HOME must open as its own complete document, not inside the controller iframe.
- // This preserves the saved V6 QR section and its original page layout.
- if(type==='home'){window.location.assign(target);return;}
- frame.style.visibility='hidden';
- frame.src=target;
+ if(type==='top'){
+  if(detailFrame)detailFrame.style.display='none';
+  frame=topFrame;
+  topFrame.style.display='block';
+  topFrame.style.visibility='visible';
+  if(loading)loading.hidden=true;
+ }else{
+  if(!detailFrame){
+   detailFrame=document.createElement('iframe');
+   detailFrame.title='TRANSITION SYSTEM ページ';
+   detailFrame.setAttribute('allow','autoplay');
+   detailFrame.style.cssText='display:none;width:100%;height:100%;border:0;visibility:hidden';
+   topFrame.parentNode.insertBefore(detailFrame,topFrame.nextSibling);
+   detailFrame.addEventListener('load',function(){
+    if(frame===detailFrame)repair();
+   });
+  }
+  detailFrame.style.display='block';
+  detailFrame.style.visibility='hidden';
+  frame=detailFrame;
+  detailFrame.src=target;
+ }
  try{history.replaceState(null,'',location.pathname+'?page='+encodeURIComponent(type))}catch(e){}
 }
 function isLogo(el){
@@ -460,7 +479,7 @@ function repair(){
   d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
    if(fromHref(a.getAttribute('href'))||fromLabel(a)||isLogo(a))a.removeAttribute('target');
   });
- }catch(e){console.error('tablet approved routes',e)}finally{frame.style.visibility='visible';if(loading)loading.hidden=true;}
+ }catch(e){console.error('tablet approved routes',e)}finally{frame.style.visibility='visible';if(frame===detailFrame&&detailFrame)topFrame.style.display='none';if(loading)loading.hidden=true;}
 }
 frame.addEventListener('load',repair);
 // Direct navigation into the same controller used by the TOP FX entrance.
