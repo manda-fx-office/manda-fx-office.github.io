@@ -210,6 +210,24 @@ function transplantSavedPostWindow(d){
     }
     prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();showPost(current-1)});
     next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();showPost(current+1)});
+    // Swipe cards on the image/title area; leave the text pane to native vertical scrolling.
+    var swipeY=null,swipeX=null,swipeFromText=false;
+    gallery.addEventListener('touchstart',function(e){
+      if(e.touches.length!==1)return;
+      swipeFromText=!!e.target.closest('.community-card-text,.honnoji-original-text');
+      if(swipeFromText){swipeY=null;return;}
+      swipeY=e.touches[0].clientY;swipeX=e.touches[0].clientX;
+    },{passive:true});
+    gallery.addEventListener('touchend',function(e){
+      if(swipeY===null||swipeFromText||!e.changedTouches.length)return;
+      var dy=e.changedTouches[0].clientY-swipeY;
+      var dx=e.changedTouches[0].clientX-swipeX;
+      swipeY=null;
+      if(Math.abs(dy)>55&&Math.abs(dy)>Math.abs(dx)*1.2)showPost(current+(dy<0?1:-1));
+    },{passive:true});
+    var swipeCss=nd.createElement('style');swipeCss.id='iphone-post-swipe';
+    swipeCss.textContent='.gallery>article.post-card.iphone-active>img,.gallery>article.post-card.iphone-active>h3{touch-action:pan-y!important}.gallery>article.post-card.iphone-active>.community-card-text,.gallery>article.post-card.iphone-active>.honnoji-original-text{overflow-y:scroll!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}';
+    nd.head.appendChild(swipeCss);
     showPost(0);
    }
   }catch(e){console.error('saved post window',e)}
