@@ -174,6 +174,18 @@ function transplantSavedPostWindow(d){
    var st=nd.createElement('style');st.id='top-post-window-only';
    st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}';
    nd.head.appendChild(st);
+   // iPhone preview only: keep picture and written content in distinct panes.
+   var splitStyle=nd.createElement('style');
+   splitStyle.id='iphone-post-image-text-split';
+   splitStyle.textContent=[
+    '@media(max-width:800px){',
+    'main.wrap>section.card:has(.gallery)>.gallery{overflow-y:auto!important;}',
+    '.gallery article,.gallery .post-card,.gallery .gallery-item,.gallery .item{display:flex!important;flex-direction:column!important;min-height:0!important;}',
+    '.gallery article img,.gallery .post-card img,.gallery .gallery-item img,.gallery .item img{max-width:100%!important;max-height:54vh!important;object-fit:contain!important;}',
+    '.gallery article p,.gallery .post-card p,.gallery .gallery-item p,.gallery .item p{overflow-y:auto!important;max-height:26vh!important;min-height:60px!important;padding:10px!important;border:1px solid #536173!important;border-radius:8px!important;}',
+    '}'
+   ].join('');
+   nd.head.appendChild(splitStyle);
   }catch(e){console.error('saved post window',e)}
  });
 }
