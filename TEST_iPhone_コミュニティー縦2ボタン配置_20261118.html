@@ -43,63 +43,52 @@
     gallery.scrollTop=0;update(0);
    }
 }catch(e){console.error(e)}})})();</script><script>
-/* Test-only community navigation: anchor to actual QR image and remove legacy HOME footer. */
+/* Test-only: put navigation OUTSIDE the entire QR window. */
 (function(){
- var frame=document.getElementById('original'),running=false;
+ var frame=document.getElementById('original'),busy=false;
  function apply(){
-  if(running)return;
-  running=true;
+  if(busy)return;busy=true;
   try{
    var d=frame.contentDocument;if(!d||!d.body)return;
-   var qrImages=Array.from(d.querySelectorAll('img')).filter(function(im){
-    return /qr|コード|android|iphone/i.test((im.alt||'')+' '+(im.src||'').slice(0,180)) ||
-      (im.naturalWidth>80&&im.naturalHeight>80&&Math.abs(im.naturalWidth-im.naturalHeight)<20&&im.closest('section'));
+   // Find the complete QR panel by its PC access URL and both QR images.
+   var candidates=Array.from(d.querySelectorAll('section,article,div')).filter(function(el){
+    if(el.id==='community-between-usage-qr')return false;
+    var t=el.textContent||'';
+    if(!/PC版アクセスURL/.test(t)||!/時間を共有しませんか/.test(t))return false;
+    var images=Array.from(el.querySelectorAll('img')).filter(function(im){
+     return /qr|android|iphone|コード/i.test(im.alt||'') || (im.naturalWidth>70&&Math.abs(im.naturalWidth-im.naturalHeight)<30);
+    });
+    return images.length>=2;
    });
-   var anchor=null;
-   for(var k=0;k<qrImages.length;k++){
-    var im=qrImages[k],node=im;
-    while(node&&node!==d.body){
-     if(node.matches&&node.matches('section.card,article.card,section.qr-section,.qr-card,.qr-section')){anchor=node;break;}
-     node=node.parentElement;
-    }
-    if(anchor)break;
-   }
-   if(!anchor){
-    var labels=Array.from(d.querySelectorAll('h1,h2,h3,h4,p,div'));
-    var heading=labels.find(function(el){return el.children.length===0&&/時間を共有しませんか|スマートフォンでアクセス|PC版アクセスURL/.test(el.textContent||'')});
-    if(heading)anchor=heading.closest('section.card,article.card,section')||heading.parentElement;
-   }
-   if(!anchor||!anchor.parentElement)return;
+   // Smallest complete panel, but never an inner QR image row.
+   candidates.sort(function(a,b){return a.querySelectorAll('*').length-b.querySelectorAll('*').length});
+   var qrPanel=candidates[0];
+   if(!qrPanel||!qrPanel.parentElement)return;
    var group=d.getElementById('community-between-usage-qr');
    if(!group){
     group=d.createElement('div');group.id='community-between-usage-qr';
-    group.style.cssText='display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:12px!important;margin:18px auto!important;padding:0 12px!important;width:100%!important;box-sizing:border-box!important;position:relative!important;visibility:visible!important';
+    group.style.cssText='display:flex!important;flex-direction:column!important;align-items:center!important;gap:12px!important;margin:20px auto!important;padding:0 12px!important;width:100%!important;box-sizing:border-box!important;flex:0 0 auto!important';
     [['伝助のインジケータ','/iPhone伝助のインジケータここに戻る保存版V2.html'],['FXの入口','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html']].forEach(function(item){
      var a=d.createElement('a');a.textContent=item[0];a.href=item[1];
-     a.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;width:min(100%,320px)!important;min-height:52px!important;box-sizing:border-box!important;padding:12px 20px!important;border:1px solid #8fa4b9!important;border-radius:9px!important;background:#303c4b!important;color:#fff!important;font-size:17px!important;font-weight:700!important;text-decoration:none!important;text-align:center!important';
+     a.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;width:min(100%,320px)!important;min-height:52px!important;padding:12px 20px!important;box-sizing:border-box!important;border:1px solid #8fa4b9!important;border-radius:9px!important;background:#303c4b!important;color:#fff!important;font-size:17px!important;font-weight:700!important;text-decoration:none!important;text-align:center!important';
      group.appendChild(a);
     });
    }
-   if(group.nextElementSibling!==anchor)anchor.parentElement.insertBefore(group,anchor);
+   // Insertion at the QR panel's sibling level, not inside the panel.
+   qrPanel.parentElement.insertBefore(group,qrPanel);
+   // Preserve the original QR panel layout.
    Array.from(d.querySelectorAll('a,button')).forEach(function(el){
     if(group.contains(el)||el.closest('header,.topbar,#tablet-v4-nav'))return;
-    var label=(el.textContent||'').replace(/\s+/g,'').trim();
+    var label=(el.textContent||'').replace(/\\s+/g,'').trim();
     if(/^(?:⌂)?(?:HOMEページに戻る|HOMEに戻る|FXの入口)$/.test(label)){
-      var old=el.closest('.community-mobile-home');
-      if(old&&!old.contains(group))old.style.setProperty('display','none','important');
-      el.style.setProperty('display','none','important');
+     var old=el.closest('.community-mobile-home');
+     if(old&&!old.contains(group))old.style.setProperty('display','none','important');
+     el.style.setProperty('display','none','important');
     }
    });
-  }catch(e){console.error('community QR placement',e)}
-  finally{running=false}
+  }catch(e){console.error('community external QR navigation',e)}
+  finally{busy=false}
  }
- frame.addEventListener('load',function(){
-  apply();setTimeout(apply,400);setTimeout(apply,1500);
-  try{var d=frame.contentDocument;if(d&&!d.__communityQrNavObserver){
-   d.__communityQrNavObserver=new MutationObserver(function(){apply()});
-   d.__communityQrNavObserver.observe(d.body,{childList:true,subtree:true});
-  }}catch(e){}
- });
+ frame.addEventListener('load',function(){apply();setTimeout(apply,500);setTimeout(apply,1400)});
  if(frame.contentDocument&&frame.contentDocument.readyState==='complete')apply();
-})();
-</script></body></html>
+})();</script></body></html>
