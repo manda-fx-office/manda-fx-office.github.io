@@ -678,6 +678,13 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
     var label=(el.textContent||'').replace(/\s+/g,'').trim();
     if(!/^([⌂🏠]\s*)?(HOMEに戻る|HOMEページに戻る)$/.test(label))return;
     el.textContent='FXの入口';
+    el.style.setProperty('width','auto','important');
+    el.style.setProperty('max-width','180px','important');
+    el.style.setProperty('min-width','0','important');
+    el.style.setProperty('display','inline-flex','important');
+    el.style.setProperty('justify-content','center','important');
+    el.style.setProperty('padding','10px 22px','important');
+    el.style.setProperty('box-sizing','border-box','important');
     if(el.tagName==='A'){
      el.setAttribute('href','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html');
      el.removeAttribute('target');
