@@ -449,25 +449,32 @@ function repair(){
  try{
   var d=frame.contentDocument;if(!d)return;
   bindDocument(d);
-  // iPhone V2 card gallery owns its own navigation. Remove the obsolete V1 pager.
-  // This is scoped to the nested Densuke document; saved files stay untouched.
+  // Remove only the obsolete bottom pager from the nested V1 page.
+  // Nested iframes can finish loading after the outer iframe's load event.
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='iPhone伝助のインジケータここに戻る保存版V2.html'){
    var inner=d.getElementById('project');
-   if(inner && !inner.__v5RemoveLegacyPager){
-    inner.__v5RemoveLegacyPager=true;
-    var removeLegacyPager=function(){try{
-     var idoc=inner.contentDocument;if(!idoc)return;
-     var cleanup=function(){
-      idoc.querySelectorAll('.indicator-page > nav.indicator-page-nav').forEach(function(nav){nav.remove()});
-     };
-     cleanup();
-     if(idoc.documentElement && !idoc.__v5LegacyPagerObserver){
-      idoc.__v5LegacyPagerObserver=new MutationObserver(cleanup);
-      idoc.__v5LegacyPagerObserver.observe(idoc.documentElement,{childList:true,subtree:true});
-     }
-    }catch(ex){console.warn('Densuke legacy pager removal',ex)}};
-    inner.addEventListener('load',removeLegacyPager);
-    removeLegacyPager();
+   if(inner && !inner.__v5PagerCleanup){
+    inner.__v5PagerCleanup=true;
+    var cleanupPager=function(){
+     try{
+      var idoc=inner.contentDocument;
+      if(!idoc||!idoc.head)return;
+      if(!idoc.getElementById('v5-remove-duplicate-pager')){
+       var style=idoc.createElement('style');
+       style.id='v5-remove-duplicate-pager';
+       style.textContent='.indicator-page-nav,.indicator-page > nav.indicator-page-nav{display:none!important}';
+       idoc.head.appendChild(style);
+      }
+      idoc.querySelectorAll('nav.indicator-page-nav').forEach(function(n){n.remove()});
+     }catch(e){console.warn('Legacy pager cleanup',e)}
+    };
+    inner.addEventListener('load',cleanupPager);
+    cleanupPager();
+    var retries=0;
+    var watch=setInterval(function(){
+     if(frame!==detailFrame || !inner.isConnected || ++retries>50){clearInterval(watch);return;}
+     cleanupPager();
+    },200);
    }
   }
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_saved_top_20261105_ここに戻るV2.html')transplantSavedPostWindow(d);
