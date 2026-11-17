@@ -43,74 +43,38 @@
     gallery.scrollTop=0;update(0);
    }
 }catch(e){console.error(e)}})})();</script><script>
-/* Test-only COMMUNITY footer replacement before iframe becomes visible. */
+/* Test-only: relocate community navigation; preserve the approved original. */
 (function(){
  var f=document.getElementById('original');
- f.style.visibility='hidden';
- function fix(){
+ function install(){
   try{
-   var d=f.contentDocument;if(!d)return;
-   var nodes=Array.from(d.querySelectorAll('a,button'));
-   nodes.forEach(function(old){
-    if(old.closest('header,.topbar,#tablet-v4-nav'))return;
-    var label=(old.textContent||'').replace(/\s+/g,'').trim();
-    if(!/(?:HOME(?:ページ)?に戻る|FXの入口)/.test(label)||label.length>24)return;
-    if(old.dataset.iphoneCommunityFxHome==='yes')return;
-    var b=d.createElement('button');
-    b.type='button';b.textContent='FXの入口';
-    b.dataset.iphoneCommunityFxHome='yes';
-    b.className=old.className;
-    b.style.cssText='display:inline-flex!important;width:auto!important;max-width:180px!important;min-width:0!important;justify-content:center!important;align-items:center!important;padding:10px 22px!important;min-height:44px;box-sizing:border-box!important;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700;cursor:pointer';
-    old.replaceWith(b);
-   });
-   if(!d.__iphoneCommunityFxObserver){
-    d.__iphoneCommunityFxObserver=new MutationObserver(fix);
-    d.__iphoneCommunityFxObserver.observe(d.documentElement,{childList:true,subtree:true});
-   }
-  }catch(e){console.error(e)}
-  f.style.visibility='visible';
- }
- f.addEventListener('load',fix);
- if(f.contentDocument&&f.contentDocument.readyState==='complete')fix();
-})();
-</script><script>
-/* Test-only: place Densuke then FX entrance between usage and QR cards. */
-(function(){
- var f=document.getElementById('original');
- function place(){
-  try{
-   var d=f.contentDocument;if(!d||d.getElementById('community-between-usage-qr'))return;
-   var headings=Array.from(d.querySelectorAll('h1,h2,h3,h4'));
-   var usage=headings.find(function(h){return /ご利用について/.test(h.textContent||'')});
-   var qr=headings.find(function(h){return /QRコード|時間を共有しませんか/.test(h.textContent||'')});
-   if(!usage||!qr)return;
-   function card(h){return h.closest('section.card,article.card,.card,section')||h.parentElement}
-   var usageCard=card(usage),qrCard=card(qr);
-   if(!usageCard||!qrCard||usageCard===qrCard)return;
-   var parent=qrCard.parentElement;
-   if(!parent||usageCard.parentElement!==parent)return;
+   var d=f.contentDocument;if(!d||!d.body)return;
+   if(d.getElementById('community-between-usage-qr'))return;
+   var nodes=Array.from(d.querySelectorAll('h1,h2,h3,h4,p,div,span,strong'));
+   var qrHeading=nodes.find(function(n){return n.children.length===0&&/時間を共有しませんか|QRコード/.test(n.textContent||'')&&n.closest('main')});
+   var qrCard=qrHeading&&qrHeading.closest('section.card,article.card,.card,section');
+   var oldGroup=d.querySelector('.community-mobile-home');
+   if(!qrCard||!qrCard.parentNode)return;
    var group=d.createElement('div');group.id='community-between-usage-qr';
-   group.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin:18px auto;padding:0 12px;box-sizing:border-box;width:100%';
-   function link(label,href){
-    var a=d.createElement('a');a.textContent=label;a.href=href;
-    a.style.cssText='display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:52px;width:min(100%,320px);padding:12px 20px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:white;font-size:17px;font-weight:700;text-align:center;text-decoration:none';
+   group.style.cssText='display:flex!important;flex-direction:column!important;align-items:center!important;gap:12px!important;margin:18px auto!important;padding:0 12px!important;width:100%!important;box-sizing:border-box!important;position:relative!important';
+   function link(t,href){
+    var a=d.createElement('a');a.textContent=t;a.href=href;
+    a.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;width:min(100%,320px)!important;min-height:52px!important;box-sizing:border-box!important;padding:12px 20px!important;border:1px solid #8fa4b9!important;border-radius:9px!important;background:#303c4b!important;color:white!important;font-size:17px!important;font-weight:700!important;text-decoration:none!important;text-align:center!important';
     group.appendChild(a);
    }
    link('伝助のインジケータ','/iPhone伝助のインジケータここに戻る保存版V2.html');
    link('FXの入口','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html');
-   // Remove only old footer entrance buttons, leaving navigation and other links untouched.
+   // Place directly before the QR card; the existing usage card stays above.
+   qrCard.parentNode.insertBefore(group,qrCard);
+   if(oldGroup&&!group.contains(oldGroup))oldGroup.style.setProperty('display','none','important');
    Array.from(d.querySelectorAll('a,button')).forEach(function(el){
     if(group.contains(el)||el.closest('header,.topbar,#tablet-v4-nav'))return;
-    var t=(el.textContent||'').replace(/\\s+/g,'').trim();
-    if(t==='FXの入口'||t==='HOMEに戻る'||t==='HOMEページに戻る'){
-     var holder=el.closest('.community-mobile-home');
-     if(holder&&holder.querySelectorAll('a,button').length===1)holder.remove();
-     else el.remove();
-    }
+    var label=(el.textContent||'').replace(/\s+/g,'').trim();
+    if(/^(FXの入口|HOMEに戻る|HOMEページに戻る)$/.test(label))el.style.setProperty('display','none','important');
    });
-   parent.insertBefore(group,qrCard);
-  }catch(e){console.error('community button placement',e)}
+  }catch(e){console.error('community between-cards navigation',e)}
  }
- f.addEventListener('load',function(){place();setTimeout(place,250)});
+ f.addEventListener('load',function(){install();setTimeout(install,350);setTimeout(install,1200)});
+ if(f.contentDocument&&f.contentDocument.readyState==='complete')install();
 })();
 </script></body></html>
