@@ -102,4 +102,39 @@
  }
  frame.addEventListener('load',function(){apply();setTimeout(apply,500);setTimeout(apply,1400)});
  if(frame.contentDocument&&frame.contentDocument.readyState==='complete')apply();
-})();</script></body></html>
+})();</script><script>
+/* Test-only: remove the legacy HOME footer without changing the QR panel. */
+(function(){
+ var frame=document.getElementById('original');
+ function clean(doc){
+  if(!doc||!doc.body)return;
+  var candidates=Array.from(doc.querySelectorAll('a,button,[role="button"]'));
+  candidates.forEach(function(el){
+   if(el.closest('#community-between-usage-qr,header,.topbar,#tablet-v4-nav'))return;
+   var label=(el.innerText||el.textContent||'').replace(/[\s⌂🏠←→]/g,'').trim();
+   if(!/^(HOMEページに戻る|HOMEに戻る|HOMEへ戻る)$/.test(label))return;
+   var holder=el.closest('.community-mobile-home');
+   if(holder)holder.style.setProperty('display','none','important');
+   el.style.setProperty('display','none','important');
+   el.setAttribute('aria-hidden','true');
+  });
+  Array.from(doc.querySelectorAll('iframe')).forEach(function(f){
+   try{clean(f.contentDocument)}catch(e){}
+  });
+ }
+ function run(){
+  try{clean(frame.contentDocument)}catch(e){}
+ }
+ frame.addEventListener('load',function(){
+  run();setTimeout(run,300);setTimeout(run,1000);
+  try{
+   var d=frame.contentDocument;
+   if(d&&d.body&&!d.__legacyHomeRemovalObserver){
+    d.__legacyHomeRemovalObserver=new MutationObserver(run);
+    d.__legacyHomeRemovalObserver.observe(d.body,{childList:true,subtree:true,characterData:true});
+   }
+  }catch(e){}
+ });
+ run();
+})();
+</script></body></html>
