@@ -69,7 +69,9 @@ function go(type,hash){
    detailFrame.style.cssText='display:none;width:100%;height:100%;border:0;visibility:hidden';
    topFrame.parentNode.insertBefore(detailFrame,topFrame.nextSibling);
    detailFrame.addEventListener('load',function(){
-    if(frame===detailFrame)repair();
+    if(frame===detailFrame){repair();
+     if(typeof window.__iphoneFixCommunityFooter==='function')window.__iphoneFixCommunityFooter();
+    }
    });
   }
   detailFrame.style.display='block';
@@ -684,7 +686,7 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
     if(old.closest('#tablet-v4-nav,header,.topbar'))return;
     if(old.dataset.iphoneFxReplacement==='yes')return;
     var label=(old.textContent||'').replace(/\s+/g,'').trim();
-    if(!/^(?:⌂|🏠)?(?:HOMEに戻る|HOMEページに戻る|FXの入口)$/.test(label))return;
+    if(!/(?:HOME(?:ページ)?に戻る|FXの入口)/.test(label) || label.length>24)return;
     var button=d.createElement('button');
     button.type='button';
     button.textContent='FXの入口';
@@ -709,6 +711,7 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
   }
  }
  function update(){document.querySelectorAll('iframe').forEach(function(f){processFrame(f,false)})}
+ window.__iphoneFixCommunityFooter=update;
  document.querySelectorAll('iframe').forEach(function(f){f.addEventListener('load',update)});
  update();
  new MutationObserver(update).observe(document.body,{childList:true,subtree:true});
