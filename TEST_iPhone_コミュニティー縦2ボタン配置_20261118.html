@@ -1,0 +1,116 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>iPhone コミュニティー全体復元テスト</title><style>html,body{margin:0;width:100%;height:100%;background:#090d16}#original{width:100%;height:100%;border:0;display:block}</style></head><body><iframe id="original" src="/11_15main起動V1/COMMUNITY_ここに戻るV1_20261112.html"></iframe><script>(function(){var f=document.getElementById('original');f.addEventListener('load',function(){try{var nd=f.contentDocument;var gallery=nd.querySelector('section.card .gallery');var nav=nd.getElementById('tablet-v4-nav');if(!gallery||!nav)return;var st=nd.createElement('style');st.textContent='html,body{overflow-y:auto!important;height:auto!important;min-height:100%!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:calc(100dvh - 135px)!important;min-height:480px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important}';nd.head.appendChild(st);
+   var fix=nd.createElement('style');fix.id='iphone-community-native-scroll';
+   fix.textContent=[
+    'html,body{overflow-y:auto!important;overflow-x:hidden!important;height:auto!important;min-height:100%!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}',
+    'main.wrap>section.card:has(.gallery)>.gallery{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;scroll-snap-type:y mandatory!important;scroll-behavior:smooth!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;height:100%!important}',
+    '.gallery>article.post-card,.gallery>article.post-card.iphone-active{display:grid!important;position:relative!important;visibility:visible!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;height:100%!important;min-height:100%!important;max-height:100%!important;box-sizing:border-box!important;overflow:hidden!important;padding:8px!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}',
+    '.gallery>article.post-card>h3{grid-row:1!important;min-height:0!important;margin:0!important;font-size:16px!important;line-height:1.4!important}',
+    '.gallery>article.post-card>img{grid-row:2!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;object-fit:contain!important}',
+    '.gallery>article.post-card>.community-card-text,.gallery>article.post-card>.honnoji-original-text{grid-row:3!important;display:block!important;width:100%!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;overscroll-behavior:contain!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;box-sizing:border-box!important;padding:12px!important;background:#080b10!important;border:1px solid #60738a!important;border-radius:8px!important;position:relative!important;transform:none!important;opacity:1!important}',
+    '#tablet-v4-nav{display:flex!important;justify-content:center!important;gap:12px!important}'
+   ].join('');
+   nd.head.appendChild(fix);var outerScroll=nd.createElement('style');outerScroll.id='iphone-community-outer-scroll-fix';outerScroll.textContent='html,body{overflow-y:auto!important;overflow-x:hidden!important;height:auto!important;min-height:100%!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap{height:auto!important;min-height:100dvh!important;overflow:visible!important}body>main,body>.wrap{overflow:visible!important}';nd.head.appendChild(outerScroll);var sizing=nd.createElement('style');sizing.id='iphone-community-window-height-restore';sizing.textContent="main.wrap>section.card:has(.gallery){height:auto!important;min-height:0!important;max-height:none!important;display:block!important;overflow:visible!important;padding-bottom:16px!important}main.wrap>section.card:has(.gallery)>.gallery{display:block!important;position:relative!important;box-sizing:border-box!important;width:100%!important;height:80dvh!important;min-height:480px!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{position:relative!important;display:flex!important;margin:10px auto!important;clear:both!important}.gallery>article.post-card{height:100%!important;min-height:100%!important;max-height:100%!important}";nd.head.appendChild(sizing);
+   var posts=Array.from(gallery.querySelectorAll(':scope>article.post-card'));
+   if(posts.length){
+    nav.replaceChildren();
+    nav.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:10px 4px!important;flex:0 0 auto!important';
+    var prev=nd.createElement('button'),next=nd.createElement('button'),count=nd.createElement('span');
+    prev.type='button';prev.textContent='戻る';next.type='button';next.textContent='次へ';
+    count.setAttribute('aria-live','polite');count.style.cssText='color:white;font-size:16px;font-weight:bold;min-width:62px;text-align:center';
+    [prev,next].forEach(function(btn){btn.style.cssText='padding:10px 16px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700'});
+    nav.append(prev,count,next);
+    var current=0;
+    function update(i){
+      current=Math.max(0,Math.min(posts.length-1,i));
+      count.textContent=(current+1)+' / '+posts.length;
+      prev.disabled=current===0;next.disabled=current===posts.length-1;
+      prev.style.opacity=prev.disabled?'.45':'1';next.style.opacity=next.disabled?'.45':'1';
+    }
+    function jump(i){
+      update(i);
+      gallery.scrollTo({top:posts[current].offsetTop-posts[0].offsetTop,behavior:'smooth'});
+    }
+    prev.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();jump(current-1)});
+    next.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();jump(current+1)});
+    var scrollTick=0;
+    gallery.addEventListener('scroll',function(){
+      if(scrollTick)return;
+      scrollTick=nd.defaultView.requestAnimationFrame(function(){
+        scrollTick=0;
+        var h=gallery.clientHeight;if(h>0)update(Math.round(gallery.scrollTop/h));
+      });
+    },{passive:true});
+    gallery.scrollTop=0;update(0);
+   }
+}catch(e){console.error(e)}})})();</script><script>
+/* Test-only COMMUNITY footer replacement before iframe becomes visible. */
+(function(){
+ var f=document.getElementById('original');
+ f.style.visibility='hidden';
+ function fix(){
+  try{
+   var d=f.contentDocument;if(!d)return;
+   var nodes=Array.from(d.querySelectorAll('a,button'));
+   nodes.forEach(function(old){
+    if(old.closest('header,.topbar,#tablet-v4-nav'))return;
+    var label=(old.textContent||'').replace(/\s+/g,'').trim();
+    if(!/(?:HOME(?:ページ)?に戻る|FXの入口)/.test(label)||label.length>24)return;
+    if(old.dataset.iphoneCommunityFxHome==='yes')return;
+    var b=d.createElement('button');
+    b.type='button';b.textContent='FXの入口';
+    b.dataset.iphoneCommunityFxHome='yes';
+    b.className=old.className;
+    b.style.cssText='display:inline-flex!important;width:auto!important;max-width:180px!important;min-width:0!important;justify-content:center!important;align-items:center!important;padding:10px 22px!important;min-height:44px;box-sizing:border-box!important;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700;cursor:pointer';
+    old.replaceWith(b);
+   });
+   if(!d.__iphoneCommunityFxObserver){
+    d.__iphoneCommunityFxObserver=new MutationObserver(fix);
+    d.__iphoneCommunityFxObserver.observe(d.documentElement,{childList:true,subtree:true});
+   }
+  }catch(e){console.error(e)}
+  f.style.visibility='visible';
+ }
+ f.addEventListener('load',fix);
+ if(f.contentDocument&&f.contentDocument.readyState==='complete')fix();
+})();
+</script><script>
+/* Test-only: place Densuke then FX entrance between usage and QR cards. */
+(function(){
+ var f=document.getElementById('original');
+ function place(){
+  try{
+   var d=f.contentDocument;if(!d||d.getElementById('community-between-usage-qr'))return;
+   var headings=Array.from(d.querySelectorAll('h1,h2,h3,h4'));
+   var usage=headings.find(function(h){return /ご利用について/.test(h.textContent||'')});
+   var qr=headings.find(function(h){return /QRコード|時間を共有しませんか/.test(h.textContent||'')});
+   if(!usage||!qr)return;
+   function card(h){return h.closest('section.card,article.card,.card,section')||h.parentElement}
+   var usageCard=card(usage),qrCard=card(qr);
+   if(!usageCard||!qrCard||usageCard===qrCard)return;
+   var parent=qrCard.parentElement;
+   if(!parent||usageCard.parentElement!==parent)return;
+   var group=d.createElement('div');group.id='community-between-usage-qr';
+   group.style.cssText='display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin:18px auto;padding:0 12px;box-sizing:border-box;width:100%';
+   function link(label,href){
+    var a=d.createElement('a');a.textContent=label;a.href=href;
+    a.style.cssText='display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:52px;width:min(100%,320px);padding:12px 20px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:white;font-size:17px;font-weight:700;text-align:center;text-decoration:none';
+    group.appendChild(a);
+   }
+   link('伝助のインジケータ','/iPhone伝助のインジケータここに戻る保存版V2.html');
+   link('FXの入口','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html');
+   // Remove only old footer entrance buttons, leaving navigation and other links untouched.
+   Array.from(d.querySelectorAll('a,button')).forEach(function(el){
+    if(group.contains(el)||el.closest('header,.topbar,#tablet-v4-nav'))return;
+    var t=(el.textContent||'').replace(/\\s+/g,'').trim();
+    if(t==='FXの入口'||t==='HOMEに戻る'||t==='HOMEページに戻る'){
+     var holder=el.closest('.community-mobile-home');
+     if(holder&&holder.querySelectorAll('a,button').length===1)holder.remove();
+     else el.remove();
+    }
+   });
+   parent.insertBefore(group,qrCard);
+  }catch(e){console.error('community button placement',e)}
+ }
+ f.addEventListener('load',function(){place();setTimeout(place,250)});
+})();
+</script></body></html>
