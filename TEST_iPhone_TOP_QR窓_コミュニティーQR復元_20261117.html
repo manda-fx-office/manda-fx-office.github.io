@@ -669,49 +669,49 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
 </script>
 
 <script>
-/* iPhone COMMUNITY QR footer: one click route through the existing controller. */
+/* Replace the COMMUNITY footer HOME element with a new, single-route button. */
 (function(){
  'use strict';
- function visit(frame,communityContext){
+ var HOME='/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html';
+ function processFrame(frame,community){
   var d,w;
   try{d=frame.contentDocument;w=frame.contentWindow;if(!d||!w)return;}catch(e){return;}
   var pathname='';
   try{pathname=decodeURIComponent(w.location.pathname);}catch(e){}
-  var isCommunity=communityContext||/iPhoneコミュニティーページ窓ここに戻る保存版V2\.html|COMMUNITY_ここに戻るV1_20261112\.html/.test(pathname);
+  var isCommunity=community||/iPhoneコミュニティーページ窓ここに戻る保存版V2\.html|COMMUNITY_ここに戻るV1_20261112\.html/.test(pathname);
   if(isCommunity){
-   d.querySelectorAll('a,button').forEach(function(el){
-    if(el.closest('#tablet-v4-nav'))return;
-    var label=(el.textContent||'').replace(/\s+/g,'').trim();
-    if(!/^([⌂🏠]\s*)?(HOMEに戻る|HOMEページに戻る|FXの入口)$/.test(label))return;
-    if(el.dataset.iphoneCommunityFxHome==='yes')return;
-    el.dataset.iphoneCommunityFxHome='yes';
-    el.textContent='FXの入口';
-    el.style.setProperty('width','auto','important');
-    el.style.setProperty('max-width','180px','important');
-    el.style.setProperty('min-width','0','important');
-    el.style.setProperty('display','inline-flex','important');
-    el.style.setProperty('justify-content','center','important');
-    el.style.setProperty('padding','10px 22px','important');
-    el.style.setProperty('box-sizing','border-box','important');
-    if(el.tagName==='A'){
-     el.setAttribute('href','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html');
-     el.removeAttribute('target');
-    }
+   d.querySelectorAll('a,button').forEach(function(old){
+    if(old.closest('#tablet-v4-nav,header,.topbar'))return;
+    if(old.dataset.iphoneFxReplacement==='yes')return;
+    var label=(old.textContent||'').replace(/\s+/g,'').trim();
+    if(!/^(?:⌂|🏠)?(?:HOMEに戻る|HOMEページに戻る|FXの入口)$/.test(label))return;
+    var button=d.createElement('button');
+    button.type='button';
+    button.textContent='FXの入口';
+    button.dataset.iphoneFxReplacement='yes';
+    button.className=old.className;
+    button.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;max-width:180px!important;min-width:0!important;padding:10px 22px!important;box-sizing:border-box!important;min-height:44px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700;cursor:pointer';
+    button.addEventListener('click',function(e){
+     e.preventDefault();e.stopImmediatePropagation();
+     /* Existing controller handles the single marked-button route in capture phase. */
+    });
+    old.replaceWith(button);
    });
   }
   d.querySelectorAll('iframe').forEach(function(child){
-   if(!child.__iphoneCommunityFooterWatch){
-    child.__iphoneCommunityFooterWatch=true;
-    child.addEventListener('load',function(){visit(child,isCommunity)});
+   if(!child.__iphoneFxChildLoad){
+    child.__iphoneFxChildLoad=true;
+    child.addEventListener('load',function(){processFrame(child,isCommunity)});
    }
-   visit(child,isCommunity);
+   processFrame(child,isCommunity);
   });
-  if(!d.__iphoneCommunityFooterObserver){
-   d.__iphoneCommunityFooterObserver=true;
-   new MutationObserver(function(){visit(frame,communityContext)}).observe(d.documentElement,{childList:true,subtree:true});
+  if(!d.__iphoneFxMutationObserver){
+   d.__iphoneFxMutationObserver=new MutationObserver(function(){processFrame(frame,community)});
+   d.__iphoneFxMutationObserver.observe(d.documentElement,{childList:true,subtree:true});
   }
  }
- function update(){document.querySelectorAll('iframe').forEach(function(f){visit(f,false)})}
+ function update(){document.querySelectorAll('iframe').forEach(function(f){processFrame(f,false)})}
+ document.querySelectorAll('iframe').forEach(function(f){f.addEventListener('load',update)});
  update();
  new MutationObserver(update).observe(document.body,{childList:true,subtree:true});
 })();
