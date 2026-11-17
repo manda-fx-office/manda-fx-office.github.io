@@ -449,6 +449,22 @@ function repair(){
  try{
   var d=frame.contentDocument;if(!d)return;
   bindDocument(d);
+  // iPhone Densuke V2: hide only the duplicate original bottom pager in the nested page.
+  if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='iPhone伝助のインジケータここに戻る保存版V2.html'){
+   var inner=d.getElementById('project');
+   if(inner && !inner.__v5HideDuplicatePager){
+    inner.__v5HideDuplicatePager=true;
+    var hideOldPager=function(){try{
+     var idoc=inner.contentDocument;if(!idoc||!idoc.head)return;
+     if(idoc.getElementById('iphone-v5-hide-old-densuke-pager'))return;
+     var css=idoc.createElement('style');css.id='iphone-v5-hide-old-densuke-pager';
+     css.textContent='.indicator-page>.indicator-page-nav{display:none!important}';
+     idoc.head.appendChild(css);
+    }catch(ex){console.warn('Densuke pager cleanup',ex)}};
+    inner.addEventListener('load',hideOldPager);
+    hideOldPager();
+   }
+  }
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_saved_top_20261105_ここに戻るV2.html')transplantSavedPostWindow(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='伝助のインジケータ_ここに戻る_V1.html')transplantCommunityWindowToDensuke(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_tradesystem_5cards_return_fx_test_20261110.html')transplantDensukeWindowToSystem(d);
