@@ -423,35 +423,6 @@ function transplantSystemWindowToBoard(d){
  prev.addEventListener('click',function(){move(-1)});
  next.addEventListener('click',function(){move(1)});
 }
-function transplantIntoCommunityPage(d){
- if(d.getElementById('iphone-community-page-replaced'))return true;
- var gallery=d.querySelector('.gallery');
- if(!gallery)return false;
- var card=gallery.closest('section.card')||gallery.parentElement;
- var wrapper=d.createElement('div');
- wrapper.id='community-preview';
- wrapper.style.cssText='display:block!important;width:100%!important;height:calc(100dvh - 170px)!important;min-height:440px!important;margin:0!important;overflow:hidden!important';
- var slot=d.createElement('div');slot.className='community-window';
- slot.style.cssText='height:100%!important;min-height:0!important;overflow:hidden!important';
- wrapper.appendChild(slot);
- gallery.replaceWith(wrapper);
- d.querySelectorAll('#tablet-v4-nav,#tablet-community-gallery-nav,#tablet-v4-status').forEach(function(n){n.style.setProperty('display','none','important')});
- transplantSavedPostWindow(d);
- wrapper.id='iphone-community-page-replaced';
- var nested=slot.querySelector('iframe');
- if(nested)nested.style.cssText='width:100%!important;height:100%!important;min-height:0!important;border:0;display:block';
- return !!nested;
-}
-function ensureCommunityPageTransplant(d){
- if(transplantIntoCommunityPage(d))return;
- if(d.__iphoneCommunityWatcher)return;
- d.__iphoneCommunityWatcher=true;
- var tries=0;
- var observer=new MutationObserver(function(){
-  if(transplantIntoCommunityPage(d)||++tries>200)observer.disconnect();
- });
- observer.observe(d.documentElement,{subtree:true,childList:true});
-}
 function repair(){
  try{
   var d=frame.contentDocument;if(!d)return;
@@ -461,7 +432,6 @@ function repair(){
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='android_tablet_tradesystem_5cards_return_fx_test_20261110.html')transplantDensukeWindowToSystem(d);
   if(decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop())==='board.html')transplantSystemWindowToBoard(d);
   var page=decodeURIComponent(frame.contentWindow.location.pathname.split('/').pop());
-  if(page==='COMMUNITY_ここに戻るV2_20261112.html')ensureCommunityPageTransplant(d);
   // Tablet TOP Android QR only: point to the approved 11/15 main launcher.
   // Leave iPhone QR and all saved TOP source files untouched.
   if(page==='android_tablet_saved_top_20261105_ここに戻るV2.html'){
@@ -605,6 +575,4 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
  if(topFrame.contentDocument&&topFrame.contentDocument.readyState==='complete')transplant();
 })();
 </script>
-
-
 </body></html>
