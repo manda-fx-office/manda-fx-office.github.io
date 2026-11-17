@@ -11,7 +11,7 @@ var pages={
  top:'/android_tablet_saved_top_20261105_ここに戻るV2.html?rev=20261116d',
  home:'/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html',
  project:'/11_15main起動V1/伝助のインジケータ_ここに戻る_V1.html',
- community:'/iPhoneコミュニティーページ窓ここに戻る保存版V2.html',
+ community:'/TEST_iPhone_コミュニティーFX入口ボタン固定_20261117.html',
  system:'/11_15main起動V1/android_tablet_tradesystem_5cards_return_fx_test_20261110.html',
  board:'/11_15main起動V1/board.html',login:'/11_15main起動V1/login.html',qa:'/11_15main起動V1/admin_qa_20261106_to_new_top_v2_test.html',broker:'/11_15main起動V1/fx_companies.html'
 };
@@ -670,51 +670,5 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
 })();
 </script>
 
-<script>
-/* Replace the COMMUNITY footer HOME element with a new, single-route button. */
-(function(){
- 'use strict';
- var HOME='/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html';
- function processFrame(frame,community){
-  var d,w;
-  try{d=frame.contentDocument;w=frame.contentWindow;if(!d||!w)return;}catch(e){return;}
-  var pathname='';
-  try{pathname=decodeURIComponent(w.location.pathname);}catch(e){}
-  var isCommunity=community||/iPhoneコミュニティーページ窓ここに戻る保存版V2\.html|COMMUNITY_ここに戻るV1_20261112\.html/.test(pathname);
-  if(isCommunity){
-   d.querySelectorAll('a,button').forEach(function(old){
-    if(old.closest('#tablet-v4-nav,header,.topbar'))return;
-    if(old.dataset.iphoneFxReplacement==='yes')return;
-    var label=(old.textContent||'').replace(/\s+/g,'').trim();
-    if(!/(?:HOME(?:ページ)?に戻る|FXの入口)/.test(label) || label.length>24)return;
-    var button=d.createElement('button');
-    button.type='button';
-    button.textContent='FXの入口';
-    button.dataset.iphoneFxReplacement='yes';
-    button.dataset.iphoneCommunityFxHome='yes';
-    button.className=old.className;
-    button.style.cssText='display:inline-flex!important;align-items:center!important;justify-content:center!important;width:auto!important;max-width:180px!important;min-width:0!important;padding:10px 22px!important;box-sizing:border-box!important;min-height:44px;border:1px solid #8fa4b9;border-radius:9px;background:#303c4b;color:#fff;font-size:16px;font-weight:700;cursor:pointer';
-    /* The existing capturing route handler owns navigation; no second click listener. */
-    old.replaceWith(button);
-   });
-  }
-  d.querySelectorAll('iframe').forEach(function(child){
-   if(!child.__iphoneFxChildLoad){
-    child.__iphoneFxChildLoad=true;
-    child.addEventListener('load',function(){processFrame(child,isCommunity)});
-   }
-   processFrame(child,isCommunity);
-  });
-  if(!d.__iphoneFxMutationObserver){
-   d.__iphoneFxMutationObserver=new MutationObserver(function(){processFrame(frame,community)});
-   d.__iphoneFxMutationObserver.observe(d.documentElement,{childList:true,subtree:true});
-  }
- }
- function update(){document.querySelectorAll('iframe').forEach(function(f){processFrame(f,false)})}
- window.__iphoneFixCommunityFooter=update;
- document.querySelectorAll('iframe').forEach(function(f){f.addEventListener('load',update)});
- update();
- new MutationObserver(update).observe(document.body,{childList:true,subtree:true});
-})();
-</script>
+
 </body></html>
