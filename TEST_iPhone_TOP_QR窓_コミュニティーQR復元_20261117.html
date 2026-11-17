@@ -661,4 +661,44 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
  if(topFrame.contentDocument&&topFrame.contentDocument.readyState==='complete')install();
 })();
 </script>
+
+<script>
+/* iPhone COMMUNITY page only: rename QR footer HOME return button. */
+(function(){
+ 'use strict';
+ function visit(frame,communityContext){
+  var d,w;
+  try{d=frame.contentDocument;w=frame.contentWindow;if(!d||!w)return;}catch(e){return;}
+  var pathname='';
+  try{pathname=decodeURIComponent(w.location.pathname);}catch(e){}
+  var isCommunity=communityContext||/iPhoneコミュニティーページ窓ここに戻る保存版V2\.html|COMMUNITY_ここに戻るV1_20261112\.html/.test(pathname);
+  if(isCommunity){
+   d.querySelectorAll('a,button').forEach(function(el){
+    if(el.closest('nav#tablet-v4-nav'))return;
+    var label=(el.textContent||'').replace(/\s+/g,'').trim();
+    if(!/^([⌂🏠]\s*)?(HOMEに戻る|HOMEページに戻る)$/.test(label))return;
+    el.textContent='FXの入口';
+    if(el.tagName==='A'){
+     el.setAttribute('href','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html');
+     el.removeAttribute('target');
+    }
+   });
+  }
+  d.querySelectorAll('iframe').forEach(function(child){
+   if(!child.__iphoneCommunityFooterWatch){
+    child.__iphoneCommunityFooterWatch=true;
+    child.addEventListener('load',function(){visit(child,isCommunity)});
+   }
+   visit(child,isCommunity);
+  });
+ }
+ function update(){document.querySelectorAll('iframe').forEach(function(f){visit(f,false)})}
+ document.addEventListener('click',function(e){
+  var el=e.target&&e.target.closest&&e.target.closest('a,button');
+  if(!el||el.textContent.trim()!=='FXの入口')return;
+ },false);
+ setInterval(update,900);
+ update();
+})();
+</script>
 </body></html>
