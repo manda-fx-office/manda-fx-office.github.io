@@ -575,4 +575,55 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
  if(topFrame.contentDocument&&topFrame.contentDocument.readyState==='complete')transplant();
 })();
 </script>
+
+<script>
+/* iPhone test only: preserve saved layouts, enable inner post-text touch scrolling. */
+(function(){
+ 'use strict';
+ var root=document.getElementById('tablet-page');
+ function tune(doc){
+  if(!doc||!doc.querySelector)return;
+  var gallery=doc.querySelector('section.card .gallery');
+  if(!gallery)return;
+  if(doc.getElementById('iphone-test-text-scroll-fix'))return;
+  var style=doc.createElement('style');
+  style.id='iphone-test-text-scroll-fix';
+  style.textContent=[
+   '.gallery>article.post-card{min-height:0!important;overflow:hidden!important;grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)!important}',
+   '.gallery>article.post-card>.community-card-text,.gallery>article.post-card>.honnoji-original-text{display:block!important;min-height:0!important;max-height:100%!important;height:100%!important;overflow-y:scroll!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important;overscroll-behavior-y:contain!important;position:relative!important;box-sizing:border-box!important}',
+   '.gallery{overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important}'
+  ].join('');
+  doc.head.appendChild(style);
+  gallery.querySelectorAll('article.post-card>.community-card-text,article.post-card>.honnoji-original-text').forEach(function(el){
+   el.setAttribute('tabindex','0');
+   el.style.setProperty('overflow-y','scroll','important');
+   el.style.setProperty('touch-action','pan-y','important');
+  });
+ }
+ function watchFrame(frame){
+  if(!frame||frame.dataset.iphoneScrollWatched==='yes')return;
+  frame.dataset.iphoneScrollWatched='yes';
+  frame.addEventListener('load',function(){scan(frame)});
+  scan(frame);
+ }
+ function scan(frame){
+  var doc;
+  try{doc=frame.contentDocument;if(!doc)return;}catch(e){return;}
+  tune(doc);
+  doc.querySelectorAll('iframe').forEach(watchFrame);
+  if(!doc.__iphoneScrollObserver){
+   doc.__iphoneScrollObserver=true;
+   try{new MutationObserver(function(){
+    tune(doc);
+    doc.querySelectorAll('iframe').forEach(watchFrame);
+   }).observe(doc.documentElement,{childList:true,subtree:true});}catch(e){}
+  }
+ }
+ function start(){
+  document.querySelectorAll('iframe').forEach(watchFrame);
+ }
+ start();
+ new MutationObserver(start).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
 </body></html>
