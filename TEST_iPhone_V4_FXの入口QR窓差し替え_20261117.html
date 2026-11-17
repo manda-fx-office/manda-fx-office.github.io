@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>iPhone コミュニティーナビ修正テスト | TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}iframe{display:block;width:100%;height:100%;border:0;visibility:visible}#tablet-loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#050505;color:#b7d9ee;font:16px sans-serif;z-index:9}#tablet-loading[hidden]{display:none}</style></head><body>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>iPhone コミュニティーナビ修正テスト | TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#050505}#tablet-page{position:fixed;inset:0;z-index:1}iframe{display:block;width:100%;height:100%;border:0;visibility:visible}#tablet-loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#050505;color:#b7d9ee;font:16px sans-serif;z-index:9}#tablet-loading[hidden]{display:none}</style></head><body>
 <div id="tablet-loading" role="status" aria-live="polite">TRANSITION SYSTEM を読み込んでいます…</div>
 <iframe id="tablet-page" title="TRANSITION SYSTEM" src="/android_tablet_saved_top_20261105_ここに戻るV2.html?tablet=approved-top-v1&rev=20261116d" allow="autoplay"></iframe>
 <script>
@@ -68,7 +68,7 @@ function go(type,hash){
    detailFrame=document.createElement('iframe');
    detailFrame.title='TRANSITION SYSTEM ページ';
    detailFrame.setAttribute('allow','autoplay');
-   detailFrame.style.cssText='display:none;width:100%;height:100%;border:0;visibility:hidden';
+   detailFrame.style.cssText='display:none;position:fixed;inset:0;z-index:2;width:100%;height:100%;border:0;visibility:hidden';
    topFrame.parentNode.insertBefore(detailFrame,topFrame.nextSibling);
    detailFrame.addEventListener('load',function(){
     if(frame===detailFrame){repair();
@@ -534,7 +534,7 @@ function repair(){
   d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
    if(fromHref(a.getAttribute('href'))||fromLabel(a)||isLogo(a))a.removeAttribute('target');
   });
- }catch(e){console.error('tablet approved routes',e)}finally{frame.style.visibility='visible';if(frame===detailFrame&&detailFrame)topFrame.style.display='none';if(loading)loading.hidden=true;}
+ }catch(e){console.error('tablet approved routes',e)}finally{frame.style.visibility='visible';if(frame===detailFrame&&detailFrame)topFrame.style.display='block';if(loading)loading.hidden=true;}
 }
 frame.addEventListener('load',repair);
 // Direct navigation into the same controller used by the TOP FX entrance.
