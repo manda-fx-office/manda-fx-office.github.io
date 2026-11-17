@@ -626,4 +626,39 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
  new MutationObserver(start).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
+
+<script>
+/* iPhone TOP: add page-top button immediately outside/below QR panel. */
+(function(){
+ 'use strict';
+ var topFrame=document.getElementById('tablet-page');
+ if(!topFrame)return;
+ function install(){
+  try{
+   var d=topFrame.contentDocument;
+   if(!d||decodeURIComponent(topFrame.contentWindow.location.pathname.split('/').pop())!=='android_tablet_saved_top_20261105_ここに戻るV2.html')return;
+   var qr=d.querySelector('section.qr-access')||d.querySelector('.qr-access');
+   if(!qr)return;
+   if(d.getElementById('iphone-qr-outside-page-top'))return;
+   var holder=d.createElement('div');
+   holder.id='iphone-qr-outside-page-top';
+   holder.style.cssText='display:flex;justify-content:center;align-items:center;margin:16px auto 24px;padding:0 12px;box-sizing:border-box;width:100%';
+   var btn=d.createElement('button');
+   btn.type='button';
+   btn.textContent='ページトップに戻る';
+   btn.style.cssText='display:inline-block;max-width:100%;min-height:44px;padding:12px 24px;border:1px solid #8fa4b9;border-radius:10px;background:#303c4b;color:#fff;font-size:16px;font-weight:700;cursor:pointer';
+   btn.addEventListener('click',function(e){
+    e.preventDefault();e.stopPropagation();
+    var scroller=d.scrollingElement||d.documentElement;
+    if(scroller)scroller.scrollTo({top:0,behavior:'smooth'});
+    topFrame.contentWindow.scrollTo({top:0,behavior:'smooth'});
+   });
+   holder.appendChild(btn);
+   qr.insertAdjacentElement('afterend',holder);
+  }catch(e){console.warn('TOP QR page-top button',e)}
+ }
+ topFrame.addEventListener('load',function(){install();setTimeout(install,500);setTimeout(install,1600)});
+ if(topFrame.contentDocument&&topFrame.contentDocument.readyState==='complete')install();
+})();
+</script>
 </body></html>
