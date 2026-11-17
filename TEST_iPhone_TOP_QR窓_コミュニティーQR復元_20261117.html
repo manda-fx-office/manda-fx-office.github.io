@@ -629,9 +629,20 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
      copied.removeAttribute('data-iphone-qr-copied');
      var css=d.createElement('style');
      css.id='iphone-community-qr-linked-style';
-     css.textContent=Array.from(topDoc.querySelectorAll('style')).map(function(el){return el.textContent}).join('\n')+
-      '\nhtml,body{height:auto!important;min-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important}'+
-      '#iphone-community-qr-linked{display:block!important;visibility:visible!important;position:relative!important;max-width:100%!important;width:calc(100% - 24px)!important;margin:18px auto 26px!important;box-sizing:border-box!important}';
+     css.textContent=[
+ 'html,body{height:auto!important;min-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important}',
+ '#iphone-community-qr-linked{display:block!important;visibility:visible!important;position:relative!important;max-width:100%!important;width:calc(100% - 24px)!important;margin:18px auto 26px!important;padding:18px 12px 20px!important;box-sizing:border-box!important;border:1px solid #34383c!important;border-radius:12px!important;background:linear-gradient(145deg,#171a1d,#090a0b)!important;box-shadow:0 10px 30px #0008!important;text-align:center!important}',
+ '#iphone-community-qr-linked .qr-access-title{font-size:18px!important;letter-spacing:2px!important;margin-bottom:6px!important;color:#eee!important}',
+ '#iphone-community-qr-linked .qr-access-note{color:#9aa0a5!important;font-size:11px!important;line-height:1.5!important;margin-bottom:12px!important}',
+ '#iphone-community-qr-linked .qr-grid{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;justify-content:center!important;align-items:flex-start!important;gap:10px!important;max-width:none!important;margin:0 auto!important}',
+ '#iphone-community-qr-linked .qr-card{flex:0 1 132px!important;min-width:0!important;width:132px!important;box-sizing:border-box!important;background:#f7f7f7!important;border-radius:8px!important;padding:6px!important;color:#111!important;box-shadow:0 5px 18px #0006!important}',
+ '#iphone-community-qr-linked .qr-card img{display:block!important;width:120px!important;height:auto!important;aspect-ratio:1!important;max-width:100%!important;object-fit:contain!important;margin:0 auto 4px!important}',
+ '#iphone-community-qr-linked .qr-label{font-weight:700!important;letter-spacing:1px!important;font-size:10px!important;line-height:1.2!important}',
+ '#iphone-community-qr-linked .qr-sub{font-size:8px!important;color:#555!important;margin-top:2px!important;line-height:1.2!important}',
+ '#iphone-community-qr-linked .qr-access-url-title{font-size:18px!important;letter-spacing:1px!important;margin:18px 0 8px!important;color:#eee!important}',
+ '#iphone-community-qr-linked .qr-access-url{overflow-wrap:anywhere!important;background:#050505!important;border:1px solid #687078!important;border-radius:8px!important;padding:12px 8px!important;color:#eee!important;font-size:12px!important}',
+ '#iphone-community-qr-linked .qr-copy-btn{margin:10px auto 0!important;padding:10px 24px!important;border:1px solid #777f86!important;border-radius:8px!important;background:linear-gradient(180deg,#454b51,#202428)!important;color:#eee!important;font-size:13px!important}'
+ ].join('');
      d.head.appendChild(css);
      preview.insertAdjacentElement('afterend',copied);
      var button=copied.querySelector('.qr-copy-btn,button');
