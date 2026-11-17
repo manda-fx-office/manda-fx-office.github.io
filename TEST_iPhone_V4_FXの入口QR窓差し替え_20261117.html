@@ -62,6 +62,17 @@ function go(type,hash){
   frame=topFrame;
   topFrame.style.display='block';
   topFrame.style.visibility='visible';
+  // Restart the TOP CSS ticker when returning from another iframe.
+  // The animation may have progressed offscreen while TOP was covered.
+  try{
+   var ticker=topFrame.contentDocument.querySelector('.presentation-track');
+   if(ticker){
+    ticker.style.animation='none';
+    void ticker.offsetWidth;
+    ticker.style.animation='transitionTicker 50s linear infinite';
+    ticker.style.animationPlayState='running';
+   }
+  }catch(e){console.warn('TOP ticker restart skipped',e)}
   if(loading)loading.hidden=true;
  }else{
   if(!detailFrame){
