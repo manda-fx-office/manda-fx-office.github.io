@@ -52,6 +52,8 @@ function fromLabel(el){
 }
 var topFrame=frame;
 var detailFrame=null;
+// Test-only direct navigation API: avoid a second page request on TOP return.
+window.__iphoneReturnToLoadedTop=function(){go('top','');};
 function go(type,hash){
  var target=pages[type];if(!target)return;
  if(hash)target+=hash;
@@ -711,6 +713,10 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
     topButton.textContent='TOPページ';
     topButton.href='/android_tablet_saved_top_20261105_ここに戻るV2.html?rev=20261116d';
     topButton.style.cssText='display:inline-flex;justify-content:center;align-items:center;max-width:180px;min-height:44px;padding:10px 24px;box-sizing:border-box;border:1px solid #8fa4b9;border-radius:10px;background:#303c4b;color:#fff;font-size:16px;font-weight:700;text-decoration:none';
+    topButton.addEventListener('click',function(e){
+     e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+     if(typeof window.__iphoneReturnToLoadedTop==='function')window.__iphoneReturnToLoadedTop();
+    },true);
     holder.appendChild(topButton);
     replacement.insertAdjacentElement('afterend',holder);
    }
