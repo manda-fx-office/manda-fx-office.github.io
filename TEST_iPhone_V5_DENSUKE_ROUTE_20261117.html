@@ -178,8 +178,8 @@ function transplantSavedPostWindow(d){
  var nested=d.createElement('iframe');
  nested.title='COMMUNITY保存版 投稿窓';
  nested.src='/11_15main起動V1/COMMUNITY_ここに戻るV1_20261112.html';
- nested.style.cssText='width:100%;height:100%;min-height:0;border:0;display:block;background:#090d16';
- windowBox.style.cssText='height:80dvh!important;max-height:80dvh!important;min-height:0!important;overflow:hidden!important;padding:0!important;display:block!important';
+ nested.style.cssText='width:100%;height:calc(100vh - 110px);min-height:680px;border:0;display:block;background:#090d16';
+ windowBox.style.cssText='height:auto!important;max-height:none!important;min-height:0!important;overflow:visible!important;padding:0!important;display:block!important';
  windowBox.replaceChildren(nested);
  nested.addEventListener('load',function(){
   try{
