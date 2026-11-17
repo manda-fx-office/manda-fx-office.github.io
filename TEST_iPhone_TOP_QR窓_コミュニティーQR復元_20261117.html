@@ -607,50 +607,50 @@ try{var requested=new URLSearchParams(location.search).get('page');if(requested&
 </script>
 
 <script>
-/* Restore COMMUNITY QR below its post window; do not alter TOP or routes. */
+/* COMMUNITY: use the SAME live QR panel as TOP. No second QR design. */
 (function(){
-'use strict';
-var host=document.getElementById('tablet-page');
-if(!host)return;
-var communityPath='iPhoneコミュニティー専用ページここに戻る保存版V1.html';
-var cached;
-function getPanel(){
- if(!cached)cached=fetch('/11_15main起動V1/COMMUNITY_ここに戻るV1_20261112.html').then(function(r){if(!r.ok)throw Error(r.status);return r.text()}).then(function(html){
-  var parsed=new DOMParser().parseFromString(html,'text/html');
-  var panel=parsed.querySelector('section.qr-access.community-qr-mobile');
-  if(!panel)throw Error('COMMUNITY QR missing');
-  return panel.outerHTML;
- });
- return cached;
-}
-function restore(){
- var frames=document.querySelectorAll('iframe');
- frames.forEach(function(f){
+ 'use strict';
+ var topFrame=document.getElementById('tablet-page');
+ var communityPath='iPhoneコミュニティー専用ページここに戻る保存版V1.html';
+ function sync(){
   try{
-   var d=f.contentDocument;
-   if(!d||!f.contentWindow||decodeURIComponent(f.contentWindow.location.pathname.split('/').pop())!==communityPath)return;
-   if(d.getElementById('iphone-community-qr-restored'))return;
-   var preview=d.getElementById('community-preview');
-   if(!preview)return;
-   getPanel().then(function(html){
-    if(!preview.isConnected||d.getElementById('iphone-community-qr-restored'))return;
-    var holder=d.createElement('div');holder.innerHTML=html;
-    var panel=holder.firstElementChild;if(!panel)return;
-    panel.id='iphone-community-qr-restored';
-    panel.style.cssText='display:block!important;position:relative!important;visibility:visible!important;opacity:1!important;max-width:560px!important;width:calc(100% - 24px)!important;margin:20px auto!important;padding:20px 12px!important;box-sizing:border-box!important;border:1px solid #394452!important;border-radius:12px!important;background:#101723!important;color:#fff!important;text-align:center!important';
-    var style=d.createElement('style');style.id='iphone-community-qr-restored-style';
-    style.textContent='#iphone-community-qr-restored .qr-access-grid{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}#iphone-community-qr-restored .qr-access-card{width:132px;max-width:45%;box-sizing:border-box}#iphone-community-qr-restored img{width:120px;max-width:100%;height:auto}#iphone-community-qr-restored a,#iphone-community-qr-restored button{color:inherit}';
-    d.head.appendChild(style);
-    preview.insertAdjacentElement('afterend',panel);
-    var btn=panel.querySelector('button');if(btn)btn.addEventListener('click',function(){
-      var u=panel.querySelector('.qr-access-url');if(u&&navigator.clipboard)navigator.clipboard.writeText(u.textContent.trim()).catch(function(){});
-    });
-   }).catch(function(e){console.warn('COMMUNITY QR restore skipped',e)});
+   var topDoc=topFrame&&topFrame.contentDocument;
+   if(!topDoc)return;
+   var original=topDoc.querySelector('section.qr-access.community-qr-mobile[data-iphone-qr-copied="yes"]');
+   if(!original)return;
+   document.querySelectorAll('iframe').forEach(function(f){
+    try{
+     var d=f.contentDocument;
+     if(!d||!f.contentWindow||decodeURIComponent(f.contentWindow.location.pathname.split('/').pop())!==communityPath)return;
+     var preview=d.getElementById('community-preview');
+     if(!preview||d.getElementById('iphone-community-qr-linked'))return;
+     var copied=d.importNode(original,true);
+     copied.id='iphone-community-qr-linked';
+     copied.removeAttribute('data-iphone-qr-copied');
+     var css=d.createElement('style');
+     css.id='iphone-community-qr-linked-style';
+     css.textContent=Array.from(topDoc.querySelectorAll('style')).map(function(el){return el.textContent}).join('\n')+
+      '\nhtml,body{height:auto!important;min-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important}'+
+      '#iphone-community-qr-linked{display:block!important;visibility:visible!important;position:relative!important;max-width:100%!important;width:calc(100% - 24px)!important;margin:18px auto 26px!important;box-sizing:border-box!important}';
+     d.head.appendChild(css);
+     preview.insertAdjacentElement('afterend',copied);
+     var button=copied.querySelector('.qr-copy-btn,button');
+     if(button)button.addEventListener('click',function(e){
+      e.preventDefault();e.stopPropagation();
+      var url=copied.querySelector('.qr-access-url');
+      var status=copied.querySelector('.qr-copy-status');
+      if(!url)return;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+       navigator.clipboard.writeText(url.textContent.trim()).then(function(){if(status)status.textContent='コピーしました';}).catch(function(){if(status)status.textContent='URLを長押ししてコピーしてください';});
+      }else if(status)status.textContent='URLを長押ししてコピーしてください';
+     });
+    }catch(e){}
+   });
   }catch(e){}
- });
-}
-document.addEventListener('load',restore,true);
-setInterval(restore,1500);
+ }
+ document.addEventListener('load',sync,true);
+ setInterval(sync,1200);
+ sync();
 })();
 </script>
 </body></html>
