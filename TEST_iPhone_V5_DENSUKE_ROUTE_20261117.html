@@ -26,10 +26,10 @@ var routes={
  'android_tablet_saved_top_20261105_ここに戻るV2.html':'top',
  'android_tablet_home_v6_preview_direct_V2_20261105.html':'home'
 };
-function fromHref(href){
+function fromHref(href,sourceUrl){
  if(!href||href.charAt(0)==='#'||/^(javascript:|mailto:|tel:)/i.test(href))return null;
  try{
-  var u=new URL(href,frame.contentWindow.location.href);
+  var u=new URL(href,sourceUrl||frame.contentWindow.location.href);
   if(u.origin!==location.origin && u.hostname!=='manda-fx-office.github.io')return null;
   var name=decodeURIComponent(u.pathname.split('/').pop());
   var type=routes[name]||(/^admin_qa(?:_[^/]*)?\.html$/i.test(name)?'qa':null);
@@ -39,7 +39,8 @@ function fromHref(href){
 }
 function fromLabel(el){
  var t=((el.innerText||el.textContent||'')+' '+(el.getAttribute('aria-label')||'')).replace(/\s+/g,' ').trim();
- if(/コミュニティ|コミニティ/i.test(t))return 'community';
+ if(/TOPページに戻る|トップページに戻る|TOPへ戻る/i.test(t))return 'top';
+  if(/コミュニティ|コミニティ/i.test(t))return 'community';
  if(/伝助のインジケータ/i.test(t))return 'project';
  if(/FXの入口|HOMEページに戻る|HOMEに戻る|\bHOME\b|ホームページに戻る|ホームページへ/i.test(t))return 'home';
  if(/ページトップに戻る|前へ|次へ|コピー|再生|停止/i.test(t))return null;
@@ -122,7 +123,7 @@ function bindDocument(d){
    if(active==='android_tablet_saved_top_20261105_ここに戻るV2.html' ||
       active==='android_tablet_home_v6_preview_direct_V2_20261105.html'){
     if(raw && raw.charAt(0)!=='#'){
-     var target=fromHref(raw);
+     var target=fromHref(raw,d.URL);
      if(!target && /^https:\/\/manda-fx-office\.github\.io\/?(?:[?#].*)?$/.test(raw))
       target={type:'top',hash:''};
      if(target){
@@ -153,8 +154,8 @@ function bindDocument(d){
   if(isLogo(el))dest={type:'top',hash:''};
   else{
    var label=fromLabel(el);
-   if(label)dest={type:label,hash:''};
-   else dest=fromHref(href);
+   dest=fromHref(href,d.URL);
+   if(!dest && label)dest={type:label,hash:''};
   }
   if(!dest)return;
   e.preventDefault();e.stopImmediatePropagation();
@@ -509,7 +510,7 @@ function repair(){
   d.querySelectorAll('a[href]').forEach(function(a){
    var raw=a.getAttribute('href')||'';
    if(!raw||raw.charAt(0)==='#')return;
-   var mapped=fromHref(raw);
+   var mapped=fromHref(raw,d.URL);
    if(mapped && pages[mapped.type]){
     a.setAttribute('href',pages[mapped.type]+(mapped.hash||''));
     a.removeAttribute('target');
@@ -543,7 +544,7 @@ function repair(){
    }
   });
   d.querySelectorAll('a[target="_top"],a[target="_parent"],a[target="_blank"]').forEach(function(a){
-   if(fromHref(a.getAttribute('href'))||fromLabel(a)||isLogo(a))a.removeAttribute('target');
+   if(fromHref(a.getAttribute('href'),d.URL)||fromLabel(a)||isLogo(a))a.removeAttribute('target');
   });
  }catch(e){console.error('tablet approved routes',e)}finally{frame.style.visibility='visible';if(frame===detailFrame&&detailFrame)topFrame.style.display='block';if(loading)loading.hidden=true;}
 }
