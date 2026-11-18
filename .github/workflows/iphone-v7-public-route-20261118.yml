@@ -1,53 +1,37 @@
-name: Publish iPhone V7 route safely
+name: Finalize direct iPhone V7 route and remove temporary files
 on:
   push:
     paths:
       - '.github/workflows/iphone-v7-public-route-20261118.yml'
-  workflow_dispatch:
 permissions:
   contents: write
 jobs:
-  route-iphone:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - name: Patch only the root entrypoint
+      - name: Replace only the exact redirect and remove temporary launchers
         run: |
           python3 - <<'PY'
           from pathlib import Path
           p=Path("index.html")
           b=p.read_bytes()
-          marker=b"<!-- IPHONE_V7_ROUTING_20261118 -->"
-          if marker in b:
-              print("Already patched")
-              raise SystemExit(0)
-          script=(b'<!-- IPHONE_V7_ROUTING_20261118 --><script>(function(){'
-                  b'var ua=navigator.userAgent||"";'
-                  b'if(/iPhone|iPod/i.test(ua)&&!/Android/i.test(ua)){'
-                  b'location.replace("/iPhone_\\xe6\\xad\\xa3\\xe5\\xbc\\x8f\\xe8\\xb5\\xb7\\xe5\\x8b\\x95_V7.html");'
-                  b'}})();</script>')
-          # Use ASCII-only URL to avoid encoding issues in injected script
-          script=(b'<!-- IPHONE_V7_ROUTING_20261118 --><script>(function(){'
-                  b'var ua=navigator.userAgent||"";'
-                  b'if(/iPhone|iPod/i.test(ua)&&!/Android/i.test(ua)){'
-                  b'location.replace("/iPhone_%E6%AD%A3%E5%BC%8F%E8%B5%B7%E5%8B%95_V7.html");'
-                  b'}})();</script>')
-          import re
-          m=re.search(br'<head(?:\\s[^>]*)?>',b,re.I)
-          if not m: raise SystemExit("No HEAD tag; abort without modifying")
-          assert Path("iPhone_正式起動_V7.html").exists(), "V7 launcher missing"
-          updated=b[:m.end()]+script+b[m.end():]
-          assert updated.replace(script,b"",1)==b
-          p.write_bytes(updated)
-          print("Patched index without altering original content")
+          old=b'location.replace("/iPhone_%E6%AD%A3%E5%BC%8F%E8%B5%B7%E5%8B%95_V7.html");'
+          new=b'location.replace("/11_18iPhone_LOGIN_QR%E4%BF%AE%E6%AD%A3_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8B%E4%BF%9D%E5%AD%98%E7%89%88V7.html");'
+          assert Path("11_18iPhone_LOGIN_QR修正_ここに戻る保存版V7.html").is_file()
+          assert b.count(old)==1, "Expected exactly one previous redirect; stop without modifying"
+          p.write_bytes(b.replace(old,new,1))
+          assert p.read_bytes().replace(new,old,1)==b
+          for filename in ("iPhone_正式起動_V7.html","TEST_iPhone_V7_公開入口切替確認_20261118.html"):
+              f=Path(filename)
+              if f.exists(): f.unlink()
           PY
-      - name: Commit entrypoint only
+      - name: Commit direct route and temporary file cleanup
         run: |
-          if git diff --quiet -- index.html; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- index.html
-          git commit -m "Route iPhone only to approved V7; preserve PC and Android root"
+          git add -- index.html iPhone_正式起動_V7.html TEST_iPhone_V7_公開入口切替確認_20261118.html
+          git commit -m "Use direct iPhone V7 routing; remove temporary launcher and test file"
           git push
