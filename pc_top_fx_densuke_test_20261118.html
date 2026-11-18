@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PC TOP FXの入口 タブレット保存版移植テスト V4 | TRANSITION SYSTEM</title>
+<title>PC TOP FXの入口 タブレット保存版移植テスト V5 | TRANSITION SYSTEM</title>
 <style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}iframe{width:100%;height:100%;border:0;display:block}</style></head>
-<body><iframe id="pc" title="PC TOP FXの入口 タブレット保存版移植テスト V4" src="./index.html?pc_preview=20261118v2"></iframe>
+<body><iframe id="pc" title="PC TOP FXの入口 タブレット保存版移植テスト V5" src="./index.html?pc_preview=20261118v2"></iframe>
 <script>
 (function(){
 'use strict';
@@ -23,22 +23,25 @@ function findCommunity(doc){
  return Array.from(doc.querySelectorAll('a,button,[role="button"]')).filter(el=>{
    if(el.dataset.pcDensukePatched==='1')return false;
    const t=normalize(el.textContent);
-   return t==='COMMUNITY'||t==='COMMUNITYコミュニティ'||t==='COMMUNITYコミュニティー'||t==='コミュニティ'||t==='コミュニティー';
+   return t.startsWith('COMMUNITY') && (t.includes('コミュニティ') || t==='COMMUNITY');
  });
 }
 function patchCommunity(doc){
  for(const el of findCommunity(doc)){
    el.dataset.pcDensukePatched='1';
    const leaves=Array.from(el.querySelectorAll('*')).filter(x=>x.children.length===0);
-   const en=leaves.find(x=>normalize(x.textContent)==='COMMUNITY');
-   const ja=leaves.find(x=>/^コミュニティー?$/.test((x.textContent||'').trim()));
-   if(en)en.textContent='伝助のインジケータ';
+   const en=leaves.find(x=>normalize(x.textContent).startsWith('COMMUNITY'));
+   const ja=leaves.find(x=>/コミュニティ/.test(x.textContent||'') && x!==en);
+   if(en){
+     en.textContent=(en.textContent||'').replace(/COMMUNITY/i,'伝助のインジケータ').replace(/コミュニティー?を見る/g,'インジケータ一覧へ');
+   }
    if(ja)ja.textContent='インジケータ一覧へ';
-   if(!en&&!ja){
+   if(!en){
      const walker=doc.createTreeWalker(el,NodeFilter.SHOW_TEXT);
-     let node,changed=false;
-     while((node=walker.nextNode())){if(/COMMUNITY|コミュニティ/.test(node.nodeValue)){node.nodeValue='伝助のインジケータ';changed=true;break;}}
-     if(!changed)el.textContent='伝助のインジケータ';
+     let node;
+     while((node=walker.nextNode())){
+       if(/COMMUNITY/i.test(node.nodeValue||'')){node.nodeValue=node.nodeValue.replace(/COMMUNITY/i,'伝助のインジケータ');break;}
+     }
    }
    if(el.tagName==='A')el.href=densukeDestination;
    el.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();window.location.assign(densukeDestination);},true);
