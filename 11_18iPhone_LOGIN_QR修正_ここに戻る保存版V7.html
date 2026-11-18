@@ -10,11 +10,12 @@ var loading=document.getElementById('tablet-loading');
 var pages={
  top:'/android_tablet_saved_top_20261105_ここに戻るV2.html?rev=20261116d',
  home:'/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html',
- project:'/iPhone伝助_カテゴリ移動とカードスクロール_20261118.html',
+ project:'/iPhone伝助_V3公開統合版_20261118.html',
  community:'/iPhone_コミュニティーページ_ここに戻る保存版V5_20261118.html',
  system:'/11_15main起動V1/android_tablet_tradesystem_5cards_return_fx_test_20261110.html',
  board:'/11_15main起動V1/board.html',login:'/TEST_iPhone_LOGIN_QR_TOPボタン削除_20261118.html',qa:'/11_15main起動V1/admin_qa_20261106_to_new_top_v2_test.html',broker:'/11_15main起動V1/fx_companies.html'
 };
+window.addEventListener('message',function(e){if(e.origin!==location.origin||!e.data||e.data.source!=='iphone-densuke-v3')return;if(e.data.type==='top'||e.data.type==='home')go(e.data.type,'');});
 var routes={
  'index.html':'top','android_start_v2.html':'top','android_tablet_top_保存版_20261103.html':'top',
  'home.html':'home','android_tablet_home.html':'home','android_tablet_HOME_test_20261106.html':'home',
