@@ -89,8 +89,10 @@ function go(type,hash){
    });
   }
   detailFrame.style.display='block';
-  detailFrame.style.visibility='hidden';
+  // Do not leave the iPhone launcher blank while waiting for iframe load.
+  detailFrame.style.visibility='visible';
   frame=detailFrame;
+  if(loading)loading.hidden=true;
   detailFrame.src=target;
  }
  try{history.replaceState(null,'',location.pathname+'?page='+encodeURIComponent(type))}catch(e){}
