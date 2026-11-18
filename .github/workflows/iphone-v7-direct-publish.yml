@@ -1,0 +1,40 @@
+name: Publish approved iPhone V7 directly
+on:
+  push:
+    paths:
+      - '.github/workflows/iphone-v7-direct-publish.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add direct iPhone-only route without touching other content
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          old=p.read_bytes()
+          assert Path('11_18iPhone_LOGIN_QR修正_ここに戻る保存版V7.html').exists()
+          assert b'IPHONE_V7_DIRECT_PUBLICATION' not in old
+          assert b'IPHONE_V7_ROUTING_20261118' not in old
+          m=re.search(br'<head(?:\\s[^>]*)?>',old,re.I)
+          assert m, 'head tag missing'
+          snippet=(b'<!-- IPHONE_V7_DIRECT_PUBLICATION --><script>(function(){'
+                   b'var ua=navigator.userAgent||"";'
+                   b'if(/iPhone|iPod/i.test(ua)&&!/Android/i.test(ua)){'
+                   b'location.replace("/11_18iPhone_LOGIN_QR%E4%BF%AE%E6%AD%A3_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8B%E4%BF%9D%E5%AD%98%E7%89%88V7.html");'
+                   b'}})();</script>')
+          new=old[:m.end()]+snippet+old[m.end():]
+          assert new.replace(snippet,b'',1)==old
+          p.write_bytes(new)
+          PY
+      - name: Commit only root entrypoint
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- index.html
+          git commit -m "Publish iPhone V7 directly from root without intermediate launcher"
+          git push
