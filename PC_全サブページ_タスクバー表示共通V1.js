@@ -48,7 +48,7 @@ function install(d){
 function scan(){
  var frames=root.querySelectorAll('iframe');
  if(!frames.length){install(root);return}
- var isDensuke=!!root.getElementById('project') && /PC_伝助_共通導線設定接続テストV5/.test(location.pathname);
+ var isDensuke=!!root.getElementById('project') && /PC_伝助_共通導線設定接続テストV5/.test(decodeURIComponent(location.pathname));
  if(isDensuke){
    install(root);
    if(!root.getElementById('ts-densuke-frame-separation')){
