@@ -48,6 +48,24 @@ function install(d){
 function scan(){
  var frames=root.querySelectorAll('iframe');
  if(!frames.length){install(root);return}
+ var isDensuke=!!root.getElementById('project') && /PC_伝助_共通導線設定接続テストV5/.test(location.pathname);
+ if(isDensuke){
+   install(root);
+   if(!root.getElementById('ts-densuke-frame-separation')){
+     var st=root.createElement('style');st.id='ts-densuke-frame-separation';
+     st.textContent='html,body{height:100%!important;overflow:hidden!important}body{display:flex!important;flex-direction:column!important}body>#ts-unified-taskbar{position:relative!important;flex:0 0 auto!important}body>#project{flex:1 1 auto!important;min-height:0!important;height:auto!important;width:100%!important;display:block!important}';
+     root.head.appendChild(st);
+   }
+   frames.forEach(function(f){try{
+     var d=f.contentDocument;if(d&&d.head&&!d.getElementById('ts-densuke-hide-inner-bar')){
+       var hide=d.createElement('style');hide.id='ts-densuke-hide-inner-bar';
+       hide.textContent='body>header.topbar,body>.mobile-taskbar,body>header.mobile-taskbar,body>#ts-unified-taskbar{display:none!important}body{padding-top:0!important}';
+       d.head.appendChild(hide);
+     }
+     if(!f.dataset.tsUnifiedListener){f.dataset.tsUnifiedListener='1';f.addEventListener('load',scan)}
+   }catch(e){}});
+   return;
+ }
  frames.forEach(function(f){try{install(f.contentDocument);if(!f.dataset.tsUnifiedListener){f.dataset.tsUnifiedListener='1';f.addEventListener('load',function(){install(f.contentDocument)})}}catch(e){}});
 }
 scan();
