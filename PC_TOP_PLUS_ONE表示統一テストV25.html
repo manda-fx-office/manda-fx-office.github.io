@@ -876,4 +876,52 @@ window.__pcV14Reposition=function(){var f=document.getElementById('tablet-page')
 function init(){var f=document.getElementById('tablet-page');if(!f)return;f.addEventListener('load',function(){install(f);setTimeout(function(){install(f)},300)});install(f);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
-</script></body></html>
+</script>
+<style id="top-v25-independent-layout">
+html,body{height:100%!important;overflow:hidden!important}
+body{display:flex!important;flex-direction:column!important}
+#top-v25-independent-bar{position:relative;z-index:30;flex:0 0 auto;background:#050505;border-bottom:1px solid #34383c;display:none}
+#top-v25-independent-bar.active{display:block}
+#top-v25-independent-bar .topbar,#top-v25-independent-bar .mobile-taskbar{position:relative!important;top:auto!important;display:flex!important;width:100%!important}
+#tablet-page{position:relative!important;inset:auto!important;flex:1 1 auto!important;min-height:0!important;height:auto!important}
+#tablet-loading{top:var(--top-v25-bar-height,0px)!important}
+</style>
+<div id="top-v25-independent-bar" aria-label="TOP タスクバー"></div>
+<script id="top-v25-independent-script">
+(function(){
+'use strict';
+var f=document.getElementById('tablet-page'),out=document.getElementById('top-v25-independent-bar');
+var original=null;
+function sync(){
+ try{
+ var d=f.contentDocument;if(!d||!d.body)return;
+ var path=decodeURIComponent(f.contentWindow.location.pathname);
+ var isTop=/android_tablet_saved_top|TOP|top/i.test(path)&&!/PC_(BOARD|LOGIN|SYSTEM|PLUS_ONE|伝助|コミュニティ|管理人|証券)/.test(path);
+ if(!isTop){out.classList.remove('active');out.replaceChildren();document.documentElement.style.setProperty('--top-v25-bar-height','0px');return}
+ var src=d.querySelector('.mobile-taskbar')||d.querySelector('header.topbar')||d.querySelector('.topbar');
+ if(!src){out.classList.remove('active');return}
+ original=src;
+ var clone=src.cloneNode(true);clone.removeAttribute('id');
+ clone.querySelectorAll('[id]').forEach(function(el){el.removeAttribute('id')});
+ out.replaceChildren(clone);out.classList.add('active');
+ if(!d.getElementById('top-v25-inner-bar-hide')){
+ var st=d.createElement('style');st.id='top-v25-inner-bar-hide';
+ st.textContent='header.topbar,.mobile-taskbar{display:none!important}body{padding-top:0!important}';
+ d.head.appendChild(st);
+ }
+ document.documentElement.style.setProperty('--top-v25-bar-height',out.offsetHeight+'px');
+ }catch(e){console.warn('TOP independent bar',e)}
+}
+out.addEventListener('click',function(e){
+ var a=e.target.closest('a,button');if(!a||!original)return;
+ var all=Array.from(out.querySelectorAll('a,button')),idx=all.indexOf(a);
+ var src=original.querySelectorAll('a,button')[idx];if(!src)return;
+ e.preventDefault();e.stopPropagation();
+ src.click();
+},true);
+f.addEventListener('load',function(){sync();setTimeout(sync,350);setTimeout(sync,1200)});
+window.addEventListener('resize',sync);
+sync();
+})();
+</script>
+</body></html>
