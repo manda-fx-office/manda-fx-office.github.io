@@ -880,60 +880,44 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <style id="top-v25-independent-layout">
 html,body{height:100%!important;overflow:hidden!important}
 body{display:flex!important;flex-direction:column!important}
-#top-v25-independent-bar{position:relative;z-index:30;flex:0 0 auto;background:#050505;border-bottom:1px solid #34383c;display:none}
-#top-v25-independent-bar.active{display:block}
-#top-v25-independent-bar .topbar,#top-v25-independent-bar .mobile-taskbar{position:relative!important;top:auto!important;display:flex!important;width:100%!important}
+#top-v25-independent-bar{display:block!important;position:relative!important;z-index:2147483000!important;flex:0 0 auto!important;background:#050505!important;border-bottom:2px solid #58636d!important}
+#top-v25-independent-bar nav{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px 12px;box-sizing:border-box;max-width:1220px;margin:auto}
+#top-v25-independent-bar a{color:#fff;text-decoration:none;border:1px solid #737a82;border-radius:6px;background:linear-gradient(#454c53,#24292e);padding:10px 8px;font:700 11px Arial,sans-serif}
+#top-v25-independent-bar a:first-child{font-size:14px;margin-right:auto}
 #tablet-page{position:relative!important;inset:auto!important;flex:1 1 auto!important;min-height:0!important;height:auto!important}
-#tablet-loading{top:var(--top-v25-bar-height,0px)!important}
+#tablet-loading{top:var(--top-v25-bar-height,65px)!important}
 </style>
-<div id="top-v25-independent-bar" aria-label="TOP タスクバー"></div>
+<div id="top-v25-independent-bar" aria-label="TOP 独立タスクバー"><nav>
+<a href="#" data-top-action="top">TRANSITION SYSTEM</a>
+<a href="#" data-top-action="home">FXの入口</a>
+<a href="#" data-top-action="project">伝助</a>
+<a href="#" data-top-action="community">コミュニティ</a>
+<a href="#" data-top-action="system">SYSTEM</a>
+<a href="#" data-top-action="board">BOARD</a>
+<a href="#" data-top-action="login">LOGIN</a>
+</nav></div>
 <script id="top-v25-independent-script">
 (function(){
 'use strict';
-var f=document.getElementById('tablet-page'),out=document.getElementById('top-v25-independent-bar');
-var original=null;
+var f=document.getElementById('tablet-page'),bar=document.getElementById('top-v25-independent-bar');
 function sync(){
+ document.documentElement.style.setProperty('--top-v25-bar-height',bar.offsetHeight+'px');
  try{
- var d=f.contentDocument;if(!d||!d.body)return;
- var path=decodeURIComponent(f.contentWindow.location.pathname);
- var isTop=/android_tablet_saved_top|TOP|top/i.test(path)&&!/PC_(BOARD|LOGIN|SYSTEM|PLUS_ONE|伝助|コミュニティ|管理人|証券)/.test(path);
- if(!isTop){out.classList.remove('active');out.replaceChildren();document.documentElement.style.setProperty('--top-v25-bar-height','0px');return}
- var src=d.querySelector('.mobile-taskbar')||d.querySelector('header.topbar')||d.querySelector('.topbar');
- if(!src){
-   out.innerHTML='<nav style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;min-height:58px;box-sizing:border-box"><a href="#" data-top-action="top" style="color:white;font-weight:700;margin-right:14px;text-decoration:none">TRANSITION SYSTEM</a><a href="#" data-top-action="home" style="color:white">FXの入口</a><a href="#" data-top-action="project" style="color:white">伝助</a><a href="#" data-top-action="community" style="color:white">コミュニティ</a><a href="#" data-top-action="system" style="color:white">SYSTEM</a><a href="#" data-top-action="board" style="color:white">BOARD</a><a href="#" data-top-action="login" style="color:white">LOGIN</a></nav>';
-   out.classList.add('active');original=null;
-   document.documentElement.style.setProperty('--top-v25-bar-height',out.offsetHeight+'px');
-   return;
- }
- original=src;
- var clone=src.cloneNode(true);clone.removeAttribute('id');
- clone.querySelectorAll('[id]').forEach(function(el){el.removeAttribute('id')});
- out.replaceChildren(clone);out.classList.add('active');
- if(!d.getElementById('top-v25-inner-bar-hide')){
- var st=d.createElement('style');st.id='top-v25-inner-bar-hide';
- st.textContent='header.topbar,.mobile-taskbar{display:none!important}body{padding-top:0!important}';
- d.head.appendChild(st);
- }
- document.documentElement.style.setProperty('--top-v25-bar-height',out.offsetHeight+'px');
- }catch(e){console.warn('TOP independent bar',e)}
+ var d=f.contentDocument;if(!d||!d.head)return;
+ var st=d.getElementById('top-v25-inner-bar-hide');
+ if(!st){st=d.createElement('style');st.id='top-v25-inner-bar-hide';d.head.appendChild(st)}
+ st.textContent='header.topbar,.mobile-taskbar,header[class*="taskbar"]{display:none!important}body{padding-top:0!important}';
+ }catch(e){}
 }
-out.addEventListener('click',function(e){
- var a=e.target.closest('a,button');if(!a)return;
- if(a.dataset.topAction){
-   e.preventDefault();e.stopPropagation();
-   var action=a.dataset.topAction;
-   if(action==='top'&&typeof window.__iphoneReturnToLoadedTop==='function'){window.__iphoneReturnToLoadedTop();return}
-   var dest=(window.TRANSITION_PC_NAV_V12&&window.TRANSITION_PC_NAV_V12.routes||{})[action];
-   if(dest)window.location.assign(dest);
-   return;
- }
- if(!original)return;
- var all=Array.from(out.querySelectorAll('a,button')),idx=all.indexOf(a);
- var src=original.querySelectorAll('a,button')[idx];if(!src)return;
+bar.addEventListener('click',function(e){
+ var a=e.target.closest('a[data-top-action]');if(!a)return;
  e.preventDefault();e.stopPropagation();
- src.click();
+ var type=a.dataset.topAction;
+ if(type==='top'){if(typeof window.__iphoneReturnToLoadedTop==='function')window.__iphoneReturnToLoadedTop();return}
+ var routes=window.TRANSITION_PC_NAV_V12&&window.TRANSITION_PC_NAV_V12.routes;
+ if(routes&&routes[type]){window.location.assign(routes[type]);}
 },true);
-f.addEventListener('load',function(){sync();setTimeout(sync,350);setTimeout(sync,1200)});
+f.addEventListener('load',function(){sync();setTimeout(sync,350);setTimeout(sync,1000)});
 window.addEventListener('resize',sync);
 sync();
 })();
