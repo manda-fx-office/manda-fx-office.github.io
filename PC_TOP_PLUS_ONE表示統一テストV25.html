@@ -877,49 +877,4 @@ function init(){var f=document.getElementById('tablet-page');if(!f)return;f.addE
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
-<style id="top-v25-independent-layout">
-html,body{height:100%!important;overflow:hidden!important}
-body{display:flex!important;flex-direction:column!important}
-#top-v25-independent-bar{display:block!important;position:relative!important;z-index:2147483000!important;flex:0 0 auto!important;background:#050505!important;border-bottom:2px solid #58636d!important}
-#top-v25-independent-bar nav{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px 12px;box-sizing:border-box;max-width:1220px;margin:auto}
-#top-v25-independent-bar a{color:#fff;text-decoration:none;border:1px solid #737a82;border-radius:6px;background:linear-gradient(#454c53,#24292e);padding:10px 8px;font:700 11px Arial,sans-serif}
-#top-v25-independent-bar a:first-child{font-size:14px;margin-right:auto}
-#tablet-page{position:relative!important;inset:auto!important;flex:1 1 auto!important;min-height:0!important;height:auto!important}
-#tablet-loading{top:var(--top-v25-bar-height,65px)!important}
-</style>
-<div id="top-v25-independent-bar" aria-label="TOP 独立タスクバー"><nav>
-<a href="#" data-top-action="top">TRANSITION SYSTEM</a>
-<a href="#" data-top-action="home">FXの入口</a>
-<a href="#" data-top-action="project">伝助</a>
-<a href="#" data-top-action="community">コミュニティ</a>
-<a href="#" data-top-action="system">SYSTEM</a>
-<a href="#" data-top-action="board">BOARD</a>
-<a href="#" data-top-action="login">LOGIN</a>
-</nav></div>
-<script id="top-v25-independent-script">
-(function(){
-'use strict';
-var f=document.getElementById('tablet-page'),bar=document.getElementById('top-v25-independent-bar');
-function sync(){
- document.documentElement.style.setProperty('--top-v25-bar-height',bar.offsetHeight+'px');
- try{
- var d=f.contentDocument;if(!d||!d.head)return;
- var st=d.getElementById('top-v25-inner-bar-hide');
- if(!st){st=d.createElement('style');st.id='top-v25-inner-bar-hide';d.head.appendChild(st)}
- st.textContent='header.topbar,.mobile-taskbar,header[class*="taskbar"]{display:none!important}body{padding-top:0!important}';
- }catch(e){}
-}
-bar.addEventListener('click',function(e){
- var a=e.target.closest('a[data-top-action]');if(!a)return;
- e.preventDefault();e.stopPropagation();
- var type=a.dataset.topAction;
- if(type==='top'){if(typeof window.__iphoneReturnToLoadedTop==='function')window.__iphoneReturnToLoadedTop();return}
- var routes=window.TRANSITION_PC_NAV_V12&&window.TRANSITION_PC_NAV_V12.routes;
- if(routes&&routes[type]){window.location.assign(routes[type]);}
-},true);
-f.addEventListener('load',function(){sync();setTimeout(sync,350);setTimeout(sync,1000)});
-window.addEventListener('resize',sync);
-sync();
-})();
-</script>
 </body></html>
