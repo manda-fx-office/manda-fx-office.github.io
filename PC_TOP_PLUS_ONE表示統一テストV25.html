@@ -899,7 +899,12 @@ function sync(){
  var isTop=/android_tablet_saved_top|TOP|top/i.test(path)&&!/PC_(BOARD|LOGIN|SYSTEM|PLUS_ONE|伝助|コミュニティ|管理人|証券)/.test(path);
  if(!isTop){out.classList.remove('active');out.replaceChildren();document.documentElement.style.setProperty('--top-v25-bar-height','0px');return}
  var src=d.querySelector('.mobile-taskbar')||d.querySelector('header.topbar')||d.querySelector('.topbar');
- if(!src){out.classList.remove('active');return}
+ if(!src){
+   out.innerHTML='<nav style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;min-height:58px;box-sizing:border-box"><a href="#" data-top-action="top" style="color:white;font-weight:700;margin-right:14px;text-decoration:none">TRANSITION SYSTEM</a><a href="#" data-top-action="home" style="color:white">FXの入口</a><a href="#" data-top-action="project" style="color:white">伝助</a><a href="#" data-top-action="community" style="color:white">コミュニティ</a><a href="#" data-top-action="system" style="color:white">SYSTEM</a><a href="#" data-top-action="board" style="color:white">BOARD</a><a href="#" data-top-action="login" style="color:white">LOGIN</a></nav>';
+   out.classList.add('active');original=null;
+   document.documentElement.style.setProperty('--top-v25-bar-height',out.offsetHeight+'px');
+   return;
+ }
  original=src;
  var clone=src.cloneNode(true);clone.removeAttribute('id');
  clone.querySelectorAll('[id]').forEach(function(el){el.removeAttribute('id')});
@@ -913,7 +918,16 @@ function sync(){
  }catch(e){console.warn('TOP independent bar',e)}
 }
 out.addEventListener('click',function(e){
- var a=e.target.closest('a,button');if(!a||!original)return;
+ var a=e.target.closest('a,button');if(!a)return;
+ if(a.dataset.topAction){
+   e.preventDefault();e.stopPropagation();
+   var action=a.dataset.topAction;
+   if(action==='top'&&typeof window.__iphoneReturnToLoadedTop==='function'){window.__iphoneReturnToLoadedTop();return}
+   var dest=(window.TRANSITION_PC_NAV_V12&&window.TRANSITION_PC_NAV_V12.routes||{})[action];
+   if(dest)window.location.assign(dest);
+   return;
+ }
+ if(!original)return;
  var all=Array.from(out.querySelectorAll('a,button')),idx=all.indexOf(a);
  var src=original.querySelectorAll('a,button')[idx];if(!src)return;
  e.preventDefault();e.stopPropagation();
