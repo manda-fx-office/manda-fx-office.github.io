@@ -56,6 +56,7 @@ var topFrame=frame;
 var detailFrame=null;
 // Test-only direct navigation API: avoid a second page request on TOP return.
 window.__iphoneReturnToLoadedTop=function(){go('top','');};
+window.__pcSharedTaskbarNavigate=go;
 function go(type,hash){
  var target=pages[type];if(!target)return;
  if(hash)target+=hash;
@@ -965,15 +966,7 @@ function install(d){
    e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
    var type=a.classList.contains('brand-logo')?'top':mapping[(a.querySelector('.nav-en')||{}).textContent];
    if(!type)return;
-   var main=window;
-   var u=new URL(main.location.href);u.searchParams.set('page',type);
-   if(type==='top'&&typeof main.__iphoneReturnToLoadedTop==='function'){main.__iphoneReturnToLoadedTop();return;}
-   var target=main.document.querySelector('#tablet-page');
-   if(!target)return;
-   var event=new MouseEvent('click',{bubbles:true,cancelable:true});
-   var fake=main.document.createElement('a');fake.href=a.href;fake.textContent=(a.querySelector('.nav-en')||a).textContent;
-   target.contentDocument&&target.contentDocument.body.appendChild(fake);
-   fake.dispatchEvent(event);fake.remove();
+   if(typeof window.__pcSharedTaskbarNavigate==='function')window.__pcSharedTaskbarNavigate(type,'');
   },true);
  }catch(e){console.warn('PC shared taskbar test',e)}
 }
