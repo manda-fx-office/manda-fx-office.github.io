@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>TRANSITION SYSTEM HOME｜スマホ確認用</title>
+<style>
+:root{--bg:#050505;--panel:#111417;--line:#3b4248;--silver:#e5e7e9;--muted:#aeb5bb;--orange:#ff9f32}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 50% 0%,#1b1e22 0,#080909 42%,#000 100%);color:#eee;font-family:Arial,"Noto Sans JP",sans-serif;line-height:1.8}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(4,4,4,.96);border-bottom:1px solid #292d31;padding:12px 18px}
+.logo{display:block;width:255px;max-width:70vw;height:auto}
+.wrap{max-width:1100px;margin:auto;padding:28px 14px 55px}
+.hero{text-align:center;padding:30px 0 18px}
+.kicker{font-size:11px;letter-spacing:5px;color:#8f989f;margin-bottom:9px}
+.hero-brand{width:min(360px,88vw);display:block;margin:0 auto 22px}
+h1{font-size:30px;letter-spacing:3px;margin:0 0 12px} .hero-sub{font-size:15px;color:#c1c6ca;line-height:1.8;margin:0 auto}
+.intro{margin:20px auto 36px;padding:22px 18px;border:1px solid #41484e;border-radius:11px;background:linear-gradient(145deg,#16191c,#090a0b);text-align:center;line-height:2;color:#d8dde0}
+.intro strong{font-size:22px;color:#fff}
+.section-title{text-align:center;margin:40px 0 22px} .section-title h2{font-size:25px;letter-spacing:2px;margin:0 0 8px} .section-title p{margin:0;color:#929aa0}
+.learn-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.learn-card,.step,.system-box,.policy{background:linear-gradient(145deg,#171a1d,#090a0b);border:1px solid #3b4248;border-radius:11px;padding:22px;box-shadow:0 12px 30px #0006}
+.learn-card .num{color:#ffb25d;font-size:11px;letter-spacing:2px} .learn-card h3{margin:8px 0 12px;font-size:22px} .learn-card p,.learn-list{color:#c0c6ca;line-height:1.8} .learn-list li::marker{color:#ff9f32}
+.path{display:grid;grid-template-columns:1fr;gap:12px;margin-top:24px} .step{text-align:center;padding:18px 12px} .step strong{display:block;color:#fff;font-size:20px} .step span{color:#aeb5ba}
+.btn{display:block;width:100%;padding:15px;margin-top:14px;text-align:center;border:1px solid #9ca4aa;border-radius:9px;background:linear-gradient(#484f56,#20252a);font-weight:700;font-size:18px;color:#fff}
+.notice{margin-top:30px;border-left:4px solid #ff9f32;padding:18px 20px;background:#15100b;color:#cfd4d8;line-height:1.8} .notice strong{color:#ffb25d}
+.qr-page-bottom{max-width:760px;margin:44px auto 34px;padding:22px 18px 26px;border:1px solid #34383c;border-radius:12px;background:linear-gradient(145deg,#171a1d,#090a0b);box-shadow:0 10px 30px #0008;text-align:center}
+.qr-access-title{font-size:19px;letter-spacing:2px;margin-bottom:6px} .qr-access-note{color:#9aa0a5;font-size:13px;margin-bottom:18px}
+.qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:560px;margin:0 auto}
+.qr-card{background:#f7f7f7;border-radius:10px;padding:10px 8px 12px;color:#111;box-shadow:0 5px 18px #0006}
+.qr-card img{display:block;width:60%;max-width:132px;margin:0 auto 10px} .qr-label{font-weight:700;letter-spacing:1px;font-size:14px} .qr-sub{font-size:11px;color:#555;margin-top:4px}
+footer{text-align:center;color:#70767b;border-top:1px solid #24272a;padding:30px 20px;font-size:12px}
+@media(min-width:700px){.learn-grid{grid-template-columns:1fr 1fr}.path{grid-template-columns:repeat(4,1fr)}}
+</style><style>
+.step-button{font:inherit;color:inherit;background:transparent;border:1px solid rgba(190,190,190,.38);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0;width:100%;}
+.step-button:focus-visible,.more-toggle:focus-visible,.back-to-path:focus-visible{outline:3px solid #8ec5ff;outline-offset:3px}
+.moved-intro{margin:18px 0 22px;line-height:1.9}
+.detail-navigation{text-align:center;margin:18px 0}
+</style>
+<style id="mobile-taskbar-baseline">
+@media(max-width:600px){body{padding-top:72px!important}.topbar{display:none!important}.mobile-taskbar{position:fixed;top:0;left:0;right:0;height:72px;z-index:99999;background:rgba(4,4,4,.96);backdrop-filter:blur(10px);border-bottom:1px solid #292d31;display:flex;align-items:center;justify-content:flex-start;padding:0 24px}.mobile-taskbar a{display:flex;align-items:center;height:100%;text-decoration:none}.mobile-taskbar img{display:block;width:auto;height:54px;max-width:230px;object-fit:contain}}@media(min-width:601px){.mobile-taskbar{display:none!important}}
+html{scroll-behavior:smooth;scroll-padding-top:84px}.step-button{text-decoration:none;cursor:pointer}.step-button:active{transform:translateY(1px)}.learn-card{scroll-margin-top:88px}.more-detail{border-left:0;padding:0;background:transparent}.more-detail summary{display:inline-block;cursor:pointer;margin:10px 0;padding:10px 16px;border:1px solid #aaa;border-radius:9px;background:#222;color:#fff;list-style:none}.more-detail summary::-webkit-details-marker{display:none}.more-detail[open]{padding:0 14px 14px;border-left:3px solid #aaa;background:rgba(127,127,127,.08)}.back-to-path{display:inline-block;text-decoration:none;color:#fff;margin-top:12px;padding:10px 16px;border-radius:9px;border:1px solid #aaa;background:#222}.detail-mode{display:grid!important;grid-template-columns:1fr!important}
+</style>
+<style id="approved-qr-screen">
+.qr-page-bottom{max-width:760px;margin:44px auto 34px;padding:22px 18px 26px;border:1px solid #34383c;border-radius:12px;background:linear-gradient(145deg,#171a1d,#090a0b);box-shadow:0 10px 30px #0008;text-align:center}
+.qr-page-bottom .qr-access-title{font-size:22px;letter-spacing:3px;margin-bottom:6px}
+.qr-page-bottom .qr-access-note{color:#9aa0a5;font-size:13px;margin-bottom:18px}
+.qr-page-bottom .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:560px;margin:0 auto}
+.qr-page-bottom .qr-card{background:#f7f7f7;border-radius:10px;padding:12px 12px 14px;color:#111;box-shadow:0 5px 18px #0006}
+.qr-page-bottom .qr-card img{display:block;width:60%;max-width:132px;margin:0 auto 10px}
+.qr-page-bottom .qr-label{font-weight:700;letter-spacing:2px;font-size:16px}
+.qr-page-bottom .qr-sub{font-size:11px;color:#555;margin-top:4px}
+.qr-pc-url-title{font-size:22px;letter-spacing:2px;margin-top:24px;margin-bottom:10px}
+.qr-pc-url-box{border:2px solid #697078;border-radius:12px;background:#050505;padding:16px 10px;font-size:18px;word-break:break-all}
+.qr-copy-btn{margin-top:14px;padding:12px 28px;border:1px solid #899098;border-radius:12px;background:linear-gradient(#4a5156,#171a1d);color:#fff;font-size:16px}
+.qr-top-return{margin-top:28px}
+.qr-top-return a{display:inline-block;padding:14px 28px;border:1px solid #899098;border-radius:12px;background:linear-gradient(#4a5156,#171a1d);color:#fff;font-size:18px;text-decoration:none}
+@media(max-width:650px){
+ .qr-page-bottom{margin:34px 12px 28px;padding:14px 8px 18px}
+ .qr-page-bottom .qr-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-width:320px}
+ .qr-page-bottom .qr-card{padding:5px}
+ .qr-page-bottom .qr-card img{width:140px;max-width:100%;margin:0 auto 4px}
+ .qr-page-bottom .qr-access-title{font-size:18px;line-height:1.3}
+ .qr-page-bottom .qr-access-note{font-size:11px;line-height:1.5;margin-bottom:12px}
+ .qr-page-bottom .qr-label{font-size:10px;letter-spacing:.3px}
+ .qr-page-bottom .qr-sub{font-size:8px;line-height:1.2;margin-top:2px}
+ .qr-pc-url-title{font-size:18px;margin-top:18px}
+ .qr-pc-url-box{font-size:14px;padding:12px 7px}
+ .qr-copy-btn{font-size:15px;padding:11px 24px}
+ .qr-top-return a{font-size:17px;padding:13px 24px}
+ .mobile-home-return{display:none!important}
+ .back{display:none!important}
+}
+@media(min-width:651px){.qr-page-bottom{display:block!important;visibility:visible!important;opacity:1!important}}
+</style>
+
+<style id="smartphone-home-buttons-baseline">
+.smartphone-top-controls{display:none}.entry-btn{display:block;padding:11px 7px;text-align:center;border:1px solid #777;border-radius:10px;background:linear-gradient(180deg,#383d42,#08090a);box-shadow:inset 0 0 18px #fff1,0 0 24px #000;color:#fff;text-decoration:none}.entry-btn b{display:block;font-size:17px;letter-spacing:1.5px}.entry-btn span{font-size:10px;color:#bbb}@media(max-width:650px){.smartphone-top-controls{width:calc(100% - 36px);margin:24px auto 18px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.smartphone-top-controls .entry-btn:nth-child(2) b{font-size:13px;letter-spacing:.5px}}
+</style>
+<style id="v4-approved-qr-and-detail-navigation">
+.qr-access-subtitle{font-size:22px;letter-spacing:2px;margin:0 0 8px;color:#e8e9ea}
+.qr-page-bottom .qr-access-title{font-size:25px;letter-spacing:2px;margin-bottom:4px}
+.qr-pc-url-box{overflow-wrap:anywhere}
+@media(max-width:600px){.qr-page-bottom{margin:28px auto 30px;padding:22px 14px 26px}.qr-page-bottom .qr-grid{gap:12px}.qr-page-bottom .qr-card{padding:10px 8px 12px}.qr-page-bottom .qr-card img{width:76%;max-width:190px}.qr-pc-url-title{font-size:22px}.qr-pc-url-box{padding:15px 10px;font-size:16px}.qr-top-return a{display:block;max-width:340px;margin:26px auto 0;padding:17px 12px}}
+/* Detail navigation shows one selected learning page at a time. */
+.learn-card[hidden], section[hidden], .notice[hidden], .smartphone-top-controls[hidden]{display:none!important}
+.detail-mode .learn-card{display:block}
+.detail-navigation{padding:8px 0 18px}
+</style>
+
+<style id="tablet-home-taskbar-final">
+/* admin_qa_new.html 保存版タスクバーをAndroidタブレット幅にも適用 */
+@media (min-width:601px) {
+  html,body { padding-top:72px!important; }
+  body .topbar { display:none!important; }
+  body .mobile-taskbar {
+    display:flex!important;
+    position:fixed!important;
+    top:0!important;left:0!important;right:0!important;
+    width:100%!important;height:72px!important;
+    box-sizing:border-box!important;
+    z-index:999999!important;
+    background:rgba(4,4,4,.96)!important;
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #292d31!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    padding:0 24px!important;
+    margin:0!important;
+  }
+  body .mobile-taskbar a {
+    display:flex!important;align-items:center!important;
+    height:100%!important;text-decoration:none!important;
+  }
+  body .mobile-taskbar img {
+    display:block!important;width:auto!important;height:54px!important;
+    max-width:230px!important;object-fit:contain!important;
+  }
+}
+</style>
+<style id="tablet-direct-home-layout">#learning-path.path{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}#learning-path.path>.step{min-width:0!important;width:100%!important;max-width:none!important}#learning-details .learn-grid{display:block!important;max-height:58vh!important;overflow-y:auto!important;overscroll-behavior:contain!important;border:1px solid #777!important;border-radius:12px!important;padding:14px!important}#learning-details .learn-card{display:none!important;width:100%!important;max-width:none!important}#learning-details .learn-card.fx-visible{display:block!important}.topbar{display:none!important}</style><style id="tablet-2col-verified-20261111">html body #learning-path.path{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}html body #learning-path.path>.step{width:100%!important;max-width:none!important;min-width:0!important}</style></head><body>
+
+
+
+<main class="wrap">
+<section class="hero"><div class="kicker">TRANSITION SYSTEM</div><h1>FXの入口</h1></section>
+<section class="intro">
+<strong>FXをこれから始める方へ</strong><br/>
+FXは、株式の現物取引とは異なり、相場が下がると予想したときにも「売り」から取引を始めることができます。<br/>
+「買い」から入る場合、価格が下がれば含み損が発生します。その値動きがどこまで続くのか、どのタイミングで判断するのか。これはFXを学ぶうえでも大切な課題です。<br/>
+FXでは、上昇・下降の両方の値動きを理解し、相場の流れを判断する力を身につけることが重要です。<br/>
+TRANSITION SYSTEMでは、チャートの読み方やテクニカル分析を通じて、相場を自分で考え、判断するための学習教材を提供します。<br/>
+過去のチャートをどのように読み解くか。その経験を積み重ねることが、これからの相場を考えるための道筋につながります。<br/>
+<strong>必ず勝てる手法はありません。学び、検証し、判断力を磨き、勝率を高めるための勉強を続けましょう。</strong><br/>
+<small>※FXには元本を超える損失が生じる可能性もあります。リスクを理解し、無理のない取引を心がけましょう。</small>
+</section>
+<section><div class="section-title"><h2>学ぶ順番</h2><p>FXの入口から、実際のトレード環境へ。</p></div><div aria-label="学ぶ順番の導入文" class="hero-sub moved-intro"><p>FXをこれから始める方へ。</p><p>まずは、FXの「仕組み」「チャート」「時間足」「資金管理」「心」を学ぶところから始めましょう。</p><p>チャートの動きだけでなく、時間足によって変わる相場の見方を理解することも大切です。</p><p>自分に合ったトレードスタイルを考えながら、相場を読み解く力と、冷静に判断する力を少しずつ身につけていきましょう。</p></div>
+<div class="path" id="learning-path"><a aria-label="FXの基本を知るの詳細を開く" class="step step-button" href="#detail-1"><strong>01 基本</strong><span>FXの仕組みを知る</span></a><a aria-label="テクニカルトレードの詳細を開く" class="step step-button" href="#detail-2"><strong>02 チャート</strong><span>相場の流れを見る</span></a><a aria-label="時間足の取り決めの詳細を開く" class="step step-button" href="#detail-3"><strong>03 時間足</strong><span>トレードスタイルと時間足を知る</span></a><a aria-label="資金管理の詳細を開く" class="step step-button" href="#detail-4"><strong>04 資金管理</strong><span>無理のない資金管理を考える</span></a><a aria-label="心の管理の詳細を開く" class="step step-button" href="#detail-5"><strong>05 心</strong><span>ルールを守って冷静に判断する</span></a></div></section>
+<section id="learning-details"><div class="section-title"><h2>学習内容を選ぶ</h2><p>ボタンを押すと詳細を確認できます。</p></div><div class="learn-grid"><article class="learn-card" id="detail-1" data-detail-card="1"><span class="num">01 / BASIC</span><h3>FXの基本を知る</h3><p>FXの仕組み、通貨ペア、買い・売り、ローソク足、pips・ロット・レバレッジを理解します。</p><ul class="learn-list"><li>FXとは何か</li><li>通貨ペア・買い・売り</li><li>ローソク足と時間足</li><li>pips・ロット・レバレッジ</li><li>取引前に確認したいリスク</li></ul><details class="more-detail"><summary>もう少し詳しく ＋</summary><p>FXは利益を得られる可能性がある一方、相場が予想と反対に動けば損失も発生します。仕組みとリスクを理解し、デモや少額で確認しながら学びましょう。</p></details></article><article class="learn-card" id="detail-2" data-detail-card="2"><span class="num">02 / TECHNICAL</span><h3>テクニカルトレード</h3><p>チャートから相場の状態を読み取り、売買を考えるための基本です。</p><ul class="learn-list"><li>トレンドとレンジ</li><li>サポート・レジスタンス</li><li>移動平均線</li><li>ボリンジャーバンド・MACD</li><li>複数の根拠を確認する</li></ul><details class="more-detail"><summary>もう少し詳しく ＋</summary><p>一つの指標だけで判断せず、値動きの方向、節目、複数の時間足などを組み合わせて検証します。過去チャートでルールを確認し、再現性を確かめることが大切です。</p></details></article><article class="learn-card" id="detail-3" data-detail-card="3"><span class="num">03 / TIME FRAME</span><h3>時間足の取り決め</h3><p>トレードに使う時間足は、取引スタイルと生活時間に合わせて決めます。</p><ul class="learn-list"><li>スキャルピング：短い値動きを狙い、短期足を中心に確認する</li><li>デイトレード：その日の値動きを見て、短期足と上位足を組み合わせる</li><li>スイングトレード：数日以上の値動きを想定し、4時間足・日足など上位足を重視する</li><li>どのスタイルでも、上位足で方向を確認し、損切りと取引量を事前に決める</li></ul><details class="more-detail"><summary>もう少し詳しく ＋</summary><p>時間足の組み合わせに絶対の正解はありません。短い時間足ほど値動きの影響を受けやすく、上位足は大きな流れを把握する助けになります。自分の取引時間、判断速度、許容損失に合う組み合わせを決め、検証してから使いましょう。</p></details></article><article class="learn-card" id="detail-4" data-detail-card="4"><span class="num">04 / MONEY MANAGEMENT</span><h3>資金管理</h3><p>トレード技術と同じくらい重要なのが、資金を守るための管理です。</p><ul class="learn-list"><li>1回の損失を決める</li><li>ロットを無理に上げない</li><li>損切りを事前に考える</li><li>リスクリワードを確認する</li></ul><details class="more-detail"><summary>もう少し詳しく ＋</summary><p>取引前に許容損失と損切り位置を決め、そこからロットを計算します。損失を取り返すためにロットを増やさず、連続損失時の停止ルールも用意しましょう。</p></details></article><article class="learn-card" id="detail-5" data-detail-card="5"><span class="num">05 / MIND</span><h3>熱くならないマインド</h3><p>感情でルールを変えないために、トレード前から自分の行動を決めておきます。</p><ul class="learn-list"><li>損を取り返そうとしない</li><li>連勝後に無理をしない</li><li>ルール外なら見送る</li><li>休むこともトレードの一部</li></ul><details class="more-detail"><summary>もう少し詳しく ＋</summary><p>事前に決めた条件に合わないときは取引を見送ります。連勝・連敗の直後は判断が偏りやすいため、記録を見返し、必要なら休むこともルールに含めます。</p></details></article></div><div class="detail-navigation"><a class="back-to-path" href="#learning-path">学ぶ順番に戻る</a></div></section>
+<section class="system-box"><h2>TRANSITION SYSTEM</h2><p>FXの基本を知ったら、次は実際のチャートで「見る・感じる・判断する」。<br/>TRANSITION SYSTEMは、MT4の可能性を引き出すためのMT4専用インジケーターシステムです。</p><a class="btn" href="product_tradesystem.html">SYSTEMを見る</a><a class="btn" href="project.html">伝助のインジケーター</a></section>
+<section class="system-box"><h2>FX会社を探す</h2><p>MT4を使ってトレード環境を整えたい方へ。対応会社を確認して口座開設ページへ進めます。</p><a class="btn" href="fx_companies.html">MT4対応 FX会社を見る</a></section>
+<section class="policy"><div class="section-title"><h2>ご利用にあたって</h2><p>学習・交流を目的としたサイトです</p></div><h3>このサイトの目的</h3><p>TRANSITION SYSTEMは、FXへの興味を持つ方が、基本を学び、チャートを知り、資金管理やトレードマインドを考えながら、知識と経験を育てていくための学習・交流・育成を目的としたコミュニティサイトです。</p><h3>インジケーターについて</h3><p>インジケーターや各種ツールは、チャートを見るための補助として提供するものです。利益や勝率が保証されることはありません。</p></section>
+<div class="notice"><strong>※ご案内</strong><br/>このページはFXに関する一般的な学習情報を提供するものです。実際の取引では損失が発生する可能性があります。取引を行う際は、ご自身の判断と責任で、無理のない資金管理を行ってください。</div>
+<div class="smartphone-top-controls" aria-label="ホーム操作メニュー">
+  <a class="entry-btn" href="product_tradesystem.html"><b>SYSTEM</b><span>システム</span></a>
+  <a class="entry-btn" href="project.html"><b>伝助のインジケーター</b><span>伝助のインジケーター</span></a>
+  <a class="entry-btn" href="board.html"><b>BOARD</b><span>伝言板</span></a>
+  <a class="entry-btn" href="login.html"><b>LOGIN</b><span>ログイン</span></a>
+</div>
+<section class="qr-access qr-page-bottom" aria-label="スマートフォンでアクセス">
+  <div class="qr-access-title">時間を共有しませんか</div>
+  <div class="qr-access-subtitle">スマートフォンでアクセス</div>
+  <div class="qr-access-note">QRコードを読み取ると、TRANSITION SYSTEM TOPページが開きます。</div>
+  <div class="qr-grid">
+    <div class="qr-card"><img src="data:image/png;base64,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" alt="Android版 QRコード"><div class="qr-label">Android版</div><div class="qr-sub">QRコードを読み取る</div></div>
+    <div class="qr-card"><img src="data:image/png;base64,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" alt="iPhone版 QRコード"><div class="qr-label">iPhone版</div><div class="qr-sub">QRコードを読み取る</div></div>
+  </div>
+<div class="qr-pc-url">
+  <div class="qr-pc-url-title">PC版アクセスURL</div>
+  <div class="qr-pc-url-box">https://manda-fx-office.github.io/</div>
+  <button type="button" class="qr-copy-btn" onclick="(function(){var u='https://manda-fx-office.github.io/';if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(function(){alert('URLをコピーしました。')}).catch(function(){window.prompt('URLをコピーしてください',u)})}else{window.prompt('URLをコピーしてください',u)}})()">URLをコピー</button>
+</div>
+<div class="qr-top-return"><a href="https://manda-fx-office.github.io/">⌂ TOPページに戻る</a></div>
+</section>
+</main><footer>TRANSITION SYSTEM / by Manda FX Office</footer>
+<script>
+(function(){
+  function all(sel,root){return Array.prototype.slice.call((root||document).querySelectorAll(sel));}
+  var detailSection=document.getElementById('learning-details');
+  var pathSection=document.getElementById('learning-path');
+  var cards=all('[data-detail-card]');
+  var pathLinks=all('.step-button');
+  if(!detailSection||!pathSection||!cards.length)return;
+  var pageSections=all('main.wrap > section, main.wrap > .notice, main.wrap > .smartphone-top-controls, main.wrap > .qr-page-bottom');
+  function showAll(){
+    pageSections.forEach(function(el){el.hidden=false;});
+    cards.forEach(function(el){el.hidden=false;});
+    detailSection.classList.remove('detail-mode');
+    var heading=detailSection.querySelector('.section-title h2');
+    var sub=detailSection.querySelector('.section-title p');
+    if(heading)heading.textContent='学習内容を選ぶ';
+    if(sub)sub.textContent='ボタンを押すと詳細を確認できます。';
+  }
+  function showDetail(n){
+    var target=cards.find(function(el){return el.getAttribute('data-detail-card')===String(n);});
+    if(!target)return;
+    pageSections.forEach(function(el){el.hidden=(el!==detailSection);});
+    cards.forEach(function(el){el.hidden=(el!==target);});
+    detailSection.classList.add('detail-mode');
+    var heading=detailSection.querySelector('.section-title h2');
+    var sub=detailSection.querySelector('.section-title p');
+    if(heading)heading.textContent=target.querySelector('h3')?target.querySelector('h3').textContent:'学習内容';
+    if(sub)sub.textContent='詳しい内容を確認できます。';
+    detailSection.scrollIntoView({behavior:'auto',block:'start'});
+    history.replaceState(null,'','#detail-'+n);
+  }
+  pathLinks.forEach(function(link){
+    link.addEventListener('click',function(ev){
+      ev.preventDefault();
+      var m=(link.getAttribute('href')||'').match(/detail-(\d+)/);
+      if(m)showDetail(m[1]);
+    });
+  });
+  var back=detailSection.querySelector('.back-to-path');
+  if(back)back.addEventListener('click',function(ev){ev.preventDefault();showAll();history.replaceState(null,'','#learning-path');pathSection.scrollIntoView({behavior:'auto',block:'start'});});
+  if(location.hash&&/^#detail-[1-5]$/.test(location.hash))showDetail(location.hash.replace('#detail-',''));
+})();
+</script>
+
+
+
+
+
+<script id="android-tablet-top-return-fix">
+(function(){
+  var ua=navigator.userAgent||"";
+  var android=/Android/i.test(ua), mobile=/Mobile/i.test(ua);
+  var w=Number(screen.width)||Number(window.innerWidth)||0;
+  var h=Number(screen.height)||Number(window.innerHeight)||0;
+  if(!(android&&(!mobile||Math.min(w,h)>=600)))return;
+  function fixTopLinks(){
+    document.querySelectorAll('.mobile-taskbar a, .topbar a, a[aria-label="TOPページへ"], a[aria-label="TOP"]').forEach(function(a){
+      a.setAttribute('href','/android_tablet_top_保存版_20261103.html?return=home&route=central_v2');
+      a.setAttribute('target','_top');
+    });
+  }
+  fixTopLinks();
+  document.addEventListener('DOMContentLoaded',fixTopLinks);
+})();
+</script>
+
+<script id="tablet-direct-home-behavior">(function(){function init(){var path=document.getElementById('learning-path'),details=document.getElementById('learning-details'),grid=details&&details.querySelector('.learn-grid');if(!path||!details||!grid)return;var links=Array.from(path.querySelectorAll('a[href^="#detail-"]')),cards=Array.from(grid.querySelectorAll('.learn-card'));function select(n){cards.forEach(function(card){card.classList.toggle('fx-visible',card.id==='detail-'+n)});links.forEach(function(link){link.classList.toggle('fx-selected',link.getAttribute('href')==='#detail-'+n)});grid.scrollTop=0;details.scrollIntoView({behavior:'smooth',block:'start'});}links.forEach(function(link){link.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();select(link.getAttribute('href').slice(8));},true);});var back=details.querySelector('.back-to-path');if(!back){back=document.createElement('button');back.className='back-to-path';back.textContent='学ぶ順番に戻る';details.appendChild(back);}back.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();path.closest('section').scrollIntoView({behavior:'smooth',block:'start'});},true);cards.forEach(function(card,i){card.classList.toggle('fx-visible',i===0)});}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();})();</script>
+</body></html>
