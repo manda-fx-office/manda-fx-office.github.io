@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PC TOP 背景保存版 共通タスクバー全ボタン接続テストV7</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#09090e}
+#pc-fixed-bar{position:fixed;top:0;left:0;right:0;height:72px;z-index:100000;background:#17171c;border-bottom:1px solid #41414a;box-sizing:border-box;display:flex;align-items:center;padding:0 24px}
+#pc-fixed-bar .brand{display:flex;align-items:center;gap:12px;color:#eee;font:700 15px system-ui,sans-serif;user-select:none;cursor:default}
+#pc-fixed-bar img{width:130px;max-height:60px;object-fit:contain}#pc-fixed-bar{gap:12px}#pc-fixed-bar nav{display:flex;align-items:center;justify-content:flex-end;flex:1;gap:6px;min-width:0}#pc-fixed-bar nav button{background:linear-gradient(#3b4249,#16191c);color:#fff;border:1px solid #67717b;border-radius:6px;min-height:40px;padding:6px 9px;font:600 11px Arial,sans-serif;white-space:nowrap;cursor:pointer}#pc-fixed-bar nav button:hover{border-color:#a8b8c8}@media(max-width:1000px){#pc-fixed-bar{padding:0 8px;gap:5px}#pc-fixed-bar img{width:85px}#pc-fixed-bar nav{gap:3px}#pc-fixed-bar nav button{font-size:9px;padding:5px 4px}}
+#pc-content{position:fixed;top:72px;bottom:0;left:0;right:0;width:100%;height:calc(100% - 72px);border:0;display:block;background:#09090e}
+</style></head><body>
+<header id="pc-fixed-bar" aria-label="PC固定タスクバー"><button id="pc-saved-top-logo" type="button" aria-label="TOPページに戻る" style="border:0;background:transparent;padding:0;cursor:pointer"><span class="brand"><img src="./logo.png" alt="TRANSITION SYSTEM ロゴ"></span></button><nav aria-label="PC共通タスクバー"><button data-go="home">FXの入口</button><button data-go="project">伝助のインジケータ</button><button data-go="broker">証券会社</button><button data-go="qa">管理人Q&amp;A</button><button data-go="system">SYSTEM</button><button data-go="board">BOARD</button><button data-go="login">LOGIN</button><button data-go="plus">PLUS ONE</button></nav></header>
+<iframe id="pc-content" title="PC TOPページ" src="./11_21PC_V2保存版_全8導線接続テストV5.html" allow="autoplay"></iframe>
+<script>
+(function(){
+'use strict';
+var root=document.getElementById('pc-content');
+ document.getElementById('pc-saved-top-logo').addEventListener('click',function(){try{if(root.contentWindow&&typeof root.contentWindow.__pcSavedRouteGo==='function'){root.contentWindow.__pcSavedRouteGo('top');return;}}catch(e){}root.src='./'+ "11_21PC_V2保存版_全8導線接続テストV5.html";});
+document.querySelector('#pc-fixed-bar nav').addEventListener('click',function(e){var b=e.target.closest('button[data-go]');if(!b)return;try{root.contentWindow.__pcSavedRouteGo(b.dataset.go)}catch(err){console.warn('Saved route unavailable',err)}});
+var seen=new WeakSet();
+function inspect(frame){
+ if(!frame)return;
+ if(!seen.has(frame)){
+  seen.add(frame);
+  frame.addEventListener('load',function(){scan(frame)});
+ }
+ scan(frame);
+}
+function scan(frame){
+ try{
+  var doc=frame.contentDocument;
+  if(!doc||!doc.documentElement)return;
+  if(!doc.getElementById('pc-v10-hide-embedded-toolbar')){
+   var style=doc.createElement('style');
+   style.id='pc-v10-hide-embedded-toolbar';
+   style.textContent='.topbar,.mobile-taskbar,.taskbar,.site-header,body>header,body>nav{display:none!important}';
+   (doc.head||doc.documentElement).appendChild(style);
+  }
+  // Blend the black rectangle of the main logo image with the TOP wallpaper.
+  // Keep the logo artwork and all navigation elements unchanged.
+  if(doc.location.pathname.indexOf('android_tablet_saved_top_20261105_')!==-1){
+   var entrance=doc.querySelector('.entrance');
+   if(entrance){
+    Array.from(entrance.querySelectorAll('img')).forEach(function(img){
+     if(img.closest('header,nav,.topbar,.taskbar,.mobile-taskbar,a,button'))return;
+     var r=img.getBoundingClientRect();
+     if(r.width<350||r.height<140)return;
+     img.style.setProperty('mix-blend-mode','screen','important');
+    });
+   }
+  }
+  // TOP's original entrance and later-added content use separate backgrounds.
+  // Harmonize only the underlying page layers; preserve buttons/cards/logo.
+  if(doc.location.pathname.indexOf('android_tablet_saved_top_20261105_')!==-1){
+   var sheet=doc.getElementById('pc-v23-unified-wallpaper');
+   if(!sheet){
+    sheet=doc.createElement('style');sheet.id='pc-v23-unified-wallpaper';
+    sheet.textContent='html,body,body>.entrance,body>#community-preview,body>section#community-preview{background-color:#000!important;background-image:none!important}';
+    (doc.head||doc.documentElement).appendChild(sheet);
+   }
+   doc.documentElement.style.setProperty('background','#000','important');
+   if(doc.body){doc.body.style.setProperty('background','#000','important');doc.body.style.setProperty('background-image','none','important');}
+   var en=doc.querySelector('.entrance');if(en){en.style.setProperty('background','#000','important');en.style.setProperty('background-image','none','important');}
+   var cm=doc.getElementById('community-preview');if(cm){cm.style.setProperty('background','#000','important');cm.style.setProperty('background-image','none','important');}
+  }
+  // Remove only the horizontal divider at the COMMUNITY section boundary.
+  // Preserve the about-card border and the community posting-window border.
+  if(doc.location.pathname.indexOf('android_tablet_saved_top_20261105_')!==-1){
+   var community=doc.getElementById('community-preview');
+   if(community){
+    community.style.setProperty('border-top','0','important');
+    community.style.setProperty('box-shadow','none','important');
+    var st=doc.getElementById('pc-v24-no-community-divider');
+    if(!st){
+     st=doc.createElement('style');st.id='pc-v24-no-community-divider';
+     st.textContent='#community-preview{border-top:0!important;box-shadow:none!important}#community-preview::before{border-top:0!important;box-shadow:none!important}';
+     (doc.head||doc.documentElement).appendChild(st);
+    }
+   }
+  }
+  Array.from(doc.querySelectorAll('iframe')).forEach(inspect);
+ }catch(e){}
+}
+inspect(root);
+// The saved V3 creates and navigates its own nested TOP iframe asynchronously.
+// Re-scan the iframe hierarchy so its taskbar is hidden even after delayed loads.
+var ticks=0;
+var poll=setInterval(function(){inspect(root);if(++ticks>=480)clearInterval(poll)},250);
+})();
+</script></body></html>
