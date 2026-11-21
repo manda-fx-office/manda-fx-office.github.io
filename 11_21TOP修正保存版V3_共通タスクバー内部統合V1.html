@@ -961,6 +961,11 @@ function install(d){
   // Remove QA's two legacy bars, then put the shared bar at the body start.
   d.querySelectorAll('header.topbar,header.mobile-taskbar,div.mobile-taskbar,div.topbar,#tablet-v4-nav').forEach(function(extra){extra.remove();});
   d.body.insertBefore(bar,d.body.firstChild);
+  if(path==='PC_PLUS_ONE_工事中_V6.html'){
+   var plusStyle=d.createElement('style');plusStyle.id='pc-plus-shared-layout';
+   plusStyle.textContent='body{display:block!important;min-height:100vh!important}.pc-unified-topbar{position:relative!important;width:100%!important}.wrap{margin:9vh auto 0!important}';
+   d.head.appendChild(plusStyle);
+  }
   if(path==='admin_qa_20261106_to_new_top_v2_test.html'){
    var stqa=d.createElement('style');stqa.id='pc-qa-use-approved-v4-bar';
    stqa.textContent='html,body{padding-top:0!important;margin-top:0!important}#pc-unified-taskbar-v1{display:block!important;position:sticky!important;top:0!important;z-index:999999!important;padding:0!important;margin:0!important;width:100%!important;max-width:none!important}#pc-unified-taskbar-v1>nav.nav{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;max-width:1220px!important;margin:0 auto!important;padding:12px 18px!important;width:100%!important}#pc-unified-taskbar-v1 .navlinks{display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;gap:6px!important}#pc-unified-taskbar-v1 .navlinks>a{display:inline-flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;min-width:92px!important;height:54px!important}#pc-unified-taskbar-v1 .brand-logo img{width:150px!important;height:auto!important;display:block!important}';
@@ -997,9 +1002,23 @@ function scanNested(d,depth){
   if(d!==document)install(d);
  }catch(e){}
 }
-document.addEventListener('load',function(e){if(e.target&&e.target.tagName==='IFRAME')onFrame(e.target)},true);
-setInterval(function(){scanNested(document,0)},500);
-new MutationObserver(function(){document.querySelectorAll('iframe').forEach(onFrame)}).observe(document.body,{childList:true,subtree:true});
+// No global iframe load listener: TOP community preview must remain untouched.
+// Apply the approved taskbar only to the active detail page, never TOP's preview frames.
+function installDetail(){
+ try{
+  var detail=document.querySelector('iframe[title="TRANSITION SYSTEM ページ"]');
+  if(!detail||detail.style.display==='none')return;
+  var d=detail.contentDocument;if(!d||!d.body)return;
+  var route=new URLSearchParams(location.search).get('page');
+  if(!route||route==='top')return;
+  if(route==='community'){
+   var nested=d.getElementById('original');
+   if(nested&&nested.contentDocument&&nested.contentDocument.body){install(nested.contentDocument);}
+  }else{install(d);}
+ }catch(e){}
+}
+setInterval(installDetail,350);
+// Detail pages are handled exclusively by installDetail().
 })();
 </script>
 </html>
