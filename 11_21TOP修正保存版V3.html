@@ -8,9 +8,10 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#09090e}
 #pc-fixed-bar img{width:130px;max-height:60px;object-fit:contain}
 #pc-content{position:fixed;top:72px;bottom:0;left:0;right:0;width:100%;height:calc(100% - 72px);border:0;display:block;background:#09090e}
 #pc-fixed-bar{justify-content:space-between;height:80px;padding:0 18px;background:rgba(4,4,4,.95);border-bottom:1px solid #292d31}#pc-fixed-bar img{width:150px;max-height:65px}#pc-fixed-nav{display:none;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap;justify-content:center}#pc-fixed-nav a{min-width:92px;height:54px;padding:6px 8px;border:1px solid rgba(210,215,220,.58);border-radius:8px;background:linear-gradient(180deg,#484f56,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 5px #0007;font-family:Arial,"Noto Sans JP",sans-serif;box-sizing:border-box}#pc-fixed-nav .nav-en{font-size:12px;font-weight:700;letter-spacing:.5px}#pc-fixed-nav .nav-ja{margin-top:3px;font-size:9px;letter-spacing:.7px}body.pc-community-active #pc-fixed-nav{display:flex}body.pc-community-active #pc-content{top:80px;height:calc(100% - 80px)}@media(max-width:1050px){#pc-fixed-nav a{min-width:76px;padding:5px 4px}#pc-fixed-nav .nav-en{font-size:10px}}
+body.pc-detail-active #pc-fixed-bar{display:none!important}body.pc-detail-active #pc-content{top:0!important;height:100%!important}
 </style></head><body>
-<header id="pc-fixed-bar" aria-label="PC固定タスクバー"><div class="brand"><img src="./logo.png" alt="TRANSITION SYSTEM ロゴ"></div><nav id="pc-fixed-nav" aria-label="共通タスクバー保存版"><a href="?page=system" data-page="system"><span class="nav-en">SYSTEM</span><span class="nav-ja">システム</span></a><a href="?page=project" data-page="project"><span class="nav-en">伝助のインジケーター</span><span class="nav-ja">伝助のインジケーター</span></a><a href="?page=community" data-page="community"><span class="nav-en">COMMUNITY</span><span class="nav-ja">コミュニティー</span></a><a href="?page=board" data-page="board"><span class="nav-en">BOARD</span><span class="nav-ja">伝言板</span></a><a href="?page=plus" data-page="plus"><span class="nav-en">PLUS ONE</span><span class="nav-ja">プラスワン</span></a><a href="?page=qa" data-page="qa"><span class="nav-en">管理人 Q&A</span><span class="nav-ja">管理人 Q&A</span></a><a href="?page=login" data-page="login"><span class="nav-en">LOGIN</span><span class="nav-ja">ログイン</span></a></nav></header>
-<iframe id="pc-content" title="PC TOPページ" src="./11_21PC_TOP_ここに戻る保存版V1_11月20日V3複製.html" allow="autoplay"></iframe>
+<header id="pc-fixed-bar" aria-label="PC固定タスクバー"><div class="brand"><img src="./logo.png" alt="TRANSITION SYSTEM ロゴ"></div></header>
+<iframe id="pc-content" title="PC TOPページ" src="./11_21TOP修正保存版V3_共通タスクバー内部統合V1.html" allow="autoplay"></iframe>
 <script>
 (function(){
 'use strict';
@@ -95,11 +96,11 @@ function scan(frame){
   Array.from(doc.querySelectorAll('iframe')).forEach(inspect);
  }catch(e){}
 }
-document.getElementById('pc-fixed-nav').addEventListener('click',function(e){var a=e.target.closest('a[data-page]');if(!a)return;e.preventDefault();var page=a.getAttribute('data-page');try{var u=new URL(root.src,location.href);u.searchParams.set('page',page);root.src=u.href;}catch(err){}});
+function syncDetailBar(){try{var active=new URLSearchParams(root.contentWindow.location.search).get('page');document.body.classList.toggle('pc-detail-active',!!active&&active!=='top');}catch(e){}}
 inspect(root);
 // The saved V3 creates and navigates its own nested TOP iframe asynchronously.
 // Re-scan the iframe hierarchy so its taskbar is hidden even after delayed loads.
 var ticks=0;
-var poll=setInterval(function(){inspect(root);if(++ticks>=480)clearInterval(poll)},250);
+var poll=setInterval(function(){inspect(root);syncDetailBar();if(++ticks>=480)clearInterval(poll)},250);
 })();
 </script></body></html>
