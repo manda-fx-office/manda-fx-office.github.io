@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PC TOP 背景3領域統一テストV20</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#09090e}
+#pc-fixed-bar{position:fixed;top:0;left:0;right:0;height:72px;z-index:100000;background:#17171c;border-bottom:1px solid #41414a;box-sizing:border-box;display:flex;align-items:center;padding:0 24px}
+#pc-fixed-bar .brand{display:flex;align-items:center;gap:12px;color:#eee;font:700 15px system-ui,sans-serif;user-select:none;cursor:default}
+#pc-fixed-bar img{width:130px;max-height:60px;object-fit:contain}
+#pc-content{position:fixed;top:72px;bottom:0;left:0;right:0;width:100%;height:calc(100% - 72px);border:0;display:block;background:#09090e}
+</style></head><body>
+<header id="pc-fixed-bar" aria-label="PC固定タスクバー"><div class="brand"><img src="./logo.png" alt="TRANSITION SYSTEM ロゴ"></div></header>
+<iframe id="pc-content" title="PC TOPページ" src="./11_20PC_TOP_ここに戻る保存版V3.html" allow="autoplay"></iframe>
+<script>
+(function(){
+'use strict';
+var root=document.getElementById('pc-content');
+var seen=new WeakSet();
+function inspect(frame){
+ if(!frame)return;
+ if(!seen.has(frame)){
+  seen.add(frame);
+  frame.addEventListener('load',function(){scan(frame)});
+ }
+ scan(frame);
+}
+function scan(frame){
+ try{
+  var doc=frame.contentDocument;
+  if(!doc||!doc.documentElement)return;
+  if(!doc.getElementById('pc-v10-hide-embedded-toolbar')){
+   var style=doc.createElement('style');
+   style.id='pc-v10-hide-embedded-toolbar';
+   style.textContent='.topbar,.mobile-taskbar,.taskbar,.site-header,body>header,body>nav{display:none!important}';
+   (doc.head||doc.documentElement).appendChild(style);
+  }
+  // V19 confirmed TOP body radial-gradient, entrance black and community #050505.
+  // Apply to the TOP iframe only, not the embedded community iframe or cards.
+  if(doc.location.pathname.indexOf('android_tablet_saved_top_20261105_')!==-1){
+   var sheet=doc.getElementById('pc-v20-solid-background');
+   if(!sheet){
+    sheet=doc.createElement('style');
+    sheet.id='pc-v20-solid-background';
+    sheet.textContent='html,html body,body,body .entrance,body #community-preview{background-color:#050505!important;background-image:none!important}';
+    (doc.head||doc.documentElement).appendChild(sheet);
+   }
+   if(doc.body){
+    doc.body.style.setProperty('background','#050505','important');
+    doc.body.style.setProperty('background-image','none','important');
+   }
+   var entrance=doc.querySelector('.entrance');
+   if(entrance){entrance.style.setProperty('background-color','#050505','important');entrance.style.setProperty('background-image','none','important');}
+   var community=doc.getElementById('community-preview');
+   if(community){community.style.setProperty('background-color','#050505','important');community.style.setProperty('background-image','none','important');}
+  }
+  Array.from(doc.querySelectorAll('iframe')).forEach(inspect);
+ }catch(e){}
+}
+inspect(root);
+// The saved V3 creates and navigates its own nested TOP iframe asynchronously.
+// Re-scan the iframe hierarchy so its taskbar is hidden even after delayed loads.
+var ticks=0;
+var poll=setInterval(function(){inspect(root);if(++ticks>=1200)clearInterval(poll)},250);
+})();
+</script></body></html>
