@@ -96,6 +96,7 @@ function scan(frame){
   Array.from(doc.querySelectorAll('iframe')).forEach(inspect);
  }catch(e){}
 }
+window.addEventListener('message',function(e){if(e.origin!==location.origin||!e.data||e.data.source!=='pc-v3-detail-route')return;document.body.classList.toggle('pc-detail-active',e.data.page!=='top');});
 function syncDetailBar(){try{var active=new URLSearchParams(root.contentWindow.location.search).get('page');document.body.classList.toggle('pc-detail-active',!!active&&active!=='top');}catch(e){}}
 inspect(root);
 // The saved V3 creates and navigates its own nested TOP iframe asynchronously.
