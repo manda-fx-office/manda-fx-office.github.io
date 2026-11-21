@@ -87,7 +87,7 @@ function scan(frame){
     if(/COMMUNITY_ここに戻る|iPhone_コミュニティーページ_ここに戻る/.test(loc)){
      if(!doc.getElementById('pc-community-single-bar-v3')){
       var single=doc.createElement('style');single.id='pc-community-single-bar-v3';
-      single.textContent='header.topbar,.mobile-taskbar,.topbar,body>header,body>nav,.taskbar{display:none!important}';
+      single.textContent='header.topbar,.mobile-taskbar,.topbar,body>header:not(.pc-unified-topbar),body>nav,.taskbar{display:none!important}.pc-unified-topbar{display:block!important}';
       (doc.head||doc.documentElement).appendChild(single);
      }
     }
