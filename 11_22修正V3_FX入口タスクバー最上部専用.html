@@ -123,7 +123,7 @@ function scan(frame){
  try{
   var d=frame.contentDocument;if(!d||!d.documentElement)return;
   var path=decodeURIComponent(d.location.pathname);
-  if(/PC版FXの入口_下部表示ここに戻る保存版V2\\.html$/.test(path)){
+  if(/PC版FXの入口_下部表示ここに戻る保存版V2\.html$/.test(path)){
    if(!d.getElementById('fx-v3-hide-inner-taskbar')){
     var style=d.createElement('style');style.id='fx-v3-hide-inner-taskbar';
     style.textContent='#ts-unified-taskbar{display:none!important}body{padding-top:0!important}';
