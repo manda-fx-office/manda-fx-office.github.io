@@ -1,0 +1,31 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COMMUNITY | TRANSITION SYSTEM</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}#ts-unified-taskbar{display:block!important;visibility:visible!important;position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;margin:0!important;transform:none!important;z-index:2147483000!important}#community-original{display:block!important;position:fixed!important;left:0!important;right:0!important;top:var(--community-bar-height,80px)!important;width:100%!important;height:calc(100% - var(--community-bar-height,80px))!important;border:0!important}</style><style id="fx-entrance-approved-taskbar">
+#ts-unified-taskbar{position:sticky!important;top:0!important;z-index:2147483000!important;width:100%!important;box-sizing:border-box!important;background:rgba(4,4,4,.95)!important;border-bottom:1px solid #292d31!important;font-family:Arial,"Noto Sans JP",sans-serif!important}
+#ts-unified-taskbar .ts-nav{max-width:1220px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:18px;box-sizing:border-box}
+#ts-unified-taskbar .ts-logo{display:block;flex:0 0 auto}#ts-unified-taskbar .ts-logo img{width:150px;height:auto;display:block}
+#ts-unified-taskbar .ts-links{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+#ts-unified-taskbar .ts-links a{min-width:92px;height:54px;padding:6px 8px;box-sizing:content-box;border:1px solid rgba(210,215,220,.58);border-radius:8px;background:linear-gradient(180deg,#484f56,#30363c 55%,#20252a);display:inline-flex;flex-direction:column;align-items:center;justify-content:center;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 5px #0007;text-decoration:none!important}
+#ts-unified-taskbar .ts-en{font-size:11px;font-weight:700;letter-spacing:.5px;line-height:1.1}
+#ts-unified-taskbar .ts-ja{margin-top:4px;font-size:9px;letter-spacing:.5px;line-height:1.1}
+body:has(> #ts-unified-taskbar) > header.topbar,body:has(> #ts-unified-taskbar) > .mobile-taskbar,body:has(> #ts-unified-taskbar) > header.mobile-taskbar{display:none!important}
+@media(max-width:900px){#ts-unified-taskbar .ts-nav{flex-wrap:wrap;justify-content:center;padding:10px 12px;gap:8px}#ts-unified-taskbar .ts-logo img{width:135px}#ts-unified-taskbar .ts-links{gap:4px}#ts-unified-taskbar .ts-links a{min-width:75px;height:48px;padding:4px 6px}#ts-unified-taskbar .ts-en{font-size:10px}#ts-unified-taskbar .ts-ja{font-size:8px}}
+</style></head><body><header id="ts-unified-taskbar"><nav class="ts-nav"><a class="ts-logo" href="#" data-ts-page="top" aria-label="TOPへ戻る"><img src="/logo.png" alt="TRANSITION SYSTEM"></a><div class="ts-links"><a href="#" data-ts-page="system"><span class="ts-en">SYSTEM</span><span class="ts-ja">システム</span></a><a href="#" data-ts-page="project"><span class="ts-en">伝助のインジケーター</span><span class="ts-ja">伝助のインジケーター</span></a><a href="#" data-ts-page="community"><span class="ts-en">COMMUNITY</span><span class="ts-ja">コミュニティー</span></a><a href="#" data-ts-page="board"><span class="ts-en">BOARD</span><span class="ts-ja">伝言板</span></a><a href="#" data-ts-page="plus"><span class="ts-en">PLUS ONE</span><span class="ts-ja">プラスワン</span></a><a href="#" data-ts-page="qa"><span class="ts-en">管理人 Q&A</span><span class="ts-ja">管理人 Q&A</span></a><a href="#" data-ts-page="login"><span class="ts-en">LOGIN</span><span class="ts-ja">ログイン</span></a></div></nav></header><iframe id="community-original" title="コミュニティー投稿ページ" src="/iPhone_コミュニティーページ_ここに戻る保存版V5_20261118.html"></iframe><script>(function(){'use strict';var bar=document.getElementById('ts-unified-taskbar');bar.addEventListener('click',function(e){var a=e.target.closest('a[data-ts-page]');if(!a)return;e.preventDefault();e.stopPropagation();var type=a.dataset.tsPage;if(parent&&typeof parent.__pcSharedTaskbarNavigate==='function')parent.__pcSharedTaskbarNavigate(type,'');else if(parent)parent.postMessage({source:'iphone-densuke-v3',type:type},location.origin)});function resize(){var h=Math.ceil(bar.getBoundingClientRect().height);if(h>0)document.documentElement.style.setProperty('--community-bar-height',h+'px')}resize();if(window.ResizeObserver)new ResizeObserver(resize).observe(bar);window.addEventListener('resize',resize)})();</script><script id="community-v18-black-background-only">
+(function(){
+'use strict';
+var css='html,body{background:#000!important;background-image:none!important}';
+function paint(doc){
+ try{
+  if(!doc||!doc.head)return;
+  if(!doc.getElementById('community-v18-black-bg')){
+   var st=doc.createElement('style');st.id='community-v18-black-bg';st.textContent=css;doc.head.appendChild(st);
+  }
+  doc.querySelectorAll('iframe').forEach(function(f){
+   if(!f.__communityV18Hook){f.__communityV18Hook=true;f.addEventListener('load',function(){paint(f.contentDocument)})}
+   try{paint(f.contentDocument)}catch(e){}
+  });
+ }catch(e){}
+}
+var f=document.getElementById('community-original');
+f.addEventListener('load',function(){try{paint(f.contentDocument)}catch(e){}});
+try{paint(f.contentDocument)}catch(e){}
+})();
+</script><style id="pc-v5-community-embedded-only">#ts-unified-taskbar{display:none!important}#community-original{top:0!important;height:100%!important}</style><script id="pc-v5-community-inner-header-only">(function(){'use strict';function clean(frame){try{var d=frame.contentDocument;if(!d||!d.head)return;var st=d.getElementById('pc-v5-inner-header-hidden');if(!st){st=d.createElement('style');st.id='pc-v5-inner-header-hidden';st.textContent='header.topbar,header#ts-unified-taskbar,.mobile-taskbar,.taskbar,body>nav,body>header,.site-header{display:none!important}';d.head.appendChild(st)}d.querySelectorAll('iframe').forEach(clean)}catch(e){}}var f=document.getElementById('community-original');f.addEventListener('load',function(){clean(f)});var n=0,t=setInterval(function(){clean(f);if(++n>480)clearInterval(t)},250)})();</script></body></html>
