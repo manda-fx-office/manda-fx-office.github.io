@@ -1,0 +1,41 @@
+name: Publish PC V3 desktop-only route (one-time)
+on:
+  push:
+    paths:
+      - '.github/workflows/pc-v3-publish-once.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify original and insert desktop-only route
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess
+          p=Path("index.html")
+          original=p.read_bytes()
+          expected="7580ace872c86762816d7ddf40fd2983dec6b77d"
+          actual=subprocess.check_output(["git","hash-object","index.html"],text=True).strip()
+          if actual!=expected:
+              raise SystemExit("STOP: index changed, no publication. Expected "+expected+" got "+actual)
+          anchor=b'</script><meta charset="utf-8">'
+          if original.count(anchor)!=1:
+              raise SystemExit("STOP: unique insertion point not found")
+          script=b'<script id="pc-v3-desktop-only-public-route">(function(){var ua=navigator.userAgent||"";var desktop=/Windows NT|Macintosh|X11|Linux x86_64/i.test(ua);var mobile=/iPhone|iPod|iPad|Android|Mobile|Tablet/i.test(ua);var ipadDesktop=/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1;if(desktop&&!mobile&&!ipadDesktop){location.replace("/11_22\xe3\x82\xbf\xe3\x82\xb9\xe3\x82\xaf\xe3\x83\x90\xe3\x83\xbc\xe5\xae\x8c\xe5\x85\xa8\xe4\xbf\x9d\xe5\xad\x98\xe7\x89\x88V3.html");}})();</script>'
+          updated=original.replace(anchor,b'</script>'+script+b'<meta charset="utf-8">',1)
+          assert updated.replace(script,b'',1)==original
+          p.write_bytes(updated)
+          print("PC-only route inserted, original mobile HTML preserved")
+          PY
+      - name: Commit only index.html
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- index.html
+          git commit -m "Publish PC V3 desktop-only route, preserve mobile"
+          git push
