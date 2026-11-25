@@ -1,1 +1,111 @@
-<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRANSITION SYSTEM</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#000000"><script>(function(){var ua=navigator.userAgent||"";var touch=Number(navigator.maxTouchPoints)||0;var short=Math.min(screen.width,screen.height),long=Math.max(screen.width,screen.height);var aspect=short>0?long/short:0;var android=/Android/i.test(ua);var mobile=navigator.userAgentData&&navigator.userAgentData.mobile;var target;if(/iPhone|iPod/i.test(ua)&&!android)target="/11_25_iPhone_QAスクロール分離確認V9B.html";else if(android)target=(/Tablet/i.test(ua)||mobile===false||(short>=360&&aspect>0&&aspect<=1.90)||!/Mobile/i.test(ua)&&short>=600)?"/11_15main起動V1.html":"/Androidスマホ_起動V8_20261118.html";else if(/Linux x86_64/i.test(ua)&&touch>0&&short>=600&&aspect>0&&aspect<=1.90)target="/11_15main起動V1.html";else if(/Windows NT|Macintosh|X11|Linux x86_64/i.test(ua)&&!/iPhone|iPod|iPad|Android|Mobile|Tablet/i.test(ua)&&!(/Macintosh/i.test(ua)&&touch>1))target="/11_24V2_PC_FX入口_TOP復帰確認.html";if(target)location.replace(target);})();</script><body>端末を自動判定できませんでした。<a href="/11_25_iPhone_QAスクロール分離確認V9B.html">iPhone</a> / <a href="/Androidスマホ_起動V8_20261118.html">Androidスマホ</a> / <a href="/11_15main起動V1.html">Androidタブレット</a> / <a href="/11_24V2_PC_FX入口_TOP復帰確認.html">PC</a></body></html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TRANSITION SYSTEM | Manda FX Office</title>
+<meta name="description" content="TRANSITION SYSTEMは、FXへの興味・学習・知識の整理・交流・育成を目的としたコミュニティサイトです。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 固定タスクバー：TOPページではロゴは表示のみ（リンクなし） -->
+<header class="taskbar">
+  <div class="taskbar-inner">
+    <span class="taskbar-logo">
+      <img src="images/logo.png" alt="TRANSITION SYSTEM by Manda FX Office">
+    </span>
+    <button class="bgm-button" id="bgmButton" type="button">♪ BGM START</button>
+  </div>
+</header>
+
+<div class="page-body" id="top">
+
+  <!-- TOPのみ：少し大きめのロゴ -->
+  <section class="hero">
+    <img src="images/logo.png" alt="TRANSITION SYSTEM by Manda FX Office">
+    <h1 class="sr-only">TRANSITION SYSTEM by Manda FX Office</h1>
+  </section>
+
+  <!-- 流れる文字の帯 -->
+  <div class="ticker" aria-hidden="true">
+    <span class="ticker-inner">世界で愛され続けてきたMT4が、あなたのトレード環境を変えていく。見る。感じる。　／　人それぞれに平等にあたえられた物は、時間だけです。</span>
+  </div>
+
+  <!-- ボタン配置：2列4段 -->
+  <nav class="menu-grid" aria-label="主要メニュー">
+    <a class="menu-button" href="#about"><strong>FXの入口</strong><span>ホームページへ</span></a>
+    <a class="menu-button" href="indicator.html"><strong>伝助のインジケーター</strong><span>伝助のインジケーター</span></a>
+    <a class="menu-button" href="brokers.html"><strong>証券会社</strong><span>証券会社一覧を見る</span></a>
+    <a class="menu-button" href="qa.html"><strong>管理人 Q&amp;A</strong><span>管理人からのお知らせ・Q&amp;A</span></a>
+    <a class="menu-button" href="system.html"><strong>SYSTEM</strong><span>システム</span></a>
+    <a class="menu-button" href="board.html"><strong>BOARD</strong><span>伝言板</span></a>
+    <a class="menu-button" href="login.html"><strong>LOGIN</strong><span>ログイン</span></a>
+    <a class="menu-button" href="plusone.html"><strong>PLUS ONE</strong><span>プラスワン</span></a>
+  </nav>
+
+  <!-- このサイトについて -->
+  <section class="panel" id="about">
+    <h2>このサイトについて</h2>
+    <p class="about-text">TRANSITION SYSTEMは、FXへの<span class="hl">興味・学習・知識の整理・交流・育成</span>を目的としたコミュニティサイトです。</p>
+    <p class="about-note">掲載情報やインジケーター等は、相場判断を補助するためのものであり、利益を保証するものではありません。FX取引には損失が生じる可能性があります。実際の取引は、ご自身の判断と責任で行ってください。</p>
+  </section>
+
+  <!-- コミュニティー投稿例の窓 -->
+  <div class="community-head">
+    <p class="en-small">TRANSITION SYSTEM</p>
+    <p class="en-big">COMMUNITY</p>
+    <p class="jp-sub">コミュニティー・憩いの場</p>
+  </div>
+  <section class="panel" aria-label="コミュニティー投稿例">
+    <div class="post-window">
+      <h3 id="postTitle">読み込み中…</h3>
+      <p id="postBody"></p>
+    </div>
+    <div class="pager">
+      <button type="button" id="postPrev">戻る</button>
+      <span class="page-num" id="postPage">1 / 8</span>
+      <button type="button" id="postNext">次へ</button>
+    </div>
+  </section>
+
+  <!-- Information check -->
+  <button class="info-button" id="infoButton" type="button">Information check</button>
+  <section class="panel info-window" aria-label="Information">
+    <p id="infoText">Information checkボタンを押すと、ここに最新のお知らせが表示されます。</p>
+  </section>
+
+  <!-- QRコード等 -->
+  <section class="panel">
+    <h2>時間を共有しませんか</h2>
+    <p class="center" style="font-size:1.25rem;margin:0;">スマートフォンでアクセス</p>
+    <p class="center" style="color:var(--text-sub);">QRコードを読み取ると、TRANSITION SYSTEM TOPページが開きます。</p>
+    <div class="qr-grid">
+      <div class="qr-card">
+        <img src="images/qr-android.png" alt="Android版 QRコード">
+        <strong>Android版</strong>
+        <span>QRコードを読み取る</span>
+      </div>
+      <div class="qr-card">
+        <img src="images/qr-iphone.png" alt="iPhone版 QRコード">
+        <strong>iPhone版</strong>
+        <span>QRコードを読み取る</span>
+      </div>
+    </div>
+    <p class="center" style="font-size:1.25rem;margin:26px 0 0;">PC版アクセスURL</p>
+    <div class="url-box" id="siteUrl">https://manda-fx-office.github.io/</div>
+    <button class="copy-button" id="copyButton" type="button">URLをコピー</button>
+  </section>
+
+  <a class="to-top" href="#top">ページトップに戻る</a>
+
+  <footer class="site-footer">
+    <p>BGM：フリーBGM・音楽素材 MusMus「柔らかな嘘」</p>
+    <p>© <span id="year"></span> Manda FX Office</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

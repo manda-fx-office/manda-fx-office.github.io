@@ -1,0 +1,261 @@
+/* TRANSITION SYSTEM - style.css
+   見た目は全部このファイルで管理する。
+   PC／タブレット／スマホの表示切り替えも、末尾のメディアクエリだけで行う。
+   色を変えるときは :root の変数だけ触る。 */
+
+:root {
+  --bg: #000000;
+  --panel: #101216;
+  --panel-border: #3c434e;
+  --card-top: #3a3f47;
+  --card-bottom: #14161a;
+  --text: #ffffff;
+  --text-sub: #c7ccd4;
+  --accent-orange: #f5a83d;
+  --silver-1: #ffffff;
+  --silver-2: #aeb4be;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+}
+
+a { color: var(--text); }
+
+/* ===== 固定タスクバー（全ページ共通） ===== */
+.taskbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #000;
+  border-bottom: 1px solid #22262d;
+}
+.taskbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.taskbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.taskbar-logo img { height: 44px; width: auto; display: block; }
+.logo-text {
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  font-size: 1rem;
+  background: linear-gradient(180deg, var(--silver-1), var(--silver-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.logo-text small { display: block; font-size: 0.62rem; letter-spacing: 0.08em; }
+.bgm-button {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--text-sub);
+  border-radius: 999px;
+  padding: 8px 22px;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* 固定バーの分だけ本文を下げる */
+.page-body { padding-top: 68px; max-width: 1100px; margin: 0 auto; }
+
+/* ===== TOP：大きめロゴ ===== */
+.hero { text-align: center; padding: 36px 16px 8px; }
+.hero img { max-width: 560px; width: 88%; height: auto; }
+.hero-logo-text {
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+  margin: 0;
+  background: linear-gradient(180deg, #ffffff 20%, #8f959f 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-logo-sub { color: var(--silver-2); font-size: clamp(0.9rem, 2.6vw, 1.3rem); margin: 4px 0 0; }
+
+/* ===== 流れる文字の帯 ===== */
+.ticker {
+  overflow: hidden;
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  margin: 28px 16px 0;
+  background: var(--panel);
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-block;
+  padding: 10px 0;
+  color: var(--accent-orange);
+  font-size: 1.05rem;
+  animation: ticker-scroll 28s linear infinite;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ===== ボタン 2列4段（TOP） ===== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 28px 16px 8px;
+}
+.menu-button {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  padding: 26px 10px 20px;
+  border-radius: 16px;
+  border: 1.5px solid #6b7280;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.menu-button strong { display: block; font-size: clamp(1.05rem, 3.4vw, 1.5rem); letter-spacing: 0.04em; }
+.menu-button span { display: block; margin-top: 8px; color: var(--text-sub); font-size: 0.9rem; }
+.menu-button:hover { border-color: #d1d5db; }
+
+/* ===== 窓（パネル）共通 ===== */
+.panel {
+  margin: 28px 16px 0;
+  background: var(--panel);
+  border: 1.5px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 28px 22px;
+}
+.panel h2 { text-align: center; margin: 0 0 14px; font-size: 1.35rem; }
+.panel .center { text-align: center; }
+
+/* このサイトについて */
+.about-text { font-size: clamp(1rem, 3vw, 1.3rem); text-align: center; }
+.about-text .hl { color: var(--accent-orange); font-weight: bold; }
+.about-note { color: var(--text-sub); font-size: 0.92rem; text-align: center; }
+
+/* コミュニティ窓 */
+.community-head { text-align: center; padding: 10px 16px 0; }
+.community-head .en-small { letter-spacing: 0.45em; color: var(--text-sub); font-size: 0.8rem; margin: 0; }
+.community-head .en-big { font-size: clamp(1.8rem, 6vw, 2.8rem); letter-spacing: 0.18em; margin: 2px 0; font-weight: 800; }
+.community-head .jp-sub { color: var(--text-sub); margin: 0; }
+.post-window {
+  border: 1.5px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 150px;
+  background: #0a0c0f;
+}
+.post-window h3 { margin: 0 0 10px; font-size: 1.15rem; }
+.post-window p { color: var(--text-sub); margin: 0; }
+.pager { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; gap: 12px; }
+.pager button {
+  flex: 1;
+  max-width: 220px;
+  padding: 14px 0;
+  border-radius: 12px;
+  border: 1.5px solid #6b7280;
+  background: linear-gradient(180deg, #2c313a, #171a1f);
+  color: var(--text);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+.pager button:disabled { opacity: 0.45; cursor: default; }
+.pager .page-num { font-size: 1.2rem; font-weight: bold; }
+
+/* Information */
+.info-button {
+  display: block;
+  margin: 28px auto 0;
+  padding: 18px 44px;
+  border-radius: 14px;
+  border: 1.5px solid #6b7280;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  color: var(--text);
+  font-size: 1.15rem;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.info-window { min-height: 150px; }
+.info-window p { color: var(--text-sub); text-align: center; }
+
+/* QRセクション */
+.qr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 560px; margin: 20px auto 0; }
+.qr-card { background: #fff; color: #111; border-radius: 16px; padding: 16px 12px 12px; text-align: center; }
+.qr-card img { width: 100%; max-width: 200px; height: auto; display: block; margin: 0 auto; }
+.qr-placeholder {
+  width: 100%; max-width: 200px; aspect-ratio: 1; margin: 0 auto;
+  border: 2px dashed #9ca3af; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #6b7280; font-size: 0.85rem; padding: 8px;
+}
+.qr-card strong { display: block; margin-top: 10px; }
+.qr-card span { font-size: 0.8rem; color: #555; }
+.url-box {
+  margin: 18px auto 0; max-width: 640px;
+  border: 1.5px solid var(--panel-border); border-radius: 14px;
+  padding: 16px; text-align: center; word-break: break-all; background: #050607;
+}
+.copy-button {
+  display: block; margin: 18px auto 0; padding: 14px 44px;
+  border-radius: 12px; border: 1.5px solid #6b7280;
+  background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
+  color: var(--text); font-size: 1.05rem; cursor: pointer;
+}
+
+/* ページトップに戻る */
+.to-top {
+  display: block; width: fit-content; margin: 32px auto 0;
+  padding: 16px 44px; border-radius: 14px; text-decoration: none;
+  border: 1.5px solid #7d8aa0; background: #2e3a4c; font-size: 1.15rem; font-weight: bold;
+}
+
+/* フッター */
+.site-footer { text-align: center; color: var(--text-sub); padding: 40px 16px 30px; font-size: 0.9rem; }
+
+/* ===== 下位ページ ===== */
+.subpage-title { text-align: center; padding: 30px 16px 4px; }
+.subpage-title .en-big { font-size: clamp(1.7rem, 6vw, 2.6rem); letter-spacing: 0.16em; font-weight: 800; margin: 0; }
+.subpage-title .jp-sub { color: var(--text-sub); margin: 2px 0 0; }
+.todo-note { color: var(--text-sub); text-align: center; }
+
+/* ===== レスポンシブ：表示の自動切り替えはここだけ ===== */
+/* タブレット（Androidタブレット含む） */
+@media (max-width: 1024px) {
+  .menu-grid { gap: 14px; }
+  .hero img { width: 80%; }
+}
+/* スマホ（iPhone／Android） */
+@media (max-width: 720px) {
+  .page-body { padding-top: 62px; }
+  .taskbar-logo img { height: 36px; }
+  .bgm-button { padding: 6px 14px; font-size: 0.82rem; }
+  .menu-grid { gap: 12px; padding: 20px 12px 4px; }
+  .menu-button { padding: 20px 6px 16px; }
+  .panel { margin: 20px 12px 0; padding: 22px 14px; }
+  .qr-grid { gap: 12px; }
+}
+
+/* 画面には出さず、見出しとしてだけ残す */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
