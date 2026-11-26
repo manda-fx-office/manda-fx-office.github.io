@@ -42,10 +42,10 @@
   function trimFrame(frame){
     try{
       var d = frame.contentDocument; if(!d || !d.body) return;
-      d.querySelectorAll('header.topbar, .mobile-taskbar, .ts-unified-taskbar').forEach(function(el){ el.style.setProperty('display','none','important'); });
+      d.querySelectorAll('header.topbar, .mobile-taskbar, #ts-unified-taskbar').forEach(function(el){ el.style.setProperty('display','none','important'); });
       if(!d.getElementById('lq-trim')){
         var st = d.createElement('style'); st.id = 'lq-trim';
-        st.textContent = 'header.topbar,.mobile-taskbar,.ts-unified-taskbar{display:none!important}html body{margin:0!important;padding-top:0!important}html body > main.wrap{padding-top:16px!important}html body .wrap{padding-top:14px!important}html body .login-wrap{padding-top:22px!important}';
+        st.textContent = 'header.topbar,.mobile-taskbar,#ts-unified-taskbar{display:none!important}html body{margin:0!important;padding-top:0!important}html body > main.wrap{padding-top:16px!important}html body .wrap{padding-top:14px!important}html body .login-wrap{padding-top:22px!important}';
         d.head.appendChild(st);
       }
     }catch(e){}
