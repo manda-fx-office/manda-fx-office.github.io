@@ -57,7 +57,7 @@
     <p class="en-big">COMMUNITY</p>
     <p class="jp-sub">コミュニティー・憩いの場</p>
   </div>
-  <section class="panel" aria-label="コミュニティー投稿例" style="padding:8px"><iframe src="/posts_window.html" title="コミュニティー投稿例" loading="lazy" style="display:block;width:100%;height:650px;border:0;border-radius:8px;background:#0b0c0e"></iframe></section>
+  <section class="panel" aria-label="コミュニティー投稿例" style="padding:8px"><iframe id="community-post-window" title="COMMUNITY保存版 投稿窓" src="/11_15main%E8%B5%B7%E5%8B%95V1/COMMUNITY_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV1_20261112.html" style="width:100%;height:calc(100vh - 110px);min-height:680px;border:0;display:block;background:#090d16;border-radius:8px"></iframe></section>
 
   <!-- COMMUNITYボタン（Information checkと同じサイズ） -->
   <a class="info-button community-button" href="/11_23_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%ABBK_COMMUNITY_%E6%AD%A3%E5%B8%B8%E8%A1%A8%E7%A4%BA%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8B%E4%BF%9D%E5%AD%98%E7%89%88V1.html">COMMUNITY</a>
@@ -110,5 +110,31 @@
 </div>
 
 <script src="script.js?v=2131"></script>
+
+<script id="transplant-saved-post-window">
+(function(){
+  var frame=document.getElementById('community-post-window');
+  if(!frame)return;
+  function apply(){
+    try{
+      var nd=frame.contentDocument;if(!nd)return;
+      var gallery=nd.querySelector('section.card .gallery');
+      var nav=nd.getElementById('tablet-v4-nav');
+      if(!gallery||!nav)return;
+      if(nd.getElementById('top-post-window-only'))return;
+      var card=gallery.closest('section.card');
+      Array.from(nd.body.children).forEach(function(el){if(el!==card.parentElement)el.style.setProperty('display','none','important')});
+      var main=card.parentElement;
+      Array.from(main.children).forEach(function(el){if(el!==card)el.style.setProperty('display','none','important')});
+      Array.from(card.children).forEach(function(el){if(el!==gallery&&el!==nav)el.style.setProperty('display','none','important')});
+      var st=nd.createElement('style');st.id='top-post-window-only';
+      st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:1 1 auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}';
+      nd.head.appendChild(st);
+    }catch(e){console.error('saved post window',e)}
+  }
+  frame.addEventListener('load',apply);
+  if(frame.contentDocument&&frame.contentDocument.readyState==='complete')apply();
+})();
+</script>
 </body>
 </html>
