@@ -3,14 +3,14 @@
 'use strict';
 var root=document;
 var route={
- top:'/PC_TOP_PLUS_ONE表示統一テストV25.html',
- system:'/PC_SYSTEM_共通タスクバー統一修正テストV2.html',
- project:'/PC_伝助_共通導線設定接続テストV5.html',
- community:'/PC_コミュニティ_共通タスクバー移植テストV1.html',
- board:'/PC_BOARD_共通タスクバー移植テストV1.html',
- plusOne:'/PC_PLUS_ONE_タスクバー表示統一テストV3.html',
- qa:'/PC_管理人QA_共通タスクバー移植テストV1.html',
- login:'/PC_LOGIN_共通タスクバー移植テストV1.html'
+ top:'/',
+ system:'/11_22_SYSTEM_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
+ project:'/11_22V10_%E4%BC%9D%E5%8A%A9FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E5%B0%82%E7%94%A8.html',
+ community:'/11_23_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%ABBK_COMMUNITY_%E6%AD%A3%E5%B8%B8%E8%A1%A8%E7%A4%BA%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8B%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
+ board:'/11_22_BOARD_%E8%83%8C%E6%99%AF%E9%BB%92_FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E4%BF%9D%E5%AD%98%E7%89%88V2.html',
+ plusOne:'/11_22_PLUS_ONE_%E8%83%8C%E6%99%AF%E9%BB%92%E8%89%B2%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
+ qa:'/11_22_%E7%AE%A1%E7%90%86%E4%BA%BAQA_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
+ login:'/TEST_iPhone_LOGIN_QR_TOP%E3%83%9C%E3%82%BF%E3%83%B3%E5%89%8A%E9%99%A4_20261118.html'
 };
 var buttons=[['system','SYSTEM','システム'],['project','伝助のインジケーター','伝助のインジケーター'],['community','COMMUNITY','コミュニティー'],['board','BOARD','伝言板'],['plusOne','PLUS ONE','プラスワン'],['qa','管理人 Q&A','管理人 Q&A'],['login','LOGIN','ログイン']];
 var style=`
