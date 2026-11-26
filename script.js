@@ -31,33 +31,23 @@ bgmButton.textContent = "♪ BGM START";
 }
 
 // コミュニティー投稿例の窓（戻る／次へ、1 / 8 表示）
-// 投稿データはここだけを編集すればよい。本番の投稿に差し替える。
-const posts = [
-{ title: "本能寺の変＝蜘蛛の糸｜本編・フルストーリー", body: "コミュニティー投稿例です。本文はここに表示されます。"},
-{ title: "本能寺の変＝運命の分かれ道", body: "コミュニティー投稿例です。本文はここに表示されます。"},
-{ title: "投稿例 3", body: "元の掲示板の投稿は、ここへ移行します。"},
-{ title: "投稿例 4", body: "元の掲示板の投稿は、ここへ移行します。"},
-{ title: "投稿例 5", body: "元の掲示板の投稿は、ここへ移行します。"},
-{ title: "投稿例 6", body: "元の掲示板の投稿は、ここへ移行します。"},
-{ title: "投稿例 7", body: "元の掲示板の投稿は、ここへ移行します。"},
-{ title: "投稿例 8", body: "元の掲示板の投稿は、ここへ移行します。"},
-];
-const postTitle = document.getElementById("postTitle");
-const postBody = document.getElementById("postBody");
+// 投稿例はコミュニティーページの投稿例と同期：index.html内の post-card を差し替える
+const postCards = document.querySelectorAll("[data-post-card]");
 const postPage = document.getElementById("postPage");
 const postPrev = document.getElementById("postPrev");
 const postNext = document.getElementById("postNext");
-if (postTitle && postBody && postPage && postPrev && postNext) {
+if (postCards.length && postPage && postPrev && postNext) {
 let idx = 0;
 const render = () => {
-postTitle.textContent = posts[idx].title;
-postBody.textContent = posts[idx].body;
-postPage.textContent = (idx + 1) + " / " + posts.length;
+postCards.forEach((c, i) => { c.style.display = i === idx ? "block" : "none"; });
+postPage.textContent = (idx + 1) + " / " + postCards.length;
 postPrev.disabled = idx === 0;
-postNext.disabled = idx === posts.length - 1;
+postNext.disabled = idx === postCards.length - 1;
+const w = document.getElementById("postWindow");
+if (w) w.scrollTop = 0;
 };
-postPrev.addEventListener("click", () => { if (idx > 0) { idx--; render();}});
-postNext.addEventListener("click", () => { if (idx < posts.length - 1) { idx++; render();}});
+postPrev.addEventListener("click", () => { if (idx > 0) { idx--; render(); }});
+postNext.addEventListener("click", () => { if (idx < postCards.length - 1) { idx++; render(); }});
 render();
 }
 

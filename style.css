@@ -263,3 +263,9 @@ a { color: var(--text); }
   position: absolute; width: 1px; height: 1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
+
+/* コミュニティー投稿例カード（コミュニティーページから移植） */
+.post-card h3{margin:0 0 10px;font-size:1.05rem;line-height:1.5;}
+.post-card img{display:block;width:100%;height:auto;object-fit:contain;border-radius:10px;}
+.post-card-text{margin:14px 6px 4px;line-height:1.8;text-align:left;}
+.post-card-long{white-space:pre-wrap;line-height:1.9;overflow-wrap:anywhere;max-height:50vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-right:6px;}
