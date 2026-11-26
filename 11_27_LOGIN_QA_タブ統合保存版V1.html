@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOGIN / Q&amp;A | TRANSITION SYSTEM</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#000;color:#fff;font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif}
+  .lq-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 12px 12px;max-width:1220px;margin:0 auto}
+  .lq-tab{min-width:150px;min-height:52px;padding:9px 14px;border:1px solid rgba(210,215,220,.65);border-radius:8px;background:linear-gradient(180deg,#4a5158,#30363c 55%,#20252a);color:#fff;font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 5px #0006}
+  .lq-tab small{display:block;margin-top:3px;font-size:10px;font-weight:400;letter-spacing:1px;color:#cfd4d9}
+  .lq-tab.is-active{background:linear-gradient(180deg,#7d8791,#565f68 55%,#3a4149);border-color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 1px #fff3,0 2px 8px #0008}
+  .lq-panel{display:none;max-width:1220px;margin:0 auto;padding:0 12px 18px}
+  .lq-panel.is-active{display:block}
+  .lq-panel iframe{width:100%;height:calc(100dvh - 215px);min-height:520px;border:1px solid #292d31;border-radius:10px;display:block;background:#000}
+  @media (max-width:720px){.lq-tab{min-width:0;flex:1 1 0;font-size:13px;padding:9px 6px}.lq-panel iframe{height:calc(100dvh - 205px);min-height:480px}}
+</style>
+</head>
+<body>
+<script src="/PC_%E5%85%A8%E3%82%B5%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E8%A1%A8%E7%A4%BA%E5%85%B1%E9%80%9AV1.js"></script>
+<div class="lq-tabs" role="tablist" aria-label="LOGIN / Q&A / BOARD 切り替え">
+  <button class="lq-tab is-active" data-tab="login" type="button">ログイン<small>LOGIN</small></button>
+  <button class="lq-tab" data-tab="qa" type="button">管理人Q&amp;A<small>Q&amp;A</small></button>
+  <button class="lq-tab" data-tab="board" type="button">BOARD<small>伝言板</small></button>
+</div>
+<section class="lq-panel is-active" id="panel-login"><iframe id="frame-login" title="ログイン" src="/TEST_iPhone_LOGIN_QR_TOP%E3%83%9C%E3%82%BF%E3%83%B3%E5%89%8A%E9%99%A4_20261118.html"></iframe></section>
+<section class="lq-panel" id="panel-qa"><iframe id="frame-qa" title="管理人Q&A" src="/11_22_%E7%AE%A1%E7%90%86%E4%BA%BAQA_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html"></iframe></section>
+<section class="lq-panel" id="panel-board"><iframe id="frame-board" title="BOARD" src="/11_22_BOARD_%E8%83%8C%E6%99%AF%E9%BB%92_FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E4%BF%9D%E5%AD%98%E7%89%88V2.html"></iframe></section>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.lq-tab');
+  function activate(name){
+    tabs.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-tab')===name); });
+    document.querySelectorAll('.lq-panel').forEach(function(p){ p.classList.toggle('is-active', p.id==='panel-'+name); });
+    if(history.replaceState) history.replaceState(null,'','#'+name);
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ activate(b.getAttribute('data-tab')); }); });
+  var h = (location.hash||'').replace('#','');
+  if(['login','qa','board'].indexOf(h) >= 0) activate(h);
+
+  function trimFrame(frame){
+    try{
+      var d = frame.contentDocument; if(!d || !d.body) return;
+      d.querySelectorAll('header.topbar, .mobile-taskbar, .ts-unified-taskbar').forEach(function(el){ el.style.setProperty('display','none','important'); });
+      if(!d.getElementById('lq-trim')){
+        var st = d.createElement('style'); st.id = 'lq-trim';
+        st.textContent = 'html body{margin:0!important;padding-top:0!important}html body > main.wrap{padding-top:16px!important}html body .wrap{padding-top:14px!important}html body .login-wrap{padding-top:22px!important}';
+        d.head.appendChild(st);
+      }
+    }catch(e){}
+  }
+  ['frame-login','frame-qa','frame-board'].forEach(function(id){
+    var f = document.getElementById(id); if(!f) return;
+    f.addEventListener('load', function(){ trimFrame(f); });
+    if(f.contentDocument && f.contentDocument.readyState === 'complete') trimFrame(f);
+    setTimeout(function(){ trimFrame(f); }, 1200);
+  });
+})();
+</script>
+</body>
+</html>
