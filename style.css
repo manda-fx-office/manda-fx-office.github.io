@@ -106,7 +106,7 @@ a { color: var(--text); }
   display: inline-flex;
   padding: 10px 0;
   font-size: 2.1rem;
-  animation: ticker-scroll 75s linear infinite;
+  animation: ticker-scroll 60s linear infinite;
 }
 .ticker-seq { display: inline-flex; }
 .ticker-seq > span { padding-right: 3.5rem; white-space: nowrap; }
