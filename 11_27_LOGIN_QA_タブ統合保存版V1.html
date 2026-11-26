@@ -45,7 +45,7 @@
       d.querySelectorAll('header.topbar, .mobile-taskbar, .ts-unified-taskbar').forEach(function(el){ el.style.setProperty('display','none','important'); });
       if(!d.getElementById('lq-trim')){
         var st = d.createElement('style'); st.id = 'lq-trim';
-        st.textContent = 'html body{margin:0!important;padding-top:0!important}html body > main.wrap{padding-top:16px!important}html body .wrap{padding-top:14px!important}html body .login-wrap{padding-top:22px!important}';
+        st.textContent = 'header.topbar,.mobile-taskbar,.ts-unified-taskbar{display:none!important}html body{margin:0!important;padding-top:0!important}html body > main.wrap{padding-top:16px!important}html body .wrap{padding-top:14px!important}html body .login-wrap{padding-top:22px!important}';
         d.head.appendChild(st);
       }
     }catch(e){}
@@ -55,6 +55,7 @@
     f.addEventListener('load', function(){ trimFrame(f); });
     if(f.contentDocument && f.contentDocument.readyState === 'complete') trimFrame(f);
     setTimeout(function(){ trimFrame(f); }, 1200);
+    setTimeout(function(){ trimFrame(f); }, 3000);
   });
 })();
 </script>
