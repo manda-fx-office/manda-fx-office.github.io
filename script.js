@@ -30,6 +30,26 @@ bgmButton.textContent = "♪ BGM START";
 });
 }
 
+// コミュニティー投稿例の窓（戻る／次へ、1 / 8 表示）
+// 投稿例はコミュニティーページの投稿例と同期：index.html内の post-card を差し替える
+const postCards = document.querySelectorAll("[data-post-card]");
+const postPage = document.getElementById("postPage");
+const postPrev = document.getElementById("postPrev");
+const postNext = document.getElementById("postNext");
+if (postCards.length && postPage && postPrev && postNext) {
+let idx = 0;
+const render = () => {
+postCards.forEach((c, i) => { c.style.display = i === idx ? "block" : "none"; });
+postPage.textContent = (idx + 1) + " / " + postCards.length;
+postPrev.disabled = idx === 0;
+postNext.disabled = idx === postCards.length - 1;
+const w = document.getElementById("postWindow");
+if (w) w.scrollTop = 0;
+};
+postPrev.addEventListener("click", () => { if (idx > 0) { idx--; render(); }});
+postNext.addEventListener("click", () => { if (idx < postCards.length - 1) { idx++; render(); }});
+render();
+}
 
 // Information check：データファイル info.json を読み込んで窓に表示する
 // info.json を差し替えると、窓の表示が同期される
