@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TRANSITION SYSTEM | Manda FX Office</title>
+<meta name="description" content="TRANSITION SYSTEMは、FXへの興味・学習・知識の整理・交流・育成を目的としたコミュニティサイトです。">
+<link rel="stylesheet" href="style.css?v=215">
+</head>
+<body>
+
+<!-- 固定タスクバー：TOPページではロゴは表示のみ（リンクなし） -->
+<header class="taskbar">
+  <div class="taskbar-inner">
+    <span class="taskbar-logo">
+      <img src="images/logo.png" alt="TRANSITION SYSTEM by Manda FX Office">
+    </span>
+    <button class="bgm-button" id="bgmButton" type="button">♪ BGM START</button>
+  </div>
+</header>
+
+<div class="page-body" id="top">
+
+  <!-- TOPのみ：少し大きめのロゴ -->
+  <section class="hero">
+    <img src="images/logo.png" alt="TRANSITION SYSTEM by Manda FX Office">
+    <h1 class="sr-only">TRANSITION SYSTEM by Manda FX Office</h1>
+  </section>
+
+  <!-- 流れる文字の帯 -->
+  <div class="ticker" aria-hidden="true">
+    <span class="ticker-inner"><span class="ticker-seq"><span class="tk-white">さぁ〜始めよう。</span><span class="tk-white">FX為替相場への、入口です。</span><span class="tk-white">世界で愛され続けてきたMT4が、あなたのトレード環境を変えていく。</span><span class="tk-yellow">見る。感じる。判断する。</span><span class="tk-blue">TRANSITION SYSTEM</span><span class="tk-blue">MT4専用インジケーターシステム</span><span class="tk-white">さぁ、TRANSITION SYSTEMとともに。</span><span class="tk-yellow">人それぞれに平等にあたえられた物は、時間だけです。</span><span class="tk-yellow">それでは、ゆっくりと楽しんで下さい。</span></span><span class="ticker-seq"><span class="tk-white">さぁ〜始めよう。</span><span class="tk-white">FX為替相場への、入口です。</span><span class="tk-white">世界で愛され続けてきたMT4が、あなたのトレード環境を変えていく。</span><span class="tk-yellow">見る。感じる。判断する。</span><span class="tk-blue">TRANSITION SYSTEM</span><span class="tk-blue">MT4専用インジケーターシステム</span><span class="tk-white">さぁ、TRANSITION SYSTEMとともに。</span><span class="tk-yellow">人それぞれに平等にあたえられた物は、時間だけです。</span><span class="tk-yellow">それでは、ゆっくりと楽しんで下さい。</span></span></span>
+  </div>
+
+  <!-- ボタン配置：2列4段 -->
+  <nav class="menu-grid" aria-label="主要メニュー">
+    <a class="menu-button" href="/11_22_FX%E3%81%AE%E5%85%A5%E5%8F%A3_%E8%83%8C%E6%99%AF%E9%BB%92_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E4%B8%8A%E9%83%A8%E5%9B%BA%E5%AE%9A%E4%BF%9D%E5%AD%98%E7%89%88V1.html"><strong>FXの入口</strong><span>ホームページへ</span></a>
+    <a class="menu-button" href="/11_22V10_%E4%BC%9D%E5%8A%A9FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E5%B0%82%E7%94%A8.html"><strong>伝助のインジケーター</strong><span>伝助のインジケーター</span></a>
+    <a class="menu-button" href="/11_23_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%ABBK_%E8%A8%BC%E5%88%B8%E4%BC%9A%E7%A4%BECOMMUNITY%E7%9B%B4%E6%8E%A5%E5%B0%8E%E7%B7%9A_%E4%BF%9D%E5%AD%98%E7%89%88V1.html"><strong>証券会社</strong><span>証券会社一覧を見る</span></a>
+    <a class="menu-button" href="/11_22_%E7%AE%A1%E7%90%86%E4%BA%BAQA_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html"><strong>管理人 Q&amp;A</strong><span>管理人からのお知らせ・Q&amp;A</span></a>
+    <a class="menu-button" href="/11_22_SYSTEM_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html"><strong>SYSTEM</strong><span>システム</span></a>
+    <a class="menu-button" href="/11_22_BOARD_%E8%83%8C%E6%99%AF%E9%BB%92_FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E4%BF%9D%E5%AD%98%E7%89%88V2.html"><strong>BOARD</strong><span>伝言板</span></a>
+    <a class="menu-button" href="/TEST_iPhone_LOGIN_QR_TOP%E3%83%9C%E3%82%BF%E3%83%B3%E5%89%8A%E9%99%A4_20261118.html"><strong>LOGIN</strong><span>ログイン</span></a>
+    <a class="menu-button" href="/11_22_PLUS_ONE_%E8%83%8C%E6%99%AF%E9%BB%92%E8%89%B2%E4%BF%9D%E5%AD%98%E7%89%88V1.html"><strong>PLUS ONE</strong><span>プラスワン</span></a>
+  </nav>
+
+  <!-- このサイトについて -->
+  <section class="panel" id="about">
+    <h2>このサイトについて</h2>
+    <p class="about-text">TRANSITION SYSTEMは、FXへの<span class="hl">興味・学習・知識の整理・交流・育成</span>を目的としたコミュニティサイトです。</p>
+    <p class="about-note">掲載情報やインジケーター等は、相場判断を補助するためのものであり、利益を保証するものではありません。FX取引には損失が生じる可能性があります。実際の取引は、ご自身の判断と責任で行ってください。</p>
+  </section>
+
+  <!-- コミュニティー投稿例の窓 -->
+  <div class="community-head">
+    <p class="en-small">TRANSITION SYSTEM</p>
+    <p class="en-big">COMMUNITY</p>
+    <p class="jp-sub">コミュニティー・憩いの場</p>
+  </div>
+  <section class="panel" aria-label="コミュニティー投稿例" style="padding:8px"><iframe id="community-post-window" title="COMMUNITY保存版 投稿窓" src="/11_15main%E8%B5%B7%E5%8B%95V1/COMMUNITY_%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8BV1_20261112.html" style="width:100%;height:calc(100vh - 110px);min-height:680px;border:0;display:block;background:#090d16;border-radius:8px"></iframe></section>
+
+  <!-- COMMUNITYボタン（Information checkと同じサイズ） -->
+  <a class="info-button community-button" href="/11_23_%E3%83%95%E3%82%A1%E3%82%A4%E3%83%ABBK_COMMUNITY_%E6%AD%A3%E5%B8%B8%E8%A1%A8%E7%A4%BA%E3%81%93%E3%81%93%E3%81%AB%E6%88%BB%E3%82%8B%E4%BF%9D%E5%AD%98%E7%89%88V1.html">COMMUNITY</a>
+
+  <!-- Information check -->
+  <button class="info-button" id="infoButton" type="button">Information check</button>
+  <section class="panel info-window" aria-label="Information">
+    <div class="info-card" id="infoCard">
+      <h3 id="infoTitle">Information</h3>
+      <p class="info-updated" id="infoUpdated"></p>
+      <div class="info-body" id="infoBody">読み込み中…</div>
+      <div class="strength-block">
+        <h4>通貨強弱（本日・1時間ごと）</h4>
+        <canvas id="strengthChart" height="220"></canvas>
+        <div class="strength-latest" id="strengthLatest"></div>
+        <p class="strength-note">※無料の公開レートから計算した参考値です。証券会社の画面とは数値が異なる場合があります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QRコード等 -->
+  <section class="panel">
+    <h2>時間を共有しませんか</h2>
+    <p class="center" style="font-size:1.25rem;margin:0;">スマートフォンでアクセス</p>
+    <p class="center" style="color:var(--text-sub);">QRコードを読み取ると、TRANSITION SYSTEM TOPページが開きます。</p>
+    <div class="qr-grid">
+      <div class="qr-card">
+        <img src="images/qr-android.png" alt="Android版 QRコード">
+        <strong>Android版</strong>
+        <span>QRコードを読み取る</span>
+      </div>
+      <div class="qr-card">
+        <img src="images/qr-iphone.png" alt="iPhone版 QRコード">
+        <strong>iPhone版</strong>
+        <span>QRコードを読み取る</span>
+      </div>
+    </div>
+    <p class="center" style="font-size:1.25rem;margin:26px 0 0;">PC版アクセスURL</p>
+    <div class="url-box" id="siteUrl">https://manda-fx-office.github.io/</div>
+    <button class="copy-button" id="copyButton" type="button">URLをコピー</button>
+  </section>
+
+  <a class="to-top" href="#top">ページトップに戻る</a>
+
+  <footer class="site-footer">
+    <p>BGM：フリーBGM・音楽素材 MusMus「柔らかな嘘」</p>
+    <p>© <span id="year"></span> Manda FX Office</p>
+  </footer>
+
+</div>
+
+<script src="script.js?v=2131"></script>
+
+<script id="transplant-saved-post-window">
+(function(){
+  var frame=document.getElementById('community-post-window');
+  if(!frame)return;
+  function apply(){
+    try{
+      var nd=frame.contentDocument;if(!nd)return;
+      var gallery=nd.querySelector('section.card .gallery');
+      var nav=nd.getElementById('tablet-v4-nav');
+      if(!gallery||!nav)return;
+      if(nd.getElementById('top-post-window-only'))return;
+      var card=gallery.closest('section.card');
+      Array.from(nd.body.children).forEach(function(el){if(el!==card.parentElement)el.style.setProperty('display','none','important')});
+      var main=card.parentElement;
+      Array.from(main.children).forEach(function(el){if(el!==card)el.style.setProperty('display','none','important')});
+      Array.from(card.children).forEach(function(el){if(el!==gallery&&el!==nav)el.style.setProperty('display','none','important')});
+      var st=nd.createElement('style');st.id='top-post-window-only';
+      st.textContent='html,body{height:100%!important;overflow:hidden!important;margin:0!important}main.wrap{display:block!important;max-width:none!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important}main.wrap>section.card:has(.gallery){display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:hidden!important}main.wrap>section.card:has(.gallery)>.gallery{flex:0 0 auto!important;height:calc(100% - 88px)!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;scroll-snap-type:y mandatory!important;touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important}main.wrap>section.card:has(.gallery)>#tablet-v4-nav{flex:0 0 auto!important;margin:8px auto 0!important}main.wrap>section.card:has(.gallery)>.gallery>article.post-card{display:flex!important;flex-direction:column!important;height:100%!important;max-height:100%!important;min-height:0!important;overflow:hidden!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}main.wrap>section.card:has(.gallery)>.gallery>article.post-card>h3,main.wrap>section.card:has(.gallery)>.gallery>article.post-card>.post-card-top{flex:0 0 auto!important;min-height:0!important}main.wrap>section.card:has(.gallery)>.gallery>article.post-card>img{flex:1 1 0!important;min-height:0!important;width:100%!important;max-width:100%!important;object-fit:contain!important;display:block!important}main.wrap>section.card:has(.gallery)>.gallery>article.post-card>figure{flex:1 1 0!important;min-height:0!important;overflow:hidden!important;margin:0!important}main.wrap>section.card:has(.gallery)>.gallery>article.post-card>figure img{width:100%!important;height:100%!important;object-fit:contain!important;display:block!important}main.wrap>section.card:has(.gallery)>.gallery>article.post-card>.honnoji-original-text,main.wrap>section.card:has(.gallery)>.gallery>article.post-card>.community-card-text,main.wrap>section.card:has(.gallery)>.gallery>article.post-card>.post-card-text,main.wrap>section.card:has(.gallery)>.gallery>article.post-card>.post-card-long{flex:1 1 0!important;min-height:0!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}';;
+      nd.head.appendChild(st);
+    }catch(e){console.error('saved post window',e)}
+  }
+  frame.addEventListener('load',apply);
+  if(frame.contentDocument&&frame.contentDocument.readyState==='complete')apply();
+})();
+</script>
+</body>
+</html>
