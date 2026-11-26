@@ -103,15 +103,19 @@ a { color: var(--text); }
   white-space: nowrap;
 }
 .ticker-inner {
-  display: inline-block;
+  display: inline-flex;
   padding: 10px 0;
-  color: var(--accent-orange);
   font-size: 2.1rem;
-  animation: ticker-scroll 28s linear infinite;
+  animation: ticker-scroll 75s linear infinite;
 }
+.ticker-seq { display: inline-flex; }
+.ticker-seq > span { padding-right: 3.5rem; white-space: nowrap; }
+.tk-white  { color: #ffffff; }
+.tk-yellow { color: #ffd83d; }
+.tk-blue   { color: #4da3ff; }
 @keyframes ticker-scroll {
-  from { transform: translateX(100%); }
-  to   { transform: translateX(-100%); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ===== ボタン 2列4段（TOP） ===== */
