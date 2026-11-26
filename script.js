@@ -30,9 +30,6 @@ bgmButton.textContent = "♪ BGM START";
 });
 }
 
-// コミュニティー投稿例の窓（戻る／次へ、1 / 8 表示）
-render();
-}
 
 // Information check：データファイル info.json を読み込んで窓に表示する
 // info.json を差し替えると、窓の表示が同期される
