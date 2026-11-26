@@ -148,8 +148,6 @@ a { color: var(--text); }
   padding: 28px 22px;
 }
 .panel h2 { text-align: center; margin: 0 0 14px; font-size: 1.35rem; }
-/* 投稿例の窓：全体を現状の70%サイズにして中央に配置 */
-.post-panel { width: 70%; margin-left: auto; margin-right: auto; box-sizing: border-box; }
 .panel .center { text-align: center; }
 
 /* このサイトについて */
@@ -268,7 +266,6 @@ a { color: var(--text); }
   .menu-grid { gap: 12px; padding: 20px 12px 4px; }
   .menu-button { padding: 9px 4px 8px; }
   .panel { margin: 20px 12px 0; padding: 22px 14px; }
-  .post-panel { margin: 20px auto 0; }
   .qr-grid { gap: 12px; }
 }
 
@@ -280,9 +277,9 @@ a { color: var(--text); }
 
 /* コミュニティー投稿例カード（コミュニティーページから移植） */
 .post-card h3{margin:0 0 10px;font-size:1.05rem;line-height:1.5;}
-.post-card img{display:block;width:100%;height:auto;object-fit:contain;border-radius:10px;}
+.post-card img{display:block;width:100%;height:auto;max-height:38vh;object-fit:contain;border-radius:10px;}
 .post-card-text{margin:14px 6px 4px;line-height:1.8;text-align:left;}
-.post-card-long{white-space:pre-wrap;line-height:1.9;overflow-wrap:anywhere;max-height:50vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-right:6px;}
+.post-card-long{white-space:pre-wrap;line-height:1.9;overflow-wrap:anywhere;max-height:35vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-right:6px;}
 
 /* COMMUNITYボタン（Information checkボタンと同じサイズ・見た目） */
 .community-button {
