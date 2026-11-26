@@ -148,6 +148,8 @@ a { color: var(--text); }
   padding: 28px 22px;
 }
 .panel h2 { text-align: center; margin: 0 0 14px; font-size: 1.35rem; }
+/* 投稿例の窓：全体を現状の70%サイズにして中央に配置 */
+.post-panel { width: 70%; margin-left: auto; margin-right: auto; box-sizing: border-box; }
 .panel .center { text-align: center; }
 
 /* このサイトについて */
@@ -266,6 +268,7 @@ a { color: var(--text); }
   .menu-grid { gap: 12px; padding: 20px 12px 4px; }
   .menu-button { padding: 9px 4px 8px; }
   .panel { margin: 20px 12px 0; padding: 22px 14px; }
+  .post-panel { margin: 20px auto 0; }
   .qr-grid { gap: 12px; }
 }
 
