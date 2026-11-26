@@ -403,42 +403,4 @@ FX、MT4、相場の話はもちろん、車・バイク・旅行・音楽・写
  else init();
 })();
 </script>
-<style id="maru-scroll-fix">
-main.wrap>section.card>.gallery>article.post-card>.community-card-text,
-main.wrap>section.card>.gallery>article.post-card>.honnoji-original-text{overscroll-behavior:auto!important}
-main.wrap>section.card>.gallery{touch-action:pan-y!important}
-</style>
-<script id="maru-scroll-fix-js">
-(function(){
-  var gallery=document.querySelector('.gallery');
-  if(!gallery)return;
-  var cards=Array.prototype.slice.call(gallery.querySelectorAll(':scope>article.post-card'));
-  if(!cards.length)return;
-  function currentIndex(){
-    var top=gallery.getBoundingClientRect().top,best=0,dist=Infinity;
-    cards.forEach(function(c,i){var d=Math.abs(c.getBoundingClientRect().top-top);if(d<dist){dist=d;best=i;}});
-    return best;
-  }
-  var acc=0,lockUntil=0,resetTimer=null;
-  gallery.addEventListener('wheel',function(e){
-    var box=e.target&&e.target.closest?e.target.closest('.community-card-text,.honnoji-original-text'):null;
-    if(box){
-      var canDown=e.deltaY>0&&box.scrollTop+box.clientHeight<box.scrollHeight-1;
-      var canUp=e.deltaY<0&&box.scrollTop>0;
-      if(canDown||canUp)return;
-    }
-    e.preventDefault();
-    var now=Date.now();
-    if(now<lockUntil)return;
-    acc+=e.deltaY;
-    if(resetTimer)clearTimeout(resetTimer);
-    resetTimer=setTimeout(function(){acc=0;},300);
-    if(Math.abs(acc)>=40){
-      var dir=acc>0?1:-1;acc=0;lockUntil=now+650;
-      var i=Math.max(0,Math.min(cards.length-1,currentIndex()+dir));
-      gallery.scrollTo({top:cards[i].offsetTop-cards[0].offsetTop,behavior:'smooth'});
-    }
-  },{passive:false});
-})();
-</script>
 </body></html>
