@@ -290,3 +290,8 @@ a { color: var(--text); }
   line-height: 1.2;
   box-sizing: border-box;
 }
+
+/* Informationカードの中身（info.json連動） */
+.info-card h3 { margin: 0 0 6px; font-size: 1.1rem; text-align: left; }
+.info-updated { color: var(--text-sub); font-size: 0.85rem; margin: 0 0 12px; text-align: left !important; }
+.info-body { white-space: pre-wrap; line-height: 1.8; overflow-wrap: anywhere; text-align: left; }

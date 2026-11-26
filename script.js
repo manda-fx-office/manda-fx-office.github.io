@@ -51,16 +51,28 @@ postNext.addEventListener("click", () => { if (idx < postCards.length - 1) { idx
 render();
 }
 
-// Information checkボタン：下の窓にお知らせを表示する
+// Information check：データファイル info.json を読み込んで窓に表示する
+// info.json を差し替えると、窓の表示が同期される
 const infoButton = document.getElementById("infoButton");
-const infoText = document.getElementById("infoText");
-if (infoButton && infoText) {
-infoButton.addEventListener("click", () => {
-const now = new Date();
-const ymd = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
-infoText.textContent = ymd + " 現在、新しいお知らせはありません。お知らせの文面は script.js のこの部分を編集して差し替えます。";
+const infoTitle = document.getElementById("infoTitle");
+const infoUpdated = document.getElementById("infoUpdated");
+const infoBody = document.getElementById("infoBody");
+function loadInfo() {
+if (!infoBody) return;
+fetch("info.json?t=" + Date.now())
+.then((r) => { if (!r.ok) throw new Error("info"); return r.json(); })
+.then((d) => {
+if (infoTitle) infoTitle.textContent = d.title || "Information";
+if (infoUpdated) infoUpdated.textContent = d.updated ? "更新：" + d.updated : "";
+infoBody.textContent = d.body || "";
+})
+.catch(() => {
+if (infoTitle) infoTitle.textContent = "Information";
+infoBody.textContent = "現在、新しいお知らせはありません。";
 });
 }
+if (infoBody) loadInfo();
+if (infoButton) infoButton.addEventListener("click", loadInfo);
 
 // URLをコピー
 const copyButton = document.getElementById("copyButton");
