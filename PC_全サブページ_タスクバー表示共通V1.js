@@ -74,6 +74,7 @@ function scan(){
    }catch(e){}});
    return;
  }
+ var isUnified=/タブ統合保存版/.test(pathname); if(isUnified){install(root)}
  frames.forEach(function(f){try{install(f.contentDocument);if(!f.dataset.tsUnifiedListener){f.dataset.tsUnifiedListener='1';f.addEventListener('load',function(){install(f.contentDocument)})}}catch(e){}});
 }
 scan();
