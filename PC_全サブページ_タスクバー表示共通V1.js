@@ -25,7 +25,7 @@ var style=`
 #ts-unified-taskbar .ts-en{font-size:11px;font-weight:700;letter-spacing:.5px;line-height:1.1}
 #ts-unified-taskbar .ts-ja{margin-top:4px;font-size:9px;letter-spacing:.5px;line-height:1.1}
 body:has(> #ts-unified-taskbar) > header.topbar,body:has(> #ts-unified-taskbar) > .mobile-taskbar,body:has(> #ts-unified-taskbar) > header.mobile-taskbar{display:none!important}
-@media(max-width:900px){#ts-unified-taskbar .ts-nav{flex-wrap:wrap;justify-content:center;padding:10px 12px;gap:8px}#ts-unified-taskbar .ts-logo img{width:135px}#ts-unified-taskbar .ts-links{gap:4px}#ts-unified-taskbar .ts-links a{min-width:75px;height:48px;padding:4px 6px}#ts-unified-taskbar .ts-en{font-size:10px}#ts-unified-taskbar .ts-ja{font-size:8px}}
+@media(max-width:900px){#ts-unified-taskbar .ts-nav{flex-wrap:wrap;justify-content:center;padding:8px 12px;gap:8px}#ts-unified-taskbar .ts-logo img{width:135px}#ts-unified-taskbar .ts-links{gap:4px}#ts-unified-taskbar .ts-links a{min-width:75px;height:24px;padding:2px 6px}#ts-unified-taskbar .ts-en{font-size:10px}#ts-unified-taskbar .ts-ja{font-size:8px;margin-top:2px}}
 `;
 function install(d){
  try{
