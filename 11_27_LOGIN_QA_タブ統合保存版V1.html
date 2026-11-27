@@ -25,12 +25,14 @@
   <button class="lq-tab" data-tab="board" type="button">BOARD<small>伝言板</small></button>
 </div>
 <section class="lq-panel is-active" id="panel-login"><iframe id="frame-login" title="ログイン" src="/TEST_iPhone_LOGIN_QR_TOP%E3%83%9C%E3%82%BF%E3%83%B3%E5%89%8A%E9%99%A4_20261118.html"></iframe></section>
-<section class="lq-panel" id="panel-qa"><iframe id="frame-qa" title="管理人Q&A" src="/11_22_%E7%AE%A1%E7%90%86%E4%BA%BAQA_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html"></iframe></section>
-<section class="lq-panel" id="panel-board"><iframe id="frame-board" title="BOARD" src="/11_22_BOARD_%E8%83%8C%E6%99%AF%E9%BB%92_FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E4%BF%9D%E5%AD%98%E7%89%88V2.html"></iframe></section>
+<section class="lq-panel" id="panel-qa"><iframe id="frame-qa" title="管理人Q&A" data-src="/11_22_%E7%AE%A1%E7%90%86%E4%BA%BAQA_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html""></iframe></section>
+<section class="lq-panel" id="panel-board"><iframe id="frame-board" title="BOARD" data-src="/11_22_BOARD_%E8%83%8C%E6%99%AF%E9%BB%92_FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E4%BF%9D%E5%AD%98%E7%89%88V2.html""></iframe></section>
 <script>
 (function(){
   var tabs = document.querySelectorAll('.lq-tab');
   function activate(name){
+    var target = document.querySelector('#panel-'+name+' iframe');
+    if(target && !target.getAttribute('src') && target.getAttribute('data-src')){ target.setAttribute('src', target.getAttribute('data-src')); }
     tabs.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-tab')===name); });
     document.querySelectorAll('.lq-panel').forEach(function(p){ p.classList.toggle('is-active', p.id==='panel-'+name); });
     if(history.replaceState) history.replaceState(null,'','#'+name);
