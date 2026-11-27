@@ -68,14 +68,14 @@
    if(!group){
     group=d.createElement('div');group.id='community-between-usage-qr';
     group.style.cssText='display:flex!important;flex-direction:column!important;align-items:center!important;gap:12px!important;margin:20px auto!important;padding:0 12px!important;width:100%!important;box-sizing:border-box!important;flex:0 0 auto!important';
-    [['伝助のインジケータ','/iPhone伝助のインジケータここに戻る保存版V2.html'],['FXの入口','/11_15main起動V1/android_tablet_home_v6_preview_direct_V2_20261105.html']].forEach(function(item){
+    [].forEach(function(item){
      var a=d.createElement('a');a.textContent=item[0];a.href=item[1];
      a.style.cssText='display:flex!important;align-items:center!important;justify-content:center!important;width:min(100%,320px)!important;min-height:52px!important;padding:12px 20px!important;box-sizing:border-box!important;border:1px solid #8fa4b9!important;border-radius:9px!important;background:#303c4b!important;color:#fff!important;font-size:17px!important;font-weight:700!important;text-decoration:none!important;text-align:center!important';
      group.appendChild(a);
     });
    }
    // Insertion at the QR panel's sibling level, not inside the panel.
-   qrPanel.parentElement.insertBefore(group,qrPanel);
+   /* v2.28: QR上の2ボタンは削除 */
    // Remove the old standalone HOME return control below the QR panel.
    // Do not remove the newly inserted two-button group.
    Array.from(d.querySelectorAll('a,button')).forEach(function(el){
