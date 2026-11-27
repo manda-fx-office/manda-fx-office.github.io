@@ -74,7 +74,7 @@ html body > main{margin-top:100px!important}
 <script id="system-v23-single-taskbar-navigation">
 (function(){
 'use strict';
-function adjust(){var bar=document.getElementById('ts-unified-taskbar'),main=document.querySelector('main');if(bar&&main){var h=Math.ceil(bar.getBoundingClientRect().height);if(h>0)main.style.setProperty('margin-top',(h+24)+'px','important')}}
+function adjust(){if(window.self!==window.top){var m0=document.querySelector('main');if(m0)m0.style.setProperty('margin-top','0px','important');return}var bar=document.getElementById('ts-unified-taskbar'),main=document.querySelector('main');if(bar&&main){var h=Math.ceil(bar.getBoundingClientRect().height);if(h>0)main.style.setProperty('margin-top',(h+24)+'px','important')}}
 document.addEventListener('click',function(e){var a=e.target.closest('#ts-unified-taskbar a');if(!a)return;var bar=document.getElementById('ts-unified-taskbar');if(!bar||!bar.contains(a))return;var type=a.classList.contains('ts-logo')?'top':a.dataset.tsPage;if(type==='plusOne')type='plus';if(type&&parent!==window&&typeof parent.__pcSharedTaskbarNavigate==='function'){e.preventDefault();e.stopImmediatePropagation();parent.__pcSharedTaskbarNavigate(type,'')}},true);
 adjust();window.addEventListener('load',adjust);window.addEventListener('resize',adjust);
 })();
