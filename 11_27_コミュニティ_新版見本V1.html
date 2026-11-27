@@ -311,6 +311,18 @@ FX、MT4、相場の話はもちろん、車・バイク・旅行・音楽・写
   }
   if(prev)prev.addEventListener('click',function(){show(i-1);});
   if(next)next.addEventListener('click',function(){show(i+1);});
+  var lastWheel=0;
+  gal.addEventListener('wheel',function(e){
+    var tx=cards[i].querySelector('.community-card-text,.honnoji-original-text');
+    if(tx&&tx.contains(e.target)){
+      if(e.deltaY<0&&tx.scrollTop>0)return;
+      if(e.deltaY>0&&tx.scrollTop+tx.clientHeight<tx.scrollHeight-1)return;
+    }
+    var now=Date.now();
+    if(Math.abs(e.deltaY)<4)return;
+    if(e.deltaY>0&&i<cards.length-1){e.preventDefault();if(now-lastWheel>450){lastWheel=now;show(i+1);}}
+    else if(e.deltaY<0&&i>0){e.preventDefault();if(now-lastWheel>450){lastWheel=now;show(i-1);}}
+  },{passive:false});
   gal.addEventListener('scroll',function(){
     if(!ticking){ticking=true;requestAnimationFrame(function(){
       var n=Math.round(gal.scrollTop/Math.max(1,gal.clientHeight));
