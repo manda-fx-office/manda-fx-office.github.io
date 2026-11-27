@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>伝助のインジケーター / SYSTEM | TRANSITION SYSTEM</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #05070a;
+    color: #eef1f4;
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+    padding-top: 118px;
+  }
+  .lq-tabs {
+    position: sticky;
+    top: 118px;
+    z-index: 900;
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(5, 7, 10, .96);
+    border-bottom: 1px solid #262b31;
+  }
+  .lq-tab {
+    flex: 1 1 0;
+    min-height: 52px;
+    border: 1px solid #3a3f46;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #3c4249 0%, #22262b 48%, #14171a 52%, #2a2e33 100%);
+    color: #fff;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    padding: 6px 4px;
+  }
+  .lq-tab small { display: block; font-size: 10px; font-weight: 400; color: #c9ced4; margin-top: 2px; letter-spacing: .08em; }
+  .lq-tab[aria-selected="true"] {
+    background: linear-gradient(180deg, #6b7683 0%, #454c55 48%, #2b3036 52%, #4a515a 100%);
+    border-color: #9aa4ae;
+    box-shadow: 0 0 0 1px #9aa4ae inset, 0 2px 10px rgba(0,0,0,.5);
+  }
+  .lq-panel { display: none; padding: 10px 8px 18px; }
+  .lq-panel.active { display: block; }
+  .lq-frame {
+    display: block;
+    width: 100%;
+    height: calc(100dvh - 215px);
+    min-height: 520px;
+    border: 1px solid #262b31;
+    border-radius: 12px;
+    background: #000;
+  }
+  @media (max-width: 650px) {
+    body { padding-top: 118px; }
+    .lq-tabs { top: 118px; padding: 8px; gap: 6px; }
+    .lq-tab { min-height: 48px; font-size: 12px; }
+    .lq-tab small { font-size: 9px; }
+    .lq-frame { height: calc(100dvh - 205px); min-height: 480px; }
+  }
+</style>
+</head>
+<body>
+<nav class="lq-tabs" role="tablist" aria-label="伝助のインジケーター / SYSTEM">
+  <button class="lq-tab" role="tab" id="tab-densuke" aria-selected="true" data-tab="densuke">伝助のインジケーター<small>INDICATOR</small></button>
+  <button class="lq-tab" role="tab" id="tab-system" aria-selected="false" data-tab="system">SYSTEM<small>システム</small></button>
+  <button class="lq-tab" role="tab" id="tab-plusone" aria-selected="false" data-tab="plusone">PLUS ONE<small>プラスワン</small></button>
+</nav>
+
+<section class="lq-panel active" id="panel-densuke" role="tabpanel" aria-labelledby="tab-densuke">
+  <iframe class="lq-frame" id="frame-densuke" title="伝助のインジケーター" src="/11_22V10_%E4%BC%9D%E5%8A%A9FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E5%B0%82%E7%94%A8.html"></iframe>
+</section>
+<section class="lq-panel" id="panel-system" role="tabpanel" aria-labelledby="tab-system">
+  <iframe class="lq-frame" id="frame-system" title="SYSTEM" data-src="/11_22_SYSTEM_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html"></iframe>
+</section>
+<section class="lq-panel" id="panel-plusone" role="tabpanel" aria-labelledby="tab-plusone">
+  <iframe class="lq-frame" id="frame-plusone" title="PLUS ONE" data-src="/11_22_PLUS_ONE_%E8%83%8C%E6%99%AF%E9%BB%92%E8%89%B2%E4%BF%9D%E5%AD%98%E7%89%88V1.html"></iframe>
+</section>
+
+<script src="/PC_%E5%85%A8%E3%82%B5%E3%83%96%E3%83%9A%E3%83%BC%E3%82%B8_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E8%A1%A8%E7%A4%BA%E5%85%B1%E9%80%9AV1.js"></script>
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.lq-tab'));
+  var HIDE_CSS = 'html body > header.topbar, html body > .mobile-taskbar, html body > #ts-unified-taskbar{display:none!important}'
+    + 'html body{padding-top:0!important;margin-top:0!important}'
+    + 'html body > main.wrap{padding-top:16px!important;margin-top:0!important}'
+    + 'html body main{margin-top:0!important}'
+    + 'html body > .wrap{padding-top:14px!important}';
+  var SHELL_CSS = HIDE_CSS + '#project{top:0!important;height:100%!important}';
+  function trimDoc(doc, css) {
+    if (!doc || !doc.documentElement) return false;
+    try {
+      var st = doc.getElementById('lq-trim');
+      if (!st) {
+        st = doc.createElement('style');
+        st.id = 'lq-trim';
+        (doc.head || doc.documentElement).appendChild(st);
+      }
+      if (st.textContent !== css) st.textContent = css;
+      return true;
+    } catch (e) { return false; }
+  }
+  function trimFrame(frame) {
+    if (!frame) return;
+    var doc;
+    try { doc = frame.contentDocument; } catch (e) { return; }
+    if (!doc) return;
+    trimDoc(doc, HIDE_CSS);
+    if (frame.id === 'frame-densuke') {
+      trimDoc(doc, SHELL_CSS);
+      // 伝助は殻ページ：中身の窓（#project）の中まで整える
+      var tries = 0;
+      var timer = setInterval(function () {
+        tries++;
+        var inner = null;
+        try {
+          var pf = doc.getElementById('project');
+          inner = pf && pf.contentDocument;
+        } catch (e) { }
+        if (inner && trimDoc(inner, HIDE_CSS)) {
+          if (tries >= 4) clearInterval(timer);
+        }
+        if (tries >= 12) clearInterval(timer);
+      }, 700);
+    }
+  }
+  ['frame-densuke', 'frame-system', 'frame-plusone'].forEach(function (id) {
+    var f = document.getElementById(id);
+    if (f) f.addEventListener('load', function () { trimFrame(f); });
+  });
+  function activate(name, push) {
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', t.dataset.tab === name ? 'true' : 'false'); });
+    ['densuke', 'system', 'plusone'].forEach(function (n) {
+      document.getElementById('panel-' + n).classList.toggle('active', n === name);
+    });
+    var f = document.getElementById('frame-' + name);
+    if (f && !f.getAttribute('src') && f.dataset.src) {
+      f.setAttribute('src', f.dataset.src);
+    }
+    if (push !== false) { try { history.replaceState(null, '', '#' + name); } catch (e) { } }
+    try { window.scrollTo(0, 0); } catch (e) { }
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { activate(t.dataset.tab); }); });
+  var h = (location.hash || '').replace('#', '');
+  if (h === 'system' || h === 'plusone' || h === 'densuke') activate(h, false);
+})();
+</script>
+</body>
+</html>
