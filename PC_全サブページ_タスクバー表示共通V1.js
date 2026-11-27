@@ -10,9 +10,12 @@ var route={
  board:'/11_22_BOARD_%E8%83%8C%E6%99%AF%E9%BB%92_FX%E5%85%A5%E5%8F%A3%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E7%B5%B1%E4%B8%80%E4%BF%9D%E5%AD%98%E7%89%88V2.html',
  plusOne:'/11_22_PLUS_ONE_%E8%83%8C%E6%99%AF%E9%BB%92%E8%89%B2%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
  qa:'/11_22_%E7%AE%A1%E7%90%86%E4%BA%BAQA_%E3%82%BF%E3%82%B9%E3%82%AF%E3%83%90%E3%83%BC%E5%8D%98%E4%B8%80%E5%8C%96%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
- login:'/TEST_iPhone_LOGIN_QR_TOP%E3%83%9C%E3%82%BF%E3%83%B3%E5%89%8A%E9%99%A4_20261118.html'
+ login:'/TEST_iPhone_LOGIN_QR_TOP%E3%83%9C%E3%82%BF%E3%83%B3%E5%89%8A%E9%99%A4_20261118.html',
+ loginqa:'/11_27_LOGIN_QA_%E3%82%BF%E3%83%96%E7%B5%B1%E5%90%88%E4%BF%9D%E5%AD%98%E7%89%88V1.html',
+ muse:'https://muse.ai',
+ youtube:'https://www.youtube.com/'
 };
-var buttons=[['system','SYSTEM','システム'],['project','伝助のインジケーター','伝助のインジケーター'],['community','COMMUNITY','コミュニティー'],['board','BOARD','伝言板'],['plusOne','PLUS ONE','プラスワン'],['qa','管理人 Q&A','管理人 Q&A'],['login','LOGIN','ログイン']];
+var buttons=[['system','SYSTEM','システム'],['project','伝助のインジケーター','伝助のインジケーター'],['community','COMMUNITY','コミュニティー'],['plusOne','PLUS ONE','プラスワン'],['loginqa','LOGIN / Q&A','ログイン・Q&A'],['muse','Muse','ミューズ'],['youtube','YouTube','ユーチューブ']];
 var style=`
 #ts-unified-taskbar{position:sticky!important;top:0!important;z-index:2147483000!important;width:100%!important;box-sizing:border-box!important;background:rgba(4,4,4,.95)!important;border-bottom:1px solid #292d31!important;font-family:Arial,"Noto Sans JP",sans-serif!important}
 #ts-unified-taskbar .ts-nav{max-width:1220px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:18px;box-sizing:border-box}
@@ -41,7 +44,7 @@ function install(d){
  var type=a.dataset.tsPage||'top';
  if(window.parent!==window){window.parent.postMessage({source:'iphone-densuke-v3',type:type},location.origin)}
  else if(d.defaultView&&d.defaultView.parent!==d.defaultView){d.defaultView.parent.postMessage({source:'iphone-densuke-v3',type:type},location.origin)}
- else window.location.assign(route[type]);
+ else if(/^https?:/.test(route[type]||'')){window.open(route[type],'_blank','noopener')}else window.location.assign(route[type]);
  },true);
  }catch(e){console.warn('unified taskbar',e)}
 }
