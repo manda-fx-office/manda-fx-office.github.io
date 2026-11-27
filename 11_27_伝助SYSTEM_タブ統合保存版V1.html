@@ -11,11 +11,11 @@
     background: #05070a;
     color: #eef1f4;
     font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
-    padding-top: 118px;
+    padding-top: 0;
   }
   .lq-tabs {
-    position: sticky;
-    top: 118px;
+    position: static;
+
     z-index: 900;
     display: flex;
     gap: 8px;
@@ -55,8 +55,8 @@
     background: #000;
   }
   @media (max-width: 650px) {
-    body { padding-top: 118px; }
-    .lq-tabs { top: 118px; padding: 8px; gap: 6px; }
+    body { padding-top: 0; }
+    .lq-tabs { padding: 8px; gap: 6px; }
     .lq-tab { min-height: 48px; font-size: 12px; }
     .lq-tab small { font-size: 9px; }
     .lq-frame { height: calc(100dvh - 205px); min-height: 480px; }
