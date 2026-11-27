@@ -1,4 +1,4 @@
-/* V25 work-in-progress: one BOARD-style taskbar per non-TOP page. */
+/* V25 work-in-progress: one BOARD-style taskbar per non-TOP page. v2.20 phone buttons half height. */
 (function(){
 'use strict';
 var root=document;
