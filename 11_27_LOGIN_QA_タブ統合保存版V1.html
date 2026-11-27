@@ -34,6 +34,8 @@
     tabs.forEach(function(b){ b.classList.toggle('is-active', b.getAttribute('data-tab')===name); });
     document.querySelectorAll('.lq-panel').forEach(function(p){ p.classList.toggle('is-active', p.id==='panel-'+name); });
     if(history.replaceState) history.replaceState(null,'','#'+name);
+    try{ var fr = document.querySelector('#panel-'+name+' iframe'); if(fr && fr.contentWindow) fr.contentWindow.scrollTo(0,0); }catch(e){}
+    window.scrollTo(0,0);
   }
   tabs.forEach(function(b){ b.addEventListener('click', function(){ activate(b.getAttribute('data-tab')); }); });
   var h = (location.hash||'').replace('#','');
