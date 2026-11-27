@@ -76,7 +76,7 @@
    }
    // Insertion at the QR panel's sibling level, not inside the panel.
    qrPanel.parentElement.insertBefore(group,qrPanel);
-    group.style.setProperty('display','none','important'); /* v2.28b: ボタン群はDOMに残して非表示（QR枠の表示条件を変えないため） */
+    group.style.setProperty('visibility','hidden','important'); /* v2.28c: ボタン群は高さを保ったまま見えなくする（QR枠の表示条件を変えないため） */
    // Remove the old standalone HOME return control below the QR panel.
    // Do not remove the newly inserted two-button group.
    Array.from(d.querySelectorAll('a,button')).forEach(function(el){
