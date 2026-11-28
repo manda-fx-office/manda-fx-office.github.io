@@ -298,19 +298,33 @@ FX、MT4、相場の話はもちろん、車・バイク・旅行・音楽・写
   var gal=document.querySelector('.gallery');
   var cards=Array.prototype.slice.call(document.querySelectorAll('.gallery .post-card'));
   var prev=document.getElementById('tablet-v4-prev'),next=document.getElementById('tablet-v4-next'),st=document.getElementById('tablet-v4-status');
-  var i=0,ticking=false;
+  var i=0,navBusy=false,settleTimer=null;
   function paint(){
     if(st)st.textContent=(i+1)+' / '+cards.length;
     if(prev)prev.disabled=(i===0);
     if(next)next.disabled=(i===cards.length-1);
   }
-  function show(n){
-    i=Math.max(0,Math.min(cards.length-1,n));
-    gal.scrollTo({top:i*gal.clientHeight,behavior:'smooth'});
+  function syncFromScroll(){
+    var n=Math.round(gal.scrollTop/Math.max(1,gal.clientHeight));
+    n=Math.max(0,Math.min(cards.length-1,n));
+    if(n!==i){i=n;}
     paint();
   }
-  if(prev)prev.addEventListener('click',function(){show(i-1);});
-  if(next)next.addEventListener('click',function(){show(i+1);});
+  function show(n,instant){
+    i=Math.max(0,Math.min(cards.length-1,n));
+    navBusy=true;
+    if(instant){
+      gal.style.scrollBehavior='auto';
+      gal.scrollTo({top:i*gal.clientHeight,behavior:'auto'});
+      setTimeout(function(){gal.style.scrollBehavior='';syncFromScroll();navBusy=false;},80);
+    }else{
+      gal.scrollTo({top:i*gal.clientHeight,behavior:'smooth'});
+      setTimeout(function(){syncFromScroll();navBusy=false;},650);
+    }
+    paint();
+  }
+  if(prev)prev.addEventListener('click',function(){show(i-1,true);});
+  if(next)next.addEventListener('click',function(){show(i+1,true);});
   var lastWheel=0;
   gal.addEventListener('wheel',function(e){
     var tx=cards[i].querySelector('.community-card-text,.honnoji-original-text');
@@ -324,12 +338,9 @@ FX、MT4、相場の話はもちろん、車・バイク・旅行・音楽・写
     else if(e.deltaY<0&&i>0){e.preventDefault();if(now-lastWheel>450){lastWheel=now;show(i-1);}}
   },{passive:false});
   gal.addEventListener('scroll',function(){
-    if(!ticking){ticking=true;requestAnimationFrame(function(){
-      var n=Math.round(gal.scrollTop/Math.max(1,gal.clientHeight));
-      n=Math.max(0,Math.min(cards.length-1,n));
-      if(n!==i){i=n;}
-      paint();ticking=false;
-    });}
+    if(navBusy)return;
+    if(settleTimer)clearTimeout(settleTimer);
+    settleTimer=setTimeout(syncFromScroll,120);
   },{passive:true});
   paint();
   // URLコピー
